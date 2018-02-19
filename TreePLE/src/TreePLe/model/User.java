@@ -1,11 +1,11 @@
 /*PLEASE DO NOT EDIT THIS CODE*/
 /*This code was generated using the UMPLE 1.26.1-f40f105-3613 modeling language!*/
 
-
+package TreePLe.model;
 import java.util.*;
 import java.sql.Date;
 
-// line 16 "TreePLE.ump"
+// line 17 "../../TreePLE.ump"
 public class User
 {
 

@@ -1,3 +1,4 @@
+namespace TreePLe.model;
 class Tree{
   species;
   double height;

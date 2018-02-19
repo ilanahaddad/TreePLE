@@ -1,9 +1,9 @@
 /*PLEASE DO NOT EDIT THIS CODE*/
 /*This code was generated using the UMPLE 1.26.1-f40f105-3613 modeling language!*/
 
+package TreePLe.model;
 
-
-// line 10 "TreePLE.ump"
+// line 11 "../../TreePLE.ump"
 public class Location
 {
 
