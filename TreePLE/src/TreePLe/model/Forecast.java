@@ -18,12 +18,14 @@ public class Forecast
   private List<Tree> treesToPlant;
   private List<Municipality> municipalities;
   private List<Location> forecastPerimeter;
+  private Version baseVersion;
+  private Version forecastVersion;
 
   //------------------------
   // CONSTRUCTOR
   //------------------------
 
-  public Forecast(Municipality[] allMunicipalities, Location[] allForecastPerimeter)
+  public Forecast(Version aBaseVersion, Version aForecastVersion, Municipality[] allMunicipalities, Location[] allForecastPerimeter)
   {
     treesInForecastArea = new ArrayList<Tree>();
     treesToCutDown = new ArrayList<Tree>();
@@ -39,6 +41,14 @@ public class Forecast
     if (!didAddForecastPerimeter)
     {
       throw new RuntimeException("Unable to create Forecast, must have 4 forecastPerimeter");
+    }
+    if (!setBaseVersion(aBaseVersion))
+    {
+      throw new RuntimeException("Unable to create Forecast due to aBaseVersion");
+    }
+    if (!setForecastVersion(aForecastVersion))
+    {
+      throw new RuntimeException("Unable to create Forecast due to aForecastVersion");
     }
   }
 
@@ -194,6 +204,16 @@ public class Forecast
   {
     int index = forecastPerimeter.indexOf(aForecastPerimeter);
     return index;
+  }
+
+  public Version getBaseVersion()
+  {
+    return baseVersion;
+  }
+
+  public Version getForecastVersion()
+  {
+    return forecastVersion;
   }
 
   public static int minimumNumberOfTreesInForecastArea()
@@ -540,6 +560,28 @@ public class Forecast
     return wasSet;
   }
 
+  public boolean setBaseVersion(Version aNewBaseVersion)
+  {
+    boolean wasSet = false;
+    if (aNewBaseVersion != null)
+    {
+      baseVersion = aNewBaseVersion;
+      wasSet = true;
+    }
+    return wasSet;
+  }
+
+  public boolean setForecastVersion(Version aNewForecastVersion)
+  {
+    boolean wasSet = false;
+    if (aNewForecastVersion != null)
+    {
+      forecastVersion = aNewForecastVersion;
+      wasSet = true;
+    }
+    return wasSet;
+  }
+
   public void delete()
   {
     treesInForecastArea.clear();
@@ -552,6 +594,8 @@ public class Forecast
       aMunicipality.removeForecast(this);
     }
     forecastPerimeter.clear();
+    baseVersion = null;
+    forecastVersion = null;
   }
 
 }
