@@ -1,5 +1,5 @@
 /*PLEASE DO NOT EDIT THIS CODE*/
-/*This code was generated using the UMPLE 1.26.1-f40f105-3613 modeling language!*/
+/*This code was generated using the UMPLE 1.27.0.3728.d139ed893 modeling language!*/
 
 package ca.mcgill.ecse321.TreePLE.model;
 import java.util.*;
@@ -261,7 +261,7 @@ public class Tree
   {
     return 0;
   }
-
+  /* Code from template association_AddManyToOne */
   public Survey addSurvey(Date aLastReport, User aSurveyer)
   {
     return new Survey(aLastReport, this, aSurveyer);
@@ -533,7 +533,10 @@ public class Tree
   {
     TreeManager placeholderTreeManager = treeManager;
     this.treeManager = null;
-    placeholderTreeManager.removeTree(this);
+    if(placeholderTreeManager != null)
+    {
+      placeholderTreeManager.removeTree(this);
+    }
     for(int i=surveys.size(); i > 0; i--)
     {
       Survey aSurvey = surveys.get(i - 1);
@@ -547,10 +550,16 @@ public class Tree
     }
     User placeholderOwner = owner;
     this.owner = null;
-    placeholderOwner.removeTree(this);
+    if(placeholderOwner != null)
+    {
+      placeholderOwner.removeTree(this);
+    }
     Municipality placeholderTreeMunicipality = treeMunicipality;
     this.treeMunicipality = null;
-    placeholderTreeMunicipality.removeListOfTree(this);
+    if(placeholderTreeMunicipality != null)
+    {
+      placeholderTreeMunicipality.removeListOfTree(this);
+    }
     ArrayList<Version> copyOfVersions = new ArrayList<Version>(versions);
     versions.clear();
     for(Version aVersion : copyOfVersions)

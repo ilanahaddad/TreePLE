@@ -1,5 +1,5 @@
 /*PLEASE DO NOT EDIT THIS CODE*/
-/*This code was generated using the UMPLE 1.26.1-f40f105-3613 modeling language!*/
+/*This code was generated using the UMPLE 1.27.0.3728.d139ed893 modeling language!*/
 
 package ca.mcgill.ecse321.TreePLE.model;
 
@@ -130,7 +130,10 @@ public class Location
   {
     TreeManager placeholderTreeManager = treeManager;
     this.treeManager = null;
-    placeholderTreeManager.removeLocation(this);
+    if(placeholderTreeManager != null)
+    {
+      placeholderTreeManager.removeLocation(this);
+    }
     Tree existingTreeInLocation = treeInLocation;
     treeInLocation = null;
     if (existingTreeInLocation != null)
