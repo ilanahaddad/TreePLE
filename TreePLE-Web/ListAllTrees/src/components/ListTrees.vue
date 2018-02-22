@@ -22,8 +22,21 @@
           </td>
       </tr>
     </table>
+    <table>
+      <tr v-for="tree in trees" >
+        <td>{{ tree.id }}</td>
+        <td>{{ tree.species }}</td>
+        <td>{{ tree.longitude }}</td>
+        <td>{{ tree.latitude }}</td>
+        <td>{{ tree.status }}</td>
+      </tr>
+    <!-- ... -->
+    </table>
     <p>
       <span style="color:red">Error: Message text comes here</span>
     </p>
   </div>
 </template>
+
+<script src="./treelist.js">
+</script>
