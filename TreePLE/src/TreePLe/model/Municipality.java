@@ -194,9 +194,9 @@ public class Municipality
     return 0;
   }
 
-  public Tree addListOfTree(String aSpecies, double aHeight, double aDiameter, int aId, Location aCoordinates, User aOwner)
+  public Tree addListOfTree(String aSpecies, double aHeight, double aDiameter, int aId, Location aCoordinates, User aOwner, Version... allVersions)
   {
-    return new Tree(aSpecies, aHeight, aDiameter, aId, aCoordinates, aOwner, this);
+    return new Tree(aSpecies, aHeight, aDiameter, aId, aCoordinates, aOwner, this, allVersions);
   }
 
   public boolean addListOfTree(Tree aListOfTree)

@@ -19,12 +19,13 @@ public class SustainabilityReport
   //SustainabilityReport Associations
   private List<Professional> reporter;
   private List<Location> reportPerimeter;
+  private Version reportVersion;
 
   //------------------------
   // CONSTRUCTOR
   //------------------------
 
-  public SustainabilityReport(Date aDate, Location... allReportPerimeter)
+  public SustainabilityReport(Date aDate, Version aReportVersion, Location... allReportPerimeter)
   {
     date = aDate;
     reporter = new ArrayList<Professional>();
@@ -33,6 +34,11 @@ public class SustainabilityReport
     if (!didAddReportPerimeter)
     {
       throw new RuntimeException("Unable to create SustainabilityReport, must have 4 reportPerimeter");
+    }
+    boolean didAddReportVersion = setReportVersion(aReportVersion);
+    if (!didAddReportVersion)
+    {
+      throw new RuntimeException("Unable to create sustainabilityReport due to reportVersion");
     }
   }
 
@@ -111,6 +117,11 @@ public class SustainabilityReport
   {
     int index = reportPerimeter.indexOf(aReportPerimeter);
     return index;
+  }
+
+  public Version getReportVersion()
+  {
+    return reportVersion;
   }
 
   public static int minimumNumberOfReporter()
@@ -224,6 +235,25 @@ public class SustainabilityReport
     return wasSet;
   }
 
+  public boolean setReportVersion(Version aReportVersion)
+  {
+    boolean wasSet = false;
+    if (aReportVersion == null)
+    {
+      return wasSet;
+    }
+
+    Version existingReportVersion = reportVersion;
+    reportVersion = aReportVersion;
+    if (existingReportVersion != null && !existingReportVersion.equals(aReportVersion))
+    {
+      existingReportVersion.removeSustainabilityReport(this);
+    }
+    reportVersion.addSustainabilityReport(this);
+    wasSet = true;
+    return wasSet;
+  }
+
   public void delete()
   {
     for(int i=reporter.size(); i > 0; i--)
@@ -232,12 +262,16 @@ public class SustainabilityReport
       aReporter.delete();
     }
     reportPerimeter.clear();
+    Version placeholderReportVersion = reportVersion;
+    this.reportVersion = null;
+    placeholderReportVersion.removeSustainabilityReport(this);
   }
 
 
   public String toString()
   {
     return super.toString() + "["+ "]" + System.getProperties().getProperty("line.separator") +
-            "  " + "date" + "=" + (getDate() != null ? !getDate().equals(this)  ? getDate().toString().replaceAll("  ","    ") : "this" : "null");
+            "  " + "date" + "=" + (getDate() != null ? !getDate().equals(this)  ? getDate().toString().replaceAll("  ","    ") : "this" : "null") + System.getProperties().getProperty("line.separator") +
+            "  " + "reportVersion = "+(getReportVersion()!=null?Integer.toHexString(System.identityHashCode(getReportVersion())):"null");
   }
 }

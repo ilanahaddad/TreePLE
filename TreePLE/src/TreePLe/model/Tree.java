@@ -33,12 +33,13 @@ public class Tree
   private Location coordinates;
   private User owner;
   private Municipality treeMunicipality;
+  private List<Version> versions;
 
   //------------------------
   // CONSTRUCTOR
   //------------------------
 
-  public Tree(String aSpecies, double aHeight, double aDiameter, int aId, Location aCoordinates, User aOwner, Municipality aTreeMunicipality)
+  public Tree(String aSpecies, double aHeight, double aDiameter, int aId, Location aCoordinates, User aOwner, Municipality aTreeMunicipality, Version... allVersions)
   {
     species = aSpecies;
     height = aHeight;
@@ -59,6 +60,12 @@ public class Tree
     if (!didAddTreeMunicipality)
     {
       throw new RuntimeException("Unable to create listOfTree due to treeMunicipality");
+    }
+    versions = new ArrayList<Version>();
+    boolean didAddVersions = setVersions(allVersions);
+    if (!didAddVersions)
+    {
+      throw new RuntimeException("Unable to create Tree, must have at least 1 versions");
     }
   }
 
@@ -187,6 +194,36 @@ public class Tree
   public Municipality getTreeMunicipality()
   {
     return treeMunicipality;
+  }
+
+  public Version getVersion(int index)
+  {
+    Version aVersion = versions.get(index);
+    return aVersion;
+  }
+
+  public List<Version> getVersions()
+  {
+    List<Version> newVersions = Collections.unmodifiableList(versions);
+    return newVersions;
+  }
+
+  public int numberOfVersions()
+  {
+    int number = versions.size();
+    return number;
+  }
+
+  public boolean hasVersions()
+  {
+    boolean has = versions.size() > 0;
+    return has;
+  }
+
+  public int indexOfVersion(Version aVersion)
+  {
+    int index = versions.indexOf(aVersion);
+    return index;
   }
 
   public static int minimumNumberOfSurveys()
@@ -327,6 +364,140 @@ public class Tree
     return wasSet;
   }
 
+  public boolean isNumberOfVersionsValid()
+  {
+    boolean isValid = numberOfVersions() >= minimumNumberOfVersions();
+    return isValid;
+  }
+
+  public static int minimumNumberOfVersions()
+  {
+    return 1;
+  }
+
+  public boolean addVersion(Version aVersion)
+  {
+    boolean wasAdded = false;
+    if (versions.contains(aVersion)) { return false; }
+    versions.add(aVersion);
+    if (aVersion.indexOfTree(this) != -1)
+    {
+      wasAdded = true;
+    }
+    else
+    {
+      wasAdded = aVersion.addTree(this);
+      if (!wasAdded)
+      {
+        versions.remove(aVersion);
+      }
+    }
+    return wasAdded;
+  }
+
+  public boolean removeVersion(Version aVersion)
+  {
+    boolean wasRemoved = false;
+    if (!versions.contains(aVersion))
+    {
+      return wasRemoved;
+    }
+
+    if (numberOfVersions() <= minimumNumberOfVersions())
+    {
+      return wasRemoved;
+    }
+
+    int oldIndex = versions.indexOf(aVersion);
+    versions.remove(oldIndex);
+    if (aVersion.indexOfTree(this) == -1)
+    {
+      wasRemoved = true;
+    }
+    else
+    {
+      wasRemoved = aVersion.removeTree(this);
+      if (!wasRemoved)
+      {
+        versions.add(oldIndex,aVersion);
+      }
+    }
+    return wasRemoved;
+  }
+
+  public boolean setVersions(Version... newVersions)
+  {
+    boolean wasSet = false;
+    ArrayList<Version> verifiedVersions = new ArrayList<Version>();
+    for (Version aVersion : newVersions)
+    {
+      if (verifiedVersions.contains(aVersion))
+      {
+        continue;
+      }
+      verifiedVersions.add(aVersion);
+    }
+
+    if (verifiedVersions.size() != newVersions.length || verifiedVersions.size() < minimumNumberOfVersions())
+    {
+      return wasSet;
+    }
+
+    ArrayList<Version> oldVersions = new ArrayList<Version>(versions);
+    versions.clear();
+    for (Version aNewVersion : verifiedVersions)
+    {
+      versions.add(aNewVersion);
+      if (oldVersions.contains(aNewVersion))
+      {
+        oldVersions.remove(aNewVersion);
+      }
+      else
+      {
+        aNewVersion.addTree(this);
+      }
+    }
+
+    for (Version anOldVersion : oldVersions)
+    {
+      anOldVersion.removeTree(this);
+    }
+    wasSet = true;
+    return wasSet;
+  }
+
+  public boolean addVersionAt(Version aVersion, int index)
+  {  
+    boolean wasAdded = false;
+    if(addVersion(aVersion))
+    {
+      if(index < 0 ) { index = 0; }
+      if(index > numberOfVersions()) { index = numberOfVersions() - 1; }
+      versions.remove(aVersion);
+      versions.add(index, aVersion);
+      wasAdded = true;
+    }
+    return wasAdded;
+  }
+
+  public boolean addOrMoveVersionAt(Version aVersion, int index)
+  {
+    boolean wasAdded = false;
+    if(versions.contains(aVersion))
+    {
+      if(index < 0 ) { index = 0; }
+      if(index > numberOfVersions()) { index = numberOfVersions() - 1; }
+      versions.remove(aVersion);
+      versions.add(index, aVersion);
+      wasAdded = true;
+    } 
+    else 
+    {
+      wasAdded = addVersionAt(aVersion, index);
+    }
+    return wasAdded;
+  }
+
   public void delete()
   {
     for(int i=surveys.size(); i > 0; i--)
@@ -346,6 +517,12 @@ public class Tree
     Municipality placeholderTreeMunicipality = treeMunicipality;
     this.treeMunicipality = null;
     placeholderTreeMunicipality.removeListOfTree(this);
+    ArrayList<Version> copyOfVersions = new ArrayList<Version>(versions);
+    versions.clear();
+    for(Version aVersion : copyOfVersions)
+    {
+      aVersion.removeTree(this);
+    }
   }
 
 
