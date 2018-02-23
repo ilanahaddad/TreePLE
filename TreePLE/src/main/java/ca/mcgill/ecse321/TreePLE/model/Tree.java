@@ -29,7 +29,6 @@ public class Tree
   private int id;
 
   //Tree Associations
-  private TreeManager treeManager;
   private List<Survey> surveys;
   private Location coordinates;
   private User owner;
@@ -40,18 +39,13 @@ public class Tree
   // CONSTRUCTOR
   //------------------------
 
-  public Tree(String aSpecies, double aHeight, double aDiameter, int aId, TreeManager aTreeManager, Location aCoordinates, User aOwner, Municipality aTreeMunicipality, Version... allVersions)
+  public Tree(String aSpecies, double aHeight, double aDiameter, int aId, Location aCoordinates, User aOwner, Municipality aTreeMunicipality, Version... allVersions)
   {
     species = aSpecies;
     height = aHeight;
     status = Status.Planted;
     diameter = aDiameter;
     id = aId;
-    boolean didAddTreeManager = setTreeManager(aTreeManager);
-    if (!didAddTreeManager)
-    {
-      throw new RuntimeException("Unable to create tree due to treeManager");
-    }
     surveys = new ArrayList<Survey>();
     boolean didAddCoordinates = setCoordinates(aCoordinates);
     if (!didAddCoordinates)
@@ -158,11 +152,6 @@ public class Tree
     return id;
   }
 
-  public TreeManager getTreeManager()
-  {
-    return treeManager;
-  }
-
   public Survey getSurvey(int index)
   {
     Survey aSurvey = surveys.get(index);
@@ -236,25 +225,6 @@ public class Tree
   {
     int index = versions.indexOf(aVersion);
     return index;
-  }
-
-  public boolean setTreeManager(TreeManager aTreeManager)
-  {
-    boolean wasSet = false;
-    if (aTreeManager == null)
-    {
-      return wasSet;
-    }
-
-    TreeManager existingTreeManager = treeManager;
-    treeManager = aTreeManager;
-    if (existingTreeManager != null && !existingTreeManager.equals(aTreeManager))
-    {
-      existingTreeManager.removeTree(this);
-    }
-    treeManager.addTree(this);
-    wasSet = true;
-    return wasSet;
   }
 
   public static int minimumNumberOfSurveys()
@@ -531,9 +501,6 @@ public class Tree
 
   public void delete()
   {
-    TreeManager placeholderTreeManager = treeManager;
-    this.treeManager = null;
-    placeholderTreeManager.removeTree(this);
     for(int i=surveys.size(); i > 0; i--)
     {
       Survey aSurvey = surveys.get(i - 1);
@@ -569,7 +536,6 @@ public class Tree
             "id" + ":" + getId()+ "]" + System.getProperties().getProperty("line.separator") +
             "  " + "status" + "=" + (getStatus() != null ? !getStatus().equals(this)  ? getStatus().toString().replaceAll("  ","    ") : "this" : "null") + System.getProperties().getProperty("line.separator") +
             "  " + "land" + "=" + (getLand() != null ? !getLand().equals(this)  ? getLand().toString().replaceAll("  ","    ") : "this" : "null") + System.getProperties().getProperty("line.separator") +
-            "  " + "treeManager = "+(getTreeManager()!=null?Integer.toHexString(System.identityHashCode(getTreeManager())):"null") + System.getProperties().getProperty("line.separator") +
             "  " + "coordinates = "+(getCoordinates()!=null?Integer.toHexString(System.identityHashCode(getCoordinates())):"null") + System.getProperties().getProperty("line.separator") +
             "  " + "owner = "+(getOwner()!=null?Integer.toHexString(System.identityHashCode(getOwner())):"null") + System.getProperties().getProperty("line.separator") +
             "  " + "treeMunicipality = "+(getTreeMunicipality()!=null?Integer.toHexString(System.identityHashCode(getTreeMunicipality())):"null");

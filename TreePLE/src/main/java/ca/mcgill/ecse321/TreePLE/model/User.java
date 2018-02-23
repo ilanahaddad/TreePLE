@@ -155,9 +155,9 @@ public class User
     return 0;
   }
 
-  public Tree addTree(String aSpecies, double aHeight, double aDiameter, int aId, TreeManager aTreeManager, Location aCoordinates, Municipality aTreeMunicipality, Version... allVersions)
+  public Tree addTree(String aSpecies, double aHeight, double aDiameter, int aId, Location aCoordinates, Municipality aTreeMunicipality, Version... allVersions)
   {
-    return new Tree(aSpecies, aHeight, aDiameter, aId, aTreeManager, aCoordinates, this, aTreeMunicipality, allVersions);
+    return new Tree(aSpecies, aHeight, aDiameter, aId, aCoordinates, this, aTreeMunicipality, allVersions);
   }
 
   public boolean addTree(Tree aTree)

@@ -95,25 +95,11 @@ public class TreeManager
     return 0;
   }
 
-  public Tree addTree(String aSpecies, double aHeight, double aDiameter, int aId, Location aCoordinates, User aOwner, Municipality aTreeMunicipality, Version... allVersions)
-  {
-    return new Tree(aSpecies, aHeight, aDiameter, aId, this, aCoordinates, aOwner, aTreeMunicipality, allVersions);
-  }
-
   public boolean addTree(Tree aTree)
   {
     boolean wasAdded = false;
     if (trees.contains(aTree)) { return false; }
-    TreeManager existingTreeManager = aTree.getTreeManager();
-    boolean isNewTreeManager = existingTreeManager != null && !this.equals(existingTreeManager);
-    if (isNewTreeManager)
-    {
-      aTree.setTreeManager(this);
-    }
-    else
-    {
-      trees.add(aTree);
-    }
+    trees.add(aTree);
     wasAdded = true;
     return wasAdded;
   }
@@ -121,8 +107,7 @@ public class TreeManager
   public boolean removeTree(Tree aTree)
   {
     boolean wasRemoved = false;
-    //Unable to remove aTree, as it must always have a treeManager
-    if (!this.equals(aTree.getTreeManager()))
+    if (trees.contains(aTree))
     {
       trees.remove(aTree);
       wasRemoved = true;
@@ -167,25 +152,11 @@ public class TreeManager
     return 0;
   }
 
-  public Location addLocation(double aLatitude, double aLongitude)
-  {
-    return new Location(aLatitude, aLongitude, this);
-  }
-
   public boolean addLocation(Location aLocation)
   {
     boolean wasAdded = false;
     if (locations.contains(aLocation)) { return false; }
-    TreeManager existingTreeManager = aLocation.getTreeManager();
-    boolean isNewTreeManager = existingTreeManager != null && !this.equals(existingTreeManager);
-    if (isNewTreeManager)
-    {
-      aLocation.setTreeManager(this);
-    }
-    else
-    {
-      locations.add(aLocation);
-    }
+    locations.add(aLocation);
     wasAdded = true;
     return wasAdded;
   }
@@ -193,8 +164,7 @@ public class TreeManager
   public boolean removeLocation(Location aLocation)
   {
     boolean wasRemoved = false;
-    //Unable to remove aLocation, as it must always have a treeManager
-    if (!this.equals(aLocation.getTreeManager()))
+    if (locations.contains(aLocation))
     {
       locations.remove(aLocation);
       wasRemoved = true;
@@ -236,16 +206,8 @@ public class TreeManager
 
   public void delete()
   {
-    for(int i=trees.size(); i > 0; i--)
-    {
-      Tree aTree = trees.get(i - 1);
-      aTree.delete();
-    }
-    for(int i=locations.size(); i > 0; i--)
-    {
-      Location aLocation = locations.get(i - 1);
-      aLocation.delete();
-    }
+    trees.clear();
+    locations.clear();
   }
 
 }

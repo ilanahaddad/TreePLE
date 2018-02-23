@@ -2,7 +2,7 @@ namespace ca.mcgill.ecse321.TreePLE.model;
 class Tree{
   species;
   double height;
-  lazy Status status = Status.Planted;
+  Status status = Status.Planted;
   double diameter;
   lazy LandUse land;
   int id;
@@ -43,12 +43,12 @@ class Forecast{
 }
 class Version
 {
-  unique idNumber;
+  idNumber;
   int date;
 }
 class TreeManager{
-  1 -- * Tree trees;
-  1 -- * Location locations;
+  1 -> * Tree trees;
+  1 -> * Location locations;
 }
 
 association{

@@ -1,0 +1,63 @@
+<manager id="1">
+  <trees id="2">
+    <tree id="3">
+      <species>White Ash</species>
+      <height>1.5</height>
+      <status>Planted</status>
+      <diameter>0.2</diameter>
+      <id>1</id>
+      <surveys id="4"/>
+      <coordinates id="5">
+        <latitude>1.5</latitude>
+        <longitude>1.5</longitude>
+        <treeInLocation reference="3"/>
+      </coordinates>
+      <owner class="ca.mcgill.ecse321.TreePLE.model.LocalResident" id="6">
+        <name>Ilana</name>
+        <id>133</id>
+        <trees id="7">
+          <tree reference="3"/>
+        </trees>
+        <surveys id="8"/>
+        <propertyPerimeter id="9">
+          <location id="10">
+            <latitude>1.0</latitude>
+            <longitude>1.0</longitude>
+          </location>
+          <location id="11">
+            <latitude>1.0</latitude>
+            <longitude>2.0</longitude>
+          </location>
+          <location id="12">
+            <latitude>2.0</latitude>
+            <longitude>1.0</longitude>
+          </location>
+          <location id="13">
+            <latitude>2.0</latitude>
+            <longitude>2.0</longitude>
+          </location>
+        </propertyPerimeter>
+      </owner>
+      <treeMunicipality id="14">
+        <name>Outremont</name>
+        <forecasts id="15"/>
+        <listOfTrees id="16">
+          <tree reference="3"/>
+        </listOfTrees>
+      </treeMunicipality>
+      <versions id="17">
+        <ca.mcgill.ecse321.TreePLE.model.Version id="18">
+          <idNumber>1.0</idNumber>
+          <date>2018</date>
+          <trees id="19">
+            <tree reference="3"/>
+          </trees>
+          <sustainabilityReports id="20"/>
+        </ca.mcgill.ecse321.TreePLE.model.Version>
+      </versions>
+    </tree>
+  </trees>
+  <locations id="21">
+    <location reference="5"/>
+  </locations>
+</manager>

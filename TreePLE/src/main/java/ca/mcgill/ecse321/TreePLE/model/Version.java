@@ -10,12 +10,6 @@ public class Version
 {
 
   //------------------------
-  // STATIC VARIABLES
-  //------------------------
-
-  private static Map<String, Version> versionsByIdNumber = new HashMap<String, Version>();
-
-  //------------------------
   // MEMBER VARIABLES
   //------------------------
 
@@ -33,11 +27,8 @@ public class Version
 
   public Version(String aIdNumber, int aDate)
   {
+    idNumber = aIdNumber;
     date = aDate;
-    if (!setIdNumber(aIdNumber))
-    {
-      throw new RuntimeException("Cannot create due to duplicate idNumber");
-    }
     trees = new ArrayList<Tree>();
     sustainabilityReports = new ArrayList<SustainabilityReport>();
   }
@@ -49,16 +40,8 @@ public class Version
   public boolean setIdNumber(String aIdNumber)
   {
     boolean wasSet = false;
-    String anOldIdNumber = getIdNumber();
-    if (hasWithIdNumber(aIdNumber)) {
-      return wasSet;
-    }
     idNumber = aIdNumber;
     wasSet = true;
-    if (anOldIdNumber != null) {
-      versionsByIdNumber.remove(anOldIdNumber);
-    }
-    versionsByIdNumber.put(aIdNumber, this);
     return wasSet;
   }
 
@@ -73,16 +56,6 @@ public class Version
   public String getIdNumber()
   {
     return idNumber;
-  }
-
-  public static Version getWithIdNumber(String aIdNumber)
-  {
-    return versionsByIdNumber.get(aIdNumber);
-  }
-
-  public static boolean hasWithIdNumber(String aIdNumber)
-  {
-    return getWithIdNumber(aIdNumber) != null;
   }
 
   public int getDate()
@@ -306,7 +279,6 @@ public class Version
 
   public void delete()
   {
-    versionsByIdNumber.remove(getIdNumber());
     ArrayList<Tree> copyOfTrees = new ArrayList<Tree>(trees);
     trees.clear();
     for(Tree aTree : copyOfTrees)

@@ -26,31 +26,32 @@ public class TestPersistence {
 	public void setUp() throws Exception {
 		tm = new TreeManager();
 
-		Location l1 = new Location(1.5,1.5,tm);
+		Location l1 = new Location(1.5,1.5);
 		//	Location[] l_res1 = new ArrayList<Location>();
 		Location[] l_res1 = new Location[4];
-		Location l1_res1 = new Location(1,1,tm);
-		Location l2_res1 = new Location(1,2,tm);
-		Location l3_res1 = new Location(2,1,tm);
-		Location l4_res1 = new Location(2,2,tm);
+		Location l1_res1 = new Location(1,1);
+		Location l2_res1 = new Location(1,2);
+		Location l3_res1 = new Location(2,1);
+		Location l4_res1 = new Location(2,2);
 		l_res1[0]=l1_res1;l_res1[1]=l2_res1;l_res1[2]=l3_res1;l_res1[3]=l4_res1;
 
 		Municipality m = new Municipality("Outremont");
 		User res1 = new LocalResident("Ilana",133, l_res1);
 		Version v1 = new Version("1.0",2018);
-		Tree t1 = new Tree("White Ash",1.5, 0.2,1, tm,l1,res1,m,v1);
+		Tree t1 = new Tree("White Ash",1.5, 0.2,1,l1,res1,m,v1);
 		tm.addTree(t1);
 		tm.addLocation(l1);
 	}
 
 	@After
 	public void tearDown() throws Exception {
+		tm.delete();
 	}
 
 	@Test
 	public void test() {
 		// initialize model file
-		PersistenceXStream.initializeModelManager("output" + File.separator + "data.xml");
+		PersistenceXStream.initializeModelManager("output"+File.separator+"data.xml");
 		// save model that is loaded during test setup
 		if (!PersistenceXStream.saveToXMLwithXStream(tm))
 			fail("Could not save file.");
@@ -65,33 +66,36 @@ public class TestPersistence {
 		if (tm == null)
 			fail("Could not load file.");
 		
-		Location l1 = new Location(1.5,1.5,tm);
+		Location l1 = new Location(1.5,1.5);
 		Location[] l_res1 = new Location[4];
-		Location l1_res1 = new Location(1,1,tm);
-		Location l2_res1 = new Location(1,2,tm);
-		Location l3_res1 = new Location(2,1,tm);
-		Location l4_res1 = new Location(2,2,tm);
+		Location l1_res1 = new Location(1,1);
+		Location l2_res1 = new Location(1,2);
+		Location l3_res1 = new Location(2,1);
+		Location l4_res1 = new Location(2,2);
 		l_res1[0]=l1_res1;l_res1[1]=l2_res1;l_res1[2]=l3_res1;l_res1[3]=l4_res1;
 		Municipality m = new Municipality("Outremont");
-		User res1 = new LocalResident("Ilana",133, l_res1);
+		User owner = new LocalResident("Ilana",134, l_res1);
 		Version v1 = new Version("1.0",2018);
+		double height = 1.5;
+		double diameter = 0.2;
 		
 		// check tree attributes
 		assertEquals(1, tm.getTrees().size());
 		assertEquals("White Ash", tm.getTree(0).getSpecies());
-		assertEquals(1.5, tm.getTree(0).getHeight());
-		assertEquals(0.2, tm.getTree(0).getDiameter());
+		assertEquals(height, tm.getTree(0).getHeight(),0);
+		assertEquals(diameter, tm.getTree(0).getDiameter(),0);
 		assertEquals(1, tm.getTree(0).getId());
-		assertEquals(l1, tm.getTree(0).getCoordinates());
-		assertEquals(res1, tm.getTree(0).getOwner());
-		assertEquals(m, tm.getTree(0).getTreeMunicipality());
-		assertEquals(v1, tm.getTree(0).getVersion(0));
-		
+		assertEquals(m.getName(), tm.getTree(0).getTreeMunicipality().getName());
+		assertEquals(l1.getLatitude(), tm.getTree(0).getCoordinates().getLatitude(),0);
+		assertEquals(l1.getLongitude(), tm.getTree(0).getCoordinates().getLongitude(),0);
+		assertEquals(v1.getIdNumber(), tm.getTree(0).getVersion(0).getIdNumber());
+		assertEquals(133, tm.getTree(0).getOwner().getId());
+			
 		
 		//check Location
 		assertEquals(1, tm.getLocations().size());
-		assertEquals(1.5, tm.getLocation(0).getLatitude());
-		assertEquals(1.5, tm.getLocation(0).getLongitude());
+		assertEquals(1.5, tm.getLocation(0).getLatitude(),0);
+		assertEquals(1.5, tm.getLocation(0).getLongitude(),0);
 		
 /*		// check registrations
 		assertEquals(2, rm.getRegistrations().size());

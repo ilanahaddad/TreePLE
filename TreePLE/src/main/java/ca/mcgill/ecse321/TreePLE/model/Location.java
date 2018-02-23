@@ -16,22 +16,16 @@ public class Location
   private double longitude;
 
   //Location Associations
-  private TreeManager treeManager;
   private Tree treeInLocation;
 
   //------------------------
   // CONSTRUCTOR
   //------------------------
 
-  public Location(double aLatitude, double aLongitude, TreeManager aTreeManager)
+  public Location(double aLatitude, double aLongitude)
   {
     latitude = aLatitude;
     longitude = aLongitude;
-    boolean didAddTreeManager = setTreeManager(aTreeManager);
-    if (!didAddTreeManager)
-    {
-      throw new RuntimeException("Unable to create location due to treeManager");
-    }
   }
 
   //------------------------
@@ -64,11 +58,6 @@ public class Location
     return longitude;
   }
 
-  public TreeManager getTreeManager()
-  {
-    return treeManager;
-  }
-
   public Tree getTreeInLocation()
   {
     return treeInLocation;
@@ -78,25 +67,6 @@ public class Location
   {
     boolean has = treeInLocation != null;
     return has;
-  }
-
-  public boolean setTreeManager(TreeManager aTreeManager)
-  {
-    boolean wasSet = false;
-    if (aTreeManager == null)
-    {
-      return wasSet;
-    }
-
-    TreeManager existingTreeManager = treeManager;
-    treeManager = aTreeManager;
-    if (existingTreeManager != null && !existingTreeManager.equals(aTreeManager))
-    {
-      existingTreeManager.removeLocation(this);
-    }
-    treeManager.addLocation(this);
-    wasSet = true;
-    return wasSet;
   }
 
   public boolean setTreeInLocation(Tree aNewTreeInLocation)
@@ -128,9 +98,6 @@ public class Location
 
   public void delete()
   {
-    TreeManager placeholderTreeManager = treeManager;
-    this.treeManager = null;
-    placeholderTreeManager.removeLocation(this);
     Tree existingTreeInLocation = treeInLocation;
     treeInLocation = null;
     if (existingTreeInLocation != null)
@@ -145,7 +112,6 @@ public class Location
     return super.toString() + "["+
             "latitude" + ":" + getLatitude()+ "," +
             "longitude" + ":" + getLongitude()+ "]" + System.getProperties().getProperty("line.separator") +
-            "  " + "treeManager = "+(getTreeManager()!=null?Integer.toHexString(System.identityHashCode(getTreeManager())):"null") + System.getProperties().getProperty("line.separator") +
             "  " + "treeInLocation = "+(getTreeInLocation()!=null?Integer.toHexString(System.identityHashCode(getTreeInLocation())):"null");
   }
 }

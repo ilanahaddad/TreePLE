@@ -13,7 +13,6 @@ import ca.mcgill.ecse321.TreePLE.model.Location;
 import ca.mcgill.ecse321.TreePLE.model.Tree;
 import ca.mcgill.ecse321.TreePLE.model.TreeManager;
 
-
 // The first type parameter is the domain type for which we are creating the repository.
 // The second is the key type that is used to look it up. This example will not use it.
 @Repository
@@ -21,9 +20,6 @@ public class PersistenceXStream {
 
 	private static XStream xstream = new XStream();
 	private static String filename = "data.xml";
-
-	// TODO create the RegistrationManager instance here (replace the void return
-	// value as well)
 	public static TreeManager initializeModelManager(String fileName) {
 		// Initialization for persistence
 		TreeManager tm;
