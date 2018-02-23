@@ -5,7 +5,8 @@ class Tree{
   Status status = Status.Planted;
   double diameter;
   lazy LandUse land;
-  int id;
+ 
+  autounique id;
 }
 
 class Location{
@@ -14,9 +15,10 @@ class Location{
 }
 enum Status {Planted, Deseased, CutDown, ToBeCutDown}
 enum LandUse {Residential, NonResidential}
+
 class User{
   name;
-  unique Integer id;
+  autounique id;
  }
 
 class LocalResident{
@@ -49,6 +51,7 @@ class Version
 class TreeManager{
   1 -> * Tree trees;
   1 -> * Location locations;
+  1 -> * Survey surveys;
 }
 
 association{
@@ -56,7 +59,7 @@ association{
    0..1 Tree treeInLocation -- 1 Location coordinates;
   * Tree trees -- 1 User owner;
   * Professional reporter -- 1 SustainabilityReport report;
-  1 User surveyer -- * Survey surveys;
+  1 User surveyor -- * Survey surveys;
    
   * Forecast -> 0..* Tree treesInForecastArea;
   * Forecast -> 0..* Tree treesToCutDown;

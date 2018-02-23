@@ -4,7 +4,7 @@
 package ca.mcgill.ecse321.TreePLE.model;
 import java.util.*;
 
-// line 22 "../../../../../TreePLE.ump"
+// line 24 "../../../../../TreePLE.ump"
 public class LocalResident extends User
 {
 
@@ -19,9 +19,9 @@ public class LocalResident extends User
   // CONSTRUCTOR
   //------------------------
 
-  public LocalResident(String aName, int aId, Location... allPropertyPerimeter)
+  public LocalResident(String aName, Location... allPropertyPerimeter)
   {
-    super(aName, aId);
+    super(aName);
     propertyPerimeter = new ArrayList<Location>();
     boolean didAddPropertyPerimeter = setPropertyPerimeter(allPropertyPerimeter);
     if (!didAddPropertyPerimeter)

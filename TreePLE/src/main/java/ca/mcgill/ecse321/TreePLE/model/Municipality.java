@@ -4,7 +4,7 @@
 package ca.mcgill.ecse321.TreePLE.model;
 import java.util.*;
 
-// line 37 "../../../../../TreePLE.ump"
+// line 39 "../../../../../TreePLE.ump"
 public class Municipality
 {
 
@@ -194,9 +194,9 @@ public class Municipality
     return 0;
   }
 
-  public Tree addListOfTree(String aSpecies, double aHeight, double aDiameter, int aId, Location aCoordinates, User aOwner, Version... allVersions)
+  public Tree addListOfTree(String aSpecies, double aHeight, double aDiameter, Location aCoordinates, User aOwner, Version... allVersions)
   {
-    return new Tree(aSpecies, aHeight, aDiameter, aId, aCoordinates, aOwner, this, allVersions);
+    return new Tree(aSpecies, aHeight, aDiameter, aCoordinates, aOwner, this, allVersions);
   }
 
   public boolean addListOfTree(Tree aListOfTree)

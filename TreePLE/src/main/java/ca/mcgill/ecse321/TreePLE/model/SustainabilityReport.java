@@ -5,7 +5,7 @@ package ca.mcgill.ecse321.TreePLE.model;
 import java.sql.Date;
 import java.util.*;
 
-// line 30 "../../../../../TreePLE.ump"
+// line 32 "../../../../../TreePLE.ump"
 public class SustainabilityReport
 {
 
@@ -129,9 +129,9 @@ public class SustainabilityReport
     return 0;
   }
 
-  public Professional addReporter(String aName, int aId)
+  public Professional addReporter(String aName)
   {
-    return new Professional(aName, aId, this);
+    return new Professional(aName, this);
   }
 
   public boolean addReporter(Professional aReporter)

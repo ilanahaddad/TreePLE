@@ -19,8 +19,10 @@ import ca.mcgill.ecse321.TreePLE.model.Tree;
 import ca.mcgill.ecse321.TreePLE.model.TreeManager;
 import ca.mcgill.ecse321.TreePLE.model.User;
 import ca.mcgill.ecse321.TreePLE.model.Version;
+import ca.mcgill.ecse321.TreePLE.model.Tree.LandUse;
 
 public class TestPersistence {
+	//TODO: ADD SURVEY 
 	private TreeManager tm;
 	@Before
 	public void setUp() throws Exception {
@@ -36,9 +38,11 @@ public class TestPersistence {
 		l_res1[0]=l1_res1;l_res1[1]=l2_res1;l_res1[2]=l3_res1;l_res1[3]=l4_res1;
 
 		Municipality m = new Municipality("Outremont");
-		User res1 = new LocalResident("Ilana",133, l_res1);
+		User res1 = new LocalResident("Ilana", l_res1);
 		Version v1 = new Version("1.0",2018);
-		Tree t1 = new Tree("White Ash",1.5, 0.2,1,l1,res1,m,v1);
+		
+		Tree t1 = new Tree("White Ash",1.5, 0.2,l1,res1,m,v1);
+		t1.setLand(LandUse.Residential);
 		tm.addTree(t1);
 		tm.addLocation(l1);
 	}
@@ -74,7 +78,7 @@ public class TestPersistence {
 		Location l4_res1 = new Location(2,2);
 		l_res1[0]=l1_res1;l_res1[1]=l2_res1;l_res1[2]=l3_res1;l_res1[3]=l4_res1;
 		Municipality m = new Municipality("Outremont");
-		User owner = new LocalResident("Ilana",134, l_res1);
+		User owner = new LocalResident("Ilana", l_res1);
 		Version v1 = new Version("1.0",2018);
 		double height = 1.5;
 		double diameter = 0.2;
@@ -89,21 +93,15 @@ public class TestPersistence {
 		assertEquals(l1.getLatitude(), tm.getTree(0).getCoordinates().getLatitude(),0);
 		assertEquals(l1.getLongitude(), tm.getTree(0).getCoordinates().getLongitude(),0);
 		assertEquals(v1.getIdNumber(), tm.getTree(0).getVersion(0).getIdNumber());
-		assertEquals(133, tm.getTree(0).getOwner().getId());
-			
+		assertEquals(owner.getName(), tm.getTree(0).getOwner().getName());
+		assertEquals(LandUse.Residential, tm.getTree(0).getLand());
 		
 		//check Location
 		assertEquals(1, tm.getLocations().size());
 		assertEquals(1.5, tm.getLocation(0).getLatitude(),0);
 		assertEquals(1.5, tm.getLocation(0).getLongitude(),0);
 		
-/*		// check registrations
-		assertEquals(2, rm.getRegistrations().size());
-		assertEquals(rm.getEvent(0), rm.getRegistration(0).getEvent());
-		assertEquals(rm.getParticipant(0), rm.getRegistration(0).getParticipant());
-		assertEquals(rm.getEvent(0), rm.getRegistration(1).getEvent());
-		assertEquals(rm.getParticipant(1), rm.getRegistration(1).getParticipant());
-*/
+
 	}
 
 }

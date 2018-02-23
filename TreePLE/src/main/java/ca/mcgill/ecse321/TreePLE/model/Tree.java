@@ -17,6 +17,12 @@ public class Tree
   public enum LandUse { Residential, NonResidential }
 
   //------------------------
+  // STATIC VARIABLES
+  //------------------------
+
+  private static int nextId = 1;
+
+  //------------------------
   // MEMBER VARIABLES
   //------------------------
 
@@ -26,6 +32,8 @@ public class Tree
   private Status status;
   private double diameter;
   private LandUse land;
+
+  //Autounique Attributes
   private int id;
 
   //Tree Associations
@@ -39,13 +47,13 @@ public class Tree
   // CONSTRUCTOR
   //------------------------
 
-  public Tree(String aSpecies, double aHeight, double aDiameter, int aId, Location aCoordinates, User aOwner, Municipality aTreeMunicipality, Version... allVersions)
+  public Tree(String aSpecies, double aHeight, double aDiameter, Location aCoordinates, User aOwner, Municipality aTreeMunicipality, Version... allVersions)
   {
     species = aSpecies;
     height = aHeight;
     status = Status.Planted;
     diameter = aDiameter;
-    id = aId;
+    id = nextId++;
     surveys = new ArrayList<Survey>();
     boolean didAddCoordinates = setCoordinates(aCoordinates);
     if (!didAddCoordinates)
@@ -110,14 +118,6 @@ public class Tree
   {
     boolean wasSet = false;
     land = aLand;
-    wasSet = true;
-    return wasSet;
-  }
-
-  public boolean setId(int aId)
-  {
-    boolean wasSet = false;
-    id = aId;
     wasSet = true;
     return wasSet;
   }
@@ -232,9 +232,9 @@ public class Tree
     return 0;
   }
 
-  public Survey addSurvey(Date aLastReport, User aSurveyer)
+  public Survey addSurvey(Date aLastReport, User aSurveyor)
   {
-    return new Survey(aLastReport, this, aSurveyer);
+    return new Survey(aLastReport, this, aSurveyor);
   }
 
   public boolean addSurvey(Survey aSurvey)
@@ -530,10 +530,10 @@ public class Tree
   public String toString()
   {
     return super.toString() + "["+
+            "id" + ":" + getId()+ "," +
             "species" + ":" + getSpecies()+ "," +
             "height" + ":" + getHeight()+ "," +
-            "diameter" + ":" + getDiameter()+ "," +
-            "id" + ":" + getId()+ "]" + System.getProperties().getProperty("line.separator") +
+            "diameter" + ":" + getDiameter()+ "]" + System.getProperties().getProperty("line.separator") +
             "  " + "status" + "=" + (getStatus() != null ? !getStatus().equals(this)  ? getStatus().toString().replaceAll("  ","    ") : "this" : "null") + System.getProperties().getProperty("line.separator") +
             "  " + "land" + "=" + (getLand() != null ? !getLand().equals(this)  ? getLand().toString().replaceAll("  ","    ") : "this" : "null") + System.getProperties().getProperty("line.separator") +
             "  " + "coordinates = "+(getCoordinates()!=null?Integer.toHexString(System.identityHashCode(getCoordinates())):"null") + System.getProperties().getProperty("line.separator") +

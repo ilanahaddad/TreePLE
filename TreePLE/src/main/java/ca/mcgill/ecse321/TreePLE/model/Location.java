@@ -3,7 +3,7 @@
 
 package ca.mcgill.ecse321.TreePLE.model;
 
-// line 11 "../../../../../TreePLE.ump"
+// line 12 "../../../../../TreePLE.ump"
 public class Location
 {
 

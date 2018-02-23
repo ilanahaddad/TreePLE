@@ -16,44 +16,99 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import ca.mcgill.ecse321.TreePLE.dto.LocationDto;
+import ca.mcgill.ecse321.TreePLE.dto.MunicipalityDto;
+import ca.mcgill.ecse321.TreePLE.dto.SurveyDto;
+import ca.mcgill.ecse321.TreePLE.dto.TreeDto;
+import ca.mcgill.ecse321.TreePLE.dto.UserDto;
+import ca.mcgill.ecse321.TreePLE.model.Location;
+import ca.mcgill.ecse321.TreePLE.model.Municipality;
+import ca.mcgill.ecse321.TreePLE.model.Survey;
+import ca.mcgill.ecse321.TreePLE.model.Tree;
+import ca.mcgill.ecse321.TreePLE.model.User;
+import ca.mcgill.ecse321.TreePLE.service.SurveyService;
 import ca.mcgill.ecse321.TreePLE.service.TreeManagerService;
 
 @RestController
 public class TreeManagerRestController {
 
 	@Autowired
-	private TreeManagerService service;
+	private TreeManagerService treeManagerService;
+	private SurveyService surveyService;
 
 	@Autowired
 	private ModelMapper modelMapper;
 
 	@RequestMapping("/")
 	public String index() {
-		return "Event registration application root. Web-based frontend is a TODO. Use the REST API to manage events and participants.\n";
+		return "TreePLE application root. Web-based frontend is a TODO. Use the REST API to manage events and participants.\n";
 	}
-	
 
-	/*
+
+/*
 	@PostMapping(value = { "/participants/{name}", "/participants/{name}/" })
 	public Tree createParticipant(@PathVariable("name") String name) throws InvalidInputException {
 		Participant participant = service.createParticipant(name);
 		return convertToDto(participant);
 	}
 
-	
+*/
 	// Conversion methods (not part of the API)
-	private EventDto convertToDto(Event e) {
+	private TreeDto convertToDto(Tree t) {
 		// In simple cases, the mapper service is convenient
-		return modelMapper.map(e, EventDto.class);
+		TreeDto treeDto = modelMapper.map(t, TreeDto.class);
+		treeDto.setMunicipality(createMunicipalityDtoForTree(t));
+		treeDto.setUser(createUserDtoForTree(t));
+		treeDto.setLocation(createLocationDtoForTree(t));
+		return treeDto;
 	}
 
-	private ParticipantDto convertToDto(Participant p) {
-		ParticipantDto participantDto = modelMapper.map(p, ParticipantDto.class);
-		participantDto.setEvents(createEventDtosForParticipant(p));
-		return participantDto;
+	private UserDto convertToDto(User user) {
+		return modelMapper.map(user, UserDto.class);
+
+	}
+	private LocationDto convertToDto(Location location) {
+		return modelMapper.map(location, LocationDto.class);
+
+	}
+	private MunicipalityDto convertToDto(Municipality mun) {
+		return modelMapper.map(mun, MunicipalityDto.class);
+
+	}
+	private SurveyDto convertToDto(Survey survey) {
+		SurveyDto surveyDto= modelMapper.map(survey, SurveyDto.class);
+		surveyDto.setTree(createTreeDtoForSurvey(survey));
+		surveyDto.setUser(createUserDtoForSurvey(survey));
+		return surveyDto;
+	}
+	private LocationDto createLocationDtoForTree(Tree t) {
+		Location locationForTree = treeManagerService.getLocationForTree(t);
+		return convertToDto(locationForTree);
+	}
+	private UserDto createUserDtoForTree(Tree t) {
+		User userForTree = treeManagerService.getOwnerForTree(t);
+		return convertToDto(userForTree);
 	}
 
-	private Participant convertToDomainObject(ParticipantDto pDto) {
+	private MunicipalityDto createMunicipalityDtoForTree(Tree t) {
+		Municipality municipalityForTree = treeManagerService.getMunicipalityForTree(t);
+		return convertToDto(municipalityForTree);
+	}
+	private UserDto createUserDtoForSurvey(Survey survey) {
+		User userForSurvey = surveyService.getSurveyorForSurvey(survey);
+		return convertToDto(userForSurvey);
+	}
+
+	private TreeDto createTreeDtoForSurvey(Survey survey) {
+		Tree treeForSurvey = surveyService.getTreeForSurvey(survey);
+		return convertToDto(treeForSurvey);
+	}
+	
+	//TODO: GET/POSTS step 2.6.6
+	
+	
+/*	DONT DELETE: NOT SURE IF WE NEED THESE: 
+ * private Participant convertToDomainObject(ParticipantDto pDto) {
 		// Mapping DTO to the domain object without using the mapper
 		List<Participant> allParticipants = service.findAllParticipants();
 		for (Participant participant : allParticipants) {
@@ -62,17 +117,6 @@ public class TreeManagerRestController {
 			}
 		}
 		return null;
-	}
-
-	private List<EventDto> createEventDtosForParticipant(Participant p) {
-		// TODO it is your task to add and implement the getEventsForParticipant service
-		// within the EventRegistrationService class, since it is missing now
-		List<Event> eventsForParticipant = service.getEventsForParticipant(p);
-		List<EventDto> events = new ArrayList<EventDto>();
-		for (Event event : eventsForParticipant) {
-			events.add(convertToDto(event));
-		}
-		return events;
 	}
 
 	private RegistrationDto convertToDto(Registration r, Participant p, Event e) {

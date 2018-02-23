@@ -3,8 +3,9 @@
 
 package ca.mcgill.ecse321.TreePLE.model;
 import java.util.*;
+import java.sql.Date;
 
-// line 49 "../../../../../TreePLE.ump"
+// line 51 "../../../../../TreePLE.ump"
 public class TreeManager
 {
 
@@ -15,6 +16,7 @@ public class TreeManager
   //TreeManager Associations
   private List<Tree> trees;
   private List<Location> locations;
+  private List<Survey> surveys;
 
   //------------------------
   // CONSTRUCTOR
@@ -24,6 +26,7 @@ public class TreeManager
   {
     trees = new ArrayList<Tree>();
     locations = new ArrayList<Location>();
+    surveys = new ArrayList<Survey>();
   }
 
   //------------------------
@@ -87,6 +90,36 @@ public class TreeManager
   public int indexOfLocation(Location aLocation)
   {
     int index = locations.indexOf(aLocation);
+    return index;
+  }
+
+  public Survey getSurvey(int index)
+  {
+    Survey aSurvey = surveys.get(index);
+    return aSurvey;
+  }
+
+  public List<Survey> getSurveys()
+  {
+    List<Survey> newSurveys = Collections.unmodifiableList(surveys);
+    return newSurveys;
+  }
+
+  public int numberOfSurveys()
+  {
+    int number = surveys.size();
+    return number;
+  }
+
+  public boolean hasSurveys()
+  {
+    boolean has = surveys.size() > 0;
+    return has;
+  }
+
+  public int indexOfSurvey(Survey aSurvey)
+  {
+    int index = surveys.indexOf(aSurvey);
     return index;
   }
 
@@ -204,10 +237,68 @@ public class TreeManager
     return wasAdded;
   }
 
+  public static int minimumNumberOfSurveys()
+  {
+    return 0;
+  }
+
+  public boolean addSurvey(Survey aSurvey)
+  {
+    boolean wasAdded = false;
+    if (surveys.contains(aSurvey)) { return false; }
+    surveys.add(aSurvey);
+    wasAdded = true;
+    return wasAdded;
+  }
+
+  public boolean removeSurvey(Survey aSurvey)
+  {
+    boolean wasRemoved = false;
+    if (surveys.contains(aSurvey))
+    {
+      surveys.remove(aSurvey);
+      wasRemoved = true;
+    }
+    return wasRemoved;
+  }
+
+  public boolean addSurveyAt(Survey aSurvey, int index)
+  {  
+    boolean wasAdded = false;
+    if(addSurvey(aSurvey))
+    {
+      if(index < 0 ) { index = 0; }
+      if(index > numberOfSurveys()) { index = numberOfSurveys() - 1; }
+      surveys.remove(aSurvey);
+      surveys.add(index, aSurvey);
+      wasAdded = true;
+    }
+    return wasAdded;
+  }
+
+  public boolean addOrMoveSurveyAt(Survey aSurvey, int index)
+  {
+    boolean wasAdded = false;
+    if(surveys.contains(aSurvey))
+    {
+      if(index < 0 ) { index = 0; }
+      if(index > numberOfSurveys()) { index = numberOfSurveys() - 1; }
+      surveys.remove(aSurvey);
+      surveys.add(index, aSurvey);
+      wasAdded = true;
+    } 
+    else 
+    {
+      wasAdded = addSurveyAt(aSurvey, index);
+    }
+    return wasAdded;
+  }
+
   public void delete()
   {
     trees.clear();
     locations.clear();
+    surveys.clear();
   }
 
 }

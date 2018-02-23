@@ -5,7 +5,7 @@ package ca.mcgill.ecse321.TreePLE.model;
 import java.util.*;
 import java.sql.Date;
 
-// line 17 "../../../../../TreePLE.ump"
+// line 19 "../../../../../TreePLE.ump"
 public class User
 {
 
@@ -13,7 +13,7 @@ public class User
   // STATIC VARIABLES
   //------------------------
 
-  private static Map<Integer, User> usersById = new HashMap<Integer, User>();
+  private static int nextId = 1;
 
   //------------------------
   // MEMBER VARIABLES
@@ -21,6 +21,8 @@ public class User
 
   //User Attributes
   private String name;
+
+  //Autounique Attributes
   private int id;
 
   //User Associations
@@ -31,13 +33,10 @@ public class User
   // CONSTRUCTOR
   //------------------------
 
-  public User(String aName, int aId)
+  public User(String aName)
   {
     name = aName;
-    if (!setId(aId))
-    {
-      throw new RuntimeException("Cannot create due to duplicate id");
-    }
+    id = nextId++;
     trees = new ArrayList<Tree>();
     surveys = new ArrayList<Survey>();
   }
@@ -54,22 +53,6 @@ public class User
     return wasSet;
   }
 
-  public boolean setId(int aId)
-  {
-    boolean wasSet = false;
-    Integer anOldId = getId();
-    if (hasWithId(aId)) {
-      return wasSet;
-    }
-    id = aId;
-    wasSet = true;
-    if (anOldId != null) {
-      usersById.remove(anOldId);
-    }
-    usersById.put(aId, this);
-    return wasSet;
-  }
-
   public String getName()
   {
     return name;
@@ -78,16 +61,6 @@ public class User
   public int getId()
   {
     return id;
-  }
-
-  public static User getWithId(int aId)
-  {
-    return usersById.get(aId);
-  }
-
-  public static boolean hasWithId(int aId)
-  {
-    return getWithId(aId) != null;
   }
 
   public Tree getTree(int index)
@@ -155,9 +128,9 @@ public class User
     return 0;
   }
 
-  public Tree addTree(String aSpecies, double aHeight, double aDiameter, int aId, Location aCoordinates, Municipality aTreeMunicipality, Version... allVersions)
+  public Tree addTree(String aSpecies, double aHeight, double aDiameter, Location aCoordinates, Municipality aTreeMunicipality, Version... allVersions)
   {
-    return new Tree(aSpecies, aHeight, aDiameter, aId, aCoordinates, this, aTreeMunicipality, allVersions);
+    return new Tree(aSpecies, aHeight, aDiameter, aCoordinates, this, aTreeMunicipality, allVersions);
   }
 
   public boolean addTree(Tree aTree)
@@ -236,11 +209,11 @@ public class User
   {
     boolean wasAdded = false;
     if (surveys.contains(aSurvey)) { return false; }
-    User existingSurveyer = aSurvey.getSurveyer();
-    boolean isNewSurveyer = existingSurveyer != null && !this.equals(existingSurveyer);
-    if (isNewSurveyer)
+    User existingSurveyor = aSurvey.getSurveyor();
+    boolean isNewSurveyor = existingSurveyor != null && !this.equals(existingSurveyor);
+    if (isNewSurveyor)
     {
-      aSurvey.setSurveyer(this);
+      aSurvey.setSurveyor(this);
     }
     else
     {
@@ -253,8 +226,8 @@ public class User
   public boolean removeSurvey(Survey aSurvey)
   {
     boolean wasRemoved = false;
-    //Unable to remove aSurvey, as it must always have a surveyer
-    if (!this.equals(aSurvey.getSurveyer()))
+    //Unable to remove aSurvey, as it must always have a surveyor
+    if (!this.equals(aSurvey.getSurveyor()))
     {
       surveys.remove(aSurvey);
       wasRemoved = true;
@@ -296,7 +269,6 @@ public class User
 
   public void delete()
   {
-    usersById.remove(getId());
     for(int i=trees.size(); i > 0; i--)
     {
       Tree aTree = trees.get(i - 1);
@@ -313,7 +285,7 @@ public class User
   public String toString()
   {
     return super.toString() + "["+
-            "name" + ":" + getName()+ "," +
-            "id" + ":" + getId()+ "]";
+            "id" + ":" + getId()+ "," +
+            "name" + ":" + getName()+ "]";
   }
 }

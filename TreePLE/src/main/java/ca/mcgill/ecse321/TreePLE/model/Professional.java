@@ -4,7 +4,7 @@
 package ca.mcgill.ecse321.TreePLE.model;
 import java.util.*;
 
-// line 26 "../../../../../TreePLE.ump"
+// line 28 "../../../../../TreePLE.ump"
 public class Professional extends User
 {
 
@@ -19,9 +19,9 @@ public class Professional extends User
   // CONSTRUCTOR
   //------------------------
 
-  public Professional(String aName, int aId, SustainabilityReport aReport)
+  public Professional(String aName, SustainabilityReport aReport)
   {
-    super(aName, aId);
+    super(aName);
     boolean didAddReport = setReport(aReport);
     if (!didAddReport)
     {
