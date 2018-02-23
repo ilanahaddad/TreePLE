@@ -34,7 +34,7 @@ class SustainabilityReport{
 }
 
 class Survey{
-  Date lastReport;
+  Date reportDate;
 }
 class Municipality{
   name; 
@@ -52,6 +52,8 @@ class TreeManager{
   1 -> * Tree trees;
   1 -> * Location locations;
   1 -> * Survey surveys;
+  1 -> * Municipality municipalities;
+  1 -> * User users;
 }
 
 association{

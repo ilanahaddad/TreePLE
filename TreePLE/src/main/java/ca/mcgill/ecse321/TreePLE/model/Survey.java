@@ -13,7 +13,7 @@ public class Survey
   //------------------------
 
   //Survey Attributes
-  private Date lastReport;
+  private Date reportDate;
 
   //Survey Associations
   private Tree tree;
@@ -23,9 +23,9 @@ public class Survey
   // CONSTRUCTOR
   //------------------------
 
-  public Survey(Date aLastReport, Tree aTree, User aSurveyor)
+  public Survey(Date aReportDate, Tree aTree, User aSurveyor)
   {
-    lastReport = aLastReport;
+    reportDate = aReportDate;
     boolean didAddTree = setTree(aTree);
     if (!didAddTree)
     {
@@ -42,17 +42,17 @@ public class Survey
   // INTERFACE
   //------------------------
 
-  public boolean setLastReport(Date aLastReport)
+  public boolean setReportDate(Date aReportDate)
   {
     boolean wasSet = false;
-    lastReport = aLastReport;
+    reportDate = aReportDate;
     wasSet = true;
     return wasSet;
   }
 
-  public Date getLastReport()
+  public Date getReportDate()
   {
-    return lastReport;
+    return reportDate;
   }
 
   public Tree getTree()
@@ -117,7 +117,7 @@ public class Survey
   public String toString()
   {
     return super.toString() + "["+ "]" + System.getProperties().getProperty("line.separator") +
-            "  " + "lastReport" + "=" + (getLastReport() != null ? !getLastReport().equals(this)  ? getLastReport().toString().replaceAll("  ","    ") : "this" : "null") + System.getProperties().getProperty("line.separator") +
+            "  " + "reportDate" + "=" + (getReportDate() != null ? !getReportDate().equals(this)  ? getReportDate().toString().replaceAll("  ","    ") : "this" : "null") + System.getProperties().getProperty("line.separator") +
             "  " + "tree = "+(getTree()!=null?Integer.toHexString(System.identityHashCode(getTree())):"null") + System.getProperties().getProperty("line.separator") +
             "  " + "surveyor = "+(getSurveyor()!=null?Integer.toHexString(System.identityHashCode(getSurveyor())):"null");
   }

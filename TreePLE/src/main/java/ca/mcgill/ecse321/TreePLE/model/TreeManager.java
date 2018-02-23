@@ -17,6 +17,8 @@ public class TreeManager
   private List<Tree> trees;
   private List<Location> locations;
   private List<Survey> surveys;
+  private List<Municipality> municipalities;
+  private List<User> users;
 
   //------------------------
   // CONSTRUCTOR
@@ -27,6 +29,8 @@ public class TreeManager
     trees = new ArrayList<Tree>();
     locations = new ArrayList<Location>();
     surveys = new ArrayList<Survey>();
+    municipalities = new ArrayList<Municipality>();
+    users = new ArrayList<User>();
   }
 
   //------------------------
@@ -120,6 +124,66 @@ public class TreeManager
   public int indexOfSurvey(Survey aSurvey)
   {
     int index = surveys.indexOf(aSurvey);
+    return index;
+  }
+
+  public Municipality getMunicipality(int index)
+  {
+    Municipality aMunicipality = municipalities.get(index);
+    return aMunicipality;
+  }
+
+  public List<Municipality> getMunicipalities()
+  {
+    List<Municipality> newMunicipalities = Collections.unmodifiableList(municipalities);
+    return newMunicipalities;
+  }
+
+  public int numberOfMunicipalities()
+  {
+    int number = municipalities.size();
+    return number;
+  }
+
+  public boolean hasMunicipalities()
+  {
+    boolean has = municipalities.size() > 0;
+    return has;
+  }
+
+  public int indexOfMunicipality(Municipality aMunicipality)
+  {
+    int index = municipalities.indexOf(aMunicipality);
+    return index;
+  }
+
+  public User getUser(int index)
+  {
+    User aUser = users.get(index);
+    return aUser;
+  }
+
+  public List<User> getUsers()
+  {
+    List<User> newUsers = Collections.unmodifiableList(users);
+    return newUsers;
+  }
+
+  public int numberOfUsers()
+  {
+    int number = users.size();
+    return number;
+  }
+
+  public boolean hasUsers()
+  {
+    boolean has = users.size() > 0;
+    return has;
+  }
+
+  public int indexOfUser(User aUser)
+  {
+    int index = users.indexOf(aUser);
     return index;
   }
 
@@ -294,11 +358,127 @@ public class TreeManager
     return wasAdded;
   }
 
+  public static int minimumNumberOfMunicipalities()
+  {
+    return 0;
+  }
+
+  public boolean addMunicipality(Municipality aMunicipality)
+  {
+    boolean wasAdded = false;
+    if (municipalities.contains(aMunicipality)) { return false; }
+    municipalities.add(aMunicipality);
+    wasAdded = true;
+    return wasAdded;
+  }
+
+  public boolean removeMunicipality(Municipality aMunicipality)
+  {
+    boolean wasRemoved = false;
+    if (municipalities.contains(aMunicipality))
+    {
+      municipalities.remove(aMunicipality);
+      wasRemoved = true;
+    }
+    return wasRemoved;
+  }
+
+  public boolean addMunicipalityAt(Municipality aMunicipality, int index)
+  {  
+    boolean wasAdded = false;
+    if(addMunicipality(aMunicipality))
+    {
+      if(index < 0 ) { index = 0; }
+      if(index > numberOfMunicipalities()) { index = numberOfMunicipalities() - 1; }
+      municipalities.remove(aMunicipality);
+      municipalities.add(index, aMunicipality);
+      wasAdded = true;
+    }
+    return wasAdded;
+  }
+
+  public boolean addOrMoveMunicipalityAt(Municipality aMunicipality, int index)
+  {
+    boolean wasAdded = false;
+    if(municipalities.contains(aMunicipality))
+    {
+      if(index < 0 ) { index = 0; }
+      if(index > numberOfMunicipalities()) { index = numberOfMunicipalities() - 1; }
+      municipalities.remove(aMunicipality);
+      municipalities.add(index, aMunicipality);
+      wasAdded = true;
+    } 
+    else 
+    {
+      wasAdded = addMunicipalityAt(aMunicipality, index);
+    }
+    return wasAdded;
+  }
+
+  public static int minimumNumberOfUsers()
+  {
+    return 0;
+  }
+
+  public boolean addUser(User aUser)
+  {
+    boolean wasAdded = false;
+    if (users.contains(aUser)) { return false; }
+    users.add(aUser);
+    wasAdded = true;
+    return wasAdded;
+  }
+
+  public boolean removeUser(User aUser)
+  {
+    boolean wasRemoved = false;
+    if (users.contains(aUser))
+    {
+      users.remove(aUser);
+      wasRemoved = true;
+    }
+    return wasRemoved;
+  }
+
+  public boolean addUserAt(User aUser, int index)
+  {  
+    boolean wasAdded = false;
+    if(addUser(aUser))
+    {
+      if(index < 0 ) { index = 0; }
+      if(index > numberOfUsers()) { index = numberOfUsers() - 1; }
+      users.remove(aUser);
+      users.add(index, aUser);
+      wasAdded = true;
+    }
+    return wasAdded;
+  }
+
+  public boolean addOrMoveUserAt(User aUser, int index)
+  {
+    boolean wasAdded = false;
+    if(users.contains(aUser))
+    {
+      if(index < 0 ) { index = 0; }
+      if(index > numberOfUsers()) { index = numberOfUsers() - 1; }
+      users.remove(aUser);
+      users.add(index, aUser);
+      wasAdded = true;
+    } 
+    else 
+    {
+      wasAdded = addUserAt(aUser, index);
+    }
+    return wasAdded;
+  }
+
   public void delete()
   {
     trees.clear();
     locations.clear();
     surveys.clear();
+    municipalities.clear();
+    users.clear();
   }
 
 }

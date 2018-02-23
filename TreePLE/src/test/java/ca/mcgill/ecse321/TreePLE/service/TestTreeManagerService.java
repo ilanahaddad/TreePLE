@@ -23,7 +23,7 @@ import ca.mcgill.ecse321.TreePLE.persistence.PersistenceXStream;
 
 
 public class TestTreeManagerService {
-	//TODO: ADD SURVEY 
+	//TODO: ADD SURVEY + MUNICIPALITIES, REMOVED VERSION FROM CREATEtREE
 	private TreeManager tm;
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
@@ -61,7 +61,7 @@ public class TestTreeManagerService {
 		Tree.LandUse land = Tree.LandUse.Residential;
 		TreeManagerService tmc = new TreeManagerService(tm);
 		try {
-			tmc.createTree(species, 1.5, 0.2, treeLoc,owner, m,v1,land);
+			tmc.createTree(species, 1.5, 0.2, treeLoc,owner, m,land);
 		} catch (InvalidInputException e) {
 			e.printStackTrace();
 		}

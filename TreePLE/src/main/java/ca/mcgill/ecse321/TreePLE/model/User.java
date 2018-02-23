@@ -200,9 +200,9 @@ public class User
     return 0;
   }
 
-  public Survey addSurvey(Date aLastReport, Tree aTree)
+  public Survey addSurvey(Date aReportDate, Tree aTree)
   {
-    return new Survey(aLastReport, aTree, this);
+    return new Survey(aReportDate, aTree, this);
   }
 
   public boolean addSurvey(Survey aSurvey)

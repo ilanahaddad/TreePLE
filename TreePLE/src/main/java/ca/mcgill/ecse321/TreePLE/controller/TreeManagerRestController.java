@@ -8,6 +8,7 @@ import java.util.List;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,14 +27,17 @@ import ca.mcgill.ecse321.TreePLE.model.Municipality;
 import ca.mcgill.ecse321.TreePLE.model.Survey;
 import ca.mcgill.ecse321.TreePLE.model.Tree;
 import ca.mcgill.ecse321.TreePLE.model.User;
+import ca.mcgill.ecse321.TreePLE.service.InvalidInputException;
 import ca.mcgill.ecse321.TreePLE.service.SurveyService;
 import ca.mcgill.ecse321.TreePLE.service.TreeManagerService;
 
+
 @RestController
 public class TreeManagerRestController {
-
 	@Autowired
 	private TreeManagerService treeManagerService;
+	
+	
 	private SurveyService surveyService;
 
 	@Autowired
@@ -104,8 +108,43 @@ public class TreeManagerRestController {
 		return convertToDto(treeForSurvey);
 	}
 	
-	//TODO: GET/POSTS step 2.6.6
 	
+	@PostMapping(value = {"/newtree/ }", "/newtree/"})
+	public TreeDto createTree(@RequestParam(name = "species") String species,
+			@RequestParam(name = "height") double height, 
+			@RequestParam(name = "diameter") double diameter, 
+			@RequestParam(name= "municipality") MunicipalityDto munDto, 
+			//@RequestParam(name="location") LocationDto locationDto,
+			@RequestParam(name="latitude") double latitude,
+			@RequestParam(name="longitude") double longitude,
+			@RequestParam(name="owner") UserDto userDto, 
+			@RequestParam(name="landuse") Tree.LandUse landuse ) throws InvalidInputException {
+		Location location = treeManagerService.getLocationByCoordinates(latitude, longitude);
+		//Location location = new Location(latitude, longitude);
+		User owner = treeManagerService.getOwnerByName(userDto.getName());
+		Municipality municipality = treeManagerService.getMunicipalityByName(munDto.getName());
+		Tree t = treeManagerService.createTree(species, height, diameter, location, owner, municipality, landuse);
+		return convertToDto(t);
+	}
+	@PostMapping(value = {"/newSurvey/ }", "/newSurvey/"})
+	public SurveyDto createSurvey(
+			@RequestParam(name = "reportDate") Date reportDate,
+			@RequestParam(name = "tree") TreeDto treeDto, 
+			@RequestParam(name = "surveyor") UserDto surveyorDto) throws InvalidInputException {
+		Tree tree = surveyService.getTreeById(treeDto.getId());
+		User surveyor = surveyService.getSurveyorByName(surveyorDto.getName());
+		Survey s = new Survey(reportDate, tree, surveyor);
+		return convertToDto(s);
+	}
+	//if user doesnt find municipality in dropdown for createTree, they create a new one
+	@PostMapping(value = {"/newMunicipality/{name}", "/newMunicipality/{name}/"})
+	public MunicipalityDto createMunicipality(@PathVariable("name") String munName) throws InvalidInputException {
+		Municipality m = new Municipality(munName);
+		return convertToDto(m);
+	}
+	//
+	//createLocation w lat/long in url <== input for create tree
+
 	
 /*	DONT DELETE: NOT SURE IF WE NEED THESE: 
  * private Participant convertToDomainObject(ParticipantDto pDto) {
