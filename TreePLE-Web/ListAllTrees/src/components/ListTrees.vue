@@ -36,7 +36,7 @@
       </tr>
     </table>
     <p>
-      <span style="color:red">Error: Message text comes here</span>
+      <span v-if="errorParticipant" style="color:red">Error: {{errorParticipant}} </span>
     </p>
   </div>
 </template>
