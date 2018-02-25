@@ -109,12 +109,13 @@ public class TreeManagerRestController {
 	}
 	
 	
-	@PostMapping(value = {"/newtree/ }", "/newtree/"})
-	public TreeDto createTree(@RequestParam(name = "species") String species,
+	@PostMapping(value = {"/newTree/{species}", "/newTree/{species}/"})
+	public TreeDto createTree(
+			@PathVariable("species") String species,
+			//@RequestParam(name = "species") String species,
 			@RequestParam(name = "height") double height, 
 			@RequestParam(name = "diameter") double diameter, 
-			@RequestParam(name= "municipality") MunicipalityDto munDto, 
-			//@RequestParam(name="location") LocationDto locationDto,
+			@RequestParam(name= "municipality") MunicipalityDto munDto,
 			@RequestParam(name="latitude") double latitude,
 			@RequestParam(name="longitude") double longitude,
 			@RequestParam(name="owner") UserDto userDto, 
@@ -126,25 +127,42 @@ public class TreeManagerRestController {
 		Tree t = treeManagerService.createTree(species, height, diameter, location, owner, municipality, landuse);
 		return convertToDto(t);
 	}
-	@PostMapping(value = {"/newSurvey/ }", "/newSurvey/"})
-	public SurveyDto createSurvey(
-			@RequestParam(name = "reportDate") Date reportDate,
-			@RequestParam(name = "tree") TreeDto treeDto, 
-			@RequestParam(name = "surveyor") UserDto surveyorDto) throws InvalidInputException {
-		Tree tree = surveyService.getTreeById(treeDto.getId());
+	@PostMapping(value = {"/newSurvey", "/newSurvey/"})
+	public SurveyDto createSurvey(@RequestParam @DateTimeFormat(iso=DateTimeFormat.ISO.DATE, pattern = "YYYY-MM-DD") Date reportDate,
+			//@RequestParam(name = "reportDate") Date reportDate,
+			//@RequestParam(name = "tree") TreeDto treeDto, 
+			@RequestParam(name = "tree") int treeID, 
+			@RequestParam(name = "surveyor") UserDto surveyorDto,
+			@RequestParam(name = "newTreeStatus") Tree.Status newTreeStatus) throws InvalidInputException{
+		Tree tree = surveyService.getTreeById(treeID);
+		//Tree tree = surveyService.getTreeById(treeDto.getId());
 		User surveyor = surveyService.getSurveyorByName(surveyorDto.getName());
-		Survey s = new Survey(reportDate, tree, surveyor);
+		Survey s = surveyService.createSurvey(reportDate, tree, surveyor, newTreeStatus);
 		return convertToDto(s);
 	}
-	//if user doesnt find municipality in dropdown for createTree, they create a new one
+	//if user doesn't find municipality in dropdown for createTree, they create a new one
 	@PostMapping(value = {"/newMunicipality/{name}", "/newMunicipality/{name}/"})
 	public MunicipalityDto createMunicipality(@PathVariable("name") String munName) throws InvalidInputException {
-		Municipality m = new Municipality(munName);
+		Municipality m = treeManagerService.createMunicipality(munName);
 		return convertToDto(m);
 	}
-	//
-	//createLocation w lat/long in url <== input for create tree
-
+	
+	@GetMapping(value = { "/municipalities/", "/municipalities" })
+	public List<MunicipalityDto> findAllMunicipalities() {
+		List<MunicipalityDto> municipalities = new ArrayList<MunicipalityDto>();
+		for(Municipality m: treeManagerService.findAllMunicipalities()) {
+			municipalities.add(convertToDto(m));
+		}
+		return municipalities;
+	}
+	@GetMapping(value = { "/trees/", "/trees" })
+	public List<TreeDto> findAllTrees() {
+		List<TreeDto> trees = new ArrayList<TreeDto>();
+		for(Tree t: treeManagerService.findAllTrees()) {
+			trees.add(convertToDto(t));
+		}
+		return trees;
+	}
 	
 /*	DONT DELETE: NOT SURE IF WE NEED THESE: 
  * private Participant convertToDomainObject(ParticipantDto pDto) {

@@ -13,7 +13,7 @@ public class Tree
   // ENUMERATIONS
   //------------------------
 
-  public enum Status { Planted, Deseased, CutDown, ToBeCutDown }
+  public enum Status { Planted, Diseased, CutDown, ToBeCutDown }
   public enum LandUse { Residential, NonResidential }
 
   //------------------------

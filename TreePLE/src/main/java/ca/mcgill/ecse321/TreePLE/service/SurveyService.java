@@ -5,13 +5,11 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import ca.mcgill.ecse321.TreePLE.model.Location;
-import ca.mcgill.ecse321.TreePLE.model.Municipality;
 import ca.mcgill.ecse321.TreePLE.model.Survey;
+import ca.mcgill.ecse321.TreePLE.model.Tree.Status;
 import ca.mcgill.ecse321.TreePLE.model.Tree;
 import ca.mcgill.ecse321.TreePLE.model.TreeManager;
 import ca.mcgill.ecse321.TreePLE.model.User;
-import ca.mcgill.ecse321.TreePLE.model.Version;
 import ca.mcgill.ecse321.TreePLE.persistence.PersistenceXStream;
 
 @Service
@@ -21,11 +19,19 @@ public class SurveyService {
 	public SurveyService(TreeManager tm) {
 		this.tm=tm;
 	}
-	public Survey createSurvey(Date reportDate, Tree tree, User surveyor) throws InvalidInputException{
-		/*if(species==null || location==null || owner == null || municipality==null || version == null) {
-			throw new InvalidInputException("Error: Species name, tree location, owner, municipality, or version cannot be null!");
-		}*/
+	public Survey createSurvey(Date reportDate, Tree tree, User surveyor, Status newTreeStatus) throws InvalidInputException{
+		if(newTreeStatus == tree.getStatus()) { //if status is already the one requested
+			throw new InvalidInputException("Error: This tree already has this status");
+			//TODO: write test for this error
+		}
+		if(reportDate == null) {
+			throw new InvalidInputException("Error: Report Date is null");
+		}
+
+		
 		Survey s = new Survey(reportDate, tree, surveyor);
+	
+		tree.setStatus(newTreeStatus);
 		tm.addSurvey(s);
 		PersistenceXStream.saveToXMLwithXStream(tm);
 		return s;

@@ -13,7 +13,7 @@ class Location{
   double latitude;
   double longitude;
 }
-enum Status {Planted, Deseased, CutDown, ToBeCutDown}
+enum Status {Planted, Diseased, CutDown, ToBeCutDown}
 enum LandUse {Residential, NonResidential}
 
 class User{

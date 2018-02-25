@@ -1,7 +1,83 @@
 <manager id="1">
-  <trees id="2"/>
-  <locations id="3"/>
-  <surveys id="4"/>
-  <municipalities id="5"/>
-  <users id="6"/>
+  <trees id="2">
+    <tree id="3">
+      <species>WhiteOak</species>
+      <height>1.5</height>
+      <status>Planted</status>
+      <diameter>0.2</diameter>
+      <land>Residential</land>
+      <id>3</id>
+      <surveys id="4"/>
+      <coordinates id="5">
+        <latitude>1.5</latitude>
+        <longitude>1.5</longitude>
+        <treeInLocation reference="3"/>
+      </coordinates>
+      <owner id="6">
+        <name>Ilana</name>
+        <id>3</id>
+        <trees id="7">
+          <tree reference="3"/>
+        </trees>
+        <surveys id="8"/>
+      </owner>
+      <treeMunicipality id="9">
+        <name>Outremont</name>
+        <forecasts id="10"/>
+        <listOfTrees id="11">
+          <tree reference="3"/>
+          <tree id="12">
+            <species>WhiteOak</species>
+            <height>1.5</height>
+            <status>Planted</status>
+            <diameter>0.2</diameter>
+            <land>Residential</land>
+            <id>4</id>
+            <surveys id="13"/>
+            <coordinates id="14">
+              <latitude>1.5</latitude>
+              <longitude>1.5</longitude>
+              <treeInLocation reference="12"/>
+            </coordinates>
+            <owner id="15">
+              <name>Ilana</name>
+              <id>4</id>
+              <trees id="16">
+                <tree reference="12"/>
+              </trees>
+              <surveys id="17"/>
+            </owner>
+            <treeMunicipality reference="9"/>
+            <versions id="18">
+              <ca.mcgill.ecse321.TreePLE.model.Version id="19">
+                <idNumber>1.0</idNumber>
+                <date>2018</date>
+                <trees id="20">
+                  <tree reference="12"/>
+                </trees>
+                <sustainabilityReports id="21"/>
+              </ca.mcgill.ecse321.TreePLE.model.Version>
+            </versions>
+          </tree>
+        </listOfTrees>
+      </treeMunicipality>
+      <versions id="22">
+        <ca.mcgill.ecse321.TreePLE.model.Version id="23">
+          <idNumber>1.0</idNumber>
+          <date>2018</date>
+          <trees id="24">
+            <tree reference="3"/>
+          </trees>
+          <sustainabilityReports id="25"/>
+        </ca.mcgill.ecse321.TreePLE.model.Version>
+      </versions>
+    </tree>
+    <tree reference="12"/>
+  </trees>
+  <locations id="26"/>
+  <surveys id="27"/>
+  <municipalities id="28">
+    <ca.mcgill.ecse321.TreePLE.model.Municipality reference="9"/>
+  </municipalities>
+  <users id="29"/>
 </manager>
