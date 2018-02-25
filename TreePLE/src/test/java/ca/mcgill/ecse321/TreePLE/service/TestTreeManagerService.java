@@ -23,7 +23,7 @@ import ca.mcgill.ecse321.TreePLE.persistence.PersistenceXStream;
 
 
 public class TestTreeManagerService {
-	//TODO: ADD SURVEY + MUNICIPALITIES, REMOVED VERSION FROM CREATEtREE
+	//TODO: MUNICIPALITIES
 	private TreeManager tm;
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
@@ -57,7 +57,7 @@ public class TestTreeManagerService {
 		ownerLoc[0]=l1_res1;ownerLoc[1]=l2_res1;ownerLoc[2]=l3_res1;ownerLoc[3]=l4_res1;
 		User owner = new LocalResident("Ilana",ownerLoc);
 		Municipality m = new Municipality("Outremont");
-		Version v1 = new Version("1.0",2018);
+		
 		Tree.LandUse land = Tree.LandUse.Residential;
 		TreeManagerService tmc = new TreeManagerService(tm);
 		try {
@@ -65,10 +65,10 @@ public class TestTreeManagerService {
 		} catch (InvalidInputException e) {
 			e.printStackTrace();
 		}
-		checkResultTree(species, 1.5, 0.2, treeLoc,owner, m,v1, tm, land);
+		checkResultTree(species, 1.5, 0.2, treeLoc,owner, m, tm, land);
 		tm = (TreeManager) PersistenceXStream.loadFromXMLwithXStream();
 		// check file contents
-		checkResultTree(species, 1.5, 0.2, treeLoc,owner, m,v1, tm, land);
+		checkResultTree(species, 1.5, 0.2, treeLoc,owner, m, tm, land);
 	
 	}
 	@Test
@@ -84,7 +84,10 @@ public class TestTreeManagerService {
 		Tree.LandUse land = null;
 		TreeManagerService tmc = new TreeManagerService(tm);
 		try {
-			tmc.createTree(species, 1.5, 0.2, treeLoc,owner, m,v1, land);
+			//String species,  double height, double diameter, 
+			// Location location, User owner, 
+			//Municipality municipality,  Tree.LandUse land
+			tmc.createTree(species, 1.5, 0.2, treeLoc,owner, m, land );
 		} catch (InvalidInputException e) {
 			error = e.getMessage();
 		}
@@ -100,7 +103,7 @@ public class TestTreeManagerService {
 
 	private void checkResultTree(String species, double height, double diam, 
 			 Location treeLoc, User owner,
-			Municipality m, Version v1, TreeManager tm2, Tree.LandUse land) {
+			Municipality m, TreeManager tm2, Tree.LandUse land) {
 		assertEquals(1, tm2.getTrees().size());
 		assertEquals("White Ash", tm.getTree(0).getSpecies());
 		assertEquals(1.5, tm.getTree(0).getHeight(),0);
@@ -110,7 +113,6 @@ public class TestTreeManagerService {
 		assertEquals(treeLoc.getLongitude(), tm.getTree(0).getCoordinates().getLongitude(),0);
 		assertEquals(owner.getName(), tm.getTree(0).getOwner().getName());
 		assertEquals(m.getName(), tm.getTree(0).getTreeMunicipality().getName());
-		assertEquals(v1.getIdNumber(), tm.getTree(0).getVersion(0).getIdNumber());
 		assertEquals(LandUse.Residential, tm.getTree(0).getLand());
 		
 	}

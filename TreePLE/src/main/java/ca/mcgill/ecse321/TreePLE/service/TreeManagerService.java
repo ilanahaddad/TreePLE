@@ -23,9 +23,10 @@ public class TreeManagerService {
 	public Tree createTree(String species,  double height, double diameter, 
 			 Location location, User owner, 
 			Municipality municipality,  Tree.LandUse land) throws InvalidInputException{
-		/*if(species==null || location==null || owner == null || municipality==null) {
+		if(species==null || location==null || owner == null || municipality==null) {
 			throw new InvalidInputException("Error: Species name, tree location, owner, municipality, or version cannot be null!");
-		}*/
+		}
+		
 		if(location.hasTreeInLocation()) {
 		//TODO: write test for this error message
 			throw new InvalidInputException("There is already a tree in this location!");
@@ -35,8 +36,10 @@ public class TreeManagerService {
 		Version version= new Version("1.0", 2018);
 		Tree t = new Tree(species, height, diameter,location, owner, municipality, version);
 		t.setLand(land);
-
+		
+		location.setTreeInLocation(t);
 		tm.addTree(t);
+		
 		PersistenceXStream.saveToXMLwithXStream(tm);
 		return t;
 	}
@@ -79,7 +82,10 @@ public class TreeManagerService {
 				return l;
 			}
 		}
-		return new Location(lati,longi); //return new one if existing one wasnt found in for loop
+		Location location=new Location(lati,longi); //return new one if existing one wasnt found in for loop
+		tm.addLocation(location);
+		return location;
+				
 	}
 	public User getOwnerByName(String name) {
 		//look through all users and check if name matches
@@ -91,7 +97,9 @@ public class TreeManagerService {
 				return u;
 			}
 		}
-		return new User(name);
+		User user= new User(name);
+		tm.addUser(user);
+		return user;
 	}
 	public List<Municipality> findAllMunicipalities() {
 		

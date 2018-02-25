@@ -2,6 +2,8 @@ package ca.mcgill.ecse321.TreePLE.controller;
 
 import java.sql.Date;
 import java.sql.Time;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,6 +12,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.DateTimeFormat.ISO;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -37,7 +40,7 @@ public class TreeManagerRestController {
 	@Autowired
 	private TreeManagerService treeManagerService;
 	
-	
+	@Autowired
 	private SurveyService surveyService;
 
 	@Autowired
@@ -128,16 +131,21 @@ public class TreeManagerRestController {
 		return convertToDto(t);
 	}
 	@PostMapping(value = {"/newSurvey", "/newSurvey/"})
-	public SurveyDto createSurvey(@RequestParam @DateTimeFormat(iso=DateTimeFormat.ISO.DATE, pattern = "YYYY-MM-DD") Date reportDate,
-			//@RequestParam(name = "reportDate") Date reportDate,
+	public SurveyDto createSurvey(
+			//@PathVariable(name="reportDate") @DateTimeFormat(pattern= "yyyy-MM-dd") Date reportDate,
+			//@PathVariable("reportDate") @DateTimeFormat(pattern = "yyyy-MM-dd") Date reportDate,
+			
+			@RequestParam Date reportDate,
 			//@RequestParam(name = "tree") TreeDto treeDto, 
 			@RequestParam(name = "tree") int treeID, 
 			@RequestParam(name = "surveyor") UserDto surveyorDto,
-			@RequestParam(name = "newTreeStatus") Tree.Status newTreeStatus) throws InvalidInputException{
+			@RequestParam(name = "newTreeStatus") Tree.Status newTreeStatus
+			) throws InvalidInputException{
+		
 		Tree tree = surveyService.getTreeById(treeID);
 		//Tree tree = surveyService.getTreeById(treeDto.getId());
 		User surveyor = surveyService.getSurveyorByName(surveyorDto.getName());
-		Survey s = surveyService.createSurvey(reportDate, tree, surveyor, newTreeStatus);
+		Survey s = surveyService.createSurvey(reportDate, tree,surveyor, newTreeStatus);
 		return convertToDto(s);
 	}
 	//if user doesn't find municipality in dropdown for createTree, they create a new one

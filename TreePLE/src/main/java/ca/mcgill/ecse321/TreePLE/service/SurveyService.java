@@ -19,19 +19,19 @@ public class SurveyService {
 	public SurveyService(TreeManager tm) {
 		this.tm=tm;
 	}
+	//status newtree status
 	public Survey createSurvey(Date reportDate, Tree tree, User surveyor, Status newTreeStatus) throws InvalidInputException{
-		if(newTreeStatus == tree.getStatus()) { //if status is already the one requested
+		/*if(newTreeStatus == tree.getStatus()) { //if status is already the one requested
 			throw new InvalidInputException("Error: This tree already has this status");
 			//TODO: write test for this error
-		}
-		if(reportDate == null) {
+		}*/
+		/*if(reportDate == null) {
 			throw new InvalidInputException("Error: Report Date is null");
-		}
-
+		}*/
 		
 		Survey s = new Survey(reportDate, tree, surveyor);
 	
-		tree.setStatus(newTreeStatus);
+		tree.setStatus(Tree.Status.Diseased);
 		tm.addSurvey(s);
 		PersistenceXStream.saveToXMLwithXStream(tm);
 		return s;
