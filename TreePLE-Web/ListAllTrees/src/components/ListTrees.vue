@@ -9,7 +9,8 @@
 	  <td>Diameter (in metres)</td>
 	  <td>Municipality</td>
           <td>Owner</td>
-	  <td>Coordinates</td>
+	  <td>Longitude</td>
+          <td>Latitude</td>
 	  <td>Status</td>
       </tr>
       <tr v-for="tree in trees" >
@@ -17,9 +18,10 @@
         <td>{{ tree.species }}</td>
         <td>{{ tree.height }}</td>
         <td>{{ tree.diameter }}</td>
-        <td>{{ tree.treeMunicipality }}</td>
-        <td>{{ tree.owner }}</td>
-        <td>{{ tree.coordinates }}</td>
+        <td>{{ tree.treeMunicipality.name }}</td>
+        <td>{{ tree.owner.name }}</td>
+        <td>{{ tree.coordinates.longitude }}</td>
+        <td>{{ tree.coordinates.latitude }}</td>
         <td>{{ tree.status }}</td>
       </tr>
     <!-- ... -->
