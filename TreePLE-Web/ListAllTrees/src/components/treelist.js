@@ -9,12 +9,17 @@ var AXIOS = axios.create({
   headers: { 'Access-Control-Allow-Origin': frontendUrl }
 })
 
-function TreeDto (id, species, longitude, latitude, status) {
+function TreeDto (species, height, diameter, coordinates, owner, treeMunicipality, versions, land, status, id) {
   this.id = id
   this.species = species
-  this.longitude = longitude
-  this.latitude = latitude
-  this.status = status
+  this.status = status 
+  this.height = height
+  this.diameter = diameter
+  this.coordinates = coordinates
+  this.owner = owner
+  this.treeMunicipality = treeMunicipality
+  this.versions = versions
+  this.land = land
 }
 
 export default {
@@ -38,31 +43,31 @@ export default {
       this.errorTree = e;
     });
     // Test data
-    //const t1 = new TreeDto('123', 'Pine', '60908', '45452', 'Planted')
-    //const t2 = new TreeDto('124', 'Cedar', '60910', '45600', 'Planted')
+    const t1 = new TreeDto('Pine', '4', '0.5', 'coordinates', 'Thomas', 'Outremont', '1', 'Park', 'Planted', '112')
+    const t2 = new TreeDto('Cedar', '4', '0.5', 'coordinates', 'Thomas', 'Outremont', '1', 'Park', 'Planted', '112')
     // Sample initial content
-    //this.trees = [t1, t2]
+    this.trees = [t1, t2]
   },
 
-  methods: {
-    createTree: function (treeId, treeSpecies, treeLongitude, treeLatitude, treeStatus) {
-      AXIOS.post(`/trees/`+treeId, {}, {})
-      .then(response => {
+  //methods: {
+    //createTree: function (treeId, treeSpecies, treeLongitude, treeLatitude, treeStatus) {
+      //AXIOS.post(`/trees/`+treeId, {}, {})
+      //.then(response => {
         // JSON responses are automatically parsed.
-        this.trees.push(response.data)
-        this.newTree = ''
-        this.errorTree = ''
-      })
-      .catch(e => {
-        var errorMsg = e.message
-        console.log(errorMsg)
-        this.errorTree = errorMsg
-      });
+        //this.trees.push(response.data)
+        //this.newTree = ''
+        //this.errorTree = ''
+      //})
+      //.catch(e => {
+       // var errorMsg = e.message
+        //console.log(errorMsg)
+        //this.errorTree = errorMsg
+      //});
       // Create a new participant and add it to the list of participants
       //var t = new TreeDto(treeId, treeSpecies, treeLongitude, treeLatitude, treeStatus)
       //this.trees.push(t)
       // Reset the name field for new participants
       //this.newTree = ''
-    }
-  }
+    //}
+  //}
 }
