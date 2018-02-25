@@ -12,265 +12,294 @@
           <reportDate id="6">2018-02-02</reportDate>
           <tree reference="3"/>
         </ca.mcgill.ecse321.TreePLE.model.Survey>
-      </surveys>
-      <coordinates id="7">
-        <latitude>1.5</latitude>
-        <longitude>1.5</longitude>
-        <treeInLocation reference="3"/>
-      </coordinates>
-      <owner id="8">
-        <name>Ilana</name>
-        <id>3</id>
-        <trees id="9">
+        <ca.mcgill.ecse321.TreePLE.model.Survey id="7">
+          <reportDate id="8">2018-02-23</reportDate>
           <tree reference="3"/>
-        </trees>
-        <surveys id="10"/>
-      </owner>
-      <treeMunicipality id="11">
-        <name>Outremont</name>
-        <forecasts id="12"/>
-        <listOfTrees id="13">
-          <tree reference="3"/>
-          <tree id="14">
-            <species>WhiteOak</species>
-            <height>1.5</height>
-            <status>Planted</status>
-            <diameter>0.2</diameter>
-            <land>Residential</land>
-            <id>4</id>
-            <surveys id="15"/>
-            <coordinates id="16">
-              <latitude>1.5</latitude>
-              <longitude>1.5</longitude>
-              <treeInLocation reference="14"/>
-            </coordinates>
-            <owner id="17">
-              <name>Ilana</name>
-              <id>4</id>
-              <trees id="18">
-                <tree reference="14"/>
-              </trees>
-              <surveys id="19"/>
-            </owner>
-            <treeMunicipality reference="11"/>
-            <versions id="20">
-              <ca.mcgill.ecse321.TreePLE.model.Version id="21">
-                <idNumber>1.0</idNumber>
-                <date>2018</date>
-                <trees id="22">
-                  <tree reference="14"/>
-                </trees>
-                <sustainabilityReports id="23"/>
-              </ca.mcgill.ecse321.TreePLE.model.Version>
-            </versions>
-          </tree>
-          <tree id="24">
-            <species>WhiteOak</species>
-            <height>1.5</height>
-            <status>Diseased</status>
-            <diameter>0.2</diameter>
-            <land>Residential</land>
-            <id>2</id>
-            <surveys id="25">
-              <ca.mcgill.ecse321.TreePLE.model.Survey id="26">
-                <reportDate id="27">2018-02-23</reportDate>
-                <tree reference="24"/>
-                <surveyor id="28">
-                  <name>Thomas</name>
-                  <id>1</id>
-                  <trees id="29">
-                    <tree id="30">
+          <surveyor id="9">
+            <name>Ilana</name>
+            <id>1</id>
+            <trees id="10">
+              <tree id="11">
+                <species>WhiteOak</species>
+                <height>1.5</height>
+                <status>Planted</status>
+                <diameter>0.2</diameter>
+                <land>Residential</land>
+                <id>1</id>
+                <surveys id="12"/>
+                <coordinates id="13">
+                  <latitude>1.5</latitude>
+                  <longitude>1.5</longitude>
+                  <treeInLocation reference="11"/>
+                </coordinates>
+                <owner reference="9"/>
+                <treeMunicipality id="14">
+                  <name>Outremont</name>
+                  <forecasts id="15"/>
+                  <listOfTrees id="16">
+                    <tree reference="3"/>
+                    <tree id="17">
                       <species>WhiteOak</species>
                       <height>1.5</height>
                       <status>Planted</status>
                       <diameter>0.2</diameter>
-                      <id>1</id>
-                      <surveys id="31"/>
-                      <coordinates id="32">
+                      <land>Residential</land>
+                      <id>4</id>
+                      <surveys id="18"/>
+                      <coordinates id="19">
                         <latitude>1.5</latitude>
                         <longitude>1.5</longitude>
-                        <treeInLocation reference="30"/>
+                        <treeInLocation reference="17"/>
                       </coordinates>
-                      <owner reference="28"/>
+                      <owner id="20">
+                        <name>Ilana</name>
+                        <id>4</id>
+                        <trees id="21">
+                          <tree reference="17"/>
+                        </trees>
+                        <surveys id="22"/>
+                      </owner>
+                      <treeMunicipality reference="14"/>
+                      <versions id="23">
+                        <ca.mcgill.ecse321.TreePLE.model.Version id="24">
+                          <idNumber>1.0</idNumber>
+                          <date>2018</date>
+                          <trees id="25">
+                            <tree reference="17"/>
+                          </trees>
+                          <sustainabilityReports id="26"/>
+                        </ca.mcgill.ecse321.TreePLE.model.Version>
+                      </versions>
                     </tree>
-                    <tree reference="24"/>
-                  </trees>
-                  <surveys id="33">
-                    <ca.mcgill.ecse321.TreePLE.model.Survey reference="26"/>
-                  </surveys>
-                </surveyor>
+                    <tree id="27">
+                      <species>WhiteOak</species>
+                      <height>1.5</height>
+                      <status>Diseased</status>
+                      <diameter>0.2</diameter>
+                      <land>Residential</land>
+                      <id>2</id>
+                      <surveys id="28">
+                        <ca.mcgill.ecse321.TreePLE.model.Survey id="29">
+                          <reportDate id="30">2018-02-23</reportDate>
+                          <tree reference="27"/>
+                          <surveyor id="31">
+                            <name>Thomas</name>
+                            <id>1</id>
+                            <trees id="32">
+                              <tree id="33">
+                                <species>WhiteOak</species>
+                                <height>1.5</height>
+                                <status>Planted</status>
+                                <diameter>0.2</diameter>
+                                <id>1</id>
+                                <surveys id="34"/>
+                                <coordinates id="35">
+                                  <latitude>1.5</latitude>
+                                  <longitude>1.5</longitude>
+                                  <treeInLocation reference="33"/>
+                                </coordinates>
+                                <owner reference="31"/>
+                              </tree>
+                              <tree reference="27"/>
+                            </trees>
+                            <surveys id="36">
+                              <ca.mcgill.ecse321.TreePLE.model.Survey reference="29"/>
+                            </surveys>
+                          </surveyor>
+                        </ca.mcgill.ecse321.TreePLE.model.Survey>
+                      </surveys>
+                      <coordinates id="37">
+                        <latitude>1.5</latitude>
+                        <longitude>1.5</longitude>
+                        <treeInLocation reference="27"/>
+                      </coordinates>
+                      <owner reference="31"/>
+                      <treeMunicipality reference="14"/>
+                      <versions id="38">
+                        <ca.mcgill.ecse321.TreePLE.model.Version id="39">
+                          <idNumber>1.0</idNumber>
+                          <date>2018</date>
+                          <trees id="40">
+                            <tree reference="27"/>
+                          </trees>
+                          <sustainabilityReports id="41"/>
+                        </ca.mcgill.ecse321.TreePLE.model.Version>
+                      </versions>
+                    </tree>
+                    <tree reference="11"/>
+                    <tree id="42">
+                      <species>WhiteOak</species>
+                      <height>1.5</height>
+                      <status>Planted</status>
+                      <diameter>0.2</diameter>
+                      <land>Residential</land>
+                      <id>2</id>
+                      <surveys id="43"/>
+                      <coordinates id="44">
+                        <latitude>1.5</latitude>
+                        <longitude>1.5</longitude>
+                        <treeInLocation reference="42"/>
+                      </coordinates>
+                      <owner reference="9"/>
+                      <treeMunicipality reference="14"/>
+                      <versions id="45">
+                        <ca.mcgill.ecse321.TreePLE.model.Version id="46">
+                          <idNumber>1.0</idNumber>
+                          <date>2018</date>
+                          <trees id="47">
+                            <tree reference="42"/>
+                          </trees>
+                          <sustainabilityReports id="48"/>
+                        </ca.mcgill.ecse321.TreePLE.model.Version>
+                      </versions>
+                    </tree>
+                    <tree id="49">
+                      <species>WhiteOak</species>
+                      <height>1.5</height>
+                      <status>Planted</status>
+                      <diameter>0.2</diameter>
+                      <land>Residential</land>
+                      <id>3</id>
+                      <surveys id="50"/>
+                      <coordinates id="51">
+                        <latitude>1.5</latitude>
+                        <longitude>1.5</longitude>
+                        <treeInLocation reference="49"/>
+                      </coordinates>
+                      <owner reference="9"/>
+                      <treeMunicipality reference="14"/>
+                      <versions id="52">
+                        <ca.mcgill.ecse321.TreePLE.model.Version id="53">
+                          <idNumber>1.0</idNumber>
+                          <date>2018</date>
+                          <trees id="54">
+                            <tree reference="49"/>
+                          </trees>
+                          <sustainabilityReports id="55"/>
+                        </ca.mcgill.ecse321.TreePLE.model.Version>
+                      </versions>
+                    </tree>
+                    <tree id="56">
+                      <species>WhiteOak</species>
+                      <height>1.5</height>
+                      <status>Planted</status>
+                      <diameter>0.2</diameter>
+                      <land>Residential</land>
+                      <id>1</id>
+                      <surveys id="57"/>
+                      <coordinates id="58">
+                        <latitude>1.5</latitude>
+                        <longitude>1.5</longitude>
+                        <treeInLocation reference="56"/>
+                      </coordinates>
+                      <owner id="59">
+                        <name>Asma</name>
+                        <id>1</id>
+                        <trees id="60">
+                          <tree reference="56"/>
+                        </trees>
+                        <surveys id="61"/>
+                      </owner>
+                      <treeMunicipality reference="14"/>
+                      <versions id="62">
+                        <ca.mcgill.ecse321.TreePLE.model.Version id="63">
+                          <idNumber>1.0</idNumber>
+                          <date>2018</date>
+                          <trees id="64">
+                            <tree reference="56"/>
+                          </trees>
+                          <sustainabilityReports id="65"/>
+                        </ca.mcgill.ecse321.TreePLE.model.Version>
+                      </versions>
+                    </tree>
+                  </listOfTrees>
+                </treeMunicipality>
+                <versions id="66">
+                  <ca.mcgill.ecse321.TreePLE.model.Version id="67">
+                    <idNumber>1.0</idNumber>
+                    <date>2018</date>
+                    <trees id="68">
+                      <tree reference="11"/>
+                    </trees>
+                    <sustainabilityReports id="69"/>
+                  </ca.mcgill.ecse321.TreePLE.model.Version>
+                </versions>
+              </tree>
+              <tree reference="42"/>
+              <tree reference="49"/>
+            </trees>
+            <surveys id="70">
+              <ca.mcgill.ecse321.TreePLE.model.Survey reference="7"/>
+              <ca.mcgill.ecse321.TreePLE.model.Survey id="71">
+                <reportDate id="72">2018-02-23</reportDate>
+                <tree reference="3"/>
+                <surveyor reference="9"/>
+              </ca.mcgill.ecse321.TreePLE.model.Survey>
+              <ca.mcgill.ecse321.TreePLE.model.Survey id="73">
+                <reportDate id="74">2018-02-23</reportDate>
+                <tree reference="3"/>
+                <surveyor reference="9"/>
+              </ca.mcgill.ecse321.TreePLE.model.Survey>
+              <ca.mcgill.ecse321.TreePLE.model.Survey id="75">
+                <reportDate id="76">2018-02-23</reportDate>
+                <tree reference="3"/>
+                <surveyor reference="9"/>
               </ca.mcgill.ecse321.TreePLE.model.Survey>
             </surveys>
-            <coordinates id="34">
-              <latitude>1.5</latitude>
-              <longitude>1.5</longitude>
-              <treeInLocation reference="24"/>
-            </coordinates>
-            <owner reference="28"/>
-            <treeMunicipality reference="11"/>
-            <versions id="35">
-              <ca.mcgill.ecse321.TreePLE.model.Version id="36">
-                <idNumber>1.0</idNumber>
-                <date>2018</date>
-                <trees id="37">
-                  <tree reference="24"/>
-                </trees>
-                <sustainabilityReports id="38"/>
-              </ca.mcgill.ecse321.TreePLE.model.Version>
-            </versions>
-          </tree>
-          <tree id="39">
-            <species>WhiteOak</species>
-            <height>1.5</height>
-            <status>Planted</status>
-            <diameter>0.2</diameter>
-            <land>Residential</land>
-            <id>1</id>
-            <surveys id="40"/>
-            <coordinates id="41">
-              <latitude>1.5</latitude>
-              <longitude>1.5</longitude>
-              <treeInLocation reference="39"/>
-            </coordinates>
-            <owner id="42">
-              <name>Ilana</name>
-              <id>1</id>
-              <trees id="43">
-                <tree reference="39"/>
-                <tree id="44">
-                  <species>WhiteOak</species>
-                  <height>1.5</height>
-                  <status>Planted</status>
-                  <diameter>0.2</diameter>
-                  <land>Residential</land>
-                  <id>2</id>
-                  <surveys id="45"/>
-                  <coordinates id="46">
-                    <latitude>1.5</latitude>
-                    <longitude>1.5</longitude>
-                    <treeInLocation reference="44"/>
-                  </coordinates>
-                  <owner reference="42"/>
-                  <treeMunicipality reference="11"/>
-                  <versions id="47">
-                    <ca.mcgill.ecse321.TreePLE.model.Version id="48">
-                      <idNumber>1.0</idNumber>
-                      <date>2018</date>
-                      <trees id="49">
-                        <tree reference="44"/>
-                      </trees>
-                      <sustainabilityReports id="50"/>
-                    </ca.mcgill.ecse321.TreePLE.model.Version>
-                  </versions>
-                </tree>
-                <tree id="51">
-                  <species>WhiteOak</species>
-                  <height>1.5</height>
-                  <status>Planted</status>
-                  <diameter>0.2</diameter>
-                  <land>Residential</land>
-                  <id>3</id>
-                  <surveys id="52"/>
-                  <coordinates id="53">
-                    <latitude>1.5</latitude>
-                    <longitude>1.5</longitude>
-                    <treeInLocation reference="51"/>
-                  </coordinates>
-                  <owner reference="42"/>
-                  <treeMunicipality reference="11"/>
-                  <versions id="54">
-                    <ca.mcgill.ecse321.TreePLE.model.Version id="55">
-                      <idNumber>1.0</idNumber>
-                      <date>2018</date>
-                      <trees id="56">
-                        <tree reference="51"/>
-                      </trees>
-                      <sustainabilityReports id="57"/>
-                    </ca.mcgill.ecse321.TreePLE.model.Version>
-                  </versions>
-                </tree>
-              </trees>
-              <surveys id="58"/>
-            </owner>
-            <treeMunicipality reference="11"/>
-            <versions id="59">
-              <ca.mcgill.ecse321.TreePLE.model.Version id="60">
-                <idNumber>1.0</idNumber>
-                <date>2018</date>
-                <trees id="61">
-                  <tree reference="39"/>
-                </trees>
-                <sustainabilityReports id="62"/>
-              </ca.mcgill.ecse321.TreePLE.model.Version>
-            </versions>
-          </tree>
-          <tree reference="44"/>
-          <tree reference="51"/>
-          <tree id="63">
-            <species>WhiteOak</species>
-            <height>1.5</height>
-            <status>Planted</status>
-            <diameter>0.2</diameter>
-            <land>Residential</land>
-            <id>1</id>
-            <surveys id="64"/>
-            <coordinates id="65">
-              <latitude>1.5</latitude>
-              <longitude>1.5</longitude>
-              <treeInLocation reference="63"/>
-            </coordinates>
-            <owner id="66">
-              <name>Asma</name>
-              <id>1</id>
-              <trees id="67">
-                <tree reference="63"/>
-              </trees>
-              <surveys id="68"/>
-            </owner>
-            <treeMunicipality reference="11"/>
-            <versions id="69">
-              <ca.mcgill.ecse321.TreePLE.model.Version id="70">
-                <idNumber>1.0</idNumber>
-                <date>2018</date>
-                <trees id="71">
-                  <tree reference="63"/>
-                </trees>
-                <sustainabilityReports id="72"/>
-              </ca.mcgill.ecse321.TreePLE.model.Version>
-            </versions>
-          </tree>
-        </listOfTrees>
-      </treeMunicipality>
-      <versions id="73">
-        <ca.mcgill.ecse321.TreePLE.model.Version id="74">
+          </surveyor>
+        </ca.mcgill.ecse321.TreePLE.model.Survey>
+        <ca.mcgill.ecse321.TreePLE.model.Survey reference="71"/>
+        <ca.mcgill.ecse321.TreePLE.model.Survey reference="73"/>
+        <ca.mcgill.ecse321.TreePLE.model.Survey reference="75"/>
+      </surveys>
+      <coordinates id="77">
+        <latitude>1.5</latitude>
+        <longitude>1.5</longitude>
+        <treeInLocation reference="3"/>
+      </coordinates>
+      <owner id="78">
+        <name>Ilana</name>
+        <id>3</id>
+        <trees id="79">
+          <tree reference="3"/>
+        </trees>
+        <surveys id="80"/>
+      </owner>
+      <treeMunicipality reference="14"/>
+      <versions id="81">
+        <ca.mcgill.ecse321.TreePLE.model.Version id="82">
           <idNumber>1.0</idNumber>
           <date>2018</date>
-          <trees id="75">
+          <trees id="83">
             <tree reference="3"/>
           </trees>
-          <sustainabilityReports id="76"/>
+          <sustainabilityReports id="84"/>
         </ca.mcgill.ecse321.TreePLE.model.Version>
       </versions>
     </tree>
-    <tree reference="14"/>
-    <tree reference="24"/>
-    <tree reference="39"/>
-    <tree reference="44"/>
-    <tree reference="51"/>
-    <tree reference="63"/>
+    <tree reference="17"/>
+    <tree reference="27"/>
+    <tree reference="11"/>
+    <tree reference="42"/>
+    <tree reference="49"/>
+    <tree reference="56"/>
   </trees>
-  <locations id="77">
-    <location reference="65"/>
+  <locations id="85">
+    <location reference="58"/>
   </locations>
-  <surveys id="78">
-    <ca.mcgill.ecse321.TreePLE.model.Survey reference="26"/>
+  <surveys id="86">
+    <ca.mcgill.ecse321.TreePLE.model.Survey reference="29"/>
+    <ca.mcgill.ecse321.TreePLE.model.Survey reference="7"/>
+    <ca.mcgill.ecse321.TreePLE.model.Survey reference="71"/>
+    <ca.mcgill.ecse321.TreePLE.model.Survey reference="73"/>
+    <ca.mcgill.ecse321.TreePLE.model.Survey reference="75"/>
   </surveys>
-  <municipalities id="79">
-    <ca.mcgill.ecse321.TreePLE.model.Municipality reference="11"/>
+  <municipalities id="87">
+    <ca.mcgill.ecse321.TreePLE.model.Municipality reference="14"/>
   </municipalities>
-  <users id="80">
-    <ca.mcgill.ecse321.TreePLE.model.User reference="28"/>
-    <ca.mcgill.ecse321.TreePLE.model.User reference="42"/>
-    <ca.mcgill.ecse321.TreePLE.model.User reference="66"/>
+  <users id="88">
+    <ca.mcgill.ecse321.TreePLE.model.User reference="31"/>
+    <ca.mcgill.ecse321.TreePLE.model.User reference="9"/>
+    <ca.mcgill.ecse321.TreePLE.model.User reference="59"/>
   </users>
 </manager>

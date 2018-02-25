@@ -33,9 +33,9 @@ public class SurveyService {
 		}
 		
 		Survey s = new Survey(reportDate, tree, surveyor);
-	
-		tree.setStatus(Tree.Status.Diseased);
+		tree.setStatus(newTreeStatus);
 		tm.addSurvey(s);
+		
 		PersistenceXStream.saveToXMLwithXStream(tm);
 		return s;
 	}
