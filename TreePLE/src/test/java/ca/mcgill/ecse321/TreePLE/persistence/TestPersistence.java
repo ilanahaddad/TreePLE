@@ -88,7 +88,6 @@ public class TestPersistence {
 		assertEquals("White Ash", tm.getTree(0).getSpecies());
 		assertEquals(height, tm.getTree(0).getHeight(),0);
 		assertEquals(diameter, tm.getTree(0).getDiameter(),0);
-		assertEquals(1, tm.getTree(0).getId());
 		assertEquals(m.getName(), tm.getTree(0).getTreeMunicipality().getName());
 		assertEquals(l1.getLatitude(), tm.getTree(0).getCoordinates().getLatitude(),0);
 		assertEquals(l1.getLongitude(), tm.getTree(0).getCoordinates().getLongitude(),0);

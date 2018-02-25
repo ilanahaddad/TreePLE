@@ -26,10 +26,12 @@ public class TreeManagerService {
 		if(species==null || location==null || owner == null || municipality==null) {
 			throw new InvalidInputException("Error: Species name, tree location, owner, municipality, or version cannot be null!");
 		}
-		
+		if(species==" " ) {
+			throw new InvalidInputException("Error: Species name is empty!");
+		}
 		if(location.hasTreeInLocation()) {
 		//TODO: write test for this error message
-			throw new InvalidInputException("There is already a tree in this location!");
+			throw new InvalidInputException("Error: There is already a tree in this location!");
 		}
 		//TODO: if owner is a local resident, check tree location is contained in owner's perimeter
 		
@@ -45,6 +47,12 @@ public class TreeManagerService {
 	}
 	public Municipality createMunicipality(String name) throws InvalidInputException {
 		List<Municipality> municipalities = tm.getMunicipalities();
+		if (name==null) {
+			throw new InvalidInputException("Error: Name of Municipality is null!");
+		}
+		if (name==" ") {
+			throw new InvalidInputException("Error: Name of Municipality is blank!");
+		}
 		for(Municipality m: municipalities) {
 			if(name == m.getName()) {
 				throw new InvalidInputException("Error: Municipality already exists.");
@@ -52,6 +60,7 @@ public class TreeManagerService {
 		}
 		Municipality municipality = new Municipality(name);
 		tm.addMunicipality(municipality);
+		PersistenceXStream.saveToXMLwithXStream(tm);
 		return municipality;
 	}
 

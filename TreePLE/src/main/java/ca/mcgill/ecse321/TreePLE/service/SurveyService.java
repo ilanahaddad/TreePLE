@@ -21,13 +21,16 @@ public class SurveyService {
 	}
 	//status newtree status
 	public Survey createSurvey(Date reportDate, Tree tree, User surveyor, Status newTreeStatus) throws InvalidInputException{
-		/*if(newTreeStatus == tree.getStatus()) { //if status is already the one requested
+		//Check if any of the fields are null, and throw corresponding exception
+		if(reportDate == null||tree ==null||surveyor==null||newTreeStatus==null) {
+			throw new InvalidInputException("Error: Report Date, tree, surveyor, or status is null");
+		}
+		
+		//check if status is already the one requested
+		if(newTreeStatus == tree.getStatus()) { 
 			throw new InvalidInputException("Error: This tree already has this status");
-			//TODO: write test for this error
-		}*/
-		/*if(reportDate == null) {
-			throw new InvalidInputException("Error: Report Date is null");
-		}*/
+
+		}
 		
 		Survey s = new Survey(reportDate, tree, surveyor);
 	
