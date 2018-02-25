@@ -34,7 +34,7 @@ export default {
   },
   created: function () {
     // Initializing trees from backend
-    AXIOS.get(`/trees`)
+    AXIOS.get('/trees')
     .then(response => {
       // JSON responses are automatically parsed.
       this.trees = response.data
@@ -43,10 +43,10 @@ export default {
       this.errorTree = e;
     });
     // Test data
-    const t1 = new TreeDto('Pine', '4', '0.5', 'coordinates', 'Thomas', 'Outremont', '1', 'Park', 'Planted', '112')
-    const t2 = new TreeDto('Cedar', '4', '0.5', 'coordinates', 'Thomas', 'Outremont', '1', 'Park', 'Planted', '112')
+    //const t1 = new TreeDto('Pine', '4', '0.5', 'coordinates', 'Thomas', 'Outremont', '1', 'Park', 'Planted', '112')
+    //const t2 = new TreeDto('Cedar', '4', '0.5', 'coordinates', 'Thomas', 'Outremont', '1', 'Park', 'Planted', '112')
     // Sample initial content
-    this.trees = [t1, t2]
+    //this.trees = [t1, t2]
   },
 
   //methods: {
