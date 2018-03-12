@@ -3,6 +3,7 @@
 
 package ca.mcgill.ecse321.TreePLE.model;
 import java.util.*;
+import java.sql.Date;
 
 // line 28 "../../../../../TreePLE.ump"
 public class Professional extends User
@@ -13,55 +14,131 @@ public class Professional extends User
   //------------------------
 
   //Professional Associations
-  private SustainabilityReport report;
+  private List<SustainabilityReport> report;
 
   //------------------------
   // CONSTRUCTOR
   //------------------------
 
-  public Professional(String aName, SustainabilityReport aReport)
+  public Professional(String aName)
   {
     super(aName);
-    boolean didAddReport = setReport(aReport);
-    if (!didAddReport)
-    {
-      throw new RuntimeException("Unable to create reporter due to report");
-    }
+    report = new ArrayList<SustainabilityReport>();
   }
 
   //------------------------
   // INTERFACE
   //------------------------
 
-  public SustainabilityReport getReport()
+  public SustainabilityReport getReport(int index)
   {
-    return report;
+    SustainabilityReport aReport = report.get(index);
+    return aReport;
   }
 
-  public boolean setReport(SustainabilityReport aReport)
+  public List<SustainabilityReport> getReport()
   {
-    boolean wasSet = false;
-    if (aReport == null)
-    {
-      return wasSet;
-    }
+    List<SustainabilityReport> newReport = Collections.unmodifiableList(report);
+    return newReport;
+  }
 
-    SustainabilityReport existingReport = report;
-    report = aReport;
-    if (existingReport != null && !existingReport.equals(aReport))
+  public int numberOfReport()
+  {
+    int number = report.size();
+    return number;
+  }
+
+  public boolean hasReport()
+  {
+    boolean has = report.size() > 0;
+    return has;
+  }
+
+  public int indexOfReport(SustainabilityReport aReport)
+  {
+    int index = report.indexOf(aReport);
+    return index;
+  }
+
+  public static int minimumNumberOfReport()
+  {
+    return 0;
+  }
+
+  public SustainabilityReport addReport(Date aDate, Version aReportVersion, Location... allReportPerimeter)
+  {
+    return new SustainabilityReport(aDate, this, aReportVersion, allReportPerimeter);
+  }
+
+  public boolean addReport(SustainabilityReport aReport)
+  {
+    boolean wasAdded = false;
+    if (report.contains(aReport)) { return false; }
+    Professional existingReporter = aReport.getReporter();
+    boolean isNewReporter = existingReporter != null && !this.equals(existingReporter);
+    if (isNewReporter)
     {
-      existingReport.removeReporter(this);
+      aReport.setReporter(this);
     }
-    report.addReporter(this);
-    wasSet = true;
-    return wasSet;
+    else
+    {
+      report.add(aReport);
+    }
+    wasAdded = true;
+    return wasAdded;
+  }
+
+  public boolean removeReport(SustainabilityReport aReport)
+  {
+    boolean wasRemoved = false;
+    //Unable to remove aReport, as it must always have a reporter
+    if (!this.equals(aReport.getReporter()))
+    {
+      report.remove(aReport);
+      wasRemoved = true;
+    }
+    return wasRemoved;
+  }
+
+  public boolean addReportAt(SustainabilityReport aReport, int index)
+  {  
+    boolean wasAdded = false;
+    if(addReport(aReport))
+    {
+      if(index < 0 ) { index = 0; }
+      if(index > numberOfReport()) { index = numberOfReport() - 1; }
+      report.remove(aReport);
+      report.add(index, aReport);
+      wasAdded = true;
+    }
+    return wasAdded;
+  }
+
+  public boolean addOrMoveReportAt(SustainabilityReport aReport, int index)
+  {
+    boolean wasAdded = false;
+    if(report.contains(aReport))
+    {
+      if(index < 0 ) { index = 0; }
+      if(index > numberOfReport()) { index = numberOfReport() - 1; }
+      report.remove(aReport);
+      report.add(index, aReport);
+      wasAdded = true;
+    } 
+    else 
+    {
+      wasAdded = addReportAt(aReport, index);
+    }
+    return wasAdded;
   }
 
   public void delete()
   {
-    SustainabilityReport placeholderReport = report;
-    this.report = null;
-    placeholderReport.removeReporter(this);
+    for(int i=report.size(); i > 0; i--)
+    {
+      SustainabilityReport aReport = report.get(i - 1);
+      aReport.delete();
+    }
     super.delete();
   }
 

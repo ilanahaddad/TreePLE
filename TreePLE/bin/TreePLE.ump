@@ -60,7 +60,7 @@ association{
   1 Tree tree -- * Survey surveys;
    0..1 Tree treeInLocation -- 1 Location coordinates;
   * Tree trees -- 1 User owner;
-  * Professional reporter -- 1 SustainabilityReport report;
+  1 Professional reporter -- 0..* SustainabilityReport report;
   1 User surveyor -- * Survey surveys;
    
   * Forecast -> 0..* Tree treesInForecastArea;

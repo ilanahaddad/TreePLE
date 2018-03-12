@@ -17,7 +17,7 @@ public class SustainabilityReport
   private Date date;
 
   //SustainabilityReport Associations
-  private List<Professional> reporter;
+  private Professional reporter;
   private List<Location> reportPerimeter;
   private Version reportVersion;
 
@@ -25,10 +25,14 @@ public class SustainabilityReport
   // CONSTRUCTOR
   //------------------------
 
-  public SustainabilityReport(Date aDate, Version aReportVersion, Location... allReportPerimeter)
+  public SustainabilityReport(Date aDate, Professional aReporter, Version aReportVersion, Location... allReportPerimeter)
   {
     date = aDate;
-    reporter = new ArrayList<Professional>();
+    boolean didAddReporter = setReporter(aReporter);
+    if (!didAddReporter)
+    {
+      throw new RuntimeException("Unable to create report due to reporter");
+    }
     reportPerimeter = new ArrayList<Location>();
     boolean didAddReportPerimeter = setReportPerimeter(allReportPerimeter);
     if (!didAddReportPerimeter)
@@ -59,34 +63,9 @@ public class SustainabilityReport
     return date;
   }
 
-  public Professional getReporter(int index)
+  public Professional getReporter()
   {
-    Professional aReporter = reporter.get(index);
-    return aReporter;
-  }
-
-  public List<Professional> getReporter()
-  {
-    List<Professional> newReporter = Collections.unmodifiableList(reporter);
-    return newReporter;
-  }
-
-  public int numberOfReporter()
-  {
-    int number = reporter.size();
-    return number;
-  }
-
-  public boolean hasReporter()
-  {
-    boolean has = reporter.size() > 0;
-    return has;
-  }
-
-  public int indexOfReporter(Professional aReporter)
-  {
-    int index = reporter.indexOf(aReporter);
-    return index;
+    return reporter;
   }
 
   public Location getReportPerimeter(int index)
@@ -124,76 +103,23 @@ public class SustainabilityReport
     return reportVersion;
   }
 
-  public static int minimumNumberOfReporter()
+  public boolean setReporter(Professional aReporter)
   {
-    return 0;
-  }
-
-  public Professional addReporter(String aName)
-  {
-    return new Professional(aName, this);
-  }
-
-  public boolean addReporter(Professional aReporter)
-  {
-    boolean wasAdded = false;
-    if (reporter.contains(aReporter)) { return false; }
-    SustainabilityReport existingReport = aReporter.getReport();
-    boolean isNewReport = existingReport != null && !this.equals(existingReport);
-    if (isNewReport)
+    boolean wasSet = false;
+    if (aReporter == null)
     {
-      aReporter.setReport(this);
+      return wasSet;
     }
-    else
-    {
-      reporter.add(aReporter);
-    }
-    wasAdded = true;
-    return wasAdded;
-  }
 
-  public boolean removeReporter(Professional aReporter)
-  {
-    boolean wasRemoved = false;
-    //Unable to remove aReporter, as it must always have a report
-    if (!this.equals(aReporter.getReport()))
+    Professional existingReporter = reporter;
+    reporter = aReporter;
+    if (existingReporter != null && !existingReporter.equals(aReporter))
     {
-      reporter.remove(aReporter);
-      wasRemoved = true;
+      existingReporter.removeReport(this);
     }
-    return wasRemoved;
-  }
-
-  public boolean addReporterAt(Professional aReporter, int index)
-  {  
-    boolean wasAdded = false;
-    if(addReporter(aReporter))
-    {
-      if(index < 0 ) { index = 0; }
-      if(index > numberOfReporter()) { index = numberOfReporter() - 1; }
-      reporter.remove(aReporter);
-      reporter.add(index, aReporter);
-      wasAdded = true;
-    }
-    return wasAdded;
-  }
-
-  public boolean addOrMoveReporterAt(Professional aReporter, int index)
-  {
-    boolean wasAdded = false;
-    if(reporter.contains(aReporter))
-    {
-      if(index < 0 ) { index = 0; }
-      if(index > numberOfReporter()) { index = numberOfReporter() - 1; }
-      reporter.remove(aReporter);
-      reporter.add(index, aReporter);
-      wasAdded = true;
-    } 
-    else 
-    {
-      wasAdded = addReporterAt(aReporter, index);
-    }
-    return wasAdded;
+    reporter.addReport(this);
+    wasSet = true;
+    return wasSet;
   }
 
   public static int requiredNumberOfReportPerimeter()
@@ -256,11 +182,9 @@ public class SustainabilityReport
 
   public void delete()
   {
-    for(int i=reporter.size(); i > 0; i--)
-    {
-      Professional aReporter = reporter.get(i - 1);
-      aReporter.delete();
-    }
+    Professional placeholderReporter = reporter;
+    this.reporter = null;
+    placeholderReporter.removeReport(this);
     reportPerimeter.clear();
     Version placeholderReportVersion = reportVersion;
     this.reportVersion = null;
@@ -272,6 +196,7 @@ public class SustainabilityReport
   {
     return super.toString() + "["+ "]" + System.getProperties().getProperty("line.separator") +
             "  " + "date" + "=" + (getDate() != null ? !getDate().equals(this)  ? getDate().toString().replaceAll("  ","    ") : "this" : "null") + System.getProperties().getProperty("line.separator") +
+            "  " + "reporter = "+(getReporter()!=null?Integer.toHexString(System.identityHashCode(getReporter())):"null") + System.getProperties().getProperty("line.separator") +
             "  " + "reportVersion = "+(getReportVersion()!=null?Integer.toHexString(System.identityHashCode(getReportVersion())):"null");
   }
 }

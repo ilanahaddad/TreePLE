@@ -210,9 +210,9 @@ public class Version
     return 0;
   }
 
-  public SustainabilityReport addSustainabilityReport(Date aDate, Location... allReportPerimeter)
+  public SustainabilityReport addSustainabilityReport(Date aDate, Professional aReporter, Location... allReportPerimeter)
   {
-    return new SustainabilityReport(aDate, this, allReportPerimeter);
+    return new SustainabilityReport(aDate, aReporter, this, allReportPerimeter);
   }
 
   public boolean addSustainabilityReport(SustainabilityReport aSustainabilityReport)
