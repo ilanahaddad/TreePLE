@@ -1,3 +1,4 @@
+
 <template>
   <div id="listtrees">
     <h2>List of Trees</h2>
@@ -5,13 +6,13 @@
       <tr>
           <td>ID</td>
           <td>Species Type</td>
-	  <td>Height (in metres)</td>
-	  <td>Diameter (in metres)</td>
-	  <td>Municipality</td>
+    <td>Height (in metres)</td>
+    <td>Diameter (in metres)</td>
+    <td>Municipality</td>
           <td>Owner</td>
-	  <td>Longitude</td>
+    <td>Longitude</td>
           <td>Latitude</td>
-	  <td>Status</td>
+    <td>Status</td>
       </tr>
       <tr v-for="tree in trees" >
         <td>{{ tree.id }}</td>
@@ -29,7 +30,7 @@
           //<td>
               //<input type="text" placeholder="Species">
           //</td>
-	  //<td>
+    //<td>
               //<input type="text" placeholder="Latitude">
           //</td>
           //<td>
@@ -47,7 +48,21 @@
     <p>
       <span v-if="errorTree" style="color:red">Error: {{errorTree}} </span>
     </p>
-  </div>
+    <gmap-map
+      :center="center"
+      :zoom="13"
+      style="width: 700px; height: 400px"
+    >
+      <gmap-marker
+        :key="index"
+        v-for="(m, index) in markers"
+        :position="m.position"
+        :clickable="true"
+        :draggable="true"
+        @click="center=m.position"
+      ></gmap-marker>
+    </gmap-map>
+  </div> 
 </template>
 
 <script src="./treelist.js">
