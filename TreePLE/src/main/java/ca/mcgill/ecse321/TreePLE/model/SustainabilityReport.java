@@ -1,11 +1,11 @@
 /*PLEASE DO NOT EDIT THIS CODE*/
-/*This code was generated using the UMPLE 1.26.1-f40f105-3613 modeling language!*/
+/*This code was generated using the UMPLE 1.27.0.3728.d139ed893 modeling language!*/
 
 package ca.mcgill.ecse321.TreePLE.model;
 import java.sql.Date;
 import java.util.*;
 
-// line 32 "../../../../../TreePLE.ump"
+// line 26 "../../../../../TreePLE.ump"
 public class SustainabilityReport
 {
 
@@ -14,41 +14,39 @@ public class SustainabilityReport
   //------------------------
 
   //SustainabilityReport Attributes
+  private String reporterName;
   private Date date;
 
   //SustainabilityReport Associations
-  private Professional reporter;
   private List<Location> reportPerimeter;
-  private Version reportVersion;
 
   //------------------------
   // CONSTRUCTOR
   //------------------------
 
-  public SustainabilityReport(Date aDate, Professional aReporter, Version aReportVersion, Location... allReportPerimeter)
+  public SustainabilityReport(String aReporterName, Date aDate, Location... allReportPerimeter)
   {
+    reporterName = aReporterName;
     date = aDate;
-    boolean didAddReporter = setReporter(aReporter);
-    if (!didAddReporter)
-    {
-      throw new RuntimeException("Unable to create report due to reporter");
-    }
     reportPerimeter = new ArrayList<Location>();
     boolean didAddReportPerimeter = setReportPerimeter(allReportPerimeter);
     if (!didAddReportPerimeter)
     {
       throw new RuntimeException("Unable to create SustainabilityReport, must have 4 reportPerimeter");
     }
-    boolean didAddReportVersion = setReportVersion(aReportVersion);
-    if (!didAddReportVersion)
-    {
-      throw new RuntimeException("Unable to create sustainabilityReport due to reportVersion");
-    }
   }
 
   //------------------------
   // INTERFACE
   //------------------------
+
+  public boolean setReporterName(String aReporterName)
+  {
+    boolean wasSet = false;
+    reporterName = aReporterName;
+    wasSet = true;
+    return wasSet;
+  }
 
   public boolean setDate(Date aDate)
   {
@@ -58,14 +56,14 @@ public class SustainabilityReport
     return wasSet;
   }
 
+  public String getReporterName()
+  {
+    return reporterName;
+  }
+
   public Date getDate()
   {
     return date;
-  }
-
-  public Professional getReporter()
-  {
-    return reporter;
   }
 
   public Location getReportPerimeter(int index)
@@ -96,30 +94,6 @@ public class SustainabilityReport
   {
     int index = reportPerimeter.indexOf(aReportPerimeter);
     return index;
-  }
-
-  public Version getReportVersion()
-  {
-    return reportVersion;
-  }
-
-  public boolean setReporter(Professional aReporter)
-  {
-    boolean wasSet = false;
-    if (aReporter == null)
-    {
-      return wasSet;
-    }
-
-    Professional existingReporter = reporter;
-    reporter = aReporter;
-    if (existingReporter != null && !existingReporter.equals(aReporter))
-    {
-      existingReporter.removeReport(this);
-    }
-    reporter.addReport(this);
-    wasSet = true;
-    return wasSet;
   }
 
   public static int requiredNumberOfReportPerimeter()
@@ -161,42 +135,16 @@ public class SustainabilityReport
     return wasSet;
   }
 
-  public boolean setReportVersion(Version aReportVersion)
-  {
-    boolean wasSet = false;
-    if (aReportVersion == null)
-    {
-      return wasSet;
-    }
-
-    Version existingReportVersion = reportVersion;
-    reportVersion = aReportVersion;
-    if (existingReportVersion != null && !existingReportVersion.equals(aReportVersion))
-    {
-      existingReportVersion.removeSustainabilityReport(this);
-    }
-    reportVersion.addSustainabilityReport(this);
-    wasSet = true;
-    return wasSet;
-  }
-
   public void delete()
   {
-    Professional placeholderReporter = reporter;
-    this.reporter = null;
-    placeholderReporter.removeReport(this);
     reportPerimeter.clear();
-    Version placeholderReportVersion = reportVersion;
-    this.reportVersion = null;
-    placeholderReportVersion.removeSustainabilityReport(this);
   }
 
 
   public String toString()
   {
-    return super.toString() + "["+ "]" + System.getProperties().getProperty("line.separator") +
-            "  " + "date" + "=" + (getDate() != null ? !getDate().equals(this)  ? getDate().toString().replaceAll("  ","    ") : "this" : "null") + System.getProperties().getProperty("line.separator") +
-            "  " + "reporter = "+(getReporter()!=null?Integer.toHexString(System.identityHashCode(getReporter())):"null") + System.getProperties().getProperty("line.separator") +
-            "  " + "reportVersion = "+(getReportVersion()!=null?Integer.toHexString(System.identityHashCode(getReportVersion())):"null");
+    return super.toString() + "["+
+            "reporterName" + ":" + getReporterName()+ "]" + System.getProperties().getProperty("line.separator") +
+            "  " + "date" + "=" + (getDate() != null ? !getDate().equals(this)  ? getDate().toString().replaceAll("  ","    ") : "this" : "null");
   }
 }

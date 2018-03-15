@@ -1,10 +1,10 @@
 /*PLEASE DO NOT EDIT THIS CODE*/
-/*This code was generated using the UMPLE 1.26.1-f40f105-3613 modeling language!*/
+/*This code was generated using the UMPLE 1.27.0.3728.d139ed893 modeling language!*/
 
 package ca.mcgill.ecse321.TreePLE.model;
 import java.util.*;
 
-// line 43 "../../../../../TreePLE.ump"
+// line 39 "../../../../../TreePLE.ump"
 public class Forecast
 {
 
@@ -13,23 +13,17 @@ public class Forecast
   //------------------------
 
   //Forecast Associations
-  private List<Tree> treesInForecastArea;
-  private List<Tree> treesToCutDown;
-  private List<Tree> treesToPlant;
+  private List<VersionManager> versions;
   private List<Municipality> municipalities;
   private List<Location> forecastPerimeter;
-  private Version baseVersion;
-  private Version forecastVersion;
 
   //------------------------
   // CONSTRUCTOR
   //------------------------
 
-  public Forecast(Version aBaseVersion, Version aForecastVersion, Municipality[] allMunicipalities, Location[] allForecastPerimeter)
+  public Forecast(Municipality[] allMunicipalities, Location[] allForecastPerimeter)
   {
-    treesInForecastArea = new ArrayList<Tree>();
-    treesToCutDown = new ArrayList<Tree>();
-    treesToPlant = new ArrayList<Tree>();
+    versions = new ArrayList<VersionManager>();
     municipalities = new ArrayList<Municipality>();
     boolean didAddMunicipalities = setMunicipalities(allMunicipalities);
     if (!didAddMunicipalities)
@@ -42,107 +36,39 @@ public class Forecast
     {
       throw new RuntimeException("Unable to create Forecast, must have 4 forecastPerimeter");
     }
-    if (!setBaseVersion(aBaseVersion))
-    {
-      throw new RuntimeException("Unable to create Forecast due to aBaseVersion");
-    }
-    if (!setForecastVersion(aForecastVersion))
-    {
-      throw new RuntimeException("Unable to create Forecast due to aForecastVersion");
-    }
   }
 
   //------------------------
   // INTERFACE
   //------------------------
 
-  public Tree getTreesInForecastArea(int index)
+  public VersionManager getVersion(int index)
   {
-    Tree aTreesInForecastArea = treesInForecastArea.get(index);
-    return aTreesInForecastArea;
+    VersionManager aVersion = versions.get(index);
+    return aVersion;
   }
 
-  public List<Tree> getTreesInForecastArea()
+  public List<VersionManager> getVersions()
   {
-    List<Tree> newTreesInForecastArea = Collections.unmodifiableList(treesInForecastArea);
-    return newTreesInForecastArea;
+    List<VersionManager> newVersions = Collections.unmodifiableList(versions);
+    return newVersions;
   }
 
-  public int numberOfTreesInForecastArea()
+  public int numberOfVersions()
   {
-    int number = treesInForecastArea.size();
+    int number = versions.size();
     return number;
   }
 
-  public boolean hasTreesInForecastArea()
+  public boolean hasVersions()
   {
-    boolean has = treesInForecastArea.size() > 0;
+    boolean has = versions.size() > 0;
     return has;
   }
 
-  public int indexOfTreesInForecastArea(Tree aTreesInForecastArea)
+  public int indexOfVersion(VersionManager aVersion)
   {
-    int index = treesInForecastArea.indexOf(aTreesInForecastArea);
-    return index;
-  }
-
-  public Tree getTreesToCutDown(int index)
-  {
-    Tree aTreesToCutDown = treesToCutDown.get(index);
-    return aTreesToCutDown;
-  }
-
-  public List<Tree> getTreesToCutDown()
-  {
-    List<Tree> newTreesToCutDown = Collections.unmodifiableList(treesToCutDown);
-    return newTreesToCutDown;
-  }
-
-  public int numberOfTreesToCutDown()
-  {
-    int number = treesToCutDown.size();
-    return number;
-  }
-
-  public boolean hasTreesToCutDown()
-  {
-    boolean has = treesToCutDown.size() > 0;
-    return has;
-  }
-
-  public int indexOfTreesToCutDown(Tree aTreesToCutDown)
-  {
-    int index = treesToCutDown.indexOf(aTreesToCutDown);
-    return index;
-  }
-
-  public Tree getTreesToPlant(int index)
-  {
-    Tree aTreesToPlant = treesToPlant.get(index);
-    return aTreesToPlant;
-  }
-
-  public List<Tree> getTreesToPlant()
-  {
-    List<Tree> newTreesToPlant = Collections.unmodifiableList(treesToPlant);
-    return newTreesToPlant;
-  }
-
-  public int numberOfTreesToPlant()
-  {
-    int number = treesToPlant.size();
-    return number;
-  }
-
-  public boolean hasTreesToPlant()
-  {
-    boolean has = treesToPlant.size() > 0;
-    return has;
-  }
-
-  public int indexOfTreesToPlant(Tree aTreesToPlant)
-  {
-    int index = treesToPlant.indexOf(aTreesToPlant);
+    int index = versions.indexOf(aVersion);
     return index;
   }
 
@@ -206,183 +132,59 @@ public class Forecast
     return index;
   }
 
-  public Version getBaseVersion()
-  {
-    return baseVersion;
-  }
-
-  public Version getForecastVersion()
-  {
-    return forecastVersion;
-  }
-
-  public static int minimumNumberOfTreesInForecastArea()
+  public static int minimumNumberOfVersions()
   {
     return 0;
   }
 
-  public boolean addTreesInForecastArea(Tree aTreesInForecastArea)
+  public boolean addVersion(VersionManager aVersion)
   {
     boolean wasAdded = false;
-    if (treesInForecastArea.contains(aTreesInForecastArea)) { return false; }
-    treesInForecastArea.add(aTreesInForecastArea);
+    if (versions.contains(aVersion)) { return false; }
+    versions.add(aVersion);
     wasAdded = true;
     return wasAdded;
   }
 
-  public boolean removeTreesInForecastArea(Tree aTreesInForecastArea)
+  public boolean removeVersion(VersionManager aVersion)
   {
     boolean wasRemoved = false;
-    if (treesInForecastArea.contains(aTreesInForecastArea))
+    if (versions.contains(aVersion))
     {
-      treesInForecastArea.remove(aTreesInForecastArea);
+      versions.remove(aVersion);
       wasRemoved = true;
     }
     return wasRemoved;
   }
 
-  public boolean addTreesInForecastAreaAt(Tree aTreesInForecastArea, int index)
+  public boolean addVersionAt(VersionManager aVersion, int index)
   {  
     boolean wasAdded = false;
-    if(addTreesInForecastArea(aTreesInForecastArea))
+    if(addVersion(aVersion))
     {
       if(index < 0 ) { index = 0; }
-      if(index > numberOfTreesInForecastArea()) { index = numberOfTreesInForecastArea() - 1; }
-      treesInForecastArea.remove(aTreesInForecastArea);
-      treesInForecastArea.add(index, aTreesInForecastArea);
+      if(index > numberOfVersions()) { index = numberOfVersions() - 1; }
+      versions.remove(aVersion);
+      versions.add(index, aVersion);
       wasAdded = true;
     }
     return wasAdded;
   }
 
-  public boolean addOrMoveTreesInForecastAreaAt(Tree aTreesInForecastArea, int index)
+  public boolean addOrMoveVersionAt(VersionManager aVersion, int index)
   {
     boolean wasAdded = false;
-    if(treesInForecastArea.contains(aTreesInForecastArea))
+    if(versions.contains(aVersion))
     {
       if(index < 0 ) { index = 0; }
-      if(index > numberOfTreesInForecastArea()) { index = numberOfTreesInForecastArea() - 1; }
-      treesInForecastArea.remove(aTreesInForecastArea);
-      treesInForecastArea.add(index, aTreesInForecastArea);
+      if(index > numberOfVersions()) { index = numberOfVersions() - 1; }
+      versions.remove(aVersion);
+      versions.add(index, aVersion);
       wasAdded = true;
     } 
     else 
     {
-      wasAdded = addTreesInForecastAreaAt(aTreesInForecastArea, index);
-    }
-    return wasAdded;
-  }
-
-  public static int minimumNumberOfTreesToCutDown()
-  {
-    return 0;
-  }
-
-  public boolean addTreesToCutDown(Tree aTreesToCutDown)
-  {
-    boolean wasAdded = false;
-    if (treesToCutDown.contains(aTreesToCutDown)) { return false; }
-    treesToCutDown.add(aTreesToCutDown);
-    wasAdded = true;
-    return wasAdded;
-  }
-
-  public boolean removeTreesToCutDown(Tree aTreesToCutDown)
-  {
-    boolean wasRemoved = false;
-    if (treesToCutDown.contains(aTreesToCutDown))
-    {
-      treesToCutDown.remove(aTreesToCutDown);
-      wasRemoved = true;
-    }
-    return wasRemoved;
-  }
-
-  public boolean addTreesToCutDownAt(Tree aTreesToCutDown, int index)
-  {  
-    boolean wasAdded = false;
-    if(addTreesToCutDown(aTreesToCutDown))
-    {
-      if(index < 0 ) { index = 0; }
-      if(index > numberOfTreesToCutDown()) { index = numberOfTreesToCutDown() - 1; }
-      treesToCutDown.remove(aTreesToCutDown);
-      treesToCutDown.add(index, aTreesToCutDown);
-      wasAdded = true;
-    }
-    return wasAdded;
-  }
-
-  public boolean addOrMoveTreesToCutDownAt(Tree aTreesToCutDown, int index)
-  {
-    boolean wasAdded = false;
-    if(treesToCutDown.contains(aTreesToCutDown))
-    {
-      if(index < 0 ) { index = 0; }
-      if(index > numberOfTreesToCutDown()) { index = numberOfTreesToCutDown() - 1; }
-      treesToCutDown.remove(aTreesToCutDown);
-      treesToCutDown.add(index, aTreesToCutDown);
-      wasAdded = true;
-    } 
-    else 
-    {
-      wasAdded = addTreesToCutDownAt(aTreesToCutDown, index);
-    }
-    return wasAdded;
-  }
-
-  public static int minimumNumberOfTreesToPlant()
-  {
-    return 0;
-  }
-
-  public boolean addTreesToPlant(Tree aTreesToPlant)
-  {
-    boolean wasAdded = false;
-    if (treesToPlant.contains(aTreesToPlant)) { return false; }
-    treesToPlant.add(aTreesToPlant);
-    wasAdded = true;
-    return wasAdded;
-  }
-
-  public boolean removeTreesToPlant(Tree aTreesToPlant)
-  {
-    boolean wasRemoved = false;
-    if (treesToPlant.contains(aTreesToPlant))
-    {
-      treesToPlant.remove(aTreesToPlant);
-      wasRemoved = true;
-    }
-    return wasRemoved;
-  }
-
-  public boolean addTreesToPlantAt(Tree aTreesToPlant, int index)
-  {  
-    boolean wasAdded = false;
-    if(addTreesToPlant(aTreesToPlant))
-    {
-      if(index < 0 ) { index = 0; }
-      if(index > numberOfTreesToPlant()) { index = numberOfTreesToPlant() - 1; }
-      treesToPlant.remove(aTreesToPlant);
-      treesToPlant.add(index, aTreesToPlant);
-      wasAdded = true;
-    }
-    return wasAdded;
-  }
-
-  public boolean addOrMoveTreesToPlantAt(Tree aTreesToPlant, int index)
-  {
-    boolean wasAdded = false;
-    if(treesToPlant.contains(aTreesToPlant))
-    {
-      if(index < 0 ) { index = 0; }
-      if(index > numberOfTreesToPlant()) { index = numberOfTreesToPlant() - 1; }
-      treesToPlant.remove(aTreesToPlant);
-      treesToPlant.add(index, aTreesToPlant);
-      wasAdded = true;
-    } 
-    else 
-    {
-      wasAdded = addTreesToPlantAt(aTreesToPlant, index);
+      wasAdded = addVersionAt(aVersion, index);
     }
     return wasAdded;
   }
@@ -560,33 +362,9 @@ public class Forecast
     return wasSet;
   }
 
-  public boolean setBaseVersion(Version aNewBaseVersion)
-  {
-    boolean wasSet = false;
-    if (aNewBaseVersion != null)
-    {
-      baseVersion = aNewBaseVersion;
-      wasSet = true;
-    }
-    return wasSet;
-  }
-
-  public boolean setForecastVersion(Version aNewForecastVersion)
-  {
-    boolean wasSet = false;
-    if (aNewForecastVersion != null)
-    {
-      forecastVersion = aNewForecastVersion;
-      wasSet = true;
-    }
-    return wasSet;
-  }
-
   public void delete()
   {
-    treesInForecastArea.clear();
-    treesToCutDown.clear();
-    treesToPlant.clear();
+    versions.clear();
     ArrayList<Municipality> copyOfMunicipalities = new ArrayList<Municipality>(municipalities);
     municipalities.clear();
     for(Municipality aMunicipality : copyOfMunicipalities)
@@ -594,8 +372,6 @@ public class Forecast
       aMunicipality.removeForecast(this);
     }
     forecastPerimeter.clear();
-    baseVersion = null;
-    forecastVersion = null;
   }
 
 }

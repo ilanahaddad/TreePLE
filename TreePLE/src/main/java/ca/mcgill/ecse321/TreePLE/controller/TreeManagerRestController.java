@@ -28,9 +28,12 @@ import ca.mcgill.ecse321.TreePLE.dto.UserDto;
 import ca.mcgill.ecse321.TreePLE.model.Location;
 import ca.mcgill.ecse321.TreePLE.model.Municipality;
 import ca.mcgill.ecse321.TreePLE.model.Survey;
+import ca.mcgill.ecse321.TreePLE.model.SustainabilityReport;
 import ca.mcgill.ecse321.TreePLE.model.Tree;
 import ca.mcgill.ecse321.TreePLE.model.User;
+import ca.mcgill.ecse321.TreePLE.model.User.UserType;
 import ca.mcgill.ecse321.TreePLE.service.InvalidInputException;
+import ca.mcgill.ecse321.TreePLE.service.ReportService;
 import ca.mcgill.ecse321.TreePLE.service.SurveyService;
 import ca.mcgill.ecse321.TreePLE.service.TreeManagerService;
 
@@ -42,6 +45,9 @@ public class TreeManagerRestController {
 	
 	@Autowired
 	private SurveyService surveyService;
+	
+	@Autowired
+	private ReportService reportService;
 
 	@Autowired
 	private ModelMapper modelMapper;
@@ -65,7 +71,6 @@ public class TreeManagerRestController {
 		// In simple cases, the mapper service is convenient
 		TreeDto treeDto = modelMapper.map(t, TreeDto.class);
 		treeDto.setMunicipality(createMunicipalityDtoForTree(t));
-		treeDto.setUser(createUserDtoForTree(t));
 		treeDto.setLocation(createLocationDtoForTree(t));
 		return treeDto;
 	}
@@ -85,25 +90,18 @@ public class TreeManagerRestController {
 	private SurveyDto convertToDto(Survey survey) {
 		SurveyDto surveyDto= modelMapper.map(survey, SurveyDto.class);
 		surveyDto.setTree(createTreeDtoForSurvey(survey));
-		surveyDto.setUser(createUserDtoForSurvey(survey));
+		
 		return surveyDto;
 	}
 	private LocationDto createLocationDtoForTree(Tree t) {
 		Location locationForTree = treeManagerService.getLocationForTree(t);
 		return convertToDto(locationForTree);
 	}
-	private UserDto createUserDtoForTree(Tree t) {
-		User userForTree = treeManagerService.getOwnerForTree(t);
-		return convertToDto(userForTree);
-	}
+
 
 	private MunicipalityDto createMunicipalityDtoForTree(Tree t) {
 		Municipality municipalityForTree = treeManagerService.getMunicipalityForTree(t);
 		return convertToDto(municipalityForTree);
-	}
-	private UserDto createUserDtoForSurvey(Survey survey) {
-		User userForSurvey = surveyService.getSurveyorForSurvey(survey);
-		return convertToDto(userForSurvey);
 	}
 
 	private TreeDto createTreeDtoForSurvey(Survey survey) {
@@ -121,13 +119,14 @@ public class TreeManagerRestController {
 			@RequestParam(name= "municipality") MunicipalityDto munDto,
 			@RequestParam(name="latitude") double latitude,
 			@RequestParam(name="longitude") double longitude,
-			@RequestParam(name="owner") UserDto userDto, 
+			@RequestParam(name="ownerName") String ownerName,
+			@RequestParam(name="ownerName") int age, 
 			@RequestParam(name="landuse") Tree.LandUse landuse ) throws InvalidInputException {
 		Location location = treeManagerService.getLocationByCoordinates(latitude, longitude);
 		//Location location = new Location(latitude, longitude);
-		User owner = treeManagerService.getOwnerByName(userDto.getName());
+	//	User owner = treeManagerService.getOwnerByName(userDto.getName());
 		Municipality municipality = treeManagerService.getMunicipalityByName(munDto.getName());
-		Tree t = treeManagerService.createTree(species, height, diameter, location, owner, municipality, landuse);
+		Tree t = treeManagerService.createTree(ownerName, species, height, diameter, age, location, municipality, landuse);
 		return convertToDto(t);
 	}
 	@PostMapping(value = {"/newSurvey", "/newSurvey/"})
@@ -138,13 +137,11 @@ public class TreeManagerRestController {
 			@RequestParam Date reportDate,
 			//@RequestParam(name = "tree") TreeDto treeDto, 
 			@RequestParam(name = "tree") int treeID, 
-			@RequestParam(name = "surveyor") UserDto surveyorDto,
+			@RequestParam(name = "surveyor") String surveyor,
 			@RequestParam(name = "newTreeStatus") Tree.Status newTreeStatus
 			) throws InvalidInputException{
 		
 		Tree tree = surveyService.getTreeById(treeID);
-		//Tree tree = surveyService.getTreeById(treeDto.getId());
-		User surveyor = surveyService.getSurveyorByName(surveyorDto.getName());
 		Survey s = surveyService.createSurvey(reportDate, tree,surveyor, newTreeStatus);
 		return convertToDto(s);
 	}
@@ -171,6 +168,39 @@ public class TreeManagerRestController {
 		}
 		return trees;
 	}
+	
+	//TODO: ADD DTO HERE
+	@PostMapping(value = { "/setUserType/{userType}/", "/setUserType/{userType}" })
+	public User setUserType(@PathVariable("userType") UserType userType) {
+		User user = treeManagerService.setUserType(userType);
+		return user;
+	}
+	//TODO: ADD DTO HERE
+	@PostMapping(value = { "/newReport/{reporterName}/", "/setUserType/{reporterName}" })
+	public SustainabilityReport generateSustainabilityReport(@PathVariable("reporterName") String reporterName,
+		@RequestParam Date reportDate,
+		@RequestParam(name="lat1") double lat1,
+		@RequestParam(name="long1") double long1,
+		@RequestParam(name="lat2") double lat2,
+		@RequestParam(name="long2") double long2,
+		@RequestParam(name="lat3") double lat3,
+		@RequestParam(name="long3") double long3,
+		@RequestParam(name="lat4") double lat4,
+		@RequestParam(name="long4") double long4) {
+		Location location1 = treeManagerService.getLocationByCoordinates(lat1, long1);
+		Location location2 = treeManagerService.getLocationByCoordinates(lat2, long2);
+		Location location3 = treeManagerService.getLocationByCoordinates(lat3, long3);
+		Location location4 = treeManagerService.getLocationByCoordinates(lat4, long4);
+		Location[] perimeter = new Location[4];
+		perimeter[0] = location1;
+		perimeter[1] = location2;
+		perimeter[2] = location3;
+		perimeter[3] = location4;
+		SustainabilityReport report = reportService.createReport(reporterName, reportDate, perimeter);
+		return report;
+	}
+	
+	
 	
 /*	DONT DELETE: NOT SURE IF WE NEED THESE: 
  * private Participant convertToDomainObject(ParticipantDto pDto) {

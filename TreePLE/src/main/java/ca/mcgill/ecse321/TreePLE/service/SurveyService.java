@@ -10,6 +10,7 @@ import ca.mcgill.ecse321.TreePLE.model.Tree.Status;
 import ca.mcgill.ecse321.TreePLE.model.Tree;
 import ca.mcgill.ecse321.TreePLE.model.TreeManager;
 import ca.mcgill.ecse321.TreePLE.model.User;
+import ca.mcgill.ecse321.TreePLE.model.User.UserType;
 import ca.mcgill.ecse321.TreePLE.persistence.PersistenceXStream;
 
 @Service
@@ -20,7 +21,7 @@ public class SurveyService {
 		this.tm=tm;
 	}
 	//status newtree status
-	public Survey createSurvey(Date reportDate, Tree tree, User surveyor, Status newTreeStatus) throws InvalidInputException{
+	public Survey createSurvey(Date reportDate, Tree tree, String surveyor, Status newTreeStatus) throws InvalidInputException{
 		//Check if any of the fields are null, and throw corresponding exception
 		if(reportDate == null||tree ==null||surveyor==null||newTreeStatus==null) {
 			throw new InvalidInputException("Error: Report Date, tree, surveyor, or status is null");
@@ -31,8 +32,10 @@ public class SurveyService {
 			throw new InvalidInputException("Error: This tree already has this status");
 
 		}
-		
-		Survey s = new Survey(reportDate, tree, surveyor);
+		if((newTreeStatus == Status.Diseased|| newTreeStatus == Status.ToBeCutDown)&& tm.getUser().getUsertype() == UserType.LocalResident) {
+			throw new InvalidInputException("Only a professional can change tree status to 'To Be Cut Down' or 'Diseased'.\n");
+		}
+		Survey s = new Survey(surveyor, reportDate, tree);
 		tree.setStatus(newTreeStatus);
 		tm.addSurvey(s);
 		
@@ -43,9 +46,7 @@ public class SurveyService {
 		return survey.getTree();
 
 	}
-	public User getSurveyorForSurvey(Survey survey) {
-		return survey.getSurveyor();
-	}
+
 	public Tree getTreeById(int id) {
 		List<Tree> trees = tm.getTrees();
 		for(Tree t: trees) {
@@ -55,14 +56,5 @@ public class SurveyService {
 		}
 		return null;
 	}
-	public User getSurveyorByName(String name) {
-		//look through all users and check if name matches
-		List<User> users = tm.getUsers();
-		for(User u: users) {
-			if(u.getName().equals(name)) {
-				return u;
-			}
-		}
-		return null;
-	}
+
 }

@@ -1,10 +1,10 @@
 /*PLEASE DO NOT EDIT THIS CODE*/
-/*This code was generated using the UMPLE 1.26.1-f40f105-3613 modeling language!*/
+/*This code was generated using the UMPLE 1.27.0.3728.d139ed893 modeling language!*/
 
 package ca.mcgill.ecse321.TreePLE.model;
 import java.sql.Date;
 
-// line 36 "../../../../../TreePLE.ump"
+// line 31 "../../../../../TreePLE.ump"
 public class Survey
 {
 
@@ -13,28 +13,24 @@ public class Survey
   //------------------------
 
   //Survey Attributes
+  private String surveyorName;
   private Date reportDate;
 
   //Survey Associations
   private Tree tree;
-  private User surveyor;
 
   //------------------------
   // CONSTRUCTOR
   //------------------------
 
-  public Survey(Date aReportDate, Tree aTree, User aSurveyor)
+  public Survey(String aSurveyorName, Date aReportDate, Tree aTree)
   {
+    surveyorName = aSurveyorName;
     reportDate = aReportDate;
     boolean didAddTree = setTree(aTree);
     if (!didAddTree)
     {
       throw new RuntimeException("Unable to create survey due to tree");
-    }
-    boolean didAddSurveyor = setSurveyor(aSurveyor);
-    if (!didAddSurveyor)
-    {
-      throw new RuntimeException("Unable to create survey due to surveyor");
     }
   }
 
@@ -42,12 +38,25 @@ public class Survey
   // INTERFACE
   //------------------------
 
+  public boolean setSurveyorName(String aSurveyorName)
+  {
+    boolean wasSet = false;
+    surveyorName = aSurveyorName;
+    wasSet = true;
+    return wasSet;
+  }
+
   public boolean setReportDate(Date aReportDate)
   {
     boolean wasSet = false;
     reportDate = aReportDate;
     wasSet = true;
     return wasSet;
+  }
+
+  public String getSurveyorName()
+  {
+    return surveyorName;
   }
 
   public Date getReportDate()
@@ -58,11 +67,6 @@ public class Survey
   public Tree getTree()
   {
     return tree;
-  }
-
-  public User getSurveyor()
-  {
-    return surveyor;
   }
 
   public boolean setTree(Tree aTree)
@@ -84,41 +88,22 @@ public class Survey
     return wasSet;
   }
 
-  public boolean setSurveyor(User aSurveyor)
-  {
-    boolean wasSet = false;
-    if (aSurveyor == null)
-    {
-      return wasSet;
-    }
-
-    User existingSurveyor = surveyor;
-    surveyor = aSurveyor;
-    if (existingSurveyor != null && !existingSurveyor.equals(aSurveyor))
-    {
-      existingSurveyor.removeSurvey(this);
-    }
-    surveyor.addSurvey(this);
-    wasSet = true;
-    return wasSet;
-  }
-
   public void delete()
   {
     Tree placeholderTree = tree;
     this.tree = null;
-    placeholderTree.removeSurvey(this);
-    User placeholderSurveyor = surveyor;
-    this.surveyor = null;
-    placeholderSurveyor.removeSurvey(this);
+    if(placeholderTree != null)
+    {
+      placeholderTree.removeSurvey(this);
+    }
   }
 
 
   public String toString()
   {
-    return super.toString() + "["+ "]" + System.getProperties().getProperty("line.separator") +
+    return super.toString() + "["+
+            "surveyorName" + ":" + getSurveyorName()+ "]" + System.getProperties().getProperty("line.separator") +
             "  " + "reportDate" + "=" + (getReportDate() != null ? !getReportDate().equals(this)  ? getReportDate().toString().replaceAll("  ","    ") : "this" : "null") + System.getProperties().getProperty("line.separator") +
-            "  " + "tree = "+(getTree()!=null?Integer.toHexString(System.identityHashCode(getTree())):"null") + System.getProperties().getProperty("line.separator") +
-            "  " + "surveyor = "+(getSurveyor()!=null?Integer.toHexString(System.identityHashCode(getSurveyor())):"null");
+            "  " + "tree = "+(getTree()!=null?Integer.toHexString(System.identityHashCode(getTree())):"null");
   }
 }
