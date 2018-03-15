@@ -2,7 +2,7 @@
 <template>
   <div id="listtrees">
     <h2>List of Trees</h2>
-    <table>
+    <table align="center">
       <tr>
           <td>ID</td>
           <td>Species Type</td>
@@ -51,7 +51,7 @@
     <gmap-map
       :center="center"
       :zoom="13"
-      style="width: 700px; height: 400px"
+      style="width: 700px; height: 400px; margin-left:auto; margin-right:auto"
     >
       <gmap-marker
         :key="index"
