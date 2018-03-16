@@ -257,6 +257,30 @@ public class TestTreeManagerService {
 		
 		
 	}
+	
+	@Test
+	public void testListTreesbySpecies() {
+		TreeManagerService tmc = new TreeManagerService(tm);
+		String species= "WhiteAsh";
+		Location treeLoc = new Location(1.5,1.5);
+		Location[] ownerLoc = new Location[4];
+		Location l1_res1 = new Location(1,1);
+		Location l2_res1 = new Location(1,2);
+		Location l3_res1 = new Location(2,1);
+		Location l4_res1 = new Location(2,2);
+		ownerLoc[0]=l1_res1;ownerLoc[1]=l2_res1;ownerLoc[2]=l3_res1;ownerLoc[3]=l4_res1;
+		User owner = new LocalResident("Ilana",ownerLoc);
+		Municipality m = new Municipality("Outremont");
+		Tree.LandUse land = Tree.LandUse.Residential;
+		tmc.createTree(species, 1, 0.2, treeLoc,owner, m, land );
+		tmc.createTree("Pine", 2, 0.3, treeLoc,owner, m, land );
+		tmc.createTree(species, 3, 0.4, treeLoc,owner, m, land );
+
+		assertEquals(2, tm.listTreesBySpecies(species));
+		
+		
+	}
+	
 	private void checkResultTree(String species, double height, double diam, 
 			 Location treeLoc, User owner,
 			Municipality m, TreeManager tm2, Tree.LandUse land) {

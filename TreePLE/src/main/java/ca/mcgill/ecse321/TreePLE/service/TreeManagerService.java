@@ -1,5 +1,6 @@
 package ca.mcgill.ecse321.TreePLE.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -103,6 +104,18 @@ public class TreeManagerService {
 		return tm.getTrees();
 	}
 
+	public List<Tree> listTreeBySpecies(String species){
+		List<Tree> TreeList = tm.getTrees();
+		List<Tree> SpeciesList = new ArrayList<Tree>();
+		for(Tree t: TreeList) {
+			if(t.getSpecies()==species) {
+				SpeciesList.add(t);
+			}
+		}
+		return SpeciesList;
+		
+		
+	}
 	public User setUserType(UserType userType) {
 		User user = tm.getUser();
 		user.setUsertype(userType);
