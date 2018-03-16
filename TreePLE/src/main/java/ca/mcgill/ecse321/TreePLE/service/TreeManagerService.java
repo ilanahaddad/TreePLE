@@ -103,17 +103,31 @@ public class TreeManagerService {
 	public List<Tree> findAllTrees() {
 		return tm.getTrees();
 	}
-
-	public List<Tree> listTreeBySpecies(String species){
+	
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	//Thomas Methods
+	
+	public List<Tree> listTreeBySpecies(String species) throws InvalidInputException{
+		if(species==null) {
+			throw new InvalidInputException("Error: Species name cannot be null!");
+		}
+		if(species==" " ) {
+			throw new InvalidInputException("Error: Species name is empty!");
+		}
 		List<Tree> TreeList = tm.getTrees();
 		List<Tree> SpeciesList = new ArrayList<Tree>();
 		for(Tree t: TreeList) {
-			if(t.getSpecies()==species) {
+			if(t.getSpecies()==species) { //t.getSpecies().equals(species)?
 				SpeciesList.add(t);
 			}
 		}
+		if (SpeciesList.size() == 0) {
+			throw new InvalidInputException("Error: There are currently no such species in TreePLE!");
+		}
 		return SpeciesList;
 		
+	//End of Thomas Methods
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		
 	}
 	public User setUserType(UserType userType) {

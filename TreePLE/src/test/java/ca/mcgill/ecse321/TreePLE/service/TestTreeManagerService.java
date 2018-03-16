@@ -257,9 +257,11 @@ public class TestTreeManagerService {
 		
 		
 	}
+	////////////////////////////////////////////////////////////////
+	//THOMAS TESTS
 	
 	@Test
-	public void testListTreesbySpecies() {
+	public void testListTreesbySpecies() { //Add a tree and test that ListTreesbySpecies method can find it
 		TreeManagerService tmc = new TreeManagerService(tm);
 		String species= "WhiteAsh";
 		Location treeLoc = new Location(1.5,1.5);
@@ -277,9 +279,88 @@ public class TestTreeManagerService {
 		tmc.createTree(species, 3, 0.4, treeLoc,owner, m, land );
 
 		assertEquals(2, tm.listTreesBySpecies(species));
-		
-		
 	}
+	
+	@Test
+	public void testListTreesbySpeciesNull() { //Tests error handling of ListTreesbySpecies method for null input
+		TreeManagerService tmc = new TreeManagerService(tm);
+		String species= "WhiteAsh";
+		String speciesNull = null;
+		String error = null;
+		Location treeLoc = new Location(1.5,1.5);
+		Location[] ownerLoc = new Location[4];
+		Location l1_res1 = new Location(1,1);
+		Location l2_res1 = new Location(1,2);
+		Location l3_res1 = new Location(2,1);
+		Location l4_res1 = new Location(2,2);
+		ownerLoc[0]=l1_res1;ownerLoc[1]=l2_res1;ownerLoc[2]=l3_res1;ownerLoc[3]=l4_res1;
+		User owner = new LocalResident("Ilana",ownerLoc);
+		Municipality m = new Municipality("Outremont");
+		Tree.LandUse land = Tree.LandUse.Residential;
+		tmc.createTree(species, 1, 0.2, treeLoc,owner, m, land );
+		try {
+			tmc.listTreesBySpecies(speciesNull, 1.5, 0.2, treeLoc,owner, m, land );
+		} catch (InvalidInputException e) {
+			error = e.getMessage();
+		}
+
+		// check error
+		assertEquals("Error: Species name cannot be null!", error);
+	}
+	
+	@Test
+	public void testlistTreesBySpeciesEmpty() { //Tests error handling of ListTreesbySpecies method for empty input
+		TreeManagerService tmc = new TreeManagerService(tm);
+		String species= "WhiteAsh";
+		String speciesEmpty = " ";
+		String error = null;
+		Location treeLoc = new Location(1.5,1.5);
+		Location[] ownerLoc = new Location[4];
+		Location l1_res1 = new Location(1,1);
+		Location l2_res1 = new Location(1,2);
+		Location l3_res1 = new Location(2,1);
+		Location l4_res1 = new Location(2,2);
+		ownerLoc[0]=l1_res1;ownerLoc[1]=l2_res1;ownerLoc[2]=l3_res1;ownerLoc[3]=l4_res1;
+		User owner = new LocalResident("Ilana",ownerLoc);
+		Municipality m = new Municipality("Outremont");
+		Tree.LandUse land = Tree.LandUse.Residential;
+		tmc.createTree(species, 1, 0.2, treeLoc,owner, m, land );
+		try {
+			tmc.listTreesBySpecies(speciesEmpty, 1.5, 0.2, treeLoc,owner, m, land );
+		} catch (InvalidInputException e) {
+			error= e.getMessage();
+		}
+		assertEquals("Error: Species name is empty!", error);		
+	}
+	
+	@Test
+	public void testlistTreesBySpeciesNoSpecies() { //Tests error handling of ListTreesbySpecies method when no trees are found
+		TreeManagerService tmc = new TreeManagerService(tm);
+		String species= "WhiteAsh";
+		String speciesTest = "Pine";
+		String error = null;
+		Location treeLoc = new Location(1.5,1.5);
+		Location[] ownerLoc = new Location[4];
+		Location l1_res1 = new Location(1,1);
+		Location l2_res1 = new Location(1,2);
+		Location l3_res1 = new Location(2,1);
+		Location l4_res1 = new Location(2,2);
+		ownerLoc[0]=l1_res1;ownerLoc[1]=l2_res1;ownerLoc[2]=l3_res1;ownerLoc[3]=l4_res1;
+		User owner = new LocalResident("Ilana",ownerLoc);
+		Municipality m = new Municipality("Outremont");
+		Tree.LandUse land = Tree.LandUse.Residential;
+		tmc.createTree(species, 1, 0.2, treeLoc,owner, m, land );
+		try {
+			tmc.listTreesBySpecies(speciesTest, 1.5, 0.2, treeLoc,owner, m, land );
+		} catch (InvalidInputException e) {
+			error= e.getMessage();
+		}
+		assertEquals("Error: There are currently no such species in TreePLE!", error);		
+	}
+	
+	//END OF THOMAS TESTS
+	/////////////////////////////////////////////////////////////////////////////////////////
+	
 	
 	private void checkResultTree(String species, double height, double diam, 
 			 Location treeLoc, User owner,
