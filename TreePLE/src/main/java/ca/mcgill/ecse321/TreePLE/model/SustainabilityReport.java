@@ -152,4 +152,9 @@ public class SustainabilityReport
 		// TODO Auto-generated method stub
 		
 	}
+
+	public double[] getSustainabilityAttributes() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

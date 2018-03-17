@@ -45,7 +45,7 @@ public class TestReportService {
 		String owner4 = "Diana";
 		String owner5 = "Thomas";
 		
-		String species1 = "Coast redwood";
+		String species1 = "White oak";
 		String species2 = "Giant sequoia ";
 		String species3 = "English yew";
 		String species4 = "Quaking aspen";
@@ -116,9 +116,14 @@ public class TestReportService {
 		
 		ReportService rs = new ReportService(tm);
 		SustainabilityReport report = rs.createReport(reporter, date, perimeter);
-		//assertEquals();
+		double[] SustainabilityAttributes = report.getSustainabilityAttributes();
+		double biodiversityIndex = SustainabilityAttributes[0];
+		double canopy = SustainabilityAttributes[1];
+		double carbonSequestration = SustainabilityAttributes[2];
 		
-		
+		assertEquals(1,biodiversityIndex,0);
+		assertEquals(1,canopy,0);
+		assertEquals(1,carbonSequestration,0);
 	}
 
 }
