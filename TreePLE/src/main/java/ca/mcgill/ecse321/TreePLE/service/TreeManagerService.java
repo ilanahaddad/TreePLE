@@ -125,14 +125,17 @@ public class TreeManagerService {
 			throw new InvalidInputException("Error: There are currently no such species in TreePLE!");
 		}
 		return SpeciesList;
-		
+	}	
 	//End of Thomas Methods
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		
-	}
-	public User setUserType(UserType userType) {
+	
+	public User setUserType(UserType userType) throws InvalidInputException {
+		if(userType==null) {
+			throw new InvalidInputException("Error: UserType cannot be null!");
+		}
 		User user = tm.getUser();
-		user.setUsertype(userType);
+		user.setUsertype(userType); //shouldn't there be an error if the usertype does not exist?
 		return user;
 	}
 	

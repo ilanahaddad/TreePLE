@@ -358,6 +358,33 @@ public class TestTreeManagerService {
 		assertEquals("Error: There are currently no such species in TreePLE!", error);		
 	}
 	
+	@Test
+	public void testSetUserType() {
+		
+		String user="Professional";
+		
+		TreeManagerService tmc = new TreeManagerService(tm);
+		tmc.setUserType(user);
+		
+		assertEquals("Professional",tmc.setUserType(user));
+	}
+	
+	@Test
+	public void testSetUserTypeNull() {
+		
+		String user= null;
+		String error = null;
+		
+		TreeManagerService tmc = new TreeManagerService(tm);
+		
+		try {
+			tmc.setUserType(user);
+		} catch (InvalidInputException e) {
+			error= e.getMessage();
+		}
+		assertEquals("Error: UserType cannot be null!", error);
+	}
+	
 	//END OF THOMAS TESTS
 	/////////////////////////////////////////////////////////////////////////////////////////
 	
