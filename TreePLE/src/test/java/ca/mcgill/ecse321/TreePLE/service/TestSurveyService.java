@@ -19,6 +19,7 @@ import ca.mcgill.ecse321.TreePLE.model.Tree.LandUse;
 import ca.mcgill.ecse321.TreePLE.model.Tree.Status;
 import ca.mcgill.ecse321.TreePLE.model.TreeManager;
 import ca.mcgill.ecse321.TreePLE.model.User;
+import ca.mcgill.ecse321.TreePLE.model.User.UserType;
 import ca.mcgill.ecse321.TreePLE.persistence.PersistenceXStream;
 
 public class TestSurveyService {
@@ -146,7 +147,42 @@ public class TestSurveyService {
 		assertEquals(1, tm.getSurveys().size());
 		
 	}
+	@Test
+	public void testCreateUnauthorizedSurvey() {
+		assertEquals(0, tm.getSurveys().size());
+		tm.getUser().setUsertype(UserType.LocalResident);
+		String species= "White Ash";
+		Location treeLoc = new Location(1.5,1.5);
+		Location[] ownerLoc = new Location[4];
+		Location l1_res1 = new Location(1,1);
+		Location l2_res1 = new Location(1,2);
+		Location l3_res1 = new Location(2,1);
+		Location l4_res1 = new Location(2,2);
+		ownerLoc[0]=l1_res1;ownerLoc[1]=l2_res1;ownerLoc[2]=l3_res1;ownerLoc[3]=l4_res1;
+		Municipality m = new Municipality("Outremont");
 
+		Tree tree=new Tree("Ilana", species, 1.2, 0.2,0, treeLoc,m);
+		
+		Calendar c = Calendar.getInstance();
+		c.set(2017, Calendar.MARCH, 16, 9, 0, 0);
+		Date date= new Date(c.getTimeInMillis());
+		
+		String error = null;
+		SurveyService sc = new SurveyService(tm);
+		
+		//create survey and set tree status to diseased
+		try {
+			sc.createSurvey(date,tree,"Ilana",Tree.Status.Diseased);
+		} catch (InvalidInputException e) {
+			error = e.getMessage();
+		}
+	
+		assertEquals("Only a professional can change tree status to 'To Be Cut Down' or 'Diseased'.\n", error);
+
+		// check no change in memory
+		assertEquals(0, tm.getSurveys().size());
+		
+	}
 	private void checkResultSurvey(Date date, Tree tree, String surveyor, Status status, TreeManager tm2) {
 	
 		
