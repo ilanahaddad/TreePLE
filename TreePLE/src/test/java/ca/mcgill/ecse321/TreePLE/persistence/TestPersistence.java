@@ -12,13 +12,12 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import ca.mcgill.ecse321.TreePLE.model.LocalResident;
 import ca.mcgill.ecse321.TreePLE.model.Location;
 import ca.mcgill.ecse321.TreePLE.model.Municipality;
 import ca.mcgill.ecse321.TreePLE.model.Tree;
 import ca.mcgill.ecse321.TreePLE.model.TreeManager;
 import ca.mcgill.ecse321.TreePLE.model.User;
-import ca.mcgill.ecse321.TreePLE.model.Version;
+import ca.mcgill.ecse321.TreePLE.model.User.UserType;
 import ca.mcgill.ecse321.TreePLE.model.Tree.LandUse;
 
 public class TestPersistence {
@@ -26,7 +25,8 @@ public class TestPersistence {
 	private TreeManager tm;
 	@Before
 	public void setUp() throws Exception {
-		tm = new TreeManager();
+		User user = new User();
+		tm = new TreeManager(true, "1.0", 2018, user );
 
 		Location l1 = new Location(1.5,1.5);
 		//	Location[] l_res1 = new ArrayList<Location>();
@@ -38,10 +38,10 @@ public class TestPersistence {
 		l_res1[0]=l1_res1;l_res1[1]=l2_res1;l_res1[2]=l3_res1;l_res1[3]=l4_res1;
 
 		Municipality m = new Municipality("Outremont");
-		User res1 = new LocalResident("Ilana", l_res1);
-		Version v1 = new Version("1.0",2018);
+		String owner="Diana";
+		int age=0;
 		
-		Tree t1 = new Tree("White Ash",1.5, 0.2,l1,res1,m,v1);
+		Tree t1 = new Tree(owner,"White Ash",1.5, 0.2, age, l1,m);
 		t1.setLand(LandUse.Residential);
 		tm.addTree(t1);
 		tm.addLocation(l1);
@@ -78,21 +78,23 @@ public class TestPersistence {
 		Location l4_res1 = new Location(2,2);
 		l_res1[0]=l1_res1;l_res1[1]=l2_res1;l_res1[2]=l3_res1;l_res1[3]=l4_res1;
 		Municipality m = new Municipality("Outremont");
-		User owner = new LocalResident("Ilana", l_res1);
-		Version v1 = new Version("1.0",2018);
+		User owner = new User();
+		String version="1.0";
 		double height = 1.5;
 		double diameter = 0.2;
 		
 		// check tree attributes
 		assertEquals(1, tm.getTrees().size());
+		assertEquals(2018, tm.getVersionYear());
+		assertEquals(true, tm.getIsCurrent());
 		assertEquals("White Ash", tm.getTree(0).getSpecies());
 		assertEquals(height, tm.getTree(0).getHeight(),0);
 		assertEquals(diameter, tm.getTree(0).getDiameter(),0);
 		assertEquals(m.getName(), tm.getTree(0).getTreeMunicipality().getName());
 		assertEquals(l1.getLatitude(), tm.getTree(0).getCoordinates().getLatitude(),0);
 		assertEquals(l1.getLongitude(), tm.getTree(0).getCoordinates().getLongitude(),0);
-		assertEquals(v1.getIdNumber(), tm.getTree(0).getVersion(0).getIdNumber());
-		assertEquals(owner.getName(), tm.getTree(0).getOwner().getName());
+		assertEquals(version, tm.getVersion());
+		assertEquals(owner, tm.getTree(0).getOwnerName());
 		assertEquals(LandUse.Residential, tm.getTree(0).getLand());
 		
 		//check Location
