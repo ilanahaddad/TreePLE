@@ -1,11 +1,11 @@
 /*PLEASE DO NOT EDIT THIS CODE*/
-/*This code was generated using the UMPLE 1.26.1-f40f105-3613 modeling language!*/
+/*This code was generated using the UMPLE 1.27.0.3728.d139ed893 modeling language!*/
 
 package ca.mcgill.ecse321.TreePLE.model;
 import java.util.*;
 import java.sql.Date;
 
-// line 51 "../../../../../TreePLE.ump"
+// line 44 "../../../../../TreePLE.ump"
 public class TreeManager
 {
 
@@ -13,29 +13,79 @@ public class TreeManager
   // MEMBER VARIABLES
   //------------------------
 
+  //TreeManager Attributes
+  private boolean isCurrent;
+  private String version;
+  private int versionYear;
+
   //TreeManager Associations
   private List<Tree> trees;
   private List<Location> locations;
   private List<Survey> surveys;
   private List<Municipality> municipalities;
-  private List<User> users;
+  private User user;
 
   //------------------------
   // CONSTRUCTOR
   //------------------------
 
-  public TreeManager()
+  public TreeManager(boolean aIsCurrent, String aVersion, int aVersionYear, User aUser)
   {
+    isCurrent = aIsCurrent;
+    version = aVersion;
+    versionYear = aVersionYear;
     trees = new ArrayList<Tree>();
     locations = new ArrayList<Location>();
     surveys = new ArrayList<Survey>();
     municipalities = new ArrayList<Municipality>();
-    users = new ArrayList<User>();
+    if (!setUser(aUser))
+    {
+      throw new RuntimeException("Unable to create TreeManager due to aUser");
+    }
   }
 
   //------------------------
   // INTERFACE
   //------------------------
+
+  public boolean setIsCurrent(boolean aIsCurrent)
+  {
+    boolean wasSet = false;
+    isCurrent = aIsCurrent;
+    wasSet = true;
+    return wasSet;
+  }
+
+  public boolean setVersion(String aVersion)
+  {
+    boolean wasSet = false;
+    version = aVersion;
+    wasSet = true;
+    return wasSet;
+  }
+
+  public boolean setVersionYear(int aVersionYear)
+  {
+    boolean wasSet = false;
+    versionYear = aVersionYear;
+    wasSet = true;
+    return wasSet;
+  }
+
+  public boolean getIsCurrent()
+  {
+    return isCurrent;
+  }
+
+  public String getVersion()
+  {
+    return version;
+  }
+
+  public int getVersionYear()
+  {
+    return versionYear;
+  }
 
   public Tree getTree(int index)
   {
@@ -157,34 +207,9 @@ public class TreeManager
     return index;
   }
 
-  public User getUser(int index)
+  public User getUser()
   {
-    User aUser = users.get(index);
-    return aUser;
-  }
-
-  public List<User> getUsers()
-  {
-    List<User> newUsers = Collections.unmodifiableList(users);
-    return newUsers;
-  }
-
-  public int numberOfUsers()
-  {
-    int number = users.size();
-    return number;
-  }
-
-  public boolean hasUsers()
-  {
-    boolean has = users.size() > 0;
-    return has;
-  }
-
-  public int indexOfUser(User aUser)
-  {
-    int index = users.indexOf(aUser);
-    return index;
+    return user;
   }
 
   public static int minimumNumberOfTrees()
@@ -415,61 +440,15 @@ public class TreeManager
     return wasAdded;
   }
 
-  public static int minimumNumberOfUsers()
+  public boolean setUser(User aNewUser)
   {
-    return 0;
-  }
-
-  public boolean addUser(User aUser)
-  {
-    boolean wasAdded = false;
-    if (users.contains(aUser)) { return false; }
-    users.add(aUser);
-    wasAdded = true;
-    return wasAdded;
-  }
-
-  public boolean removeUser(User aUser)
-  {
-    boolean wasRemoved = false;
-    if (users.contains(aUser))
+    boolean wasSet = false;
+    if (aNewUser != null)
     {
-      users.remove(aUser);
-      wasRemoved = true;
+      user = aNewUser;
+      wasSet = true;
     }
-    return wasRemoved;
-  }
-
-  public boolean addUserAt(User aUser, int index)
-  {  
-    boolean wasAdded = false;
-    if(addUser(aUser))
-    {
-      if(index < 0 ) { index = 0; }
-      if(index > numberOfUsers()) { index = numberOfUsers() - 1; }
-      users.remove(aUser);
-      users.add(index, aUser);
-      wasAdded = true;
-    }
-    return wasAdded;
-  }
-
-  public boolean addOrMoveUserAt(User aUser, int index)
-  {
-    boolean wasAdded = false;
-    if(users.contains(aUser))
-    {
-      if(index < 0 ) { index = 0; }
-      if(index > numberOfUsers()) { index = numberOfUsers() - 1; }
-      users.remove(aUser);
-      users.add(index, aUser);
-      wasAdded = true;
-    } 
-    else 
-    {
-      wasAdded = addUserAt(aUser, index);
-    }
-    return wasAdded;
+    return wasSet;
   }
 
   public void delete()
@@ -478,7 +457,16 @@ public class TreeManager
     locations.clear();
     surveys.clear();
     municipalities.clear();
-    users.clear();
+    user = null;
   }
 
+
+  public String toString()
+  {
+    return super.toString() + "["+
+            "isCurrent" + ":" + getIsCurrent()+ "," +
+            "version" + ":" + getVersion()+ "," +
+            "versionYear" + ":" + getVersionYear()+ "]" + System.getProperties().getProperty("line.separator") +
+            "  " + "user = "+(getUser()!=null?Integer.toHexString(System.identityHashCode(getUser())):"null");
+  }
 }

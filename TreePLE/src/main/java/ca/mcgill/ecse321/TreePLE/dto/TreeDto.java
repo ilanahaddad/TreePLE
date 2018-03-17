@@ -9,7 +9,6 @@ import ca.mcgill.ecse321.TreePLE.model.Municipality;
 import ca.mcgill.ecse321.TreePLE.model.Survey;
 import ca.mcgill.ecse321.TreePLE.model.Tree;
 import ca.mcgill.ecse321.TreePLE.model.User;
-import ca.mcgill.ecse321.TreePLE.model.Version;
 import ca.mcgill.ecse321.TreePLE.model.Tree.LandUse;
 import ca.mcgill.ecse321.TreePLE.model.Tree.Status;
 
@@ -23,7 +22,6 @@ public class TreeDto {
 	private LocationDto coordinates;
 	private UserDto owner;
 	private MunicipalityDto treeMunicipality;
-	private List<Version> versions;
 	private int id;
 
 	public TreeDto() {
@@ -35,7 +33,7 @@ public class TreeDto {
 
 	public TreeDto(String species, double height, double diameter, 
 			LocationDto coordinates, UserDto owner, MunicipalityDto treeMunicipality, 
-			List<Version> versions, LandUse land, Status status, int id){
+			 LandUse land, Status status, int id){
 		this.species = species;
 		this.height = height;
 		this.status = status;
@@ -44,7 +42,6 @@ public class TreeDto {
 		this.coordinates = coordinates;
 		this.owner = owner;
 		this.treeMunicipality = treeMunicipality;
-		this.versions = versions;
 		this.id = id;
 	}
 
@@ -91,11 +88,11 @@ public class TreeDto {
 		return treeMunicipality;
 	}
 
-	public Version getVersion(int index)
+/*	public Version getVersion(int index)
 	{
 		Version aVersion = versions.get(index);
 		return aVersion;
-	}
+	}*/
 
 	public void setMunicipality(MunicipalityDto mun) {
 		this.treeMunicipality = mun;

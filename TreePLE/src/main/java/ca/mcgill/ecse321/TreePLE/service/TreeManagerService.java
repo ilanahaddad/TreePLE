@@ -10,7 +10,7 @@ import ca.mcgill.ecse321.TreePLE.model.Survey;
 import ca.mcgill.ecse321.TreePLE.model.Tree;
 import ca.mcgill.ecse321.TreePLE.model.TreeManager;
 import ca.mcgill.ecse321.TreePLE.model.User;
-import ca.mcgill.ecse321.TreePLE.model.Version;
+import ca.mcgill.ecse321.TreePLE.model.User.UserType;
 import ca.mcgill.ecse321.TreePLE.persistence.PersistenceXStream;
 
 @Service
@@ -20,23 +20,22 @@ public class TreeManagerService {
 	public TreeManagerService(TreeManager tm) {
 		this.tm=tm;
 	}
-	public Tree createTree(String species,  double height, double diameter, 
-			 Location location, User owner, 
+	public Tree createTree(String ownerName, String species,  double height, double diameter, 
+			 int age, Location location, 
 			Municipality municipality,  Tree.LandUse land) throws InvalidInputException{
-		if(species==null || location==null || owner == null || municipality==null) {
+		if(species==null || location==null || municipality==null) {
 			throw new InvalidInputException("Error: Species name, tree location, owner, municipality, or version cannot be null!");
 		}
 		if(species==" " ) {
 			throw new InvalidInputException("Error: Species name is empty!");
 		}
 		if(location.hasTreeInLocation()) {
-		//TODO: write test for this error message
 			throw new InvalidInputException("Error: There is already a tree in this location!");
 		}
 		//TODO: if owner is a local resident, check tree location is contained in owner's perimeter
 		
-		Version version= new Version("1.0", 2018);
-		Tree t = new Tree(species, height, diameter,location, owner, municipality, version);
+		
+		Tree t = new Tree(ownerName, species, height, diameter,age, location, municipality);
 		t.setLand(land);
 		
 		location.setTreeInLocation(t);
@@ -67,9 +66,7 @@ public class TreeManagerService {
 	public Location getLocationForTree(Tree t) {
 		return t.getCoordinates();
 	}
-	public User getOwnerForTree(Tree t) {
-		return t.getOwner();
-	}
+
 	public Municipality getMunicipalityForTree(Tree t) {
 		return t.getTreeMunicipality();
 	}
@@ -96,27 +93,20 @@ public class TreeManagerService {
 		return location;
 				
 	}
-	public User getOwnerByName(String name) {
-		//look through all users and check if name matches
-		//TODO: double check that user is a local resident, and if so, 
-		//that their perimeter surrounds tree coordinates
-		List<User> users = tm.getUsers();
-		for(User u: users) {
-			if(u.getName().equals(name)) {
-				return u;
-			}
-		}
-		User user= new User(name);
-		tm.addUser(user);
-		return user;
-	}
+	
+
 	public List<Municipality> findAllMunicipalities() {
 		
 		return tm.getMunicipalities();
 	}
 	public List<Tree> findAllTrees() {
-		
 		return tm.getTrees();
+	}
+
+	public User setUserType(UserType userType) {
+		User user = tm.getUser();
+		user.setUsertype(userType);
+		return user;
 	}
 	
 }

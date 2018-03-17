@@ -70,4 +70,27 @@ export default {
       //this.newTree = ''
     //}
   //}
+  data () {
+    return {
+      center: {lat: 45.5048, lng: -73.5772},
+      markers: [{
+        position: {lat: 45.50, lng: -73.57}
+      }, {
+        position: {lat: 45.51, lng: -73.58}
+      }]
+    }
+  }
 }
+
+import * as VueGoogleMaps from 'vue2-google-maps'
+import Vue from 'vue'
+
+Vue.use(VueGoogleMaps, {
+  load: {
+    key: 'AIzaSyDUSNhFJa7yvEUUKHiQCeWgqBPI4xDgXHg',
+    v: '1.0'
+    // libraries: 'places', //// If you need to use place input
+  }
+})
+
+

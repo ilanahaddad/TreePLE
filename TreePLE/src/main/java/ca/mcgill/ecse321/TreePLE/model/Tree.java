@@ -1,5 +1,5 @@
 /*PLEASE DO NOT EDIT THIS CODE*/
-/*This code was generated using the UMPLE 1.26.1-f40f105-3613 modeling language!*/
+/*This code was generated using the UMPLE 1.27.0.3728.d139ed893 modeling language!*/
 
 package ca.mcgill.ecse321.TreePLE.model;
 import java.util.*;
@@ -27,11 +27,13 @@ public class Tree
   //------------------------
 
   //Tree Attributes
+  private String ownerName;
   private String species;
   private double height;
   private Status status;
   private double diameter;
   private LandUse land;
+  private int age;
 
   //Autounique Attributes
   private int id;
@@ -39,20 +41,20 @@ public class Tree
   //Tree Associations
   private List<Survey> surveys;
   private Location coordinates;
-  private User owner;
   private Municipality treeMunicipality;
-  private List<Version> versions;
 
   //------------------------
   // CONSTRUCTOR
   //------------------------
 
-  public Tree(String aSpecies, double aHeight, double aDiameter, Location aCoordinates, User aOwner, Municipality aTreeMunicipality, Version... allVersions)
+  public Tree(String aOwnerName, String aSpecies, double aHeight, double aDiameter, int aAge, Location aCoordinates, Municipality aTreeMunicipality)
   {
+    ownerName = aOwnerName;
     species = aSpecies;
     height = aHeight;
     status = Status.Planted;
     diameter = aDiameter;
+    age = aAge;
     id = nextId++;
     surveys = new ArrayList<Survey>();
     boolean didAddCoordinates = setCoordinates(aCoordinates);
@@ -60,27 +62,24 @@ public class Tree
     {
       throw new RuntimeException("Unable to create treeInLocation due to coordinates");
     }
-    boolean didAddOwner = setOwner(aOwner);
-    if (!didAddOwner)
-    {
-      throw new RuntimeException("Unable to create tree due to owner");
-    }
     boolean didAddTreeMunicipality = setTreeMunicipality(aTreeMunicipality);
     if (!didAddTreeMunicipality)
     {
       throw new RuntimeException("Unable to create listOfTree due to treeMunicipality");
-    }
-    versions = new ArrayList<Version>();
-    boolean didAddVersions = setVersions(allVersions);
-    if (!didAddVersions)
-    {
-      throw new RuntimeException("Unable to create Tree, must have at least 1 versions");
     }
   }
 
   //------------------------
   // INTERFACE
   //------------------------
+
+  public boolean setOwnerName(String aOwnerName)
+  {
+    boolean wasSet = false;
+    ownerName = aOwnerName;
+    wasSet = true;
+    return wasSet;
+  }
 
   public boolean setSpecies(String aSpecies)
   {
@@ -122,6 +121,19 @@ public class Tree
     return wasSet;
   }
 
+  public boolean setAge(int aAge)
+  {
+    boolean wasSet = false;
+    age = aAge;
+    wasSet = true;
+    return wasSet;
+  }
+
+  public String getOwnerName()
+  {
+    return ownerName;
+  }
+
   public String getSpecies()
   {
     return species;
@@ -145,6 +157,11 @@ public class Tree
   public LandUse getLand()
   {
     return land;
+  }
+
+  public int getAge()
+  {
+    return age;
   }
 
   public int getId()
@@ -187,54 +204,19 @@ public class Tree
     return coordinates;
   }
 
-  public User getOwner()
-  {
-    return owner;
-  }
-
   public Municipality getTreeMunicipality()
   {
     return treeMunicipality;
-  }
-
-  public Version getVersion(int index)
-  {
-    Version aVersion = versions.get(index);
-    return aVersion;
-  }
-
-  public List<Version> getVersions()
-  {
-    List<Version> newVersions = Collections.unmodifiableList(versions);
-    return newVersions;
-  }
-
-  public int numberOfVersions()
-  {
-    int number = versions.size();
-    return number;
-  }
-
-  public boolean hasVersions()
-  {
-    boolean has = versions.size() > 0;
-    return has;
-  }
-
-  public int indexOfVersion(Version aVersion)
-  {
-    int index = versions.indexOf(aVersion);
-    return index;
   }
 
   public static int minimumNumberOfSurveys()
   {
     return 0;
   }
-
-  public Survey addSurvey(Date aReportDate, User aSurveyor)
+  /* Code from template association_AddManyToOne */
+  public Survey addSurvey(String aSurveyorName, Date aReportDate)
   {
-    return new Survey(aReportDate, this, aSurveyor);
+    return new Survey(aSurveyorName, aReportDate, this);
   }
 
   public boolean addSurvey(Survey aSurvey)
@@ -327,25 +309,6 @@ public class Tree
     return wasSet;
   }
 
-  public boolean setOwner(User aOwner)
-  {
-    boolean wasSet = false;
-    if (aOwner == null)
-    {
-      return wasSet;
-    }
-
-    User existingOwner = owner;
-    owner = aOwner;
-    if (existingOwner != null && !existingOwner.equals(aOwner))
-    {
-      existingOwner.removeTree(this);
-    }
-    owner.addTree(this);
-    wasSet = true;
-    return wasSet;
-  }
-
   public boolean setTreeMunicipality(Municipality aTreeMunicipality)
   {
     boolean wasSet = false;
@@ -365,140 +328,6 @@ public class Tree
     return wasSet;
   }
 
-  public boolean isNumberOfVersionsValid()
-  {
-    boolean isValid = numberOfVersions() >= minimumNumberOfVersions();
-    return isValid;
-  }
-
-  public static int minimumNumberOfVersions()
-  {
-    return 1;
-  }
-
-  public boolean addVersion(Version aVersion)
-  {
-    boolean wasAdded = false;
-    if (versions.contains(aVersion)) { return false; }
-    versions.add(aVersion);
-    if (aVersion.indexOfTree(this) != -1)
-    {
-      wasAdded = true;
-    }
-    else
-    {
-      wasAdded = aVersion.addTree(this);
-      if (!wasAdded)
-      {
-        versions.remove(aVersion);
-      }
-    }
-    return wasAdded;
-  }
-
-  public boolean removeVersion(Version aVersion)
-  {
-    boolean wasRemoved = false;
-    if (!versions.contains(aVersion))
-    {
-      return wasRemoved;
-    }
-
-    if (numberOfVersions() <= minimumNumberOfVersions())
-    {
-      return wasRemoved;
-    }
-
-    int oldIndex = versions.indexOf(aVersion);
-    versions.remove(oldIndex);
-    if (aVersion.indexOfTree(this) == -1)
-    {
-      wasRemoved = true;
-    }
-    else
-    {
-      wasRemoved = aVersion.removeTree(this);
-      if (!wasRemoved)
-      {
-        versions.add(oldIndex,aVersion);
-      }
-    }
-    return wasRemoved;
-  }
-
-  public boolean setVersions(Version... newVersions)
-  {
-    boolean wasSet = false;
-    ArrayList<Version> verifiedVersions = new ArrayList<Version>();
-    for (Version aVersion : newVersions)
-    {
-      if (verifiedVersions.contains(aVersion))
-      {
-        continue;
-      }
-      verifiedVersions.add(aVersion);
-    }
-
-    if (verifiedVersions.size() != newVersions.length || verifiedVersions.size() < minimumNumberOfVersions())
-    {
-      return wasSet;
-    }
-
-    ArrayList<Version> oldVersions = new ArrayList<Version>(versions);
-    versions.clear();
-    for (Version aNewVersion : verifiedVersions)
-    {
-      versions.add(aNewVersion);
-      if (oldVersions.contains(aNewVersion))
-      {
-        oldVersions.remove(aNewVersion);
-      }
-      else
-      {
-        aNewVersion.addTree(this);
-      }
-    }
-
-    for (Version anOldVersion : oldVersions)
-    {
-      anOldVersion.removeTree(this);
-    }
-    wasSet = true;
-    return wasSet;
-  }
-
-  public boolean addVersionAt(Version aVersion, int index)
-  {  
-    boolean wasAdded = false;
-    if(addVersion(aVersion))
-    {
-      if(index < 0 ) { index = 0; }
-      if(index > numberOfVersions()) { index = numberOfVersions() - 1; }
-      versions.remove(aVersion);
-      versions.add(index, aVersion);
-      wasAdded = true;
-    }
-    return wasAdded;
-  }
-
-  public boolean addOrMoveVersionAt(Version aVersion, int index)
-  {
-    boolean wasAdded = false;
-    if(versions.contains(aVersion))
-    {
-      if(index < 0 ) { index = 0; }
-      if(index > numberOfVersions()) { index = numberOfVersions() - 1; }
-      versions.remove(aVersion);
-      versions.add(index, aVersion);
-      wasAdded = true;
-    } 
-    else 
-    {
-      wasAdded = addVersionAt(aVersion, index);
-    }
-    return wasAdded;
-  }
-
   public void delete()
   {
     for(int i=surveys.size(); i > 0; i--)
@@ -512,17 +341,11 @@ public class Tree
     {
       existingCoordinates.setTreeInLocation(null);
     }
-    User placeholderOwner = owner;
-    this.owner = null;
-    placeholderOwner.removeTree(this);
     Municipality placeholderTreeMunicipality = treeMunicipality;
     this.treeMunicipality = null;
-    placeholderTreeMunicipality.removeListOfTree(this);
-    ArrayList<Version> copyOfVersions = new ArrayList<Version>(versions);
-    versions.clear();
-    for(Version aVersion : copyOfVersions)
+    if(placeholderTreeMunicipality != null)
     {
-      aVersion.removeTree(this);
+      placeholderTreeMunicipality.removeListOfTree(this);
     }
   }
 
@@ -531,13 +354,14 @@ public class Tree
   {
     return super.toString() + "["+
             "id" + ":" + getId()+ "," +
+            "ownerName" + ":" + getOwnerName()+ "," +
             "species" + ":" + getSpecies()+ "," +
             "height" + ":" + getHeight()+ "," +
-            "diameter" + ":" + getDiameter()+ "]" + System.getProperties().getProperty("line.separator") +
+            "diameter" + ":" + getDiameter()+ "," +
+            "age" + ":" + getAge()+ "]" + System.getProperties().getProperty("line.separator") +
             "  " + "status" + "=" + (getStatus() != null ? !getStatus().equals(this)  ? getStatus().toString().replaceAll("  ","    ") : "this" : "null") + System.getProperties().getProperty("line.separator") +
             "  " + "land" + "=" + (getLand() != null ? !getLand().equals(this)  ? getLand().toString().replaceAll("  ","    ") : "this" : "null") + System.getProperties().getProperty("line.separator") +
             "  " + "coordinates = "+(getCoordinates()!=null?Integer.toHexString(System.identityHashCode(getCoordinates())):"null") + System.getProperties().getProperty("line.separator") +
-            "  " + "owner = "+(getOwner()!=null?Integer.toHexString(System.identityHashCode(getOwner())):"null") + System.getProperties().getProperty("line.separator") +
             "  " + "treeMunicipality = "+(getTreeMunicipality()!=null?Integer.toHexString(System.identityHashCode(getTreeMunicipality())):"null");
   }
 }
