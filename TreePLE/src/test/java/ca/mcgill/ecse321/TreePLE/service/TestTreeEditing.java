@@ -37,9 +37,12 @@ public class TestTreeEditing {
 		user.setUsertype(UserType.Professional);
 		Location treeLoc = new Location(3,3);
 		Municipality treeMun = new Municipality("Outremont");
+		double height = 10;
+		double diameter = 15;
+		int age = 3;
 		tms = new TreeManagerService(tm);
 		try {
-			tree = tms.createTree("John", "White Ash", 10, 15, 3, treeLoc, treeMun, LandUse.Residential);
+			tree = tms.createTree("John", "White Ash", height, diameter, age, treeLoc, treeMun, LandUse.Residential);
 		}
 		catch(InvalidInputException e) {
 			fail();
@@ -71,6 +74,15 @@ public class TestTreeEditing {
 		}
 		//check error
 		assertEquals("New height, diameter, and age cannot be negative.\n", error);
+		
+		//check tree was unchanged:
+		assertEquals("John", tree.getOwnerName());
+		assertEquals("White Ash", tree.getSpecies());
+		assertEquals(10, tree.getHeight(),0);
+		assertEquals(15, tree.getDiameter(),0);
+		assertEquals(3, tree.getAge());
+		assertEquals("Outremont", tree.getTreeMunicipality());
+		assertEquals(LandUse.Residential, tree.getLand());
 		
 		//check no change in memory:
 		assertEquals(1, tm.numberOfTrees());
