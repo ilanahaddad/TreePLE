@@ -8,6 +8,7 @@ import ca.mcgill.ecse321.TreePLE.model.Location;
 import ca.mcgill.ecse321.TreePLE.model.Municipality;
 import ca.mcgill.ecse321.TreePLE.model.Survey;
 import ca.mcgill.ecse321.TreePLE.model.Tree;
+import ca.mcgill.ecse321.TreePLE.model.Tree.LandUse;
 import ca.mcgill.ecse321.TreePLE.model.TreeManager;
 import ca.mcgill.ecse321.TreePLE.model.User;
 import ca.mcgill.ecse321.TreePLE.model.User.UserType;
@@ -63,6 +64,8 @@ public class TreeManagerService {
 		return municipality;
 	}
 
+
+
 	public Location getLocationForTree(Tree t) {
 		return t.getCoordinates();
 	}
@@ -107,6 +110,27 @@ public class TreeManagerService {
 		User user = tm.getUser();
 		user.setUsertype(userType);
 		return user;
+	}
+	/**
+	 * The feature updateTreeData is intended for the user to be able to correct tree information for better accuracy. 
+	 * The attributes of the tree a user can update does not affect the tree’s physical location (use moveTree for that). 
+	 * @param tree tree to update
+	 * @param newHeight 
+	 * @param newDiameter
+	 * @param newAge
+	 * @param newOwnerName
+	 * @param newSpecies
+	 * @param newLandUse
+	 * @param newMunicipality
+	 */
+	public void updateTreeData(Tree tree, double newHeight, double newDiameter, int newAge, String newOwnerName, 
+			String newSpecies,LandUse newLandUse, Municipality newMunicipality) throws InvalidInputException{
+		if(newOwnerName == null) {
+			throw new InvalidInputException("Error: New owner name cannot be null.\n");
+		}
+		if(newHeight <0 || newDiameter <0 || newAge <0) {
+			throw new InvalidInputException("Error: New height, diameter, and age cannot be negative.\n");
+		}
 	}
 	
 }
