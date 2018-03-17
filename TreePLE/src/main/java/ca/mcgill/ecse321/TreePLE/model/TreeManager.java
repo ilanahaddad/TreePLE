@@ -469,4 +469,14 @@ public class TreeManager
             "versionYear" + ":" + getVersionYear()+ "]" + System.getProperties().getProperty("line.separator") +
             "  " + "user = "+(getUser()!=null?Integer.toHexString(System.identityHashCode(getUser())):"null");
   }
+
+public List<Tree> getTreesInLocation(Location[] perimeter) {
+	// TODO Auto-generated method stub
+	return null;
+}
+
+public int getNumSpecies(Location[] perimeter) {
+	// TODO Auto-generated method stub
+	return 0;
+}
 }

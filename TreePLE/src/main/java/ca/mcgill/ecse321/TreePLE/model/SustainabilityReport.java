@@ -148,24 +148,8 @@ public class SustainabilityReport
 				"  " + "date" + "=" + (getDate() != null ? !getDate().equals(this)  ? getDate().toString().replaceAll("  ","    ") : "this" : "null");
 	}
 
-	public double[] calculateSustainabilityAttributes(int numTrees, int numSpecies, int crownDiameter, int height, int width, int age) {
-		double biodiversityIndex = numSpecies/numTrees;
-		double canopy = 2*Math.PI*Math.pow(crownDiameter, 2);
-
-		double weight;
-		if(width < 11) {
-			weight = 0.25*Math.pow(width,2)*height;
-		}
-		else {
-			weight = 0.15*Math.pow(width,2)*height;
-		}
-		double dryWeight = 0.725 * weight;
-		double carbonWeight = 0.5*dryWeight;
-		double  CO2Weight = carbonWeight*3.6663;
-		double carbonSequestration = CO2Weight/age;
-
-		double [] sustainabilityAttributes = {biodiversityIndex, canopy, carbonSequestration};
-
-		return sustainabilityAttributes;
+	public void setSustainabilityAttributes(double[] sustainabilityAttributes) {
+		// TODO Auto-generated method stub
+		
 	}
 }
