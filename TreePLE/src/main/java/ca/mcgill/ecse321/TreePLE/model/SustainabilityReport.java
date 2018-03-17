@@ -148,13 +148,10 @@ public class SustainabilityReport
 				"  " + "date" + "=" + (getDate() != null ? !getDate().equals(this)  ? getDate().toString().replaceAll("  ","    ") : "this" : "null");
 	}
 
-	public void setSustainabilityAttributes(double[] sustainabilityAttributes) {
-		// TODO Auto-generated method stub
-		
-	}
-
 	public double[] getSustainabilityAttributes() {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	
 }

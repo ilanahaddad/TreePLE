@@ -479,4 +479,9 @@ public int getNumSpecies(Location[] perimeter) {
 	// TODO Auto-generated method stub
 	return 0;
 }
+
+public Object isExistingReport(Location[] perimeter) {
+	// TODO Auto-generated method stub
+	return null;
+}
 }
