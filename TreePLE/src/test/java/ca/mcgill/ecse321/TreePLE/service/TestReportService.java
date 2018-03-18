@@ -216,10 +216,14 @@ public class TestReportService {
 		Location coordinate3 = new Location(3,3);
 		Location coordinate4 = new Location(0,3);
 		Location[] perimeter = {coordinate1,coordinate2,coordinate3,coordinate4};
-		assertEquals(0, tm.numberOfReports());
 		ReportService rs = new ReportService(tm);
-		SustainabilityReport report = rs.createReport(reporter, date, perimeter);
-		assertEquals(false, tm.isExistingReport(perimeter));
+		String error = null;
+		try {
+			SustainabilityReport report = rs.createReport(reporter, date, perimeter);
+		} catch (InvalidInputException e) {
+			error = e.getMessage();
+		}
+		assertEquals("Error: Invalid coordinates.", error);
 		
 	}
 	
@@ -234,15 +238,37 @@ public class TestReportService {
 		Location coordinate3 = new Location(0,3);
 		Location coordinate4 = new Location(3,3);
 		Location[] perimeter = {coordinate1,coordinate2,coordinate3,coordinate4};
-		assertEquals(false, tm.isExistingReport(perimeter));
 		ReportService rs = new ReportService(tm);
 		SustainabilityReport report = rs.createReport(reporter, date, perimeter);
-		assertEquals(true, tm.isExistingReport(perimeter));
+		assertEquals(coordinate1, tm.getReport(0).getReportPerimeter(0));
+		assertEquals(coordinate2, tm.getReport(0).getReportPerimeter(1));
+		assertEquals(coordinate3, tm.getReport(0).getReportPerimeter(2));
+		assertEquals(coordinate4, tm.getReport(0).getReportPerimeter(3));
 		
 	}
 	
 	@Test
-	public void testValidPerimeter() {
+	public void testNullDate() {
+		String reporter = " ";
+		Date date= null;
+		Location coordinate1 = new Location(0,0);
+		Location coordinate2 = new Location(3,0);
+		Location coordinate3 = new Location(0,3);
+		Location coordinate4 = new Location(3,3);
+		Location[] perimeter = {coordinate1,coordinate2,coordinate3,coordinate4};
+		ReportService rs = new ReportService(tm);
+		String error = null;
+		try {
+			SustainabilityReport report = rs.createReport(reporter, date, perimeter);;
+		} catch (InvalidInputException e) {
+			error = e.getMessage();
+		}
+		assertEquals("Error: Date can't be null.", error);
+		
+	}
+	
+	@Test
+	public void testValidDate() {
 		String reporter = " ";
 		Calendar c = Calendar.getInstance();
 		c.set(2017, Calendar.MARCH, 16, 9, 0, 0);
@@ -252,29 +278,9 @@ public class TestReportService {
 		Location coordinate3 = new Location(0,3);
 		Location coordinate4 = new Location(3,3);
 		Location[] perimeter = {coordinate1,coordinate2,coordinate3,coordinate4};
-		assertEquals(false, tm.isExistingReport(perimeter));
 		ReportService rs = new ReportService(tm);
 		SustainabilityReport report = rs.createReport(reporter, date, perimeter);
-		assertEquals(true, tm.isExistingReport(perimeter));
-		
-	}
-	
-	@Test
-	public void testValidPerimeter() {
-		String reporter = " ";
-		Calendar c = Calendar.getInstance();
-		c.set(2017, Calendar.MARCH, 16, 9, 0, 0);
-		Date date= new Date(c.getTimeInMillis());
-		Location coordinate1 = new Location(0,0);
-		Location coordinate2 = new Location(3,0);
-		Location coordinate3 = new Location(0,3);
-		Location coordinate4 = new Location(3,3);
-		Location[] perimeter = {coordinate1,coordinate2,coordinate3,coordinate4};
-		assertEquals(false, tm.isExistingReport(perimeter));
-		ReportService rs = new ReportService(tm);
-		SustainabilityReport report = rs.createReport(reporter, date, perimeter);
-		assertEquals(true, tm.isExistingReport(perimeter));
-		
+		assertEquals(date, tm.getReport(0).getDate());
 	}
 	
 	
