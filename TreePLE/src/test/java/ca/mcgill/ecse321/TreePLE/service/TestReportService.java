@@ -103,7 +103,6 @@ public class TestReportService {
 
 	@Test
 	public void testCreateReport() {
-		//TODO: check if there was never a report generated
 
 		String reporter = "Asma";
 		Calendar c = Calendar.getInstance();
@@ -114,11 +113,10 @@ public class TestReportService {
 		Location coordinate3 = new Location(0,3);
 		Location coordinate4 = new Location(3,3);
 		Location[] perimeter = {coordinate1,coordinate2,coordinate3,coordinate4};
-		/*if(isExistingReport(perimeter, version))
-			SustainabilityReport existingReport = getReportByLocation(perimeter);
-		 */
+		assertEquals(false, tm.isExistingReport(perimeter));
 		ReportService rs = new ReportService(tm);
 		SustainabilityReport report = rs.createReport(reporter, date, perimeter);
+		assertEquals(false, tm.isExistingReport(perimeter));
 		double[] SustainabilityAttributes = report.getSustainabilityAttributes();
 		double biodiversityIndex = SustainabilityAttributes[0];
 		double canopy = SustainabilityAttributes[1];
@@ -130,23 +128,129 @@ public class TestReportService {
 	}
 
 	@Test
-	public void testExistingReport() {
-		Location coordinate1 = new Location(0,0);
-		Location coordinate2 = new Location(3,0);
-		Location coordinate3 = new Location(0,3);
-		Location coordinate4 = new Location(3,3);
-		Location[] perimeter = {coordinate1,coordinate2,coordinate3,coordinate4};
-
-		assertEquals(false, tm.isExistingReport(perimeter));
+	public void testCalculation() {
+		//tree1:
+		double widthTree1 = 0.5;
+		//surround only this tree 
+		Location coordinate1t1 = new Location(1-widthTree1,1-widthTree1);
+		Location coordinate2t1 = new Location(1+widthTree1,1-widthTree1);
+		Location coordinate3t1 = new Location(1-widthTree1,1+widthTree1);
+		Location coordinate4t1 = new Location(1+widthTree1,1+widthTree1);
+		Location[] perimetert1 = {coordinate1t1,coordinate2t1,coordinate3t1,coordinate4t1};
 
 		String reporter = "Asma";
 		Calendar c = Calendar.getInstance();
 		c.set(2017, Calendar.MARCH, 16, 9, 0, 0);
 		Date date= new Date(c.getTimeInMillis());
 		ReportService rs = new ReportService(tm);
+		SustainabilityReport report = rs.createReport(reporter, date, perimetert1);
+		tm.addSustainabilityReport(report, perimetert1);
+
+		double[] SustainabilityAttributes = report.getSustainabilityAttributes();
+		double biodiversityIndex = SustainabilityAttributes[0];
+		double canopy = SustainabilityAttributes[1];
+		double carbonSequestration = SustainabilityAttributes[2];
+
+		assertEquals(1,biodiversityIndex,0);
+		assertEquals(1,canopy,0);
+		assertEquals(1,carbonSequestration,0);
+
+		//tree2:
+		double widthTree2 = 0.5;
+		//surround only this tree 
+		Location coordinate1t2 = new Location(2-widthTree2,2-widthTree2);
+		Location coordinate2t2 = new Location(2+widthTree2,2-widthTree2);
+		Location coordinate3t2 = new Location(2-widthTree2,2+widthTree2);
+		Location coordinate4t2 = new Location(2+widthTree2,2+widthTree2);
+		Location[] perimetert2 = {coordinate1t2,coordinate2t2,coordinate3t2,coordinate4t2};
+
+		report = rs.createReport(reporter, date, perimetert2);
+		tm.addSustainabilityReport(report, perimetert2);
+
+		SustainabilityAttributes = report.getSustainabilityAttributes();
+		biodiversityIndex = SustainabilityAttributes[0];
+		canopy = SustainabilityAttributes[1];
+		carbonSequestration = SustainabilityAttributes[2];
+
+		assertEquals(1,biodiversityIndex,0);
+		assertEquals(1,canopy,0);
+		assertEquals(1,carbonSequestration,0);
+	}
+	
+	@Test
+	public void testNullName(){
+		String reporter = null;
+		Calendar c = Calendar.getInstance();
+		c.set(2017, Calendar.MARCH, 16, 9, 0, 0);
+		Date date= new Date(c.getTimeInMillis());
+		Location coordinate1 = new Location(0,0);
+		Location coordinate2 = new Location(3,0);
+		Location coordinate3 = new Location(0,3);
+		Location coordinate4 = new Location(3,3);
+		Location[] perimeter = {coordinate1,coordinate2,coordinate3,coordinate4};
+		assertEquals(false, tm.isExistingReport(perimeter));
+		ReportService rs = new ReportService(tm);
+		SustainabilityReport report = rs.createReport(reporter, date, perimeter);
+		assertEquals(false, tm.isExistingReport(perimeter));
+	}
+	
+	@Test
+	public void testValidName(){
+		String reporter = " ";
+		Calendar c = Calendar.getInstance();
+		c.set(2017, Calendar.MARCH, 16, 9, 0, 0);
+		Date date= new Date(c.getTimeInMillis());
+		Location coordinate1 = new Location(0,0);
+		Location coordinate2 = new Location(3,0);
+		Location coordinate3 = new Location(0,3);
+		Location coordinate4 = new Location(3,3);
+		Location[] perimeter = {coordinate1,coordinate2,coordinate3,coordinate4};
+		assertEquals(false, tm.isExistingReport(perimeter));
+		ReportService rs = new ReportService(tm);
+		SustainabilityReport report = rs.createReport(reporter, date, perimeter);
+		assertEquals(false, tm.isExistingReport(perimeter));
+		
+		reporter = "asma";
+		report = rs.createReport(reporter, date, perimeter);
+		assertEquals(false, tm.isExistingReport(perimeter));
+	}
+	
+	@Test
+	public void testInvalidPerimeter() {
+		String reporter = " ";
+		Calendar c = Calendar.getInstance();
+		c.set(2017, Calendar.MARCH, 16, 9, 0, 0);
+		Date date= new Date(c.getTimeInMillis());
+		Location coordinate1 = new Location(3,0);
+		Location coordinate2 = new Location(0,0);
+		Location coordinate3 = new Location(3,3);
+		Location coordinate4 = new Location(0,3);
+		Location[] perimeter = {coordinate1,coordinate2,coordinate3,coordinate4};
+		assertEquals(false, tm.isExistingReport(perimeter));
+		ReportService rs = new ReportService(tm);
+		SustainabilityReport report = rs.createReport(reporter, date, perimeter);
+		assertEquals(false, tm.isExistingReport(perimeter));
+		
+	}
+	
+	@Test
+	public void testValidPerimeter() {
+		String reporter = " ";
+		Calendar c = Calendar.getInstance();
+		c.set(2017, Calendar.MARCH, 16, 9, 0, 0);
+		Date date= new Date(c.getTimeInMillis());
+		Location coordinate1 = new Location(0,0);
+		Location coordinate2 = new Location(3,0);
+		Location coordinate3 = new Location(0,3);
+		Location coordinate4 = new Location(3,3);
+		Location[] perimeter = {coordinate1,coordinate2,coordinate3,coordinate4};
+		assertEquals(false, tm.isExistingReport(perimeter));
+		ReportService rs = new ReportService(tm);
 		SustainabilityReport report = rs.createReport(reporter, date, perimeter);
 		assertEquals(true, tm.isExistingReport(perimeter));
+		
 	}
-
+	
+	
 
 }

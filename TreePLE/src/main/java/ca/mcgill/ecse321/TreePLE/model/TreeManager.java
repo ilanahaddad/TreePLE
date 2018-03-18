@@ -484,4 +484,9 @@ public Object isExistingReport(Location[] perimeter) {
 	// TODO Auto-generated method stub
 	return null;
 }
+
+public void addSustainabilityReport(SustainabilityReport report, Location[] perimeter) {
+	// TODO Auto-generated method stub
+	
+}
 }
