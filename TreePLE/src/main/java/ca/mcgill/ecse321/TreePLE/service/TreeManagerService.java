@@ -157,6 +157,7 @@ public class TreeManagerService {
 		user.setUsertype(userType); 
 		return user;
 	}
+
 	/**
 	 * The feature updateTreeData is intended for the user to be able to correct tree information for better accuracy. 
 	 * The attributes of the tree a user can update does not affect the tree’s physical location (use moveTree for that). 
@@ -229,6 +230,12 @@ public class TreeManagerService {
 		Location newLoc = new Location(newLatitude, newLongitude);
 		//TODO: check no tree in location
 		tree.setCoordinates(newLoc) ;
+	}
+
+	public int getNumSpecies (Location bottomLeft, Location topLeft, Location bottomRight, Location topRight)throws InvalidInputException {
+		// TODO Auto-generated method stub
+		return 0;
+
 	}
 	
 }

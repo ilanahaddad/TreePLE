@@ -4,18 +4,18 @@
   <versionYear>2018</versionYear>
   <trees id="2">
     <tree id="3">
-      <ownerName>John</ownerName>
+      <ownerName>Ilana</ownerName>
       <species>White Ash</species>
-      <height>10.0</height>
+      <height>1.5</height>
       <status>Planted</status>
-      <diameter>15.0</diameter>
+      <diameter>0.2</diameter>
       <land>Residential</land>
-      <age>3</age>
-      <id>11</id>
+      <age>0</age>
+      <id>1</id>
       <surveys id="4"/>
       <coordinates id="5">
-        <latitude>3.0</latitude>
-        <longitude>3.0</longitude>
+        <latitude>1.5</latitude>
+        <longitude>1.5</longitude>
         <treeInLocation reference="3"/>
       </coordinates>
       <treeMunicipality id="6">
@@ -27,10 +27,10 @@
       </treeMunicipality>
     </tree>
   </trees>
-  <locations id="9"/>
+  <locations id="9">
+    <location reference="5"/>
+  </locations>
   <surveys id="10"/>
   <municipalities id="11"/>
-  <user id="12">
-    <usertype>Professional</usertype>
-  </user>
+  <user id="12"/>
 </manager>
