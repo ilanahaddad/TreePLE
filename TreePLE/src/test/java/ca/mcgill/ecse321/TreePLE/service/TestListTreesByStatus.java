@@ -90,7 +90,8 @@ public class TestListTreesByStatus {
 		assertEquals(17, currentTree.getAge(), 0);
 		assertEquals("Outremont", currentTree.getTreeMunicipality().getName());
 		assertEquals(LandUse.Residential, currentTree.getLand());
-		assertEquals(2, treeWithStatus.size());		
+		assertEquals(2, treeWithStatus.size());		//Proves that a tree created is automatically set to planted
+		//in the survey method, you can edit the tree status
 	}
 
 	

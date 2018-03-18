@@ -123,7 +123,7 @@ public class TreeManagerService {
 			}
 		}
 		if (MunicipalityList.size() == 0) {
-			throw new InvalidInputException("Error: There are currently no such species in TreePLE!");
+			throw new InvalidInputException("Error: There are currently no such Municipality in TreePLE!");
 		}
 		return MunicipalityList;
 	}	
