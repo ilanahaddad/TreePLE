@@ -118,6 +118,7 @@ public class TestMoveTree {
 		//check no change in memory:
 		assertEquals(1, tm.numberOfTrees());
 	}
+	@Test
 	public void testValidOnBoundaries() {
 		assertEquals(1, tm.numberOfTrees());
 		String error = null;
@@ -136,6 +137,7 @@ public class TestMoveTree {
 		//check no change in memory:
 		assertEquals(1, tm.numberOfTrees());
 	}
+	@Test
 	public void testAllValidInputs() {
 		assertEquals(1, tm.numberOfTrees());
 		String error = null;

@@ -4,6 +4,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
 import java.io.File;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import org.junit.After;
 import org.junit.AfterClass;
@@ -15,6 +17,7 @@ import ca.mcgill.ecse321.TreePLE.model.Location;
 import ca.mcgill.ecse321.TreePLE.model.Municipality;
 import ca.mcgill.ecse321.TreePLE.model.Tree;
 import ca.mcgill.ecse321.TreePLE.model.Tree.LandUse;
+import ca.mcgill.ecse321.TreePLE.model.Tree.Status;
 import ca.mcgill.ecse321.TreePLE.model.TreeManager;
 import ca.mcgill.ecse321.TreePLE.model.User;
 import ca.mcgill.ecse321.TreePLE.persistence.PersistenceXStream;
@@ -35,11 +38,8 @@ public class TestTreeManagerService {
 
 	@Before
 	public void setUp() throws Exception {
-
 		user = new User();
 		tm=new TreeManager(true, "1.0", 2018,user);
-
-
 	}
 
 	@After
@@ -54,7 +54,7 @@ public class TestTreeManagerService {
 		Location treeLoc = new Location(1.5,1.5);
 		String owner = "Ilana";
 		Municipality m = new Municipality("Outremont");
-		
+
 		Tree.LandUse land = Tree.LandUse.Residential;
 		TreeManagerService tmc = new TreeManagerService(tm);
 		try {
@@ -65,8 +65,10 @@ public class TestTreeManagerService {
 		checkResultTree(owner,species, 1.5, 0.2,0, treeLoc, m, tm, land);
 		tm = (TreeManager) PersistenceXStream.loadFromXMLwithXStream();
 		// check file contents
+
 		checkResultTree(owner,species, 1.5, 0.2,0, treeLoc, m, tm, land);
 	
+
 	}
 	@Test
 	public void testCreateTreeNull() {
@@ -75,12 +77,11 @@ public class TestTreeManagerService {
 		Location treeLoc = null;
 		String owner = null;
 		Municipality m = null;
-		
+
 		String error = null;
 		Tree.LandUse land = null;
 		TreeManagerService tmc = new TreeManagerService(tm);
 		try {
-		
 			tmc.createTree(owner, species, 1.5, 0.2,0, treeLoc, m, land );
 		} catch (InvalidInputException e) {
 			error = e.getMessage();
@@ -91,7 +92,7 @@ public class TestTreeManagerService {
 
 		// check no change in memory
 		assertEquals(0, tm.getTrees().size());
-		
+
 	}
 	@Test
 	public void testCreateTreeEmpty() {
@@ -101,7 +102,7 @@ public class TestTreeManagerService {
 		String owner = "Ilana";
 		Municipality m = new Municipality("Outremont");
 		Tree.LandUse land = Tree.LandUse.Residential;
-		
+
 		String error=null;
 		TreeManagerService tmc = new TreeManagerService(tm);
 		try {
@@ -110,11 +111,11 @@ public class TestTreeManagerService {
 			error= e.getMessage();
 		}
 		assertEquals("Error: Species name is empty!", error);
-		
+
 		// check no change in memory
 		assertEquals(0, tm.getTrees().size());
-		
-		
+
+
 	}
 	@Test
 	public void testCreateTreeAlreadyExisting() {
@@ -124,7 +125,7 @@ public class TestTreeManagerService {
 		String owner = "Ilana";
 		Municipality m = new Municipality("Outremont");
 		Tree.LandUse land = Tree.LandUse.Residential;
-		
+
 		String error=null;
 		TreeManagerService tmc = new TreeManagerService(tm);
 		try {
@@ -132,42 +133,40 @@ public class TestTreeManagerService {
 		} catch (InvalidInputException e) {
 			error= e.getMessage();
 		}
-		
 		checkResultTree(owner, species, 1.5, 0.2, 0, treeLoc, m, tm, land);
-		
 		try {
 			tmc.createTree(owner, species, 1.5, 0.2, 0, treeLoc, m,land);
 		} catch (InvalidInputException e) {
 			error= e.getMessage();
 		}
-		
+
 		assertEquals("Error: There is already a tree in this location!", error);
-		
+
 		// check no change in memory
 		assertEquals(1, tm.getTrees().size());
-		
-		
+
+
 	}
 
 	@Test
 	public void testCreateMunicipality() {
 		assertEquals(0, tm.getMunicipalities().size()); // import Assert from the `org.junit` package
-		
+
 		String MunName="Oakville";
-		
+
 		TreeManagerService tmc = new TreeManagerService(tm);
-		
+
 		try {
 			tmc.createMunicipality(MunName);
 		} catch (InvalidInputException e) {
 			e.printStackTrace();
 		}
 		checkResultMunicipality(MunName, tm);
-		
+
 		tm = (TreeManager) PersistenceXStream.loadFromXMLwithXStream();
 		// check file contents
 		checkResultMunicipality(MunName, tm);
-	
+
 	}
 	@Test
 	public void testCreateMunicipalityNull() {
@@ -176,7 +175,7 @@ public class TestTreeManagerService {
 		TreeManagerService tmc = new TreeManagerService(tm);
 		String error = null;
 		try {
-			
+
 			tmc.createMunicipality(munName);
 		} catch (InvalidInputException e) {
 			error = e.getMessage();
@@ -187,8 +186,8 @@ public class TestTreeManagerService {
 
 		// check no change in memory
 		assertEquals(0, tm.getMunicipalities().size());
-		
-		
+
+
 	}
 	@Test
 	public void testCreateMunicipalityEmpty() {
@@ -197,7 +196,7 @@ public class TestTreeManagerService {
 		TreeManagerService tmc = new TreeManagerService(tm);
 		String error = null;
 		try {
-			
+
 			tmc.createMunicipality(munName);
 		} catch (InvalidInputException e) {
 			error = e.getMessage();
@@ -208,17 +207,17 @@ public class TestTreeManagerService {
 
 		// check no change in memory
 		assertEquals(0, tm.getMunicipalities().size());
-		
-		
+
+
 	}
 	@Test
 	public void testCreateMunicipalityAlreadyExisting() {
 		assertEquals(0, tm.getMunicipalities().size());
 		String munName= "Oakville";
 		TreeManagerService tmc = new TreeManagerService(tm);
-		
+
 		String error = null;
-		
+
 		//create municipality "Oakville"
 		try {
 			tmc.createMunicipality(munName);
@@ -227,21 +226,22 @@ public class TestTreeManagerService {
 		}
 		//check it was created okay
 		checkResultMunicipality(munName, tm);
-		
+
 		//try to create the same municipality
 		try {
 			tmc.createMunicipality(munName);
 		} catch (InvalidInputException e) {
 			error = e.getMessage();
 		}
-		
+
 		assertEquals("Error: Municipality already exists.", error);
-		
+
 		//check that second version of the same municipality was not created
 		assertEquals(1, tm.getMunicipalities().size());
-		
-		
+
+
 	}
+
 	private void checkResultTree(String owner, String species, double height, double diam, 
 			 int age, Location treeLoc, Municipality m, TreeManager tm2, Tree.LandUse land) {
 		assertEquals(1, tm2.getTrees().size());
@@ -254,15 +254,15 @@ public class TestTreeManagerService {
 		assertEquals(age, tm.getTree(0).getAge());
 		assertEquals(m.getName(), tm.getTree(0).getTreeMunicipality().getName());
 		assertEquals(LandUse.Residential, tm.getTree(0).getLand());
-		
+
 	}
 	private void checkResultMunicipality(String munName, TreeManager tm2) {
-		
+
 		assertEquals(1, tm2.getMunicipalities().size());
 		assertEquals(munName, tm.getMunicipality(0).getName());
-	
+
 	}
 
-	
+
 
 }
