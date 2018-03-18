@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import ca.mcgill.ecse321.TreePLE.model.Location;
 import ca.mcgill.ecse321.TreePLE.model.Municipality;
-import ca.mcgill.ecse321.TreePLE.model.Survey;
 import ca.mcgill.ecse321.TreePLE.model.Tree;
 import ca.mcgill.ecse321.TreePLE.model.Tree.LandUse;
 import ca.mcgill.ecse321.TreePLE.model.TreeManager;
@@ -64,6 +63,8 @@ public class TreeManagerService {
 		PersistenceXStream.saveToXMLwithXStream(tm);
 		return municipality;
 	}
+
+
 
 	public Location getLocationForTree(Tree t) {
 		return t.getCoordinates();
@@ -155,6 +156,79 @@ public class TreeManagerService {
 		User user = tm.getUser();
 		user.setUsertype(userType); 
 		return user;
+	}
+	/**
+	 * The feature updateTreeData is intended for the user to be able to correct tree information for better accuracy. 
+	 * The attributes of the tree a user can update does not affect the tree’s physical location (use moveTree for that). 
+	 * @param tree tree to update
+	 * @param newHeight 
+	 * @param newDiameter
+	 * @param newAge
+	 * @param newOwnerName
+	 * @param newSpecies
+	 * @param newLandUse
+	 * @param newMunicipality
+	 */
+	public void updateTreeData(Tree tree, double newHeight, double newDiameter, int newAge, String newOwnerName, 
+			String newSpecies,LandUse newLandUse, Municipality newMunicipality) throws InvalidInputException{
+		if(tree == null) {
+			throw new InvalidInputException("Tree cannot be null. Please select a tree.\n");
+		}
+		if(newHeight <0 || newDiameter <0 || newAge <0) {
+			throw new InvalidInputException("New height, diameter, and age cannot be negative.\n");
+		}
+		if(newOwnerName == null) {
+			throw new InvalidInputException("New owner name cannot be null.\n");
+		}
+		if(newOwnerName == "") {
+			throw new InvalidInputException("New owner name cannot be empty.\n");
+		}
+		if(newSpecies == null) {
+			throw new InvalidInputException("New species name cannot be null.\n");
+		}
+		if((newSpecies == "") || (newSpecies == " ")|| (newSpecies == "  ")) {
+			throw new InvalidInputException("New species name cannot be empty.\n");
+		}
+		if(newLandUse == null) {
+			throw new InvalidInputException("LandUse cannot be null. Please select a land use type.\n");
+		}
+		//valid chars: [65,90] [97,122]
+		//invalid chars: (32, 65); (90,97); >122
+		for(int i=0; i<newSpecies.length();i++) {
+			char c = newSpecies.charAt(i);
+			if((c >32 && c<65) ||(c>90 && c<97) || c>122 ) {
+				System.out.println(c);
+				throw new InvalidInputException("New species name cannot contain numbers or any special character.\n");
+			}
+		}
+		tree.setHeight(newHeight);
+		tree.setDiameter(newDiameter);
+		tree.setAge(newAge);
+		tree.setOwnerName(newOwnerName);
+		tree.setSpecies(newSpecies);
+		tree.setLand(newLandUse);
+		tree.setTreeMunicipality(newMunicipality);
+	}
+	/**
+	 * This feature is for users to move a tree. They choose a tree and input its new latitude and longitude 
+	 * coordinates and if all inputs our correct, the tree will have this new location.
+	 * @param tree
+	 * @param newLatitude
+	 * @param newLongitude
+	 */
+	public void moveTree(Tree tree, double newLatitude, double newLongitude) throws InvalidInputException{
+		if(tree == null) {
+			throw new InvalidInputException("Tree cannot be null. Please select a tree.\n");
+		}
+		if(newLatitude < -90 || newLatitude >90) {
+			throw new InvalidInputException("New latitude must be in range [-90,90].\n");
+		}
+		if(newLongitude < -180 || newLongitude >180) {
+			throw new InvalidInputException("New longitude must be in range [-180,180].\n");
+		}
+		Location newLoc = new Location(newLatitude, newLongitude);
+		//TODO: check no tree in location
+		tree.setCoordinates(newLoc) ;
 	}
 	
 }

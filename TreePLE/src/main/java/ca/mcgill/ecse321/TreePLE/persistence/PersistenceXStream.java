@@ -36,7 +36,7 @@ public class PersistenceXStream {
 			tm = (TreeManager) loadFromXMLwithXStream();
 		} else {
 			try {
-				System.out.println(file.getAbsolutePath());
+				System.out.println(file.getAbsolutePath()); //added by marton for debugging
 				file.createNewFile();
 			} catch (IOException e) {
 				e.printStackTrace();
