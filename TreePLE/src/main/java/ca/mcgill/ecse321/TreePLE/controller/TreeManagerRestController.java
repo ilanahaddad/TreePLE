@@ -171,7 +171,7 @@ public class TreeManagerRestController {
 	
 	//TODO: ADD DTO HERE
 	@PostMapping(value = { "/setUserType/{userType}/", "/setUserType/{userType}" })
-	public User setUserType(@PathVariable("userType") UserType userType) {
+	public User setUserType(@PathVariable("userType") UserType userType) throws InvalidInputException{
 		User user = treeManagerService.setUserType(userType);
 		return user;
 	}

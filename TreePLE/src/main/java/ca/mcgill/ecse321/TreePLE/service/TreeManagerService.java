@@ -107,7 +107,7 @@ public class TreeManagerService {
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	//Thomas Methods
 	
-	public List<Tree> listTreeBySpecies(String species) throws InvalidInputException{
+	public List<Tree> listTreesBySpecies(String species) throws InvalidInputException{
 		if(species==null) {
 			throw new InvalidInputException("Error: Species name cannot be null!");
 		}

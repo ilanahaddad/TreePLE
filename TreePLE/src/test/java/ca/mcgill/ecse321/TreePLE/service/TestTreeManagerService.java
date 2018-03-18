@@ -25,6 +25,7 @@ import ca.mcgill.ecse321.TreePLE.persistence.PersistenceXStream;
 public class TestTreeManagerService {
 	//TODO: MUNICIPALITIES
 	private TreeManager tm;
+	User user;
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
 		PersistenceXStream.initializeModelManager("output" + File.separator + "data.xml");
@@ -36,7 +37,8 @@ public class TestTreeManagerService {
 
 	@Before
 	public void setUp() throws Exception {
-		tm=new TreeManager();
+		user = new User();
+		tm=new TreeManager(true, "1.0", 2018,user);
 	}
 
 	@After
@@ -346,10 +348,10 @@ public class TestTreeManagerService {
 		Location l3_res1 = new Location(2,1);
 		Location l4_res1 = new Location(2,2);
 		ownerLoc[0]=l1_res1;ownerLoc[1]=l2_res1;ownerLoc[2]=l3_res1;ownerLoc[3]=l4_res1;
-		User owner = new LocalResident("Ilana",ownerLoc);
+		
 		Municipality m = new Municipality("Outremont");
 		Tree.LandUse land = Tree.LandUse.Residential;
-		tmc.createTree(species, 1, 0.2, treeLoc,owner, m, land );
+		tmc.createTree("Thomas",species, 1, 0.2,3, treeLoc, m, land );
 		try {
 			tmc.listTreesBySpecies(speciesTest, 1.5, 0.2, treeLoc,owner, m, land );
 		} catch (InvalidInputException e) {
