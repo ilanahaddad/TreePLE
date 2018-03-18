@@ -21,7 +21,7 @@ import ca.mcgill.ecse321.TreePLE.persistence.PersistenceXStream;
 
 
 public class TestTreeManagerService {
-	//TODO: MUNICIPALITIES
+
 	private TreeManager tm;
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
@@ -48,12 +48,6 @@ public class TestTreeManagerService {
 		assertEquals(0, tm.getTrees().size()); // import Assert from the `org.junit` package
 		String species= "White Ash";
 		Location treeLoc = new Location(1.5,1.5);
-		Location[] ownerLoc = new Location[4];
-		Location l1_res1 = new Location(1,1);
-		Location l2_res1 = new Location(1,2);
-		Location l3_res1 = new Location(2,1);
-		Location l4_res1 = new Location(2,2);
-		ownerLoc[0]=l1_res1;ownerLoc[1]=l2_res1;ownerLoc[2]=l3_res1;ownerLoc[3]=l4_res1;
 		String owner = "Ilana";
 		Municipality m = new Municipality("Outremont");
 		
@@ -100,12 +94,6 @@ public class TestTreeManagerService {
 		assertEquals(0, tm.getTrees().size()); // import Assert from the `org.junit` package
 		String species= " ";
 		Location treeLoc = new Location(1.5,1.5);
-		Location[] ownerLoc = new Location[4];
-		Location l1_res1 = new Location(1,1);
-		Location l2_res1 = new Location(1,2);
-		Location l3_res1 = new Location(2,1);
-		Location l4_res1 = new Location(2,2);
-		ownerLoc[0]=l1_res1;ownerLoc[1]=l2_res1;ownerLoc[2]=l3_res1;ownerLoc[3]=l4_res1;
 		String owner = "Ilana";
 		Municipality m = new Municipality("Outremont");
 		Tree.LandUse land = Tree.LandUse.Residential;
@@ -129,12 +117,6 @@ public class TestTreeManagerService {
 		assertEquals(0, tm.getTrees().size()); 
 		String species= "White Ash";
 		Location treeLoc = new Location(1.5,1.5);
-		Location[] ownerLoc = new Location[4];
-		Location l1_res1 = new Location(1,1);
-		Location l2_res1 = new Location(1,2);
-		Location l3_res1 = new Location(2,1);
-		Location l4_res1 = new Location(2,2);
-		ownerLoc[0]=l1_res1;ownerLoc[1]=l2_res1;ownerLoc[2]=l3_res1;ownerLoc[3]=l4_res1;
 		String owner = "Ilana";
 		Municipality m = new Municipality("Outremont");
 		Tree.LandUse land = Tree.LandUse.Residential;

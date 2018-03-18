@@ -1,13 +1,36 @@
 <manager id="1">
-  <trees id="2"/>
-  <locations id="3"/>
-  <surveys id="4"/>
-  <municipalities id="5">
-    <ca.mcgill.ecse321.TreePLE.model.Municipality id="6">
-      <name>Oakville</name>
-      <forecasts id="7"/>
-      <listOfTrees id="8"/>
-    </ca.mcgill.ecse321.TreePLE.model.Municipality>
-  </municipalities>
-  <users id="9"/>
+  <isCurrent>true</isCurrent>
+  <version>1.0</version>
+  <versionYear>2018</versionYear>
+  <trees id="2">
+    <tree id="3">
+      <ownerName>Ilana</ownerName>
+      <species>White Ash</species>
+      <height>1.5</height>
+      <status>Planted</status>
+      <diameter>0.2</diameter>
+      <land>Residential</land>
+      <age>0</age>
+      <id>1</id>
+      <surveys id="4"/>
+      <coordinates id="5">
+        <latitude>1.5</latitude>
+        <longitude>1.5</longitude>
+        <treeInLocation reference="3"/>
+      </coordinates>
+      <treeMunicipality id="6">
+        <name>Outremont</name>
+        <forecasts id="7"/>
+        <listOfTrees id="8">
+          <tree reference="3"/>
+        </listOfTrees>
+      </treeMunicipality>
+    </tree>
+  </trees>
+  <locations id="9">
+    <location reference="5"/>
+  </locations>
+  <surveys id="10"/>
+  <municipalities id="11"/>
+  <user id="12"/>
 </manager>

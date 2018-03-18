@@ -15,7 +15,6 @@ import org.junit.Test;
 import ca.mcgill.ecse321.TreePLE.model.Location;
 import ca.mcgill.ecse321.TreePLE.model.Municipality;
 import ca.mcgill.ecse321.TreePLE.model.Tree;
-import ca.mcgill.ecse321.TreePLE.model.Tree.LandUse;
 import ca.mcgill.ecse321.TreePLE.model.Tree.Status;
 import ca.mcgill.ecse321.TreePLE.model.TreeManager;
 import ca.mcgill.ecse321.TreePLE.model.User;
@@ -49,12 +48,6 @@ public class TestSurveyService {
 		assertEquals(0, tm.getSurveys().size()); // import Assert from the `org.junit` package
 		String species= "White Ash";
 		Location treeLoc = new Location(1.5,1.5);
-		Location[] ownerLoc = new Location[4];
-		Location l1_res1 = new Location(1,1);
-		Location l2_res1 = new Location(1,2);
-		Location l3_res1 = new Location(2,1);
-		Location l4_res1 = new Location(2,2);
-		ownerLoc[0]=l1_res1;ownerLoc[1]=l2_res1;ownerLoc[2]=l3_res1;ownerLoc[3]=l4_res1;
 		Municipality m = new Municipality("Outremont");
 
 
@@ -65,8 +58,7 @@ public class TestSurveyService {
 		Date date= new Date(c.getTimeInMillis());
 
 		SurveyService sc = new SurveyService(tm);
-		
-		
+				
 		try {
 			sc.createSurvey(date, tree, "Ilana", Tree.Status.Diseased );
 		} catch (InvalidInputException e) {
@@ -78,11 +70,40 @@ public class TestSurveyService {
 		checkResultSurvey(date, tree, "Ilana", Tree.Status.Diseased, tm );
 	}
 	@Test
-	public void testCreateSurveyNull() {
+	public void testCreateSurveyorNameEmpty() {
+		assertEquals(0, tm.getSurveys().size()); // import Assert from the `org.junit` package
+		String species= "White ";
+		Location treeLoc = new Location(1.5,1.5);
+		Municipality m = new Municipality("Outremont");
+
+
+		Tree tree=new Tree("Ilana",species, 1.2, 0.2, 0,treeLoc, m);
+		
+		Calendar c = Calendar.getInstance();
+		c.set(2017, Calendar.MARCH, 16, 9, 0, 0);
+		Date date= new Date(c.getTimeInMillis());
+
+		SurveyService sc = new SurveyService(tm);
+		String error=null;
+		
+		try {
+			sc.createSurvey(date,tree,"",Tree.Status.Diseased);
+		} catch (InvalidInputException e) {
+			error = e.getMessage();
+		}
+
+		// check error
+		assertEquals("Error: Surveyor name cannot be empty", error);
+
+		// check no change in memory
+		assertEquals(0, tm.getSurveys().size());
+		
+	}
+	@Test
+	public void testCreateSurveyEmpty() {
 		assertEquals(0, tm.getSurveys().size());
 		Date date = null;
 		Tree tree = null;
-		User surveyor = null;
 		Status status = null;
 		
 		String error = null;
@@ -153,12 +174,6 @@ public class TestSurveyService {
 		tm.getUser().setUsertype(UserType.LocalResident);
 		String species= "White Ash";
 		Location treeLoc = new Location(1.5,1.5);
-		Location[] ownerLoc = new Location[4];
-		Location l1_res1 = new Location(1,1);
-		Location l2_res1 = new Location(1,2);
-		Location l3_res1 = new Location(2,1);
-		Location l4_res1 = new Location(2,2);
-		ownerLoc[0]=l1_res1;ownerLoc[1]=l2_res1;ownerLoc[2]=l3_res1;ownerLoc[3]=l4_res1;
 		Municipality m = new Municipality("Outremont");
 
 		Tree tree=new Tree("Ilana", species, 1.2, 0.2,0, treeLoc,m);

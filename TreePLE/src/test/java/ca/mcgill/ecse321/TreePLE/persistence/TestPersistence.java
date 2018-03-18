@@ -38,7 +38,7 @@ public class TestPersistence {
 		l_res1[0]=l1_res1;l_res1[1]=l2_res1;l_res1[2]=l3_res1;l_res1[3]=l4_res1;
 
 		Municipality m = new Municipality("Outremont");
-		String owner="Diana";
+		String owner="Ilana";
 		int age=0;
 		
 		Tree t1 = new Tree(owner,"White Ash",1.5, 0.2, age, l1,m);
@@ -71,14 +71,9 @@ public class TestPersistence {
 			fail("Could not load file.");
 		
 		Location l1 = new Location(1.5,1.5);
-		Location[] l_res1 = new Location[4];
-		Location l1_res1 = new Location(1,1);
-		Location l2_res1 = new Location(1,2);
-		Location l3_res1 = new Location(2,1);
-		Location l4_res1 = new Location(2,2);
-		l_res1[0]=l1_res1;l_res1[1]=l2_res1;l_res1[2]=l3_res1;l_res1[3]=l4_res1;
+
 		Municipality m = new Municipality("Outremont");
-		User owner = new User();
+		String owner = "Ilana";
 		String version="1.0";
 		double height = 1.5;
 		double diameter = 0.2;
