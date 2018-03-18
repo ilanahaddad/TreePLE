@@ -124,12 +124,64 @@ public class TreeManagerService {
 	 */
 	public void updateTreeData(Tree tree, double newHeight, double newDiameter, int newAge, String newOwnerName, 
 			String newSpecies,LandUse newLandUse, Municipality newMunicipality) throws InvalidInputException{
-		if(newOwnerName == null) {
-			throw new InvalidInputException("Error: New owner name cannot be null.\n");
+		if(tree == null) {
+			throw new InvalidInputException("Tree cannot be null. Please select a tree.\n");
 		}
 		if(newHeight <0 || newDiameter <0 || newAge <0) {
-			throw new InvalidInputException("Error: New height, diameter, and age cannot be negative.\n");
+			throw new InvalidInputException("New height, diameter, and age cannot be negative.\n");
 		}
+		if(newOwnerName == null) {
+			throw new InvalidInputException("New owner name cannot be null.\n");
+		}
+		if(newOwnerName == "") {
+			throw new InvalidInputException("New owner name cannot be empty.\n");
+		}
+		if(newSpecies == null) {
+			throw new InvalidInputException("New species name cannot be null.\n");
+		}
+		if((newSpecies == "") || (newSpecies == " ")|| (newSpecies == "  ")) {
+			throw new InvalidInputException("New species name cannot be empty.\n");
+		}
+		if(newLandUse == null) {
+			throw new InvalidInputException("LandUse cannot be null. Please select a land use type.\n");
+		}
+		//valid chars: [65,90] [97,122]
+		//invalid chars: (32, 65); (90,97); >122
+		for(int i=0; i<newSpecies.length();i++) {
+			char c = newSpecies.charAt(i);
+			if((c >32 && c<65) ||(c>90 && c<97) || c>122 ) {
+				System.out.println(c);
+				throw new InvalidInputException("New species name cannot contain numbers or any special character.\n");
+			}
+		}
+		tree.setHeight(newHeight);
+		tree.setDiameter(newDiameter);
+		tree.setAge(newAge);
+		tree.setOwnerName(newOwnerName);
+		tree.setSpecies(newSpecies);
+		tree.setLand(newLandUse);
+		tree.setTreeMunicipality(newMunicipality);
+	}
+	/**
+	 * This feature is for users to move a tree. They choose a tree and input its new latitude and longitude 
+	 * coordinates and if all inputs our correct, the tree will have this new location.
+	 * @param tree
+	 * @param newLatitude
+	 * @param newLongitude
+	 */
+	public void moveTree(Tree tree, double newLatitude, double newLongitude) throws InvalidInputException{
+		if(tree == null) {
+			throw new InvalidInputException("Tree cannot be null. Please select a tree.\n");
+		}
+		if(newLatitude < -90 || newLatitude >90) {
+			throw new InvalidInputException("New latitude must be in range [-90,90].\n");
+		}
+		if(newLongitude < -180 || newLongitude >180) {
+			throw new InvalidInputException("New longitude must be in range [-180,180].\n");
+		}
+		Location newLoc = new Location(newLatitude, newLongitude);
+		//TODO: check no tree in location
+		tree.setCoordinates(newLoc) ;
 	}
 	
 }
