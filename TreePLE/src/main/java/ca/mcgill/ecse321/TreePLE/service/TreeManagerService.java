@@ -9,6 +9,7 @@ import ca.mcgill.ecse321.TreePLE.model.Location;
 import ca.mcgill.ecse321.TreePLE.model.Municipality;
 import ca.mcgill.ecse321.TreePLE.model.Survey;
 import ca.mcgill.ecse321.TreePLE.model.Tree;
+import ca.mcgill.ecse321.TreePLE.model.Tree.LandUse;
 import ca.mcgill.ecse321.TreePLE.model.TreeManager;
 import ca.mcgill.ecse321.TreePLE.model.User;
 import ca.mcgill.ecse321.TreePLE.model.User.UserType;
@@ -117,7 +118,7 @@ public class TreeManagerService {
 		List<Tree> TreeList = tm.getTrees();
 		List<Tree> SpeciesList = new ArrayList<Tree>();
 		for(Tree t: TreeList) {
-			if(t.getSpecies()==species) { //t.getSpecies().equals(species)?
+			if(t.getSpecies()==species) { 
 				SpeciesList.add(t);
 			}
 		}
@@ -125,6 +126,23 @@ public class TreeManagerService {
 			throw new InvalidInputException("Error: There are currently no such species in TreePLE!");
 		}
 		return SpeciesList;
+	}	
+	
+	public List<Tree> listTreesByLandUse(LandUse landUse) throws InvalidInputException{
+		if(landUse==null) {
+			throw new InvalidInputException("Error: landUse cannot be null!");
+		}
+		List<Tree> TreeList = tm.getTrees();
+		List<Tree> LandUseList = new ArrayList<Tree>();
+		for(Tree t: TreeList) {
+			if(t.getLand()==landUse) { 
+				LandUseList.add(t);
+			}
+		}
+		if (LandUseList.size() == 0) {
+			throw new InvalidInputException("Error: There are currently no such trees with such a land use in TreePLE");
+		}
+		return LandUseList;
 	}	
 	//End of Thomas Methods
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -135,7 +153,7 @@ public class TreeManagerService {
 			throw new InvalidInputException("Error: UserType cannot be null!");
 		}
 		User user = tm.getUser();
-		user.setUsertype(userType); //shouldn't there be an error if the usertype does not exist?
+		user.setUsertype(userType); 
 		return user;
 	}
 	

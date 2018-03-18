@@ -20,9 +20,10 @@ import ca.mcgill.ecse321.TreePLE.model.TreeManager;
 import ca.mcgill.ecse321.TreePLE.model.User;
 
 
-public class TestListTreesBySpecies {
+public class TestListTreesByLandUse {
 
 	private TreeManager tm;
+	String species = "White Ash";
 	Location treeLoc = new Location(1.5,1.5);
 	Municipality m = new Municipality("Outremont");
 	Tree.LandUse land = Tree.LandUse.Residential;
@@ -38,11 +39,11 @@ public class TestListTreesBySpecies {
 	public void tearDown() throws Exception {
 		tm.delete();
 	}
-
+	
 	@Test
-	public void testListTreesbySpecies() { //Add a tree and test that ListTreesbySpecies method can find it
+	public void testListTreesbyLandUse() { //Add a tree and test that ListTreesbySpecies method can find it
 		TreeManagerService tmc = new TreeManagerService(tm);
-		String species= "WhiteAsh";
+		Tree.LandUse land = Tree.LandUse.Residential;
 		String error = "false";
 		List<Tree> trees = null;
 		
@@ -53,14 +54,14 @@ public class TestListTreesBySpecies {
 		}
 		
 		try {
-			trees = tmc.listTreesBySpecies(species);
+			trees = tmc.listTreesByLandUse(land);
 		} catch (InvalidInputException e) {
-			assertEquals(error, "Was not able to list trees by species");
+			assertEquals(error, "Was not able to list trees by land use");
 		}
 		assertEquals(1, trees.size());
 		Tree currentTree = trees.get(0);
 		assertEquals("Thomas", currentTree.getOwnerName());
-		assertEquals(species, currentTree.getSpecies());
+		assertEquals("White Ash", currentTree.getSpecies());
 		assertEquals(1, currentTree.getHeight(),0);
 		assertEquals(0.2, currentTree.getDiameter(), 0);
 		assertEquals(3, currentTree.getAge(), 0);
@@ -70,68 +71,46 @@ public class TestListTreesBySpecies {
 	}
 	
 	@Test
-	public void testListTreesbySpeciesNull() { //Tests error handling of ListTreesbySpecies method for null input
+	public void testlistTreesByLandUseNull() { //Tests error handling of ListTreesbySpecies method for empty input
 		TreeManagerService tmc = new TreeManagerService(tm);
-		String species= null;
+		Tree.LandUse land = null;
 		String error = "false";
 		
 		try {
-			tmc.createTree("Thomas", "WhiteAsh", 1, 0.2,3, treeLoc, m, land );
+			tmc.createTree("Thomas", "White Ash", 1, 0.2,3, treeLoc, m, land );
 		} catch (InvalidInputException e) {
 			assertEquals(error, "Was not able to create tree");
 		}
 		
 		try {
-			List<Tree> trees = tmc.listTreesBySpecies(species);
+			List<Tree> trees = tmc.listTreesByLandUse(land);
 		} catch (InvalidInputException e) {
 			error = e.getMessage();;
 		}
 		// check error
-		assertEquals("Error: Species name cannot be null!", error);
-		
+		assertEquals("Error: landUse cannot be null!", error);
 	}
-	
-	
+
 	@Test
-	public void testlistTreesBySpeciesEmpty() { //Tests error handling of ListTreesbySpecies method for empty input
+	public void testlistTreesByLandUseNoLandUse() { //Tests error handling of ListTreesbySpecies method when no trees are found
 		TreeManagerService tmc = new TreeManagerService(tm);
-		String species= " ";
+		Tree.LandUse land = Tree.LandUse.NonResidential;
 		String error = "false";
 		
 		try {
-			tmc.createTree("Thomas", "WhiteAsh", 1, 0.2,3, treeLoc, m, land );
+			tmc.createTree("Thomas", "White Ash", 1, 0.2,3, treeLoc, m, Tree.LandUse.Residential);
 		} catch (InvalidInputException e) {
 			assertEquals(error, "Was not able to create tree");
 		}
 		
 		try {
-			List<Tree> trees = tmc.listTreesBySpecies(species);
+			List<Tree> trees = tmc.listTreesByLandUse(land);
 		} catch (InvalidInputException e) {
 			error = e.getMessage();;
 		}
 		// check error
-		assertEquals("Error: Species name is empty!", error);
-	}
-	
-	
-	@Test
-	public void testlistTreesBySpeciesNoSpecies() { //Tests error handling of ListTreesbySpecies method when no trees are found
-		TreeManagerService tmc = new TreeManagerService(tm);
-		String species= "Pine";
-		String error = "false";
-		
-		try {
-			tmc.createTree("Thomas", "WhiteAsh", 1, 0.2,3, treeLoc, m, land );
-		} catch (InvalidInputException e) {
-			assertEquals(error, "Was not able to create tree");
-		}
-		
-		try {
-			List<Tree> trees = tmc.listTreesBySpecies(species);
-		} catch (InvalidInputException e) {
-			error = e.getMessage();;
-		}
-		// check error
-		assertEquals("Error: There are currently no such species in TreePLE!", error);	
+		assertEquals("Error: There are currently no such trees with such a land use in TreePLE", error);	
 	}
 }
+
+	
