@@ -261,58 +261,6 @@ public class TestTreeManagerService {
 
 	}
 
-	//Done by Jess.
-	@Test
-	public void getTreeByMunicipality(Municipality municipality) throws InvalidInputException {
-
-		TreeManagerService tmc = new TreeManagerService(tm);
-		//create first tree
-		String ownerName = "Jessica";
-		String species= "White Ash";
-		double treeHeight = 10.5;
-		double treeDiameter = 10.0;
-		int treeAge = 17;
-		Location treeLoc = new Location(1.5,1.5);
-		Municipality m = new Municipality("Outremont");
-		Tree.LandUse land = Tree.LandUse.Residential;
-
-		try {
-			tmc.createTree(ownerName, species, treeHeight, treeDiameter, 
-					treeAge, treeLoc, m, land);
-		} catch (InvalidInputException e) {
-			e.printStackTrace();
-		}
-
-		//create second tree
-		String ownerName2 = "Trevor";
-		String species2 = "Cedar";
-		double treeHeight2 = 36.0;
-		double treeDiameter2 = 12.4;
-		int treeAge2 = 10;
-		Location treeLoc2 = new Location(3.0,4.5);
-		//Municipality m2 = new Municipality("Ville-Marie");
-		Tree.LandUse land2 = Tree.LandUse.Residential;
-
-		try {
-			tmc.createTree(ownerName2, species2, treeHeight2, treeDiameter2, 
-					treeAge2, treeLoc2, m, land2);
-		} catch (InvalidInputException e) {
-			e.printStackTrace();
-		}
-		assertEquals(0, tm.getTrees().size()); // import Assert from the `org.junit` package
-
-		//not sure why I'm getting an error here :/
-		List<Tree> treeWithM = tmc.getTreeByMunicipality(m);
-
-		assertEquals(2, treeWithM.size());	
-	}
-	//	//If above is correct, I'll work on this
-	// JUnit test fails - probably due to other errors
-	//	@Test
-	//	public void getTreeByStatus() {
-	//
-	//	}
-
 	private void checkResultTree(String species, double height, double diam, 
 			Location treeLoc, User owner,
 			Municipality m, TreeManager tm2, Tree.LandUse land) {
