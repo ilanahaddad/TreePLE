@@ -14,14 +14,13 @@ class Location{
   double latitude;
   double longitude;
 }
+
 class User{ 
   lazy UserType usertype; 
 }
 enum Status {Planted, Diseased, CutDown, ToBeCutDown}
 enum LandUse {Residential, NonResidential}
 enum UserType {LocalResident, Professional}
-
-
 
 class SustainabilityReport{
   reporterName;
@@ -53,6 +52,7 @@ class TreeManager{
   1 -> * Survey surveys;
   1 -> * Municipality municipalities;
   1 -> 1 User user;
+  1 -> * SustainabilityReport reports;
 }
 class VersionManager{
   1 -> * TreeManager treeManagers;

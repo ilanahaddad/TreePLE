@@ -236,11 +236,7 @@ public class TreeManagerService {
 		tree.setCoordinates(newLoc) ;
 	}
 
-	public int getNumSpecies (Location bottomLeft, Location topLeft, Location bottomRight, Location topRight)throws InvalidInputException {
-		// TODO Auto-generated method stub
-		return 0;
 
-	}
 	
 
 	public List<Tree> listTreesByMunicipality(Municipality municipality) throws InvalidInputException{

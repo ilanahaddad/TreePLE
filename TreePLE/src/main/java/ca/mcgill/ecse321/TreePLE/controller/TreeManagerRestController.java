@@ -196,7 +196,13 @@ public class TreeManagerRestController {
 		perimeter[1] = location2;
 		perimeter[2] = location3;
 		perimeter[3] = location4;
-		SustainabilityReport report = reportService.createReport(reporterName, reportDate, perimeter);
+		SustainabilityReport report = null;
+		try {
+			report = reportService.createReport(reporterName, reportDate, perimeter);
+		} catch (InvalidInputException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return report;
 	}
 	

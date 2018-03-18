@@ -5,7 +5,7 @@ package ca.mcgill.ecse321.TreePLE.model;
 import java.sql.Date;
 import java.util.*;
 
-// line 26 "../../../../../TreePLE.ump"
+// line 25 "../../../../../TreePLE.ump"
 public class SustainabilityReport
 {
 
@@ -16,6 +16,9 @@ public class SustainabilityReport
   //SustainabilityReport Attributes
   private String reporterName;
   private Date date;
+  private double biodiversityIndex;
+  private double canopy;
+  private double carbonSequestration;
 
   //SustainabilityReport Associations
   private List<Location> reportPerimeter;
@@ -56,6 +59,30 @@ public class SustainabilityReport
     return wasSet;
   }
 
+  public boolean setBiodiversityIndex(double aBiodiversityIndex)
+  {
+    boolean wasSet = false;
+    biodiversityIndex = aBiodiversityIndex;
+    wasSet = true;
+    return wasSet;
+  }
+
+  public boolean setCanopy(double aCanopy)
+  {
+    boolean wasSet = false;
+    canopy = aCanopy;
+    wasSet = true;
+    return wasSet;
+  }
+
+  public boolean setCarbonSequestration(double aCarbonSequestration)
+  {
+    boolean wasSet = false;
+    carbonSequestration = aCarbonSequestration;
+    wasSet = true;
+    return wasSet;
+  }
+
   public String getReporterName()
   {
     return reporterName;
@@ -64,6 +91,21 @@ public class SustainabilityReport
   public Date getDate()
   {
     return date;
+  }
+
+  public double getBiodiversityIndex()
+  {
+    return biodiversityIndex;
+  }
+
+  public double getCanopy()
+  {
+    return canopy;
+  }
+
+  public double getCarbonSequestration()
+  {
+    return carbonSequestration;
   }
 
   public Location getReportPerimeter(int index)
@@ -144,7 +186,10 @@ public class SustainabilityReport
   public String toString()
   {
     return super.toString() + "["+
-            "reporterName" + ":" + getReporterName()+ "]" + System.getProperties().getProperty("line.separator") +
+            "reporterName" + ":" + getReporterName()+ "," +
+            "biodiversityIndex" + ":" + getBiodiversityIndex()+ "," +
+            "canopy" + ":" + getCanopy()+ "," +
+            "carbonSequestration" + ":" + getCarbonSequestration()+ "]" + System.getProperties().getProperty("line.separator") +
             "  " + "date" + "=" + (getDate() != null ? !getDate().equals(this)  ? getDate().toString().replaceAll("  ","    ") : "this" : "null");
   }
 }

@@ -54,7 +54,7 @@ public class TestGetNumSpecies {
 		Municipality m = new Municipality("Outremont");
 		
 		Tree.LandUse land = Tree.LandUse.Residential;
-		TreeManagerService tmc = new TreeManagerService(tm);
+		ReportService rs = new ReportService(tm);
 		
 		Tree tree1= new Tree(owner, species, 1.5, 0.5, 0, treeLoc1, m );
 		Tree tree2= new Tree(owner, species, 1.5, 0.5, 0, treeLoc2, m );
@@ -64,7 +64,7 @@ public class TestGetNumSpecies {
 		int result=0;
 		
 		try {
-			result= tmc.getNumSpecies(bottomLeft,topLeft,bottomRight, topRight);
+			result= rs.getNumSpecies(bottomLeft,topLeft,bottomRight, topRight);
 		} catch (InvalidInputException e) {
 			e.printStackTrace();
 		}
@@ -87,7 +87,7 @@ public class TestGetNumSpecies {
 		Municipality m = new Municipality("Outremont");
 		
 		Tree.LandUse land = Tree.LandUse.Residential;
-		TreeManagerService tmc = new TreeManagerService(tm);
+		ReportService rs = new ReportService(tm);
 		
 		Tree tree1= new Tree(owner, species, 1.5, 0.5, 0, treeLoc1, m );
 		Tree tree2= new Tree(owner, species, 1.5, 0.5, 0, treeLoc2, m );
@@ -98,7 +98,7 @@ public class TestGetNumSpecies {
 		String error=null;
 		
 		try {
-			tmc.getNumSpecies(bottomLeft,topLeft,bottomRight, topRight);
+			rs.getNumSpecies(bottomLeft,topLeft,bottomRight, topRight);
 		} catch (InvalidInputException e) {
 			error=e.getMessage();
 		}

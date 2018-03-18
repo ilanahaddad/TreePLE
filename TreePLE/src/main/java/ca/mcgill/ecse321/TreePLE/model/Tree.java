@@ -208,12 +208,7 @@ public class Tree
   {
     return treeMunicipality;
   }
-  //Implemented additional method getTreeStatus -Jess
-  public Status getTreeStatus()
-  {
-    return status;
-  }
-  
+
   public static int minimumNumberOfSurveys()
   {
     return 0;
