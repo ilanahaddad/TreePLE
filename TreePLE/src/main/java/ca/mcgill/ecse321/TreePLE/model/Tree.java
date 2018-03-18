@@ -1,5 +1,5 @@
 /*PLEASE DO NOT EDIT THIS CODE*/
-/*This code was generated using the UMPLE 1.27.0.3728.d139ed893 modeling language!*/
+/*This code was generated using the UMPLE 1.26.1-f40f105-3613 modeling language!*/
 
 package ca.mcgill.ecse321.TreePLE.model;
 import java.util.*;
@@ -213,7 +213,7 @@ public class Tree
   {
     return 0;
   }
-  /* Code from template association_AddManyToOne */
+
   public Survey addSurvey(String aSurveyorName, Date aReportDate)
   {
     return new Survey(aSurveyorName, aReportDate, this);
@@ -343,10 +343,7 @@ public class Tree
     }
     Municipality placeholderTreeMunicipality = treeMunicipality;
     this.treeMunicipality = null;
-    if(placeholderTreeMunicipality != null)
-    {
-      placeholderTreeMunicipality.removeListOfTree(this);
-    }
+    placeholderTreeMunicipality.removeListOfTree(this);
   }
 
 
@@ -364,9 +361,4 @@ public class Tree
             "  " + "coordinates = "+(getCoordinates()!=null?Integer.toHexString(System.identityHashCode(getCoordinates())):"null") + System.getProperties().getProperty("line.separator") +
             "  " + "treeMunicipality = "+(getTreeMunicipality()!=null?Integer.toHexString(System.identityHashCode(getTreeMunicipality())):"null");
   }
-
-public int getWidth() {
-	// TODO include width as an attribute
-	return 0;
-}
 }

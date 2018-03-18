@@ -53,6 +53,7 @@ class TreeManager{
   1 -> * Survey surveys;
   1 -> * Municipality municipalities;
   1 -> 1 User user;
+  1 -> * SustainabilityReport reports;
 }
 class VersionManager{
   1 -> * TreeManager treeManagers;

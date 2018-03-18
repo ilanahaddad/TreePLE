@@ -1,11 +1,11 @@
 /*PLEASE DO NOT EDIT THIS CODE*/
-/*This code was generated using the UMPLE 1.27.0.3728.d139ed893 modeling language!*/
+/*This code was generated using the UMPLE 1.26.1-f40f105-3613 modeling language!*/
 
 package ca.mcgill.ecse321.TreePLE.model;
 import java.util.*;
 import java.sql.Date;
 
-// line 44 "../../../../../TreePLE.ump"
+// line 47 "../../../../../TreePLE.ump"
 public class TreeManager
 {
 
@@ -24,6 +24,7 @@ public class TreeManager
   private List<Survey> surveys;
   private List<Municipality> municipalities;
   private User user;
+  private List<SustainabilityReport> reports;
 
   //------------------------
   // CONSTRUCTOR
@@ -42,6 +43,7 @@ public class TreeManager
     {
       throw new RuntimeException("Unable to create TreeManager due to aUser");
     }
+    reports = new ArrayList<SustainabilityReport>();
   }
 
   //------------------------
@@ -210,6 +212,36 @@ public class TreeManager
   public User getUser()
   {
     return user;
+  }
+
+  public SustainabilityReport getReport(int index)
+  {
+    SustainabilityReport aReport = reports.get(index);
+    return aReport;
+  }
+
+  public List<SustainabilityReport> getReports()
+  {
+    List<SustainabilityReport> newReports = Collections.unmodifiableList(reports);
+    return newReports;
+  }
+
+  public int numberOfReports()
+  {
+    int number = reports.size();
+    return number;
+  }
+
+  public boolean hasReports()
+  {
+    boolean has = reports.size() > 0;
+    return has;
+  }
+
+  public int indexOfReport(SustainabilityReport aReport)
+  {
+    int index = reports.indexOf(aReport);
+    return index;
   }
 
   public static int minimumNumberOfTrees()
@@ -451,6 +483,63 @@ public class TreeManager
     return wasSet;
   }
 
+  public static int minimumNumberOfReports()
+  {
+    return 0;
+  }
+
+  public boolean addReport(SustainabilityReport aReport)
+  {
+    boolean wasAdded = false;
+    if (reports.contains(aReport)) { return false; }
+    reports.add(aReport);
+    wasAdded = true;
+    return wasAdded;
+  }
+
+  public boolean removeReport(SustainabilityReport aReport)
+  {
+    boolean wasRemoved = false;
+    if (reports.contains(aReport))
+    {
+      reports.remove(aReport);
+      wasRemoved = true;
+    }
+    return wasRemoved;
+  }
+
+  public boolean addReportAt(SustainabilityReport aReport, int index)
+  {  
+    boolean wasAdded = false;
+    if(addReport(aReport))
+    {
+      if(index < 0 ) { index = 0; }
+      if(index > numberOfReports()) { index = numberOfReports() - 1; }
+      reports.remove(aReport);
+      reports.add(index, aReport);
+      wasAdded = true;
+    }
+    return wasAdded;
+  }
+
+  public boolean addOrMoveReportAt(SustainabilityReport aReport, int index)
+  {
+    boolean wasAdded = false;
+    if(reports.contains(aReport))
+    {
+      if(index < 0 ) { index = 0; }
+      if(index > numberOfReports()) { index = numberOfReports() - 1; }
+      reports.remove(aReport);
+      reports.add(index, aReport);
+      wasAdded = true;
+    } 
+    else 
+    {
+      wasAdded = addReportAt(aReport, index);
+    }
+    return wasAdded;
+  }
+
   public void delete()
   {
     trees.clear();
@@ -458,6 +547,7 @@ public class TreeManager
     surveys.clear();
     municipalities.clear();
     user = null;
+    reports.clear();
   }
 
 
@@ -469,24 +559,4 @@ public class TreeManager
             "versionYear" + ":" + getVersionYear()+ "]" + System.getProperties().getProperty("line.separator") +
             "  " + "user = "+(getUser()!=null?Integer.toHexString(System.identityHashCode(getUser())):"null");
   }
-
-public List<Tree> getTreesInLocation(Location[] perimeter) {
-	// TODO Auto-generated method stub
-	return null;
-}
-
-public int getNumSpecies(Location[] perimeter) {
-	// TODO Auto-generated method stub
-	return 0;
-}
-
-public Object isExistingReport(Location[] perimeter) {
-	// TODO Auto-generated method stub
-	return null;
-}
-
-public void addSustainabilityReport(SustainabilityReport report, Location[] perimeter) {
-	// TODO Auto-generated method stub
-	
-}
 }

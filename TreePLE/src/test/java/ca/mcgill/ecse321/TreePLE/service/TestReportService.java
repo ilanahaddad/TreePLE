@@ -113,19 +113,12 @@ public class TestReportService {
 		Location coordinate3 = new Location(0,3);
 		Location coordinate4 = new Location(3,3);
 		Location[] perimeter = {coordinate1,coordinate2,coordinate3,coordinate4};
-		assertEquals(false, tm.isExistingReport(perimeter));
+		assertEquals(0, tm.getReports().size());
 		ReportService rs = new ReportService(tm);
 		SustainabilityReport report = rs.createReport(reporter, date, perimeter);
-		assertEquals(false, tm.isExistingReport(perimeter));
-		double[] SustainabilityAttributes = report.getSustainabilityAttributes();
-		double biodiversityIndex = SustainabilityAttributes[0];
-		double canopy = SustainabilityAttributes[1];
-		double carbonSequestration = SustainabilityAttributes[2];
-
-		assertEquals(1,biodiversityIndex,0);
-		assertEquals(1,canopy,0);
-		assertEquals(1,carbonSequestration,0);
-	}
+		tm.addReport(report);
+		assertEquals(1, tm.getReports().size());
+		}
 
 	@Test
 	public void testCalculation() {
@@ -144,16 +137,13 @@ public class TestReportService {
 		Date date= new Date(c.getTimeInMillis());
 		ReportService rs = new ReportService(tm);
 		SustainabilityReport report = rs.createReport(reporter, date, perimetert1);
-		tm.addSustainabilityReport(report, perimetert1);
+		tm.addReport(report);
+		
+		assertEquals(1,tm.getReport(0).getBiodiversityIndex(),0);
+		assertEquals(5*0.5*Math.PI,tm.getReport(0).getCanopy(),0);
+		double carbonSequestration = (0.5*(0.725 * 50)*3.6663)/5;
+		assertEquals(carbonSequestration,tm.getReport(0).getCarbonSequestration(),0);
 
-		double[] SustainabilityAttributes = report.getSustainabilityAttributes();
-		double biodiversityIndex = SustainabilityAttributes[0];
-		double canopy = SustainabilityAttributes[1];
-		double carbonSequestration = SustainabilityAttributes[2];
-
-		assertEquals(1,biodiversityIndex,0);
-		assertEquals(1,canopy,0);
-		assertEquals(1,carbonSequestration,0);
 
 		//tree2:
 		double widthTree2 = 0.5;
@@ -165,16 +155,13 @@ public class TestReportService {
 		Location[] perimetert2 = {coordinate1t2,coordinate2t2,coordinate3t2,coordinate4t2};
 
 		report = rs.createReport(reporter, date, perimetert2);
-		tm.addSustainabilityReport(report, perimetert2);
+		tm.addReport(report);
 
-		SustainabilityAttributes = report.getSustainabilityAttributes();
-		biodiversityIndex = SustainabilityAttributes[0];
-		canopy = SustainabilityAttributes[1];
-		carbonSequestration = SustainabilityAttributes[2];
+		assertEquals(1,tm.getReport(0).getBiodiversityIndex(),0);
+		assertEquals(5*0.5*Math.PI,tm.getReport(0).getCanopy(),0);
+		carbonSequestration = (0.5*(0.725 * 55)*3.6663)/5;
+		assertEquals(carbonSequestration,tm.getReport(0).getCarbonSequestration(),0);
 
-		assertEquals(1,biodiversityIndex,0);
-		assertEquals(0.5*Math.PI,canopy,0);
-		assertEquals(1,carbonSequestration,0);
 	}
 	
 	@Test
@@ -188,10 +175,15 @@ public class TestReportService {
 		Location coordinate3 = new Location(0,3);
 		Location coordinate4 = new Location(3,3);
 		Location[] perimeter = {coordinate1,coordinate2,coordinate3,coordinate4};
-		assertEquals(false, tm.isExistingReport(perimeter));
 		ReportService rs = new ReportService(tm);
-		SustainabilityReport report = rs.createReport(reporter, date, perimeter);
-		assertEquals(false, tm.isExistingReport(perimeter));
+		String error = null;
+		try {
+			SustainabilityReport report = rs.createReport(reporter, date, perimeter);
+		} catch (InvalidInputException e) {
+			error = e.getMessage();
+		}
+		assertEquals("Error: Name can't be null.", error);
+	
 	}
 	
 	@Test
@@ -205,19 +197,17 @@ public class TestReportService {
 		Location coordinate3 = new Location(0,3);
 		Location coordinate4 = new Location(3,3);
 		Location[] perimeter = {coordinate1,coordinate2,coordinate3,coordinate4};
-		assertEquals(false, tm.isExistingReport(perimeter));
 		ReportService rs = new ReportService(tm);
 		SustainabilityReport report = rs.createReport(reporter, date, perimeter);
-		assertEquals(false, tm.isExistingReport(perimeter));
-		
+		assertEquals(" ", tm.getReport(0).getReporterName());
 		reporter = "asma";
 		report = rs.createReport(reporter, date, perimeter);
-		assertEquals(true, tm.isExistingReport(perimeter));
+		assertEquals("asma", tm.getReport(0).getReporterName());
 	}
 	
 	@Test
 	public void testInvalidPerimeter() {
-		String reporter = " ";
+		String reporter = "Asma";
 		Calendar c = Calendar.getInstance();
 		c.set(2017, Calendar.MARCH, 16, 9, 0, 0);
 		Date date= new Date(c.getTimeInMillis());
@@ -226,10 +216,46 @@ public class TestReportService {
 		Location coordinate3 = new Location(3,3);
 		Location coordinate4 = new Location(0,3);
 		Location[] perimeter = {coordinate1,coordinate2,coordinate3,coordinate4};
-		assertEquals(false, tm.isExistingReport(perimeter));
+		assertEquals(0, tm.numberOfReports());
 		ReportService rs = new ReportService(tm);
 		SustainabilityReport report = rs.createReport(reporter, date, perimeter);
 		assertEquals(false, tm.isExistingReport(perimeter));
+		
+	}
+	
+	@Test
+	public void testValidPerimeter() {
+		String reporter = " ";
+		Calendar c = Calendar.getInstance();
+		c.set(2017, Calendar.MARCH, 16, 9, 0, 0);
+		Date date= new Date(c.getTimeInMillis());
+		Location coordinate1 = new Location(0,0);
+		Location coordinate2 = new Location(3,0);
+		Location coordinate3 = new Location(0,3);
+		Location coordinate4 = new Location(3,3);
+		Location[] perimeter = {coordinate1,coordinate2,coordinate3,coordinate4};
+		assertEquals(false, tm.isExistingReport(perimeter));
+		ReportService rs = new ReportService(tm);
+		SustainabilityReport report = rs.createReport(reporter, date, perimeter);
+		assertEquals(true, tm.isExistingReport(perimeter));
+		
+	}
+	
+	@Test
+	public void testValidPerimeter() {
+		String reporter = " ";
+		Calendar c = Calendar.getInstance();
+		c.set(2017, Calendar.MARCH, 16, 9, 0, 0);
+		Date date= new Date(c.getTimeInMillis());
+		Location coordinate1 = new Location(0,0);
+		Location coordinate2 = new Location(3,0);
+		Location coordinate3 = new Location(0,3);
+		Location coordinate4 = new Location(3,3);
+		Location[] perimeter = {coordinate1,coordinate2,coordinate3,coordinate4};
+		assertEquals(false, tm.isExistingReport(perimeter));
+		ReportService rs = new ReportService(tm);
+		SustainabilityReport report = rs.createReport(reporter, date, perimeter);
+		assertEquals(true, tm.isExistingReport(perimeter));
 		
 	}
 	
