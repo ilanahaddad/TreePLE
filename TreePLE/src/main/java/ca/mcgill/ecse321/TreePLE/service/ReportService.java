@@ -18,29 +18,35 @@ public class ReportService {
 		this.tm=tm;
 	}
 
-	public SustainabilityReport createReport(String reporterName, Date reportDate, Location[] perimeter) {
+	public SustainabilityReport createReport(String reporterName, Date reportDate, Location[] perimeter) throws InvalidInputException{
+		if(reporterName==null) {
+			throw new InvalidInputException("Error: Name can't be null.");
+		}
 		double[] sustainabilityAttributes = calculateSustainabilityAttributes(perimeter);
 		SustainabilityReport report = new SustainabilityReport(reporterName, reportDate, perimeter);
-		report.setSustainabilityAttributes(sustainabilityAttributes);
+		//TODO: fix later
+		//report.setSustainabilityAttributes(sustainabilityAttributes);
 		return report;
 	}
 
-	private double[] calculateSustainabilityAttributes(Location[] perimeter) {
+	private double[] calculateSustainabilityAttributes(Location[] perimeter) throws InvalidInputException {
 		//TODO
+		/*
 		double sumCanopy = 0;
 		double sumCarbonSequestration = 0;
 		int numTrees= 0;
 		for(Tree tree : tm.getTreesInLocation(perimeter)) {			
 			//canopy
 			double canopy = 2*Math.PI*Math.pow(tree.getDiameter(), 2);
+			double width = tree.getDiameter()/4;
 			sumCanopy += canopy;
 			//carbon sequestration
 			double weight;
-			if(tree.getWidth() < 11) {
-				weight = 0.25*Math.pow(tree.getWidth(),2)*tree.getHeight();
+			if(width < 11) {
+				weight = 0.25*Math.pow(width,2)*tree.getHeight();
 			}
 			else {
-				weight = 0.15*Math.pow(tree.getWidth(),2)*tree.getHeight();
+				weight = 0.15*Math.pow(width,2)*tree.getHeight();
 			}
 			double dryWeight = 0.725 * weight;
 			double carbonWeight = 0.5*dryWeight;
@@ -49,10 +55,17 @@ public class ReportService {
 			sumCarbonSequestration += carbonSequestration;
 			numTrees++;
 		}
-		double biodiversityIndex = tm.getNumSpecies(perimeter)/numTrees;
+		double biodiversityIndex = getNumSpecies(perimeter)/numTrees;
 		double [] sustainabilityAttributes = {biodiversityIndex, sumCanopy, sumCarbonSequestration};
-		return sustainabilityAttributes;
+		return sustainabilityAttributes;*/
+		return null;
 	}
+	public int getNumSpecies (Location bottomLeft, Location topLeft, Location bottomRight, Location topRight)throws InvalidInputException {
+		// TODO Auto-generated method stub
+		return 0;
+
+	}
+	
 
 
 

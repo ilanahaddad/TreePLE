@@ -364,9 +364,4 @@ public class Tree
             "  " + "coordinates = "+(getCoordinates()!=null?Integer.toHexString(System.identityHashCode(getCoordinates())):"null") + System.getProperties().getProperty("line.separator") +
             "  " + "treeMunicipality = "+(getTreeMunicipality()!=null?Integer.toHexString(System.identityHashCode(getTreeMunicipality())):"null");
   }
-
-public int getWidth() {
-	// TODO include width as an attribute
-	return 0;
-}
 }
