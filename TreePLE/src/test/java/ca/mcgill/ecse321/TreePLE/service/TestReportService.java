@@ -173,7 +173,7 @@ public class TestReportService {
 		carbonSequestration = SustainabilityAttributes[2];
 
 		assertEquals(1,biodiversityIndex,0);
-		assertEquals(1,canopy,0);
+		assertEquals(0.5*Math.PI,canopy,0);
 		assertEquals(1,carbonSequestration,0);
 	}
 	
@@ -212,7 +212,7 @@ public class TestReportService {
 		
 		reporter = "asma";
 		report = rs.createReport(reporter, date, perimeter);
-		assertEquals(false, tm.isExistingReport(perimeter));
+		assertEquals(true, tm.isExistingReport(perimeter));
 	}
 	
 	@Test
