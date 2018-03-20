@@ -20,13 +20,13 @@
 <tr>
 <td>
 <div class="infoBox" id="tests">
-<div class="counter">21</div>
+<div class="counter">66</div>
 <p>tests</p>
 </div>
 </td>
 <td>
 <div class="infoBox" id="failures">
-<div class="counter">0</div>
+<div class="counter">13</div>
 <p>failures</p>
 </div>
 </td>
@@ -38,7 +38,7 @@
 </td>
 <td>
 <div class="infoBox" id="duration">
-<div class="counter">0.116s</div>
+<div class="counter">0.327s</div>
 <p>duration</p>
 </div>
 </td>
@@ -47,8 +47,8 @@
 </div>
 </td>
 <td>
-<div class="infoBox success" id="successRate">
-<div class="percent">100%</div>
+<div class="infoBox failures" id="successRate">
+<div class="percent">80%</div>
 <p>successful</p>
 </div>
 </td>
@@ -58,13 +58,73 @@
 <div id="tabs">
 <ul class="tabLinks">
 <li>
-<a href="#tab0">Packages</a>
+<a href="#tab0">Failed tests</a>
 </li>
 <li>
-<a href="#tab1">Classes</a>
+<a href="#tab1">Packages</a>
+</li>
+<li>
+<a href="#tab2">Classes</a>
 </li>
 </ul>
 <div id="tab0" class="tab">
+<h2>Failed tests</h2>
+<ul class="linkList">
+<li>
+<a href="classes/ca.mcgill.ecse321.TreePLE.service.TestEditSurvey.html">TestEditSurvey</a>.
+<a href="classes/ca.mcgill.ecse321.TreePLE.service.TestEditSurvey.html#testEditSurvey">testEditSurvey</a>
+</li>
+<li>
+<a href="classes/ca.mcgill.ecse321.TreePLE.service.TestEditSurvey.html">TestEditSurvey</a>.
+<a href="classes/ca.mcgill.ecse321.TreePLE.service.TestEditSurvey.html#testEditSurveyDateNull">testEditSurveyDateNull</a>
+</li>
+<li>
+<a href="classes/ca.mcgill.ecse321.TreePLE.service.TestEditSurvey.html">TestEditSurvey</a>.
+<a href="classes/ca.mcgill.ecse321.TreePLE.service.TestEditSurvey.html#testEditSurveySurveyNull">testEditSurveySurveyNull</a>
+</li>
+<li>
+<a href="classes/ca.mcgill.ecse321.TreePLE.service.TestEditSurvey.html">TestEditSurvey</a>.
+<a href="classes/ca.mcgill.ecse321.TreePLE.service.TestEditSurvey.html#testEditSurveyorNameEmpty">testEditSurveyorNameEmpty</a>
+</li>
+<li>
+<a href="classes/ca.mcgill.ecse321.TreePLE.service.TestEditSurvey.html">TestEditSurvey</a>.
+<a href="classes/ca.mcgill.ecse321.TreePLE.service.TestEditSurvey.html#testEditSurveyorNameNull">testEditSurveyorNameNull</a>
+</li>
+<li>
+<a href="classes/ca.mcgill.ecse321.TreePLE.service.TestForecastService.html">TestForecastService</a>.
+<a href="classes/ca.mcgill.ecse321.TreePLE.service.TestForecastService.html#test">test</a>
+</li>
+<li>
+<a href="classes/ca.mcgill.ecse321.TreePLE.service.TestGetNumSpecies.html">TestGetNumSpecies</a>.
+<a href="classes/ca.mcgill.ecse321.TreePLE.service.TestGetNumSpecies.html#testGetNumSpecies">testGetNumSpecies</a>
+</li>
+<li>
+<a href="classes/ca.mcgill.ecse321.TreePLE.service.TestGetNumSpecies.html">TestGetNumSpecies</a>.
+<a href="classes/ca.mcgill.ecse321.TreePLE.service.TestGetNumSpecies.html#testLocationNull">testLocationNull</a>
+</li>
+<li>
+<a href="classes/ca.mcgill.ecse321.TreePLE.service.TestReportService.html">TestReportService</a>.
+<a href="classes/ca.mcgill.ecse321.TreePLE.service.TestReportService.html#testCalculation">testCalculation</a>
+</li>
+<li>
+<a href="classes/ca.mcgill.ecse321.TreePLE.service.TestReportService.html">TestReportService</a>.
+<a href="classes/ca.mcgill.ecse321.TreePLE.service.TestReportService.html#testInvalidPerimeter">testInvalidPerimeter</a>
+</li>
+<li>
+<a href="classes/ca.mcgill.ecse321.TreePLE.service.TestReportService.html">TestReportService</a>.
+<a href="classes/ca.mcgill.ecse321.TreePLE.service.TestReportService.html#testNullDate">testNullDate</a>
+</li>
+<li>
+<a href="classes/ca.mcgill.ecse321.TreePLE.service.TestReportService.html">TestReportService</a>.
+<a href="classes/ca.mcgill.ecse321.TreePLE.service.TestReportService.html#testValidName">testValidName</a>
+</li>
+<li>
+<a href="classes/ca.mcgill.ecse321.TreePLE.service.TestSurveyService.html">TestSurveyService</a>.
+<a href="classes/ca.mcgill.ecse321.TreePLE.service.TestSurveyService.html#testCreateSurveyorNameEmpty">testCreateSurveyorNameEmpty</a>
+</li>
+</ul>
+</div>
+<div id="tab1" class="tab">
 <h2>Packages</h2>
 <table>
 <thead>
@@ -85,23 +145,23 @@
 <td>2</td>
 <td>0</td>
 <td>0</td>
-<td>0.016s</td>
+<td>0.038s</td>
 <td class="success">100%</td>
 </tr>
 <tr>
-<td class="success">
+<td class="failures">
 <a href="packages/ca.mcgill.ecse321.TreePLE.service.html">ca.mcgill.ecse321.TreePLE.service</a>
 </td>
-<td>19</td>
+<td>64</td>
+<td>13</td>
 <td>0</td>
-<td>0</td>
-<td>0.100s</td>
-<td class="success">100%</td>
+<td>0.289s</td>
+<td class="failures">79%</td>
 </tr>
 </tbody>
 </table>
 </div>
-<div id="tab1" class="tab">
+<div id="tab2" class="tab">
 <h2>Classes</h2>
 <table>
 <thead>
@@ -121,17 +181,98 @@
 <td>2</td>
 <td>0</td>
 <td>0</td>
-<td>0.016s</td>
+<td>0.038s</td>
+<td class="success">100%</td>
+</tr>
+<tr>
+<td class="failures"/>
+<a href="classes/ca.mcgill.ecse321.TreePLE.service.TestEditSurvey.html">ca.mcgill.ecse321.TreePLE.service.TestEditSurvey</a>
+<td>5</td>
+<td>5</td>
+<td>0</td>
+<td>0.129s</td>
+<td class="failures">0%</td>
+</tr>
+<tr>
+<td class="failures"/>
+<a href="classes/ca.mcgill.ecse321.TreePLE.service.TestForecastService.html">ca.mcgill.ecse321.TreePLE.service.TestForecastService</a>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>0.003s</td>
+<td class="failures">0%</td>
+</tr>
+<tr>
+<td class="failures"/>
+<a href="classes/ca.mcgill.ecse321.TreePLE.service.TestGetNumSpecies.html">ca.mcgill.ecse321.TreePLE.service.TestGetNumSpecies</a>
+<td>2</td>
+<td>2</td>
+<td>0</td>
+<td>0.001s</td>
+<td class="failures">0%</td>
+</tr>
+<tr>
+<td class="success"/>
+<a href="classes/ca.mcgill.ecse321.TreePLE.service.TestListTreesByLandUse.html">ca.mcgill.ecse321.TreePLE.service.TestListTreesByLandUse</a>
+<td>3</td>
+<td>0</td>
+<td>0</td>
+<td>0.005s</td>
 <td class="success">100%</td>
 </tr>
 <tr>
 <td class="success"/>
-<a href="classes/ca.mcgill.ecse321.TreePLE.service.TestSurveyService.html">ca.mcgill.ecse321.TreePLE.service.TestSurveyService</a>
+<a href="classes/ca.mcgill.ecse321.TreePLE.service.TestListTreesByMunicipality.html">ca.mcgill.ecse321.TreePLE.service.TestListTreesByMunicipality</a>
 <td>3</td>
 <td>0</td>
 <td>0</td>
-<td>0.013s</td>
+<td>0.026s</td>
 <td class="success">100%</td>
+</tr>
+<tr>
+<td class="success"/>
+<a href="classes/ca.mcgill.ecse321.TreePLE.service.TestListTreesBySpecies.html">ca.mcgill.ecse321.TreePLE.service.TestListTreesBySpecies</a>
+<td>4</td>
+<td>0</td>
+<td>0</td>
+<td>0.020s</td>
+<td class="success">100%</td>
+</tr>
+<tr>
+<td class="success"/>
+<a href="classes/ca.mcgill.ecse321.TreePLE.service.TestListTreesByStatus.html">ca.mcgill.ecse321.TreePLE.service.TestListTreesByStatus</a>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0.004s</td>
+<td class="success">100%</td>
+</tr>
+<tr>
+<td class="success"/>
+<a href="classes/ca.mcgill.ecse321.TreePLE.service.TestMoveTree.html">ca.mcgill.ecse321.TreePLE.service.TestMoveTree</a>
+<td>5</td>
+<td>0</td>
+<td>0</td>
+<td>0.001s</td>
+<td class="success">100%</td>
+</tr>
+<tr>
+<td class="failures"/>
+<a href="classes/ca.mcgill.ecse321.TreePLE.service.TestReportService.html">ca.mcgill.ecse321.TreePLE.service.TestReportService</a>
+<td>8</td>
+<td>4</td>
+<td>0</td>
+<td>0.002s</td>
+<td class="failures">50%</td>
+</tr>
+<tr>
+<td class="failures"/>
+<a href="classes/ca.mcgill.ecse321.TreePLE.service.TestSurveyService.html">ca.mcgill.ecse321.TreePLE.service.TestSurveyService</a>
+<td>5</td>
+<td>1</td>
+<td>0</td>
+<td>0.024s</td>
+<td class="failures">80%</td>
 </tr>
 <tr>
 <td class="success"/>
@@ -139,7 +280,16 @@
 <td>16</td>
 <td>0</td>
 <td>0</td>
-<td>0.087s</td>
+<td>0.073s</td>
+<td class="success">100%</td>
+</tr>
+<tr>
+<td class="success"/>
+<a href="classes/ca.mcgill.ecse321.TreePLE.service.TestUpdateTreeData.html">ca.mcgill.ecse321.TreePLE.service.TestUpdateTreeData</a>
+<td>11</td>
+<td>0</td>
+<td>0</td>
+<td>0.001s</td>
 <td class="success">100%</td>
 </tr>
 </tbody>
@@ -153,7 +303,7 @@
 <input id="line-wrapping-toggle" type="checkbox" autocomplete="off"/>
 </label>
 </div>Generated by 
-<a href="http://www.gradle.org">Gradle 4.6</a> at 14-Mar-2018 1:48:25 PM</p>
+<a href="http://www.gradle.org">Gradle 4.6</a> at 20-Mar-2018 4:36:09 PM</p>
 </div>
 </div>
 </body>

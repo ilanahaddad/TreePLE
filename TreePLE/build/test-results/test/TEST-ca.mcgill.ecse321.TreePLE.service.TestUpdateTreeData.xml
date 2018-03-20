@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="ca.mcgill.ecse321.TreePLE.service.TestUpdateTreeData" tests="11" skipped="0" failures="0" errors="0" timestamp="2018-03-20T20:36:09" hostname="Ilanas-MacBook-Pro.local" time="0.003">
+  <properties/>
+  <testcase name="testNegativeHeightDiameterAge" classname="ca.mcgill.ecse321.TreePLE.service.TestUpdateTreeData" time="0.0"/>
+  <testcase name="testEmptyAndSpacesSpeciesName" classname="ca.mcgill.ecse321.TreePLE.service.TestUpdateTreeData" time="0.0"/>
+  <testcase name="testNullTree" classname="ca.mcgill.ecse321.TreePLE.service.TestUpdateTreeData" time="0.0"/>
+  <testcase name="testNullOwnerName" classname="ca.mcgill.ecse321.TreePLE.service.TestUpdateTreeData" time="0.0"/>
+  <testcase name="testZeroHeightDiameterAge" classname="ca.mcgill.ecse321.TreePLE.service.TestUpdateTreeData" time="0.0"/>
+  <testcase name="testNullSpeciesName" classname="ca.mcgill.ecse321.TreePLE.service.TestUpdateTreeData" time="0.0"/>
+  <testcase name="testInvalidCharactersSpeciesName" classname="ca.mcgill.ecse321.TreePLE.service.TestUpdateTreeData" time="0.001"/>
+  <testcase name="testSpecialCharacterOwnerNames" classname="ca.mcgill.ecse321.TreePLE.service.TestUpdateTreeData" time="0.0"/>
+  <testcase name="testAllValidInputs" classname="ca.mcgill.ecse321.TreePLE.service.TestUpdateTreeData" time="0.0"/>
+  <testcase name="testEmptyOwnerName" classname="ca.mcgill.ecse321.TreePLE.service.TestUpdateTreeData" time="0.0"/>
+  <testcase name="testNullLandUse" classname="ca.mcgill.ecse321.TreePLE.service.TestUpdateTreeData" time="0.0"/>
+  <system-out><![CDATA[!
+?
+1
+2
+$
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

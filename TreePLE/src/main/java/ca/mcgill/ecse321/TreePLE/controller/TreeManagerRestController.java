@@ -119,8 +119,8 @@ public class TreeManagerRestController {
 			@RequestParam(name= "municipality") MunicipalityDto munDto,
 			@RequestParam(name="latitude") double latitude,
 			@RequestParam(name="longitude") double longitude,
-			@RequestParam(name="ownerName") String ownerName,
-			@RequestParam(name="ownerName") int age, 
+			@RequestParam(name="owner") String ownerName,
+			@RequestParam(name="age") int age, 
 			@RequestParam(name="landuse") Tree.LandUse landuse ) throws InvalidInputException {
 		Location location = treeManagerService.getLocationByCoordinates(latitude, longitude);
 		//Location location = new Location(latitude, longitude);
