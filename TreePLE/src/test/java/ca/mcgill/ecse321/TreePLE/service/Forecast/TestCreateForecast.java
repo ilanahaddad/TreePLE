@@ -1,4 +1,4 @@
-package ca.mcgill.ecse321.TreePLE.service;
+package ca.mcgill.ecse321.TreePLE.service.Forecast;
 
 import static org.junit.Assert.*;
 
@@ -8,7 +8,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-public class TestForecastService {
+public class TestCreateForecast {
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {

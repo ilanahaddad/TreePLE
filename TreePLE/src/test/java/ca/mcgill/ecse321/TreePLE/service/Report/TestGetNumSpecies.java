@@ -1,4 +1,4 @@
-package ca.mcgill.ecse321.TreePLE.service;
+package ca.mcgill.ecse321.TreePLE.service.Report;
 
 import static org.junit.Assert.*;
 
@@ -16,6 +16,8 @@ import ca.mcgill.ecse321.TreePLE.model.Tree;
 import ca.mcgill.ecse321.TreePLE.model.TreeManager;
 import ca.mcgill.ecse321.TreePLE.model.User;
 import ca.mcgill.ecse321.TreePLE.persistence.PersistenceXStream;
+import ca.mcgill.ecse321.TreePLE.service.InvalidInputException;
+import ca.mcgill.ecse321.TreePLE.service.ReportService;
 
 public class TestGetNumSpecies {
 	private TreeManager tm;

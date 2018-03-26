@@ -2,16 +2,52 @@
   <isCurrent>true</isCurrent>
   <version>1.0</version>
   <versionYear>2018</versionYear>
-  <trees id="2"/>
-  <locations id="3"/>
-  <surveys id="4"/>
-  <municipalities id="5">
-    <ca.mcgill.ecse321.TreePLE.model.Municipality id="6">
-      <name>Oakville</name>
-      <forecasts id="7"/>
-      <listOfTrees id="8"/>
-    </ca.mcgill.ecse321.TreePLE.model.Municipality>
-  </municipalities>
-  <user id="9"/>
-  <reports id="10"/>
+  <trees id="2">
+    <tree id="3">
+      <ownerName>Jessica</ownerName>
+      <species>White Ash</species>
+      <height>10.5</height>
+      <status>Planted</status>
+      <diameter>10.0</diameter>
+      <land>Residential</land>
+      <age>17</age>
+      <id>66</id>
+      <surveys id="4"/>
+      <coordinates id="5">
+        <latitude>1.5</latitude>
+        <longitude>1.5</longitude>
+        <treeInLocation reference="3"/>
+      </coordinates>
+      <treeMunicipality id="6">
+        <name>Outremont</name>
+        <forecasts id="7"/>
+        <listOfTrees id="8">
+          <tree reference="3"/>
+          <tree id="9">
+            <ownerName>Trevor</ownerName>
+            <species>Cedar</species>
+            <height>36.0</height>
+            <status>Planted</status>
+            <diameter>12.4</diameter>
+            <land>Residential</land>
+            <age>10</age>
+            <id>67</id>
+            <surveys id="10"/>
+            <coordinates id="11">
+              <latitude>3.0</latitude>
+              <longitude>4.5</longitude>
+              <treeInLocation reference="9"/>
+            </coordinates>
+            <treeMunicipality reference="6"/>
+          </tree>
+        </listOfTrees>
+      </treeMunicipality>
+    </tree>
+    <tree reference="9"/>
+  </trees>
+  <locations id="12"/>
+  <surveys id="13"/>
+  <municipalities id="14"/>
+  <user id="15"/>
+  <reports id="16"/>
 </manager>

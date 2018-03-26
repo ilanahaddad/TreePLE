@@ -1,4 +1,4 @@
-package ca.mcgill.ecse321.TreePLE.service;
+package ca.mcgill.ecse321.TreePLE.service.TreeManager;
 
 import static org.junit.Assert.*;
 
@@ -18,6 +18,8 @@ import ca.mcgill.ecse321.TreePLE.model.User;
 import ca.mcgill.ecse321.TreePLE.model.Tree.LandUse;
 import ca.mcgill.ecse321.TreePLE.model.User.UserType;
 import ca.mcgill.ecse321.TreePLE.persistence.PersistenceXStream;
+import ca.mcgill.ecse321.TreePLE.service.InvalidInputException;
+import ca.mcgill.ecse321.TreePLE.service.TreeManagerService;
 
 public class TestMoveTree {
 	private TreeManager tm;

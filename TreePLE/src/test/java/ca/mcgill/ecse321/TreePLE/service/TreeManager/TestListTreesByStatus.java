@@ -1,21 +1,24 @@
-package ca.mcgill.ecse321.TreePLE.service;
+package ca.mcgill.ecse321.TreePLE.service.TreeManager;
 
 import static org.junit.Assert.*;
 
 import java.util.List;
 
 import org.junit.After;
-import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import ca.mcgill.ecse321.TreePLE.model.Location;
 import ca.mcgill.ecse321.TreePLE.model.Municipality;
 import ca.mcgill.ecse321.TreePLE.model.Tree;
 import ca.mcgill.ecse321.TreePLE.model.Tree.LandUse;
+import ca.mcgill.ecse321.TreePLE.model.Tree.Status;
+import ca.mcgill.ecse321.TreePLE.service.InvalidInputException;
+import ca.mcgill.ecse321.TreePLE.service.TreeManagerService;
 import ca.mcgill.ecse321.TreePLE.model.TreeManager;
 import ca.mcgill.ecse321.TreePLE.model.User;
 
-public class TestListTreesByMunicipality {
+public class TestListTreesByStatus {
 
 	private static TreeManager tm;
 	//characteristics for first tree
@@ -40,8 +43,8 @@ public class TestListTreesByMunicipality {
 
 	static User user;
 
-	@Before
-	public void setUp() throws Exception {
+	@BeforeClass
+	public static void setUpBeforeClass() throws Exception {
 		user = new User();
 		tm=new TreeManager(true, "1.0", 2018,user);
 	}
@@ -53,17 +56,19 @@ public class TestListTreesByMunicipality {
 	}
 
 	@Test
-	public void testListTreesbyMunicipality() throws InvalidInputException { //Add a tree and test that ListTreesbyMunicipality method can find it
+	public void testListTreesbyStatus() throws InvalidInputException { //Add a tree and test that ListTreesbyStatus method can find it
 		String error = "false";
+		Status status = Status.Planted;
 		TreeManagerService tmc = new TreeManagerService(tm);
-		List<Tree> treeWithM = null;
+		List<Tree> treeWithStatus = null;
 		try {
 			tmc.createTree(ownerName, species, treeHeight, treeDiameter, 
 					treeAge, treeLoc, m, land);
+
+		//	tree1.setStatus() = status;
 		} catch (InvalidInputException e) {
 			e.printStackTrace();
 		}
-
 		//create second tree
 		try {
 			tmc.createTree(ownerName2, species2, treeHeight2, treeDiameter2, 
@@ -73,12 +78,12 @@ public class TestListTreesByMunicipality {
 		}
 
 		try {
-			treeWithM  = tmc.listTreesByMunicipality(m);
+			treeWithStatus  = tmc.listTreesByStatus(status);
 		} catch (InvalidInputException e) {
-			assertEquals(error, "Was not able to list trees by Municipality");
+			assertEquals(error, "Was not able to list trees by Status");
 		}
 
-		Tree currentTree = treeWithM.get(0);
+		Tree currentTree = treeWithStatus.get(0);
 		//	Tree secondTree = treeWithM.get(1);
 		assertEquals("Jessica", currentTree.getOwnerName());
 		assertEquals("White Ash", currentTree.getSpecies());
@@ -87,51 +92,10 @@ public class TestListTreesByMunicipality {
 		assertEquals(17, currentTree.getAge(), 0);
 		assertEquals("Outremont", currentTree.getTreeMunicipality().getName());
 		assertEquals(LandUse.Residential, currentTree.getLand());
-		assertEquals(2, treeWithM.size());		
+		assertEquals(2, treeWithStatus.size());		//Proves that a tree created is automatically set to planted
+		//in the survey method, you can edit the tree status
 	}
-	@Test
-		public void testlistTreesByMunicipalityNull() { //Tests error handling of ListTreesbyMunicipality method for empty input
-			TreeManagerService tmc = new TreeManagerService(tm);
-			Municipality nullMun = null;
-			String error = "false";
-			
-			try {
-				tmc.createTree(ownerName2, species2, treeHeight2, treeDiameter2, 
-						treeAge2, treeLoc2, nullMun, land2 );
-			} catch (InvalidInputException e) {
-				e.printStackTrace();
-			}
-			
-			try {
-				List<Tree> treeWithM = tmc.listTreesByMunicipality(nullMun);
-			} catch (InvalidInputException e) {
-				error = e.getMessage();
-			}
-			// check error
-			assertEquals(error, "Error: Municipality entry cannot be null!");
-		}
-	@Test
-		public void testlistTreesByLandUseNoMunicipality() { //Tests error handling of ListTreesbyMunicipality method when no trees are found
-			TreeManagerService tmc = new TreeManagerService(tm);
-			Municipality noMun1 = new Municipality("Outremont");
-			Municipality noMun2 = new Municipality("Ville-Marie");;
-			String error = "false";
-			
-			try {
-				tmc.createTree(ownerName2, species2, treeHeight2, treeDiameter2, 
-						treeAge2, treeLoc2, noMun1, land2);
-			} catch (InvalidInputException e) {
-				e.printStackTrace();
-			}
-			
-			try {
-				List<Tree> treeWithM = tmc.listTreesByMunicipality(noMun2);
-			} catch (InvalidInputException e) {
-				error = e.getMessage();
-			}
-			// check error
-			assertEquals("Error: There are currently no such Municipality in TreePLE!", error);	
-		}
+
 	
 	
 }
