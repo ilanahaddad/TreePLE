@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="ca.mcgill.ecse321.TreePLE.service.TreeManager.TestListTreesBySpecies" tests="12" skipped="0" failures="0" errors="0" timestamp="2018-03-27T02:33:57" hostname="Ilanas-MacBook-Pro.local" time="0.198">
+  <properties/>
+  <testcase name="testListTreesbySpeciesNull" classname="ca.mcgill.ecse321.TreePLE.service.TreeManager.TestListTreesBySpecies" time="0.011"/>
+  <testcase name="testlistTreesBySpeciesEmpty" classname="ca.mcgill.ecse321.TreePLE.service.TreeManager.TestListTreesBySpecies" time="0.005"/>
+  <testcase name="testListTreesbySpecies" classname="ca.mcgill.ecse321.TreePLE.service.TreeManager.TestListTreesBySpecies" time="0.001"/>
+  <testcase name="testlistTreesBySpeciesNoSpecies" classname="ca.mcgill.ecse321.TreePLE.service.TreeManager.TestListTreesBySpecies" time="0.0"/>
+  <testcase name="testListTreesbySpeciesNull" classname="ca.mcgill.ecse321.TreePLE.service.TreeManager.TestListTreesBySpecies" time="0.002"/>
+  <testcase name="testlistTreesBySpeciesEmpty" classname="ca.mcgill.ecse321.TreePLE.service.TreeManager.TestListTreesBySpecies" time="0.001"/>
+  <testcase name="testListTreesbySpecies" classname="ca.mcgill.ecse321.TreePLE.service.TreeManager.TestListTreesBySpecies" time="0.001"/>
+  <testcase name="testlistTreesBySpeciesNoSpecies" classname="ca.mcgill.ecse321.TreePLE.service.TreeManager.TestListTreesBySpecies" time="0.001"/>
+  <testcase name="testListTreesbySpeciesNull" classname="ca.mcgill.ecse321.TreePLE.service.TreeManager.TestListTreesBySpecies" time="0.001"/>
+  <testcase name="testlistTreesBySpeciesEmpty" classname="ca.mcgill.ecse321.TreePLE.service.TreeManager.TestListTreesBySpecies" time="0.033"/>
+  <testcase name="testListTreesbySpecies" classname="ca.mcgill.ecse321.TreePLE.service.TreeManager.TestListTreesBySpecies" time="0.001"/>
+  <testcase name="testlistTreesBySpeciesNoSpecies" classname="ca.mcgill.ecse321.TreePLE.service.TreeManager.TestListTreesBySpecies" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

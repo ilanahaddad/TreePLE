@@ -11,7 +11,7 @@
       <diameter>10.0</diameter>
       <land>Residential</land>
       <age>17</age>
-      <id>66</id>
+      <id>231</id>
       <surveys id="4"/>
       <coordinates id="5">
         <latitude>1.5</latitude>
@@ -31,7 +31,7 @@
             <diameter>12.4</diameter>
             <land>Residential</land>
             <age>10</age>
-            <id>67</id>
+            <id>232</id>
             <surveys id="10"/>
             <coordinates id="11">
               <latitude>3.0</latitude>
