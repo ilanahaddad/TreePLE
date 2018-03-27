@@ -16,6 +16,9 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    packagingOptions {
+        exclude 'META-INF/ASL2.0'
+    }
 }
 
 dependencies {
@@ -26,4 +29,15 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+    compile 'com.loopj.android:android-async-http:1.4.9'
+    compile 'org.json:json:20160212'
+    compile 'org.codehaus.jackson:jackson-mapper-asl:1.9.13'
+    compile (group: 'com.thoughtworks.xstream', name: 'xstream', version: '1.4.7'){
+        exclude group: 'xmlpull'
+    }
+}
+configurations {
+    all {
+        exclude group: 'org.json', module: 'json'
+    }
 }
