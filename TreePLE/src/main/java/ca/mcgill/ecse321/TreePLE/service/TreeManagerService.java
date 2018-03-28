@@ -27,8 +27,14 @@ public class TreeManagerService {
 	public Tree createTree(String ownerName, String species,  double height, double diameter, 
 			int age, Location location, 
 			Municipality municipality,  Tree.LandUse land) throws InvalidInputException{
-		if(species==null || location==null || municipality==null) {
-			throw new InvalidInputException("Error: Species name, tree location, owner, municipality, or version cannot be null!");
+		
+		if(species==null) {
+			throw new InvalidInputException("Error: Species name  cannot be null");
+		}
+		if(location==null) {
+			throw new InvalidInputException("Error: Location cannot be null");
+		}if(municipality==null) {
+			throw new InvalidInputException("Error: Municipality cannot be null!");
 		}
 		if(species==" " ) {
 			throw new InvalidInputException("Error: Species name is empty!");
