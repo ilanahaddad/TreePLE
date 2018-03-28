@@ -27,10 +27,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
-            android:layout_marginTop="200dp" />
-            <!--
-            android:entries="@array/userType_array"
-            android:prompt="@string/userType_prompt" />-->
+            android:layout_marginTop="200dp"/>
+        <!--
+        android:entries="@array/userType_array"
+        android:prompt="@string/userType_prompt" />-->
         <Button
             android:id="@+id/btnSetUserType"
             android:layout_width="wrap_content"
@@ -38,6 +38,14 @@
             android:layout_gravity="center"
             android:text="@string/setUserType_button"
             android:onClick="setUserType"/>
-   </LinearLayout>
 
+        <Button
+            android:id="@+id/btnContinue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Continue"
+            android:layout_gravity="center"
+            tools:layout_editor_absoluteX="148dp"
+            tools:layout_editor_absoluteY="304dp" />
+    </LinearLayout>
 </android.support.constraint.ConstraintLayout>

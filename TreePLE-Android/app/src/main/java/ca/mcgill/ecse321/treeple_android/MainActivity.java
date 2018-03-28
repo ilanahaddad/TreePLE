@@ -1,5 +1,6 @@
 package ca.mcgill.ecse321.treeple_android;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -10,9 +11,10 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
-
+import android.view.View.OnClickListener;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
@@ -20,8 +22,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,13 +29,9 @@ import cz.msebera.android.httpclient.Header;
 
 public class MainActivity extends AppCompatActivity {
     private String error = null;
-    //Added from online:
-    /*
-    private Spinner userTypeSpinner;
-    private Button btnSetUserType; */
-    //Added from tutorial:
     private List<String> userTypes = new ArrayList<>();
     private ArrayAdapter<String> userTypeAdapter;
+    Button continueButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,10 +48,7 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
-        //Added from online:
-        /*
-        addListenerOnButton();
-        addListenerOnSpinnerItemSelection();*/
+
         //Added from tutorial:
         Spinner userTypeSpinner = (Spinner) findViewById(R.id.userTypeSpinner);
         userTypeAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, userTypes);
@@ -63,6 +56,17 @@ public class MainActivity extends AppCompatActivity {
         userTypeSpinner.setAdapter(userTypeAdapter);
         //Get initial contents for spinners:
         refreshLists(this.getCurrentFocus());
+
+        //Locate the continue button in activity_main.xml:
+        continueButton = (Button) findViewById(R.id.btnContinue);
+        //capture button clicks:
+        continueButton.setOnClickListener(new OnClickListener(){
+            public void onClick(View arg0){
+                //start new activity class:
+                Intent myIntent = new Intent(MainActivity.this, OptionsActivity.class);
+            }
+        });
+
         // initialize error message text view
         refreshErrorMessage();
     }
