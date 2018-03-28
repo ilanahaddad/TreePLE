@@ -73,15 +73,15 @@ public class TestCreateTreeAndMunicipality {
 
 	}
 	@Test
-	public void testCreateTreeNull() {
+	public void testCreateTreeNullSpecies() {
 		assertEquals(0, tm.getTrees().size());
 		String species = null;
-		Location treeLoc = null;
-		String owner = null;
-		Municipality m = null;
+		Location treeLoc = new Location(1.5,1.5);
+		String owner = "Ilana";
+		Municipality m = new Municipality("Outremont");
+		Tree.LandUse land = Tree.LandUse.Residential;
 
 		String error = null;
-		Tree.LandUse land = null;
 		TreeManagerService tmc = new TreeManagerService(tm);
 		try {
 			tmc.createTree(owner, species, 1.5, 0.2,0, treeLoc, m, land );
@@ -90,7 +90,55 @@ public class TestCreateTreeAndMunicipality {
 		}
 
 		// check error
-		assertEquals("Error: Species name, tree location, owner, municipality, or version cannot be null!", error);
+		assertEquals("Error: Species name  cannot be null", error);
+
+		// check no change in memory
+		assertEquals(0, tm.getTrees().size());
+
+	}
+	@Test
+	public void testCreateTreeNullLocation() {
+		assertEquals(0, tm.getTrees().size());
+		String species = "White Oak";
+		Location treeLoc = null;
+		String owner = "Ilana";
+		Municipality m = new Municipality("Outremont");
+		Tree.LandUse land = Tree.LandUse.Residential;
+
+		String error = null;
+		TreeManagerService tmc = new TreeManagerService(tm);
+		try {
+			tmc.createTree(owner, species, 1.5, 0.2,0, treeLoc, m, land );
+		} catch (InvalidInputException e) {
+			error = e.getMessage();
+		}
+
+		// check error
+		assertEquals("Error: Location cannot be null", error);
+
+		// check no change in memory
+		assertEquals(0, tm.getTrees().size());
+
+	}
+	@Test
+	public void testCreateTreeNullMunicipality() {
+		assertEquals(0, tm.getTrees().size());
+		String species = "White Oak";
+		Location treeLoc  = new Location(1.5,1.5);
+		String owner = "Ilana";
+		Municipality m = null;
+		Tree.LandUse land = Tree.LandUse.Residential;
+
+		String error = null;
+		TreeManagerService tmc = new TreeManagerService(tm);
+		try {
+			tmc.createTree(owner, species, 1.5, 0.2,0, treeLoc, m, land );
+		} catch (InvalidInputException e) {
+			error = e.getMessage();
+		}
+
+		// check error
+		assertEquals("Error: Municipality cannot be null!", error);
 
 		// check no change in memory
 		assertEquals(0, tm.getTrees().size());
