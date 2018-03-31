@@ -92,18 +92,18 @@ public class ReportService {
 		int xpoints[] = new int[npoints];
 		int ypoints[] = new int[npoints];
 		for(int i = 0; i<perimeter.length;i++) {
-			xpoints[i] = (int)perimeter[i].getLatitude();
-			ypoints[i] = (int)perimeter[i].getLongitude();
+			xpoints[i] = (int) (perimeter[i].getLatitude()*10000000);
+			ypoints[i] = (int)(perimeter[i].getLongitude()*10000000);
 		}
 		Polygon shape = new Polygon(xpoints,ypoints,npoints);
 		for(Tree tree : tm.getTrees()){
-			double x = tree.getCoordinates().getLatitude();
-			double y = tree.getCoordinates().getLongitude();
+			double x = tree.getCoordinates().getLatitude()*10000000;
+			double y = tree.getCoordinates().getLongitude()*10000000;
 			if(shape.contains(x,y)) {
 				treesInLocation.add(tree);
 			}
 		}
-		
 		return treesInLocation;
 	}
+	
 }
