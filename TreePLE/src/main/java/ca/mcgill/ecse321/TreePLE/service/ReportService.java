@@ -97,7 +97,7 @@ public class ReportService {
 		int ypoints[] = new int[npoints];
 		for(int i = 0; i<perimeter.length;i++) {
 			if(perimeter[i]==null) {
-				throw new InvalidInputException("Error: Location coordinate is null");
+				throw new InvalidInputException("Error: Location coordinates are null");
 			}
 			xpoints[i] = (int) (perimeter[i].getLatitude()*10000000);
 			ypoints[i] = (int)(perimeter[i].getLongitude()*10000000);
