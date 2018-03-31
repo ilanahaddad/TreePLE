@@ -13,6 +13,7 @@ import ca.mcgill.ecse321.TreePLE.model.Location;
 import ca.mcgill.ecse321.TreePLE.model.SustainabilityReport;
 import ca.mcgill.ecse321.TreePLE.model.Tree;
 import ca.mcgill.ecse321.TreePLE.model.TreeManager;
+import ca.mcgill.ecse321.TreePLE.persistence.PersistenceXStream;
 
 @Service
 public class ReportService {
@@ -23,29 +24,31 @@ public class ReportService {
 	}
 
 	public SustainabilityReport createReport(String reporterName, Date reportDate, Location[] perimeter) throws InvalidInputException{
-		if(reporterName==null) {
-			throw new InvalidInputException("Error: Name can't be null.");
+		if(reporterName == null||reportDate ==null||perimeter==null) {
+			throw new InvalidInputException("Error: Report name, date, or parameter is null");
 		}
 		double[] sustainabilityAttributes = calculateSustainabilityAttributes(perimeter);
 		SustainabilityReport report = new SustainabilityReport(reporterName, reportDate, perimeter);
-		//TODO: fix later
 		//report.setSustainabilityAttributes(sustainabilityAttributes);
+		tm.addReport(report);
+		PersistenceXStream.saveToXMLwithXStream(tm);
 		return report;
 	}
 
 	private double[] calculateSustainabilityAttributes(Location[] perimeter) throws InvalidInputException {
-		//TODO
-		/*
 		double sumCanopy = 0;
 		double sumCarbonSequestration = 0;
-		int numTrees= 0;
-		for(Tree tree : tm.getTreesInLocation(perimeter)) {			
-			//canopy
-			double canopy = 2*Math.PI*Math.pow(tree.getDiameter(), 2);
-			double width = tree.getDiameter()/4;
+		
+		for(Tree tree : getTreesInLocation(perimeter)) {
+			
+			//canopy = 2pi*radius^2, diameter of the crown
+			double radius = tree.getDiameter()/2; //radius of the crown
+			double canopy = 2*Math.PI*Math.pow(radius, 2);
 			sumCanopy += canopy;
+			
 			//carbon sequestration
 			double weight;
+			double width = tree.getDiameter()/4; //width of the trunk
 			if(width < 11) {
 				weight = 0.25*Math.pow(width,2)*tree.getHeight();
 			}
@@ -57,48 +60,43 @@ public class ReportService {
 			double  CO2Weight = carbonWeight*3.6663;
 			double carbonSequestration = CO2Weight/tree.getAge();
 			sumCarbonSequestration += carbonSequestration;
-			numTrees++;
 		}
-		double biodiversityIndex = getNumSpecies(perimeter)/numTrees;
-		double [] sustainabilityAttributes = {biodiversityIndex, sumCanopy, sumCarbonSequestration};
-		return sustainabilityAttributes;*/
-		return null;
-	}
-	public int getNumSpecies (Location [] locations )throws InvalidInputException {
-		List<Tree> allTrees= tm.getTrees();
-		int  [] x_points= new int [4];
-		int [] y_points= new int [4];
-		List<String> species= new ArrayList<String>();
-		int i=0;
 		
-		if(locations.length!=4) {
-			throw new InvalidInputException("Error: Must Provide 4 boundary coordinates!");
-		}
-		for(Location l: locations){
-			if(l==null) {
-				throw new InvalidInputException("Error: Location cannot be null!");
-			}
-		}
-		for(Location l: locations) {
-			x_points[i]=(int)l.getLatitude();
-			y_points[i]=(int)l.getLongitude();
-			i++;
-		}
-		Polygon perimeter= new Polygon(x_points, y_points, 4);
-		for (Tree t: allTrees) {
-
-			if(perimeter.contains((t.getCoordinates().getLatitude()), (t.getCoordinates().getLongitude()))){
-				if(!species.contains(t.getSpecies().toLowerCase())) {
-					species.add(t.getSpecies().toLowerCase());
-				}
-
+		int numTrees = getTreesInLocation(perimeter).size();
+		int numSpecies = getNumSpecies(perimeter);
+		double biodiversityIndex = numSpecies/numTrees;
+		double [] sustainabilityAttributes = {biodiversityIndex, sumCanopy, sumCarbonSequestration};
+		return sustainabilityAttributes;
+	}
+	public int getNumSpecies (Location [] perimeter )throws InvalidInputException {
+		List<Tree> treesInLocation = getTreesInLocation(perimeter);
+		List<String> species= new ArrayList<String>();
+		for (Tree tree: treesInLocation) {
+			if(!species.contains(tree.getSpecies().toLowerCase())) {
+				species.add(tree.getSpecies().toLowerCase());
 			}
 		}
 		return species.size();
-
 	}
 
-
-
-
+	public List<Tree> getTreesInLocation(Location[] perimeter) throws InvalidInputException{
+		List<Tree> treesInLocation = new ArrayList<Tree>();
+		int npoints = perimeter.length;
+		int xpoints[] = new int[npoints];
+		int ypoints[] = new int[npoints];
+		for(int i = 0; i<perimeter.length;i++) {
+			xpoints[i] = (int)perimeter[i].getLatitude();
+			ypoints[i] = (int)perimeter[i].getLongitude();
+		}
+		Polygon shape = new Polygon(xpoints,ypoints,npoints);
+		for(Tree tree : tm.getTrees()){
+			double x = tree.getCoordinates().getLatitude();
+			double y = tree.getCoordinates().getLongitude();
+			if(shape.contains(x,y)) {
+				treesInLocation.add(tree);
+			}
+		}
+		
+		return treesInLocation;
+	}
 }
