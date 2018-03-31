@@ -27,26 +27,37 @@ public class ReportService {
 		if(reporterName == null||reportDate ==null||perimeter==null) {
 			throw new InvalidInputException("Error: Report name, date, or parameter is null");
 		}
-		double[] sustainabilityAttributes = calculateSustainabilityAttributes(perimeter);
 		SustainabilityReport report = new SustainabilityReport(reporterName, reportDate, perimeter);
-		//report.setSustainabilityAttributes(sustainabilityAttributes);
+		double biodiversityIndex = calculateBiodiversityIndex(perimeter);
+		double canopy = calculateCanopy(perimeter);
+		double carbonSequestration = caculateCarbonSequestration(perimeter);
+		report.setBiodiversityIndex(biodiversityIndex);
+		report.setCanopy(canopy);
+		report.setCarbonSequestration(carbonSequestration);
 		tm.addReport(report);
 		PersistenceXStream.saveToXMLwithXStream(tm);
 		return report;
 	}
 
-	private double[] calculateSustainabilityAttributes(Location[] perimeter) throws InvalidInputException {
+	private double calculateBiodiversityIndex(Location[] perimeter) throws InvalidInputException {
+		int numTrees = getTreesInLocation(perimeter).size();
+		int numSpecies = getNumSpecies(perimeter);
+		double biodiversityIndex = numSpecies/numTrees;
+		return biodiversityIndex;
+	}
+	
+	private double calculateCanopy(Location[] perimeter) throws InvalidInputException {
 		double sumCanopy = 0;
-		double sumCarbonSequestration = 0;
-		
 		for(Tree tree : getTreesInLocation(perimeter)) {
-			
-			//canopy = 2pi*radius^2, diameter of the crown
 			double radius = tree.getDiameter()/2; //radius of the crown
 			double canopy = 2*Math.PI*Math.pow(radius, 2);
 			sumCanopy += canopy;
-			
-			//carbon sequestration
+		}
+		return sumCanopy;
+	}
+	private double caculateCarbonSequestration(Location[] perimeter) throws InvalidInputException {
+		double sumCarbonSequestration = 0;
+		for(Tree tree : getTreesInLocation(perimeter)) {
 			double weight;
 			double width = tree.getDiameter()/4; //width of the trunk
 			if(width < 11) {
@@ -61,13 +72,9 @@ public class ReportService {
 			double carbonSequestration = CO2Weight/tree.getAge();
 			sumCarbonSequestration += carbonSequestration;
 		}
-		
-		int numTrees = getTreesInLocation(perimeter).size();
-		int numSpecies = getNumSpecies(perimeter);
-		double biodiversityIndex = numSpecies/numTrees;
-		double [] sustainabilityAttributes = {biodiversityIndex, sumCanopy, sumCarbonSequestration};
-		return sustainabilityAttributes;
+		return sumCarbonSequestration;
 	}
+
 	public int getNumSpecies (Location [] perimeter )throws InvalidInputException {
 		List<Tree> treesInLocation = getTreesInLocation(perimeter);
 		List<String> species= new ArrayList<String>();
