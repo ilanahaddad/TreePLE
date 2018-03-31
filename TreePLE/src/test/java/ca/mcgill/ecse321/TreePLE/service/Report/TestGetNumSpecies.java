@@ -49,29 +49,33 @@ public class TestGetNumSpecies {
 		Location bottomRight= new Location(4,1);
 		Location topRight= new Location(4,4);
 		
+		Location[] perimeter= {bottomLeft, topLeft, bottomRight, topRight};
+		
 		String species= "White Ash";
 		Location treeLoc1 = new Location(1.5,1.5);
 		Location treeLoc2 = new Location (2, 2);
 		String owner = "Ilana";
 		Municipality m = new Municipality("Outremont");
 		
-		Tree.LandUse land = Tree.LandUse.Residential;
-		ReportService rs = new ReportService(tm);
-		
 		Tree tree1= new Tree(owner, species, 1.5, 0.5, 0, treeLoc1, m );
 		Tree tree2= new Tree(owner, species, 1.5, 0.5, 0, treeLoc2, m );
 		tm.addTree(tree1);
 		tm.addTree(tree2);
 		
+//		Tree.LandUse land = Tree.LandUse.Residential;
+		ReportService rs = new ReportService(tm);
+		
+
+		
 		int result=0;
 		
 		try {
-			result= rs.getNumSpecies(bottomLeft,topLeft,bottomRight, topRight);
+			result= rs.getNumSpecies(perimeter);
 		} catch (InvalidInputException e) {
 			e.printStackTrace();
 		}
 		
-		assertEquals(2, result);
+		assertEquals(1, result);
 		
 	}
 	@Test
@@ -81,6 +85,8 @@ public class TestGetNumSpecies {
 		Location topLeft= new Location(1,4);
 		Location bottomRight= new Location(4,1);
 		Location topRight= new Location(4,4);
+		
+		Location[] perimeter= {bottomLeft, topLeft, bottomRight, topRight};
 		
 		String species= "White Ash";
 		Location treeLoc1 = new Location(1.5,1.5);
@@ -100,7 +106,7 @@ public class TestGetNumSpecies {
 		String error=null;
 		
 		try {
-			rs.getNumSpecies(bottomLeft,topLeft,bottomRight, topRight);
+			rs.getNumSpecies(perimeter);
 		} catch (InvalidInputException e) {
 			error=e.getMessage();
 		}

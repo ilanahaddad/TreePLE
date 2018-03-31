@@ -1,6 +1,10 @@
 package ca.mcgill.ecse321.TreePLE.service;
 
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.forwardedUrl;
+
+import java.awt.Polygon;
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -60,12 +64,40 @@ public class ReportService {
 		return sustainabilityAttributes;*/
 		return null;
 	}
-	public int getNumSpecies (Location bottomLeft, Location topLeft, Location bottomRight, Location topRight)throws InvalidInputException {
-		// TODO Auto-generated method stub
-		return 0;
+	public int getNumSpecies (Location [] locations )throws InvalidInputException {
+		List<Tree> allTrees= tm.getTrees();
+		int  [] x_points= new int [4];
+		int [] y_points= new int [4];
+		List<String> species= new ArrayList<String>();
+		int i=0;
+		
+		if(locations.length!=4) {
+			throw new InvalidInputException("Error: Must Provide 4 boundary coordinates!");
+		}
+		for(Location l: locations){
+			if(l==null) {
+				throw new InvalidInputException("Error: Location cannot be null!");
+			}
+		}
+		for(Location l: locations) {
+			x_points[i]=(int)l.getLatitude();
+			y_points[i]=(int)l.getLongitude();
+			i++;
+		}
+		Polygon perimeter= new Polygon(x_points, y_points, 4);
+		for (Tree t: allTrees) {
+
+			if(perimeter.contains((t.getCoordinates().getLatitude()), (t.getCoordinates().getLongitude()))){
+				if(!species.contains(t.getSpecies().toLowerCase())) {
+					species.add(t.getSpecies().toLowerCase());
+				}
+
+			}
+		}
+		return species.size();
 
 	}
-	
+
 
 
 
