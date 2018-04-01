@@ -238,12 +238,17 @@ public class TreeManagerService {
 			throw new InvalidInputException("New longitude must be in range [-180,180].\n");
 		}
 		Location newLoc = new Location(newLatitude, newLongitude);
-		//TODO: check no tree in location
-		tree.setCoordinates(newLoc) ;
+		if(newLoc.hasTreeInLocation()) {
+			throw new InvalidInputException("There's already a tree in this location");
+		}
+		else {
+			Location oldLoc = tree.getCoordinates();
+			//Erase the tree from the old location
+			oldLoc.setTreeInLocation(null);
+			//And update the location of the tree
+			tree.setCoordinates(newLoc);
+		}
 	}
-
-
-	
 
 	public List<Tree> listTreesByMunicipality(Municipality municipality) throws InvalidInputException{
 		if(municipality==null) {

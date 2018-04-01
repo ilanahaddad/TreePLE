@@ -155,6 +155,10 @@ public class TestMoveTree {
 		assertEquals(latitude, tree.getCoordinates().getLatitude(),0);
 		assertEquals(longitude, tree.getCoordinates().getLongitude(),0);
 		
+		//check the old location contains no tree
+		Location oldTreeLoc = new Location(3,5);
+		assertEquals(false,oldTreeLoc.hasTreeInLocation());
+
 		//check no change in memory:
 		assertEquals(1, tm.numberOfTrees());
 	}
