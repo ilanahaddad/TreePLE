@@ -2,6 +2,21 @@
 <template>
   <div id="listtrees">
     <h2>List of Trees</h2>
+
+    <gmap-map
+      :center="center"
+      :zoom="13"
+      style="width: 700px; height: 400px; margin-left:auto; margin-right:auto"
+    >
+      <gmap-marker
+        :key="index"
+        v-for="(m, index) in markers"
+        :position="m.position"
+        :clickable="true"
+        :draggable="true"
+        @click="center=m.position"
+      ></gmap-marker>
+    </gmap-map>
     <table align="center">
       <tr>
           <td>ID</td>
@@ -49,20 +64,7 @@
       <span v-if="errorTree" style="color:red">Error: {{errorTree}} </span>
     </p>
     
-    <gmap-map
-      :center="center"
-      :zoom="13"
-      style="width: 700px; height: 400px; margin-left:auto; margin-right:auto"
-    >
-      <gmap-marker
-        :key="index"
-        v-for="(m, index) in markers"
-        :position="m.position"
-        :clickable="true"
-        :draggable="true"
-        @click="center=m.position"
-      ></gmap-marker>
-    </gmap-map>
+    
   </div>
 </template>
 
