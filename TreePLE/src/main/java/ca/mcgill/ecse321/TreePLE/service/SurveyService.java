@@ -47,7 +47,18 @@ public class SurveyService {
 		PersistenceXStream.saveToXMLwithXStream(tm);
 		return s;
 	}
-	
+	public Tree getTreeForSurvey(Survey survey) {
+		return survey.getTree();
+	}
+	public Tree getTreeById(int id) {
+		List<Tree> trees = tm.getTrees();
+		for(Tree t:trees) {
+			if(t.getId()==id) {
+				return t;
+			}
+		}
+		return null;
+	}
 	public void editSurvey(Survey survey,Date editDate, 
 			String editor, Status editedTreeStatus) throws InvalidInputException{
 		//Check if any of the fields are null, and throw corresponding exception
@@ -67,4 +78,5 @@ public class SurveyService {
 			}
 		}
 	}
+
 }
