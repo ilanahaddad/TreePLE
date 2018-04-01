@@ -90,8 +90,27 @@ public class ReportService {
 		if(perimeter == null) {
 			throw new InvalidInputException("Error: Perimeter is null");
 		}
-		
+		for(int i = 0; i<perimeter.length;i++) {
+			if(perimeter[i]==null) {
+				throw new InvalidInputException("Error: Location coordinates are null");
+			}
+		}
 		List<Tree> treesInLocation = new ArrayList<Tree>();
+		for(Tree tree : tm.getTrees()){
+			double y = tree.getCoordinates().getLatitude();
+			double x = tree.getCoordinates().getLongitude();
+			if(isTreeInLocation(x,y,perimeter)){
+				treesInLocation.add(tree);
+			}
+		}
+		return treesInLocation;
+	}
+	
+	public boolean isTreeInLocation(double x,double y,Location[]perimeter) throws InvalidInputException {
+		if(perimeter == null) {
+			throw new InvalidInputException("Error: Perimeter is null");
+		}
+		boolean isTreeInLocation = false;
 		int npoints = perimeter.length;
 		int ypoints[] = new int[npoints];
 		int xpoints[] = new int[npoints];
@@ -103,14 +122,11 @@ public class ReportService {
 			xpoints[i] = (int)(perimeter[i].getLongitude()*1000000);
 		}
 		Polygon shape = new Polygon(xpoints,ypoints,npoints);
-		for(Tree tree : tm.getTrees()){
-			double y = tree.getCoordinates().getLatitude()*1000000;
-			double x = tree.getCoordinates().getLongitude()*1000000;
-			if(shape.contains(x,y)) {
-				treesInLocation.add(tree);
-			}
+		if(shape.contains(x*1000000, y*1000000)) {
+			isTreeInLocation= true;
 		}
-		return treesInLocation;
+		return isTreeInLocation;
+		
 	}
 	
 }
