@@ -99,7 +99,7 @@ public class TestIsTreeInLocation {
 		Location[] perimeter= {coordinates1, coordinates2, coordinates3, coordinates4};
 		
 		assertEquals(true, rs.isTreeInLocation(2,2,perimeter));
-		//assertEquals(true, rs.isTreeInLocation(1,1,perimeter));
+		//assertEquals(true, rs.isTreeInLocation(1,1,perimeter));//Works here!!
 		assertEquals(true, rs.isTreeInLocation(3,3,perimeter));
 		//assertEquals(true, rs.isTreeInLocation(4,4,perimeter));//TODO: edge bug
 		assertEquals(false, rs.isTreeInLocation(0,0,perimeter));
@@ -139,7 +139,10 @@ public class TestIsTreeInLocation {
 		assertEquals(true, rs.isTreeInLocation(1.999,1.999,perimeter));
 		assertEquals(true, rs.isTreeInLocation(3,3,perimeter));
 		assertEquals(true, rs.isTreeInLocation(3.9999,3.9999,perimeter));
-		//assertEquals(true, rs.isTreeInLocation(4.10653346,4.66328298,perimeter));//TODO: solve bug
+		//assertEquals(true, rs.isTreeInLocation(4.10653346,4.66328298,perimeter));//Works here!!
+		//assertEquals(true, rs.isTreeInLocation(0.9088760,0.0653346,perimeter));
+		//assertEquals(true, rs.isTreeInLocation(0.9088760,4.66328298,perimeter));
+		//assertEquals(true, rs.isTreeInLocation(4.10653346,0.0653346,perimeter));//TODO: bug on edges
 		assertEquals(false, rs.isTreeInLocation(0,0,perimeter));
 	
 	}

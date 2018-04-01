@@ -122,7 +122,7 @@ public class ReportService {
 			xpoints[i] = (int)(perimeter[i].getLongitude()*1000000);
 		}
 		Polygon shape = new Polygon(xpoints,ypoints,npoints);
-		if(shape.contains(x*1000000, y*1000000)) {
+		if(shape.contains((int)(x*1000000),(int)(y*1000000))) {
 			isTreeInLocation= true;
 		}
 		return isTreeInLocation;
