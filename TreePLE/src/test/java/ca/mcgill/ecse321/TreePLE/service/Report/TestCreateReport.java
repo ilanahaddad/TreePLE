@@ -104,29 +104,57 @@ public class TestCreateReport {
 	}
 
 	@Test
-	public void testCreateReport() {
+	public void testInvalidInput() {
+		ReportService rs = new ReportService(tm);
+		String error=null;
 
 		String reporter = "Asma";
 		Calendar c = Calendar.getInstance();
 		c.set(2017, Calendar.MARCH, 16, 9, 0, 0);
 		Date date= new Date(c.getTimeInMillis());
-		Location coordinate1 = new Location(0,0);
-		Location coordinate2 = new Location(3,0);
-		Location coordinate3 = new Location(0,3);
-		Location coordinate4 = new Location(3,3);
-		Location[] perimeter = {coordinate1,coordinate2,coordinate3,coordinate4};
-		assertEquals(0, tm.getReports().size());
-		ReportService rs = new ReportService(tm);
-		SustainabilityReport report = null;
+		Location[] perimeter = {new Location(0,0), new Location(0,5), 
+				new Location(5,5), new Location(5,0)};
 		try {
-			report = rs.createReport(reporter, date, perimeter);
+			rs.createReport(reporter, date, null);
 		} catch (InvalidInputException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			error=e.getMessage();
 		}
-		tm.addReport(report);
-		assertEquals(1, tm.getReports().size());
+		assertEquals("Error: Report name, date, or parameter is null", error);
+		
+		try {
+			rs.createReport(reporter, null, perimeter);
+		} catch (InvalidInputException e) {
+			error=e.getMessage();
 		}
+		assertEquals("Error: Report name, date, or parameter is null", error);
+		
+		try {
+			rs.createReport(null, date, perimeter);
+		} catch (InvalidInputException e) {
+			error=e.getMessage();
+		}
+		assertEquals("Error: Report name, date, or parameter is null", error);
+
+
+		Location[] perimeter1 = {null, new Location(0,5), 
+				new Location(5,5), new Location(5,0)};
+		try {
+			rs.createReport(reporter, date, perimeter1);
+		} catch (InvalidInputException e) {
+			error=e.getMessage();
+		}
+		assertEquals("Error: Location coordinates are null", error);
+		
+		Location[] perimeter2 = {new Location(0,0), new Location(0,-5), 
+				new Location(-5,-5), new Location(-5,0)};
+		try {
+			rs.createReport(reporter, date, perimeter2);
+		} catch (InvalidInputException e) {
+			error=e.getMessage();
+		}
+		assertEquals("Error: Location coordinates are negative", error);
+		
+	}
 
 	@Test
 	public void testCalculation() {
@@ -151,7 +179,7 @@ public class TestCreateReport {
 			e1.printStackTrace();
 		}
 		tm.addReport(report);
-		
+
 		assertEquals(1,tm.getReport(0).getBiodiversityIndex(),0);
 		assertEquals(5*0.5*Math.PI,tm.getReport(0).getCanopy(),0);
 		double carbonSequestration = (0.5*(0.725 * 50)*3.6663)/5;
@@ -180,7 +208,7 @@ public class TestCreateReport {
 		assertEquals(carbonSequestration,tm.getReport(0).getCarbonSequestration(),0);
 
 	}
-	
+
 	@Test
 	public void testNullName(){
 		String reporter = null;
@@ -200,9 +228,9 @@ public class TestCreateReport {
 			error = e.getMessage();
 		}
 		assertEquals("Error: Name can't be null.", error);
-	
+
 	}
-	
+
 	@Test
 	public void testValidName(){
 		String reporter = " ";
@@ -231,7 +259,7 @@ public class TestCreateReport {
 		}
 		assertEquals("asma", tm.getReport(0).getReporterName());
 	}
-	
+
 	@Test
 	public void testInvalidPerimeter() {
 		String reporter = "Asma";
@@ -251,9 +279,9 @@ public class TestCreateReport {
 			error = e.getMessage();
 		}
 		assertEquals("Error: Invalid coordinates.", error);
-		
+
 	}
-	
+
 	@Test
 	public void testValidPerimeter() {
 		String reporter = " ";
@@ -277,9 +305,9 @@ public class TestCreateReport {
 		assertEquals(coordinate2, tm.getReport(0).getReportPerimeter(1));
 		assertEquals(coordinate3, tm.getReport(0).getReportPerimeter(2));
 		assertEquals(coordinate4, tm.getReport(0).getReportPerimeter(3));
-		
+
 	}
-	
+
 	@Test
 	public void testNullDate() {
 		String reporter = " ";
@@ -297,9 +325,9 @@ public class TestCreateReport {
 			error = e.getMessage();
 		}
 		assertEquals("Error: Date can't be null.", error);
-		
+
 	}
-	
+
 	@Test
 	public void testValidDate() {
 		String reporter = " ";
@@ -321,7 +349,7 @@ public class TestCreateReport {
 		tm.addReport(report);
 		assertEquals(date, tm.getReport(0).getDate());
 	}
-	
-	
+
+
 
 }

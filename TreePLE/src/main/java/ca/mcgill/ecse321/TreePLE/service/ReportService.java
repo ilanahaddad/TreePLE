@@ -27,6 +27,14 @@ public class ReportService {
 		if(reporterName == null||reportDate ==null||perimeter==null) {
 			throw new InvalidInputException("Error: Report name, date, or parameter is null");
 		}
+		for(int i = 0; i<perimeter.length;i++) {
+			if(perimeter[i]==null) {
+				throw new InvalidInputException("Error: Location coordinates are null");
+			}
+			if(perimeter[i].getLatitude()<0||perimeter[i].getLongitude()<0) {
+				throw new InvalidInputException("Error: Location coordinates are negative");
+			}
+		}
 		SustainabilityReport report = new SustainabilityReport(reporterName, reportDate, perimeter);
 		double biodiversityIndex = calculateBiodiversityIndex(perimeter);
 		double canopy = calculateCanopy(perimeter);
