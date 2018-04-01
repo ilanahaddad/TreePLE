@@ -76,6 +76,14 @@ public class ReportService {
 	}
 
 	public int getNumSpecies (Location [] perimeter )throws InvalidInputException {
+		if(perimeter == null) {
+			throw new InvalidInputException("Error: Perimeter is null");
+		}
+		for(int i = 0; i<perimeter.length;i++) {
+			if(perimeter[i]==null) {
+				throw new InvalidInputException("Error: Location coordinates are null");
+			}
+		}
 		List<Tree> treesInLocation = getTreesInLocation(perimeter);
 		List<String> species= new ArrayList<String>();
 		for (Tree tree: treesInLocation) {

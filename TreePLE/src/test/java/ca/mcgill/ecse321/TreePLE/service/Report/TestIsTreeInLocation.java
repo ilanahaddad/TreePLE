@@ -43,7 +43,7 @@ public class TestIsTreeInLocation {
 		Location treeLoc3 = new Location (3,3);
 		Location treeLoc4 = new Location (4,4);
 
-		String owner = "Ilana";
+		String owner = "Asma";
 		Municipality m = new Municipality("Outremont");
 
 		Tree tree1= new Tree(owner, species, 1.5, 0.5, 0, treeLoc1, m );
