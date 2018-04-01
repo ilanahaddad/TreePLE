@@ -2,110 +2,39 @@
   <isCurrent>true</isCurrent>
   <version>1.0</version>
   <versionYear>2018</versionYear>
-  <trees id="2">
-    <tree id="3">
-      <ownerName>Asma</ownerName>
-      <species>White Ash</species>
-      <height>1.5</height>
-      <status>Planted</status>
-      <diameter>0.5</diameter>
-      <age>0</age>
-      <id>1</id>
-      <surveys id="4"/>
-      <coordinates id="5">
-        <latitude>1.0</latitude>
-        <longitude>1.0</longitude>
-        <treeInLocation reference="3"/>
-      </coordinates>
-      <treeMunicipality id="6">
-        <name>Outremont</name>
-        <forecasts id="7"/>
-        <listOfTrees id="8">
-          <tree reference="3"/>
-          <tree id="9">
-            <ownerName>Asma</ownerName>
-            <species>White Ash</species>
-            <height>1.5</height>
-            <status>Planted</status>
-            <diameter>0.5</diameter>
-            <age>0</age>
-            <id>2</id>
-            <surveys id="10"/>
-            <coordinates id="11">
-              <latitude>2.0</latitude>
-              <longitude>2.0</longitude>
-              <treeInLocation reference="9"/>
-            </coordinates>
-            <treeMunicipality reference="6"/>
-          </tree>
-          <tree id="12">
-            <ownerName>Asma</ownerName>
-            <species>White Ash</species>
-            <height>1.5</height>
-            <status>Planted</status>
-            <diameter>0.5</diameter>
-            <age>0</age>
-            <id>3</id>
-            <surveys id="13"/>
-            <coordinates id="14">
-              <latitude>3.0</latitude>
-              <longitude>3.0</longitude>
-              <treeInLocation reference="12"/>
-            </coordinates>
-            <treeMunicipality reference="6"/>
-          </tree>
-          <tree id="15">
-            <ownerName>Asma</ownerName>
-            <species>White Ash</species>
-            <height>1.5</height>
-            <status>Planted</status>
-            <diameter>0.5</diameter>
-            <age>0</age>
-            <id>4</id>
-            <surveys id="16"/>
-            <coordinates id="17">
-              <latitude>4.0</latitude>
-              <longitude>4.0</longitude>
-              <treeInLocation reference="15"/>
-            </coordinates>
-            <treeMunicipality reference="6"/>
-          </tree>
-        </listOfTrees>
-      </treeMunicipality>
-    </tree>
-    <tree reference="9"/>
-    <tree reference="12"/>
-    <tree reference="15"/>
-  </trees>
-  <locations id="18"/>
-  <surveys id="19"/>
-  <municipalities id="20"/>
-  <user id="21"/>
-  <reports id="22">
-    <ca.mcgill.ecse321.TreePLE.model.SustainabilityReport id="23">
-      <reporterName>Asma</reporterName>
-      <date id="24">2017-03-16</date>
-      <biodiversityIndex>0.0</biodiversityIndex>
-      <canopy>1.5707963267948966</canopy>
-      <carbonSequestration>Infinity</carbonSequestration>
-      <reportPerimeter id="25">
-        <location id="26">
-          <latitude>0.0</latitude>
-          <longitude>0.0</longitude>
-        </location>
-        <location id="27">
-          <latitude>0.0</latitude>
-          <longitude>5.0</longitude>
-        </location>
-        <location id="28">
-          <latitude>5.0</latitude>
-          <longitude>5.0</longitude>
-        </location>
-        <location id="29">
-          <latitude>5.0</latitude>
-          <longitude>0.0</longitude>
-        </location>
-      </reportPerimeter>
-    </ca.mcgill.ecse321.TreePLE.model.SustainabilityReport>
-  </reports>
+  <trees id="2"/>
+  <locations id="3"/>
+  <surveys id="4">
+    <ca.mcgill.ecse321.TreePLE.model.Survey id="5">
+      <surveyorName>Diana</surveyorName>
+      <reportDate id="6">2018-03-16</reportDate>
+      <tree id="7">
+        <ownerName>Ilana</ownerName>
+        <species>White Ash</species>
+        <height>1.2</height>
+        <status>Diseased</status>
+        <diameter>0.2</diameter>
+        <age>0</age>
+        <id>2</id>
+        <surveys id="8">
+          <ca.mcgill.ecse321.TreePLE.model.Survey reference="5"/>
+        </surveys>
+        <coordinates id="9">
+          <latitude>1.5</latitude>
+          <longitude>1.5</longitude>
+          <treeInLocation reference="7"/>
+        </coordinates>
+        <treeMunicipality id="10">
+          <name>Outremont</name>
+          <forecasts id="11"/>
+          <listOfTrees id="12">
+            <tree reference="7"/>
+          </listOfTrees>
+        </treeMunicipality>
+      </tree>
+    </ca.mcgill.ecse321.TreePLE.model.Survey>
+  </surveys>
+  <municipalities id="13"/>
+  <user id="14"/>
+  <reports id="15"/>
 </manager>

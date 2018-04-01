@@ -20,13 +20,18 @@ public class SurveyService {
 	public SurveyService(TreeManager tm) {
 		this.tm=tm;
 	}
-	//status newtree status
+	
 	public Survey createSurvey(Date reportDate, Tree tree, String surveyor, Status newTreeStatus) throws InvalidInputException{
 		//Check if any of the fields are null, and throw corresponding exception
 		if(reportDate == null||tree ==null||surveyor==null||newTreeStatus==null) {
 			throw new InvalidInputException("Error: Report Date, tree, surveyor, or status is null");
 		}
+
+		if(surveyor=="") {
+			throw new InvalidInputException("Error: Surveyor name cannot be empty");
+		}
 		
+		//TODO: did we decide to change this?
 		//check if status is already the one requested
 		if(newTreeStatus == tree.getStatus()) { 
 			throw new InvalidInputException("Error: This tree already has this status");
@@ -38,15 +43,19 @@ public class SurveyService {
 		Survey s = new Survey(surveyor, reportDate, tree);
 		tree.setStatus(newTreeStatus);
 		tm.addSurvey(s);
-		
+
 		PersistenceXStream.saveToXMLwithXStream(tm);
 		return s;
 	}
+	
+	//TODO: Ask why this is here
 	public Tree getTreeForSurvey(Survey survey) {
 		return survey.getTree();
 
 	}
-
+	
+	
+	//TODO: This goes in TreeManager
 	public Tree getTreeById(int id) {
 		List<Tree> trees = tm.getTrees();
 		for(Tree t: trees) {
@@ -56,10 +65,24 @@ public class SurveyService {
 		}
 		return null;
 	}
-	public void editSurvey(Survey survey, String name, Date date) throws InvalidInputException{
-		// TODO Auto-generated method stub
-		
-		PersistenceXStream.saveToXMLwithXStream(tm);
-	}
 
+	public void editSurvey(Survey survey,Date editDate, 
+			String editor, Status editedTreeStatus) throws InvalidInputException{
+		//Check if any of the fields are null, and throw corresponding exception
+		if(survey == null||editDate ==null||editor==null||editedTreeStatus==null) {
+			throw new InvalidInputException("Error: Survey,Report Date,surveyor, or status is null");
+		}
+		//Checks if the survey is in the system:
+		for(Survey surveyInSystem : tm.getSurveys()) {
+			if(survey.equals(surveyInSystem)) {
+				surveyInSystem.setSurveyorName(editor);
+				surveyInSystem.setReportDate(editDate);
+				surveyInSystem.getTree().setStatus(editedTreeStatus);
+				PersistenceXStream.saveToXMLwithXStream(tm);
+			}
+			else{
+				throw new InvalidInputException("Error: Survey does not exist");
+			}
+		}
+	}
 }
