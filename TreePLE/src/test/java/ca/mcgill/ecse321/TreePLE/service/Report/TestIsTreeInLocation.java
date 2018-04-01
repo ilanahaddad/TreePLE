@@ -63,9 +63,10 @@ public class TestIsTreeInLocation {
 	}
 
 	@Test
-	public void testNull() {
+	public void testInvalidInput() {
 		ReportService rs = new ReportService(tm);
 		String error=null;
+		
 		Location[] perimeter1 = null;
 		try {
 			rs.isTreeInLocation(2,2,perimeter1);
@@ -75,18 +76,22 @@ public class TestIsTreeInLocation {
 
 		assertEquals("Error: Perimeter is null", error);
 		
-		Location coordinates1 = null;
-		Location coordinates2 = new Location(1,4);
-		Location coordinates3 = new Location(4,1);
-		Location coordinates4 = new Location(4,4);
-		Location[] perimeter2= {coordinates1, coordinates2, coordinates3, coordinates4};
+		Location[] perimeter2= {null,new Location(1,4),new Location(4,4),new Location(4,1)};
 		try {
 			rs.isTreeInLocation(2,2,perimeter2);
 		} catch (InvalidInputException e) {
 			error=e.getMessage();
 		}
-
 		assertEquals("Error: Location coordinates are null", error);
+		
+		Location[] perimeter3= {new Location(1,1),new Location(1,4),new Location(4,4),new Location(4,1)};
+		try {
+			rs.isTreeInLocation(-1,-1,perimeter3);
+		} catch (InvalidInputException e) {
+			error=e.getMessage();
+		}
+		assertEquals("Error: Coordinates can't be negative", error);
+		
 	}
 
 	@Test

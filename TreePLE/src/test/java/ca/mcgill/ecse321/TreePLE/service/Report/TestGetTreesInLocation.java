@@ -51,7 +51,7 @@ public class TestGetTreesInLocation {
 		Tree tree2= new Tree(owner, species, 1.5, 0.5, 0, treeLoc2, m );
 		Tree tree3= new Tree(owner, species, 1.5, 0.5, 0, treeLoc3, m );
 		Tree tree4= new Tree(owner, species, 1.5, 0.5, 0, treeLoc4, m );
-		
+
 		tm.addTree(tree1);
 		tm.addTree(tree2);
 		tm.addTree(tree3);
@@ -67,28 +67,24 @@ public class TestGetTreesInLocation {
 	public void testNull() {
 		ReportService rs = new ReportService(tm);
 		String error=null;
-		
+
 		Location[] perimeter1 = null;
 		try {
 			rs.getTreesInLocation(perimeter1);
 		} catch (InvalidInputException e) {
 			error=e.getMessage();
 		}
-
 		assertEquals("Error: Perimeter is null", error);
-		
-		Location coordinates1 = null;
-		Location coordinates2 = new Location(1,4);
-		Location coordinates3 = new Location(4,1);
-		Location coordinates4 = new Location(4,4);
-		Location[] perimeter2= {coordinates1, coordinates2, coordinates3, coordinates4};
+
+
+		Location[] perimeter2= {null,new Location(1,4),new Location(4,4),new Location(4,1)};
 		try {
 			rs.getTreesInLocation(perimeter2);
 		} catch (InvalidInputException e) {
 			error=e.getMessage();
 		}
-
 		assertEquals("Error: Location coordinates are null", error);
+
 	}
 
 	@Test
@@ -149,32 +145,64 @@ public class TestGetTreesInLocation {
 		//assertEquals(0, numTreesInLocation);
 
 	}
-	
+
 	@Test
-	public void testShape() {
+	public void testWorstCase() throws InvalidInputException {
+
+		User user= new User();
+		tm=new TreeManager(true, "1.0", 2018, user);
+		String species= "White Ash";
+
+		Location treeLoc1 = new Location (1.0003,1.0087);
+		Location treeLoc2 = new Location (2.00201,2.00290);
+		Location treeLoc3 = new Location (2.99999897,2.9999767);
+		Location treeLoc4 = new Location (4.21300,4.00937);
+
+		String owner = "Ilana";
+		Municipality m = new Municipality("Outremont");
+
+		Tree tree1= new Tree(owner, species, 1.5, 0.5, 0, treeLoc1, m );
+		Tree tree2= new Tree(owner, species, 1.5, 0.5, 0, treeLoc2, m );
+		Tree tree3= new Tree(owner, species, 1.5, 0.5, 0, treeLoc3, m );
+		Tree tree4= new Tree(owner, species, 1.5, 0.5, 0, treeLoc4, m );
+
+		tm.addTree(tree1);
+		tm.addTree(tree2);
+		tm.addTree(tree3);
+		tm.addTree(tree4);
+
 		ReportService rs = new ReportService(tm);
-		String error=null;
-		
-		Location[] perimeter1 = null;
-		try {
-			rs.getTreesInLocation(perimeter1);
-		} catch (InvalidInputException e) {
-			error=e.getMessage();
-		}
+		int numTreesInLocation;
 
-		assertEquals("Error: Perimeter is null", error);
-		
-		Location coordinates1 = null;
-		Location coordinates2 = new Location(1,4);
-		Location coordinates3 = new Location(4,1);
-		Location coordinates4 = new Location(4,4);
-		Location[] perimeter2= {coordinates1, coordinates2, coordinates3, coordinates4};
-		try {
-			rs.getTreesInLocation(perimeter2);
-		} catch (InvalidInputException e) {
-			error=e.getMessage();
-		}
+		Location[] perimeter = {new Location(0.0001,1.00001), new Location(1.0003,1.0087), 
+				new Location(2,4), new Location(2.99999897,2.9999767), new Location(3,2),
+				new Location(4,2), new Location(1,0)};
+		numTreesInLocation = rs.getTreesInLocation(perimeter).size();
+		//assertEquals(3, numTreesInLocation);//TODO: bug on edges
 
-		assertEquals("Error: Location coordinates are null", error);
+		Location[] perimeter2 = {new Location(0.0001,1.00001), new Location(1.000301,1.008699), 
+				new Location(2,4), new Location(3,3), new Location(3,2),
+				new Location(4,2), new Location(1,0)};
+		numTreesInLocation = rs.getTreesInLocation(perimeter2).size();
+		assertEquals(2, numTreesInLocation);
+
+		Location[] perimeter3 = {new Location(0.0001,1.00001), new Location(1.000299,1.008699), 
+				new Location(2,4), new Location(3,3), new Location(3,2),
+				new Location(4,2), new Location(1,0)};
+		numTreesInLocation = rs.getTreesInLocation(perimeter3).size();
+		assertEquals(3, numTreesInLocation);
+		
+		Location[] perimeter4 = {new Location(0.0001,1.00001), new Location(1,1.1), 
+				new Location(2,4), new Location(2.999995,2.999975), new Location(3,2),
+				new Location(4,2), new Location(1,0)};
+		numTreesInLocation = rs.getTreesInLocation(perimeter4).size();
+		assertEquals(2, numTreesInLocation);
+		
+		Location[] perimeter5 = {new Location(0.0001,1.00001), new Location(1,1.1), 
+				new Location(2,4), new Location(2.999999,2.9999999), new Location(3,2),
+				new Location(4,2), new Location(1,0)};
+		numTreesInLocation = rs.getTreesInLocation(perimeter5).size();
+		assertEquals(3, numTreesInLocation);
+
 	}
 }
