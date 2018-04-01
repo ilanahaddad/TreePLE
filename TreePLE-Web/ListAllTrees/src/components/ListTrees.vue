@@ -1,7 +1,7 @@
 
 <template>
   <div id="listtrees">
-    <h2>List of Treeeeeeeees</h2>
+    <h2>List of Trees</h2>
     <table align="center">
       <tr>
           <td>ID</td>
