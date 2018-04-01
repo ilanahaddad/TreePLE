@@ -1,6 +1,5 @@
 package ca.mcgill.ecse321.TreePLE.service;
 
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.forwardedUrl;
 
 import java.awt.Polygon;
 import java.sql.Date;

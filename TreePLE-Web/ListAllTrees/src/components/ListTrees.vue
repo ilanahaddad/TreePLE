@@ -48,6 +48,7 @@
     <p>
       <span v-if="errorTree" style="color:red">Error: {{errorTree}} </span>
     </p>
+    
     <gmap-map
       :center="center"
       :zoom="13"
@@ -62,7 +63,7 @@
         @click="center=m.position"
       ></gmap-marker>
     </gmap-map>
-  </div> 
+  </div>
 </template>
 
 <script src="./treelist.js">

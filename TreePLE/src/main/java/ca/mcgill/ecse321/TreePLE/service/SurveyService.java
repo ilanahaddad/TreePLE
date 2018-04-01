@@ -58,6 +58,7 @@ public class SurveyService {
 	}
 	public void editSurvey(Survey survey, String name, Date date) throws InvalidInputException{
 		// TODO Auto-generated method stub
+	
 		
 		PersistenceXStream.saveToXMLwithXStream(tm);
 	}
