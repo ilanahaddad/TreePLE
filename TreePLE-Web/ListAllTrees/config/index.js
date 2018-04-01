@@ -5,7 +5,11 @@ module.exports = {
   build: {
     env: require('./prod.env'),
     port: 8087,
+    //THIS CHANGES WHEN JENKINS TO LOCAL
     host:  'ecse321-1.ece.mcgill.ca', // set the real address of frontend VM
+    //host: '192.168.56.50',
+    //backendHost: '192.168.56.50',
+    //THIS TOO
     backendHost: 'ecse321-1.ece.mcgill.ca', // set it to real address of backend VM
     backendPort: 8080,
     index: path.resolve(__dirname, '../dist/index.html'),
@@ -28,6 +32,8 @@ module.exports = {
   dev: {
     env: require('./dev.env'),
     port: 8087,
+    //host: '127.0.0.1',
+    //backendHost: '192.168.56.50',
     host:  'ecse321-1.ece.mcgill.ca',
     backendHost: 'ecse321-1.ece.mcgill.ca',
     backendPort: 8080,
