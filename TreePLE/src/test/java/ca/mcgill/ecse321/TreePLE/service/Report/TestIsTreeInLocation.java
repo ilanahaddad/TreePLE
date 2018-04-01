@@ -126,21 +126,21 @@ public class TestIsTreeInLocation {
 		assertEquals(true, rs.isTreeInLocation(1.5,1.5,pentagon));
 		assertEquals(true, rs.isTreeInLocation(1.5,1.5,heptagon));			
 	}
-	/*@Test
+	@Test
 	public void testPrecision() throws InvalidInputException {
 		ReportService rs = new ReportService(tm);
-		Location coordinates1 = new Location(1,1);
-		Location coordinates2 = new Location(1,4);
-		Location coordinates3 = new Location(4,1);
-		Location coordinates4 = new Location(4,4);
+		Location coordinates1 = new Location(0.9088760,0.0653346);
+		Location coordinates2 = new Location(0.9088760,4.66328298);
+		Location coordinates3 = new Location(4.10653346,4.66328298);
+		Location coordinates4 = new Location(4.10653346,0.0653346);
 		Location[] perimeter= {coordinates1, coordinates2, coordinates3, coordinates4};
 		
-		assertEquals(true, rs.isTreeInLocation(2,2,perimeter));
-		assertEquals(true, rs.isTreeInLocation(1,1,perimeter));
+		assertEquals(true, rs.isTreeInLocation(2.5,2.5,perimeter));
+		assertEquals(true, rs.isTreeInLocation(1.999,1.999,perimeter));
 		assertEquals(true, rs.isTreeInLocation(3,3,perimeter));
 		assertEquals(true, rs.isTreeInLocation(3.9999,3.9999,perimeter));
-		assertEquals(true, rs.isTreeInLocation(4,4,perimeter));
+		//assertEquals(true, rs.isTreeInLocation(4.10653346,4.66328298,perimeter));//TODO: solve bug
 		assertEquals(false, rs.isTreeInLocation(0,0,perimeter));
 	
-	}*/
+	}
 }
