@@ -20,8 +20,8 @@ import ca.mcgill.ecse321.TreePLE.model.User;
 public class PersistenceXStream {
 //TODO: ADD SURVEY 
 	private static XStream xstream = new XStream();
-	//private static String filename = "/webservice/data.xml";
-	private static String filename = "data.xml";
+	private static String filename = "/webservice/data.xml";
+	//private static String filename = "data.xml";
 	public static TreeManager initializeModelManager(String fileName) {
 		// Initialization for persistence
 		TreeManager tm;
