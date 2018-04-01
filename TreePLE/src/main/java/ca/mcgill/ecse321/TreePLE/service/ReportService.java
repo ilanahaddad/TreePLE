@@ -99,13 +99,13 @@ public class ReportService {
 			if(perimeter[i]==null) {
 				throw new InvalidInputException("Error: Location coordinates are null");
 			}
-			ypoints[i] = (int) (perimeter[i].getLatitude());
-			xpoints[i] = (int)(perimeter[i].getLongitude());
+			ypoints[i] = (int) (perimeter[i].getLatitude()*1000000);
+			xpoints[i] = (int)(perimeter[i].getLongitude()*1000000);
 		}
 		Polygon shape = new Polygon(xpoints,ypoints,npoints);
 		for(Tree tree : tm.getTrees()){
-			double y = tree.getCoordinates().getLatitude();
-			double x = tree.getCoordinates().getLongitude();
+			double y = tree.getCoordinates().getLatitude()*1000000;
+			double x = tree.getCoordinates().getLongitude()*1000000;
 			if(shape.contains(x,y)) {
 				treesInLocation.add(tree);
 			}
