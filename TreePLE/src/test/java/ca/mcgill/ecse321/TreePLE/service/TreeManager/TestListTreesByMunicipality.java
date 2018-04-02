@@ -55,8 +55,8 @@ public class TestListTreesByMunicipality {
 	}
 
 	@Test
-	public void testListTreesbyMunicipality() throws InvalidInputException { //Add a tree and test that ListTreesbyMunicipality method can find it
-		String error = "false";
+	public void testListTreesbyMunicipality(){ //Add a tree and test that ListTreesbyMunicipality method can find it
+		String error = "";
 		TreeManagerService tmc = new TreeManagerService(tm);
 		List<Tree> treeWithM = null;
 		try {
@@ -95,13 +95,13 @@ public class TestListTreesByMunicipality {
 		public void testlistTreesByMunicipalityNull() { //Tests error handling of ListTreesbyMunicipality method for empty input
 			TreeManagerService tmc = new TreeManagerService(tm);
 			Municipality nullMun = null;
-			String error = "false";
+			String error = "";
 			
 			try {
 				tmc.createTree(ownerName2, species2, treeHeight2, treeDiameter2, 
 						treeAge2, treeLoc2, nullMun, land2 );
 			} catch (InvalidInputException e) {
-				e.printStackTrace();
+				error = e.getMessage();
 			}
 			
 			try {

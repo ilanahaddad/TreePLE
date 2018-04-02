@@ -197,7 +197,7 @@ public class TestCreateTreeAndMunicipality {
 
 
 	}
-
+	
 	@Test
 	public void testCreateMunicipality() {
 		assertEquals(0, tm.getMunicipalities().size()); // import Assert from the `org.junit` package

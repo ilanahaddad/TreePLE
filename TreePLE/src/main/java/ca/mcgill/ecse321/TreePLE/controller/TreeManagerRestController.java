@@ -32,6 +32,7 @@ import ca.mcgill.ecse321.TreePLE.model.SustainabilityReport;
 import ca.mcgill.ecse321.TreePLE.model.Tree;
 import ca.mcgill.ecse321.TreePLE.model.User;
 import ca.mcgill.ecse321.TreePLE.model.User.UserType;
+import ca.mcgill.ecse321.TreePLE.model.VersionManager;
 import ca.mcgill.ecse321.TreePLE.service.InvalidInputException;
 import ca.mcgill.ecse321.TreePLE.service.ReportService;
 import ca.mcgill.ecse321.TreePLE.service.SurveyService;
@@ -48,24 +49,18 @@ public class TreeManagerRestController {
 	
 	@Autowired
 	private ReportService reportService;
+	
+	@Autowired
+	private VersionManager versionManager;
 
 	@Autowired
 	private ModelMapper modelMapper;
 
 	@RequestMapping("/")
 	public String index() {
-		return "TreePLE application root. Web-based frontend is a TODO. Use the REST API to manage events and participants.\n";
+		return "TreePLE application root.\n";
 	}
 
-
-/*
-	@PostMapping(value = { "/participants/{name}", "/participants/{name}/" })
-	public Tree createParticipant(@PathVariable("name") String name) throws InvalidInputException {
-		Participant participant = service.createParticipant(name);
-		return convertToDto(participant);
-	}
-
-*/
 	// Conversion methods (not part of the API)
 	private TreeDto convertToDto(Tree t) {
 		// In simple cases, the mapper service is convenient
@@ -108,7 +103,6 @@ public class TreeManagerRestController {
 		Tree treeForSurvey = surveyService.getTreeForSurvey(survey);
 		return convertToDto(treeForSurvey);
 	}
-	
 	
 	@PostMapping(value = {"/newTree/{species}", "/newTree/{species}/"})
 	public TreeDto createTree(
@@ -170,11 +164,10 @@ public class TreeManagerRestController {
 		return trees;
 	}
 	
-	//TODO: ADD DTO HERE
-	@PostMapping(value = { "/setUserType/{userType}/", "/setUserType/{userType}" })
-	public User setUserType(@PathVariable("userType") UserType userType) throws InvalidInputException{
-		User user = treeManagerService.setUserType(userType);
-		return user;
+	@PostMapping(value = { "/setUserType/{userTypeName}/", "/setUserType/{userTypeName}" })
+	public void setUserType(@PathVariable("userTypeName") String userTypeName) throws InvalidInputException{
+		UserType userType= treeManagerService.getUserTypeByName(userTypeName);
+		treeManagerService.setUserType(userType);
 	}
 	//TODO: ADD DTO HERE
 	@PostMapping(value = { "/newReport/{reporterName}/", "/setUserType/{reporterName}" })
@@ -187,7 +180,7 @@ public class TreeManagerRestController {
 		@RequestParam(name="lat3") double lat3,
 		@RequestParam(name="long3") double long3,
 		@RequestParam(name="lat4") double lat4,
-		@RequestParam(name="long4") double long4) {
+		@RequestParam(name="long4") double long4) throws InvalidInputException {
 		Location location1 = treeManagerService.getLocationByCoordinates(lat1, long1);
 		Location location2 = treeManagerService.getLocationByCoordinates(lat2, long2);
 		Location location3 = treeManagerService.getLocationByCoordinates(lat3, long3);
@@ -198,15 +191,15 @@ public class TreeManagerRestController {
 		perimeter[2] = location3;
 		perimeter[3] = location4;
 		SustainabilityReport report = null;
-		try {
-			report = reportService.createReport(reporterName, reportDate, perimeter);
-		} catch (InvalidInputException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		report = reportService.createReport(reporterName, reportDate, perimeter);
 		return report;
 	}
-	
+	//TODO
+	/*
+	@GetMapping(value = { "/species/", "/species" })
+	public List<String> findAllSpecies() {
+		return treeManagerService.getAllSpecies(tm);
+	}*/
 	
 	
 /*	DONT DELETE: NOT SURE IF WE NEED THESE: 

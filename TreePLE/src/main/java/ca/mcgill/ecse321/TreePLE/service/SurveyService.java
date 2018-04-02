@@ -30,8 +30,6 @@ public class SurveyService {
 		if(surveyor=="") {
 			throw new InvalidInputException("Error: Surveyor name cannot be empty");
 		}
-		
-		//TODO: did we decide to change this?
 		//check if status is already the one requested
 		if(newTreeStatus == tree.getStatus()) { 
 			throw new InvalidInputException("Error: This tree already has this status");

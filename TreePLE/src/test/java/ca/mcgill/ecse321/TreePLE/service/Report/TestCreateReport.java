@@ -95,21 +95,21 @@ public class TestCreateReport {
 		} catch (InvalidInputException e) {
 			error=e.getMessage();
 		}
-		assertEquals("Error: Report name, date, or parameter is null", error);
+		assertEquals("Error: Reporter name, date, or parameter is null", error);
 
 		try {
 			rs.createReport(reporter, null, perimeter);
 		} catch (InvalidInputException e) {
 			error=e.getMessage();
 		}
-		assertEquals("Error: Report name, date, or parameter is null", error);
+		assertEquals("Error: Reporter name, date, or parameter is null", error);
 
 		try {
 			rs.createReport(null, date, perimeter);
 		} catch (InvalidInputException e) {
 			error=e.getMessage();
 		}
-		assertEquals("Error: Report name, date, or parameter is null", error);
+		assertEquals("Error: Reporter name, date, or parameter is null", error);
 
 
 		Location[] perimeter1 = {null, new Location(0,5), 
@@ -120,7 +120,7 @@ public class TestCreateReport {
 			error=e.getMessage();
 		}
 		assertEquals("Error: Location coordinates are null", error);
-
+/*
 		Location[] perimeter2 = {new Location(0,0), new Location(0,-5), 
 				new Location(-5,-5), new Location(-5,0)};
 		try {
@@ -128,7 +128,11 @@ public class TestCreateReport {
 		} catch (InvalidInputException e) {
 			error=e.getMessage();
 		}
-		assertEquals("Error: Location coordinates are negative", error);
+		assertEquals("Error: Location coordinates are negative", error);*/
+	}
+	@Test
+	public void testPerimeterErrorEqualLocations() {
+		//TODO
 	}
 	
 }

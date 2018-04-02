@@ -201,8 +201,6 @@ public class TestCreateSurvey {
 		
 	}
 	private void checkResultSurvey(Date date, Tree tree, String surveyor, Status status, TreeManager tm2) {
-	
-		
 		assertEquals(1, tm2.getSurveys().size());
 		assertEquals(date.toString(), tm.getSurvey(0).getReportDate().toString());
 		assertEquals(tree.getId(), tm.getSurvey(0).getTree().getId());
