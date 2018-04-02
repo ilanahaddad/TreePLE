@@ -29,7 +29,7 @@ import cz.msebera.android.httpclient.Header;
 
 public class MainActivity extends AppCompatActivity {
     private String error = null;
-    private List<String> userTypes = new ArrayList<>();
+    private List<String> userTypes = new ArrayList<String>(){{add("LocalResident");add("Professional");}};
     private ArrayAdapter<String> userTypeAdapter;
     Button continueButton;
 
@@ -49,14 +49,18 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        // initialize error message text view
+        refreshErrorMessage();
+
         //Added from tutorial:
         Spinner userTypeSpinner = (Spinner) findViewById(R.id.userTypeSpinner);
         userTypeAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, userTypes);
         userTypeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         userTypeSpinner.setAdapter(userTypeAdapter);
         //Get initial contents for spinners:
-        refreshLists(this.getCurrentFocus());
-
+        //No need for this
+        //refreshLists(this.getCurrentFocus());
+        /*
         //Locate the continue button in activity_main.xml:
         continueButton = (Button) findViewById(R.id.btnContinue);
         //capture button clicks:
@@ -65,10 +69,18 @@ public class MainActivity extends AppCompatActivity {
                 //start new activity class:
                 Intent myIntent = new Intent(MainActivity.this, OptionsActivity.class);
             }
-        });
+        });*/
 
-        // initialize error message text view
-        refreshErrorMessage();
+        /*Button btn = (Button)findViewById(R.id.btnContinue);
+
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, OptionsActivity.class));
+            }
+        });*/
+
+
     }
 
     @Override
@@ -105,7 +117,9 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
-    public void refreshLists(View view) {
+    //No need for refresh list since list is finite
+    /*public void refreshLists(View view) {
+
         refreshList(userTypeAdapter ,userTypes, "setUserType");
     }
 
@@ -136,8 +150,8 @@ public class MainActivity extends AppCompatActivity {
                 refreshErrorMessage();
             }
         });
-    }
-    public void setUserType(View v) {
+    }*/
+    /*public void setUserType(View v) {
         Spinner userTypeSpin = (Spinner) findViewById(R.id.userTypeSpinner);
         error = "";
 
@@ -165,7 +179,7 @@ public class MainActivity extends AppCompatActivity {
         // Set back the spinners to the initial state after posting the request
         userTypeSpin.setSelection(0);
         refreshErrorMessage();
-    }
+    }*/
     /*
     public void addListenerOnSpinnerItemSelection(){
         userTypeSpinner = (Spinner) findViewById(R.id.userTypeSpinner);
