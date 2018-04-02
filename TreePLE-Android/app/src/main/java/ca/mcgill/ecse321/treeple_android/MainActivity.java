@@ -117,6 +117,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
+
     //No need for refresh list since list is finite
     /*public void refreshLists(View view) {
 
@@ -151,7 +152,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }*/
-    /*public void setUserType(View v) {
+    public void setUserType(View v) {
         Spinner userTypeSpin = (Spinner) findViewById(R.id.userTypeSpinner);
         error = "";
 
@@ -179,7 +180,7 @@ public class MainActivity extends AppCompatActivity {
         // Set back the spinners to the initial state after posting the request
         userTypeSpin.setSelection(0);
         refreshErrorMessage();
-    }*/
+    }
     /*
     public void addListenerOnSpinnerItemSelection(){
         userTypeSpinner = (Spinner) findViewById(R.id.userTypeSpinner);
