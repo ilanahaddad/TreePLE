@@ -6,8 +6,14 @@
 </template>
 
 <script>
+import GenerateReport from './components/GenerateReport'
+import ListTrees from './components/ListTrees'
 export default {
-  name: 'app'
+  name: 'app',
+  components: {
+    ListTrees,
+    GenerateReport
+  }
 }
 </script>
 
