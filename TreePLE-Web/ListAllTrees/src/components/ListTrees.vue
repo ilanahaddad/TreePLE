@@ -1,8 +1,38 @@
 
 <template>
   <div id="listtrees">
-    <h2>List of Trees</h2>
-
+    <table align="center">
+      <tr>
+        <td style="padding:0 5px 0 5px;">Generate Report - </td>
+        <td style="padding:0 5px 0 5px;">View Reports - </td>
+        <td style="padding:0 5px 0 5px;">New Forecast - </td>
+        <td style="padding:0 5px 0 5px;">Edit Tree - </td>
+        <td style="padding:0 5px 0 5px;">Move Tree</td>
+      </tr>
+      <tr></tr>
+    </table>
+    <h6><font color = "blue">Current Version: 1.0</font></h6> <!--CHANGE TO CURRENT VERSION -->
+    <hr>
+    <table align="center">
+      <tr>
+        <td><h2>List Trees By:</h2></td>
+        <td style="padding:0 15px 0 15px;">All</td>
+        <td style="padding:0 15px 0 15px;">
+          Species
+        </td>
+        <td style="padding:0 15px 0 15px;">
+          Municipality
+        </td>
+        <td style="padding:0 15px 0 15px;">
+          Status
+        </td>
+        <td style="padding:0 15px 0 15px;">
+          Land Use
+        </td>
+      </tr>
+      <tr></tr>
+    </table>
+    <br>
     <gmap-map
       :center="center"
       :zoom="13"
@@ -63,9 +93,7 @@
     <p>
       <span v-if="errorTree" style="color:red">Error: {{errorTree}} </span>
     </p>
-    
-    
-  </div>
+    </div>
 </template>
 
 <script src="./treelist.js">
