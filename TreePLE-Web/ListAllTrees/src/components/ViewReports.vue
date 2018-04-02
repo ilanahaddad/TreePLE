@@ -12,7 +12,9 @@
       <tr></tr>
   </table>
   <hr>
-  <h2>View Reports</h2>
+  <h2>Report History for tree ID: TO DO</h2>
+  <br>
+  <h6>Enter dynamic list/table here</h6>
  </div>
 </template>
 
