@@ -12,8 +12,12 @@
     <string name="treeAge_hint">Type tree age</string>
     <string name="addTree">Add tree</string>
     <string name="treeID_hint">Type tree ID</string>
-    <string name="newSurvey">Change tree </string>
+    <string name="newSurvey">Change tree</string>
     <string name="status_label">Choose new tree status </string>
+    <string name="addSurvey">Submit survey</string>
+    <string name="viewSurveys">View history of tree</string>
+    <string name="back_button">Back</string>
+
 
 
 
