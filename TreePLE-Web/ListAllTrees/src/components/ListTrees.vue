@@ -58,17 +58,33 @@
         @click="center=m.position"
       ></gmap-marker>
     </gmap-map>
+    <div style="padding: 20px 0 0 0;">
+    <div v-for="tree in trees" style="padding: 5px 0 0 0;">
+    	<button class="accordion" v-on:click="showTreeData">Tree ID: {{ tree.id }} Lat: {{ tree.coordinates.latitude }} Long: {{ tree.coordinates.longitude }} </button>
+			<div class="panel">
+  			<panel>
+  				Owner: {{ tree.owner.name }} </br>
+  				Species : {{ tree.species }} </br>
+  				Height : {{ tree.height }} </br>
+  				Diameter : {{ tree.diameter }} </br>
+  				Municipality : {{ tree.treeMunicipality.name }} </br>
+  				Status : {{tree.status}} </br>
+  			</panel>
+			</div>
+		</div>
+		</div>
+    <!--
     <table align="center">
       <tr>
           <td>ID</td>
           <td>Species Type</td>
-    <td>Height (in metres)</td>
-    <td>Diameter (in metres)</td>
-    <td>Municipality</td>
+          <td>Height (in metres)</td>
+          <td>Diameter (in metres)</td>
+          <td>Municipality</td>
           <td>Owner</td>
-    <td>Longitude</td>
+          <td>Longitude</td>
           <td>Latitude</td>
-    <td>Status</td>
+          <td>Status</td>
       </tr>
       <tr v-for="tree in trees" >
         <td>{{ tree.id }}</td>
@@ -81,6 +97,7 @@
         <td>{{ tree.coordinates.latitude }}</td>
         <td>{{ tree.status }}</td>
       </tr>
+    -->
     <!-- ... -->
       <!--
           //<td>
@@ -120,5 +137,29 @@
 .selection:hover {
     background: green;
     color: white;
+}
+.accordion {
+    background-color: #eee;
+    color: #444;
+    cursor: pointer;
+    padding: 18px;
+    width: 50%;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 15px;
+    transition: 0.4s;
+}
+
+.active, .accordion:hover {
+    background: green; 
+    color:white;
+}
+
+.panel {
+    padding: 0 18px;
+    display: none;
+    background-color: white;
+    overflow: hidden;
 }
 </style>

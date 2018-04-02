@@ -8,6 +8,20 @@ var AXIOS = axios.create({
   baseURL: backendUrl,
   headers: { 'Access-Control-Allow-Origin': frontendUrl }
 })
+/*
+var acc = document.getElementsByClassName("accordion");
+var i;
+for (i = 0; i < acc.length; i++) {
+    acc[i].addEventListener("click", function() {
+        this.classList.toggle("active");
+        var panel = this.nextElementSibling;
+        if (panel.style.display === "block") {
+            panel.style.display = "none";
+        } else {
+            panel.style.display = "block";
+        }
+    });
+}*/
 
 function TreeDto (species, height, diameter, coordinates, owner, treeMunicipality, versions, land, status, id) {
   this.id = id
@@ -34,22 +48,30 @@ export default {
   },
   created: function () {
     // Initializing trees from backend
-    AXIOS.get('/trees')
+   /* AXIOS.get('/trees')
     .then(response => {
       // JSON responses are automatically parsed.
       this.trees = response.data
     })
     .catch(e => {
       this.errorTree = e;
-    });
-    // Test data
-    //const t1 = new TreeDto('Pine', '4', '0.5', 'coordinates', 'Thomas', 'Outremont', '1', 'Park', 'Planted', '112')
-    //const t2 = new TreeDto('Cedar', '4', '0.5', 'coordinates', 'Thomas', 'Outremont', '1', 'Park', 'Planted', '112')
+    });*/
+     //Test data
+    const t1 = new TreeDto('Pine', '4', '0.5', 'coordinates', 'Thomas', 'Outremont', '1', 'Park', 'Planted', '100')
+    const t2 = new TreeDto('Cedar', '4', '0.5', 'coordinates', 'Thomas', 'Outremont', '1', 'Park', 'Planted', '112')
     // Sample initial content
-    //this.trees = [t1, t2]
+    this.trees = [t1, t2]
   },
 
-  //methods: {
+  methods: {
+		showTreeData: function(event) {
+        var panel = event.target.nextElementSibling;
+        if (panel.style.display === "block") {
+            panel.style.display = "none";
+        } else {
+            panel.style.display = "block";
+        }
+     }
     //createTree: function (treeId, treeSpecies, treeLongitude, treeLatitude, treeStatus) {
       //AXIOS.post(`/trees/`+treeId, {}, {})
       //.then(response => {
@@ -69,7 +91,7 @@ export default {
       // Reset the name field for new participants
       //this.newTree = ''
     //}
-  //}
+  },
 
   data () {
     return {
