@@ -1,43 +1,29 @@
-
 <template>
-  <div id="listtrees">
-    <table align="center">
-      <tr>
-        <td style="padding:0 5px 0 5px;"><a href='http://127.0.0.1:8087/#/app'>View Trees</a> - </td>
-        <td style="padding:0 5px 0 5px;"><a href='http://127.0.0.1:8087/#/generatereport'>Generate Report</a> - </td>
-        <td style="padding:0 5px 0 5px;"><a href='http://127.0.0.1:8087/#/ViewReports'>View Reports</a> - </td>
-        <td style="padding:0 5px 0 5px;"><a href='http://127.0.0.1:8087/#/Forecast'>Forecast</a> - </td>
-        <td style="padding:0 5px 0 5px;"><a href='http://127.0.0.1:8087/#/EditTree'>Edit Tree</a> - </td>
-        <td style="padding:0 5px 0 5px;"><a href='http://127.0.0.1:8087/#/MoveTree'>Move Tree</a></td>
-      </tr>
-      <tr></tr>
-    </table>
+  <div id="forecast">
     <h6><font color ="#3366cc">Current Version: 1.0</font></h6> <!--CHANGE TO CURRENT VERSION -->
     <hr>
     <table align="center">
       <tr>
-        <td style="padding: 0 10px 0 0"><h2>List Trees By:</h2></td>
-        <td style="padding: 0 10px 0 15px;" id="All_select">All</td>
-        <td style="padding:0 10px 0 10px;" id="Species_select">Species</td>
-        <td style="padding:0 10px 0 10px;" id="Municipality_select">Municipality
+        <td style="padding: 0 10px 0 0"><h2>Generate Report:</h2></td>
+        <td style="padding: 0 10px 0 15px;" id="All_select" class="selection">All</td>
+        <td style="padding:0 10px 0 10px;" id="Species_select" class="selection">Species</td>
+        <td style="padding:0 10px 0 10px;" id="Municipality_select" class="selection">Municipality
         </td>
         <td style="padding:0 10px 0 10px;">
-          <td style="padding:0 10px 0 10px;" id="Status_select">
+          <td style="padding:0 10px 0 10px;" id="Status_select" class="selection">
             <select>
               <option value="Planted">Planted</option>
               <option value="ToBeCutdown">To be cutdown</option>
               <option value="Diseased">Diseased</option>
             </select>
-            <button class='selection'>OK</button>
           </td>
         </td>
         <td style="padding:0 10px 0 10px;">
-          <td style="padding:0 10px 0 10px;" id="LandUse_select">
+          <td style="padding:0 10px 0 10px;" id="LandUse_select" class="selection">
             <select>
               <option value="Residential">Residential</option>
               <option value="NonResidential">Non-Residential</option>
             </select>
-            <button class='selection'>OK</button>
           </td>
         </td>
       </tr>
@@ -109,16 +95,3 @@
 
 <script src="./treelist.js">
 </script>
-
-<style>
-.selection {
-    border: none;
-    text-align: center;
-    cursor: pointer;
-}
-
-.selection:hover {
-    background: green;
-    color: white;
-}
-</style>

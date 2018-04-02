@@ -93,5 +93,3 @@
     </div>
 </template>
 
-<script src="./treelist.js">
-</script>
