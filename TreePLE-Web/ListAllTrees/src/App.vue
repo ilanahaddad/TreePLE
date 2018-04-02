@@ -10,13 +10,22 @@ import GenerateReport from './components/GenerateReport'
 import Report from './components/Report'
 import Forecast from './components/Forecast'
 import ListTrees from './components/ListTrees'
+import EditTree from './components/EditTree'
+import MoveTree from './components/MoveTree'
+import ViewReports from './components/ViewReports'
+import ViewReportsPre from './components/ViewReportsPre'
+
 export default {
   name: 'app',
   components: {
     ListTrees,
     GenerateReport,
     Report,
-    Forecast
+    Forecast,
+    EditTree,
+    MoveTree,
+    ViewReports,
+    ViewReportsPre
   }
 }
 </script>

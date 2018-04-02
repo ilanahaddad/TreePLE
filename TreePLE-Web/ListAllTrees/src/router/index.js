@@ -5,6 +5,10 @@ import ListTrees from '@/components/ListTrees'
 import GenerateReport from '@/components/GenerateReport'
 import Report from '@/components/Report'
 import Forecast from '@/components/Forecast'
+import EditTree from '@/components/EditTree'
+import MoveTree from '@/components/MoveTree'
+import ViewReports from '@/components/ViewReports'
+import ViewReportsPre from '@/components/ViewReportsPre'
 Vue.use(Router)
 
 export default new Router({
@@ -33,6 +37,26 @@ export default new Router({
       path: '/forecast',
       name: 'Forecast',
       component: Forecast
+    },
+    {
+      path: '/movetree',
+      name: 'MoveTree',
+      component: MoveTree
+    },
+    {
+      path: '/edittree',
+      name: 'EditTree',
+      component: EditTree
+    },
+    {
+      path: '/viewreports',
+      name: 'ViewReports',
+      component: ViewReports
+    },
+    {
+      path: '/viewreportspreliminary',
+      name: 'ViewReportsPre',
+      component: ViewReportsPre
     }
   ]
 })
