@@ -5,10 +5,10 @@ module.exports = {
   build: {
     env: require('./prod.env'),
     port: 8087,
-    host:  'ecse321-1.ece.mcgill.ca', // set the real address of frontend VM
-    backendHost: 'ecse321-1.ece.mcgill.ca', // set it to real address of backend VM
-    //host: '192.168.56.50',
-    //backendHost: '192.168.56.50',
+    //host:  'ecse321-1.ece.mcgill.ca', // set the real address of frontend VM
+    //backendHost: 'ecse321-1.ece.mcgill.ca', // set it to real address of backend VM
+    host: '192.168.56.50',
+    backendHost: '192.168.56.50',
     backendPort: 8080,
     index: path.resolve(__dirname, '../dist/index.html'),
     assetsRoot: path.resolve(__dirname, '../dist'),
@@ -30,10 +30,10 @@ module.exports = {
   dev: {
     env: require('./dev.env'),
     port: 8087,
-    //host: '127.0.0.1',
-    //backendHost: '192.168.56.50',
-    host:  'ecse321-1.ece.mcgill.ca',
-    backendHost: 'ecse321-1.ece.mcgill.ca',
+    host: '127.0.0.1',
+    backendHost: '192.168.56.50',
+    //host:  'ecse321-1.ece.mcgill.ca',
+    //backendHost: 'ecse321-1.ece.mcgill.ca',
     backendPort: 8080,
     autoOpenBrowser: true,
     assetsSubDirectory: 'static',
