@@ -1,97 +1,127 @@
 <template>
-  <div id="forecast">
-    <h6><font color ="#3366cc">Current Version: 1.0</font></h6> <!--CHANGE TO CURRENT VERSION -->
-    <hr>
-    <table align="center">
+  <div id="generatereport">
+  	<table align="center">
       <tr>
-        <td style="padding: 0 10px 0 0"><h2>Generate Report:</h2></td>
-        <td style="padding: 0 10px 0 15px;" id="All_select" class="selection">All</td>
-        <td style="padding:0 10px 0 10px;" id="Species_select" class="selection">Species</td>
-        <td style="padding:0 10px 0 10px;" id="Municipality_select" class="selection">Municipality
-        </td>
-        <td style="padding:0 10px 0 10px;">
-          <td style="padding:0 10px 0 10px;" id="Status_select" class="selection">
-            <select>
-              <option value="Planted">Planted</option>
-              <option value="ToBeCutdown">To be cutdown</option>
-              <option value="Diseased">Diseased</option>
-            </select>
-          </td>
-        </td>
-        <td style="padding:0 10px 0 10px;">
-          <td style="padding:0 10px 0 10px;" id="LandUse_select" class="selection">
-            <select>
-              <option value="Residential">Residential</option>
-              <option value="NonResidential">Non-Residential</option>
-            </select>
-          </td>
-        </td>
+        <td style="padding:0 5px 0 5px;"><a href='http://127.0.0.1:8087/#/app'>View Trees</a> - </td>
+        <td style="padding:0 5px 0 5px;"><a href='http://127.0.0.1:8087/#/generatereport'>Generate Report</a> - </td>
+        <td style="padding:0 5px 0 5px;"><a href='http://127.0.0.1:8087/#/ViewReports'>View Reports</a> - </td>
+        <td style="padding:0 5px 0 5px;"><a href='http://127.0.0.1:8087/#/Forecast'><span style="font-weight: bold; color: green">Forecast</span></a> - </td>
+        <td style="padding:0 5px 0 5px;"><a href='http://127.0.0.1:8087/#/EditTree'>Edit Tree</a> - </td>
+        <td style="padding:0 5px 0 5px;"><a href='http://127.0.0.1:8087/#/MoveTree'>Move Tree</a></td>
       </tr>
       <tr></tr>
     </table>
+    <hr>
+    <h2>New Forecast</h2>
     <br>
-    <gmap-map
-      :center="center"
-      :zoom="13"
-      style="width: 700px; height: 400px; margin-left:auto; margin-right:auto"
-    >
-      <gmap-marker
-        :key="index"
-        v-for="(m, index) in markers"
-        :position="m.position"
-        :clickable="true"
-        :draggable="true"
-        @click="center=m.position"
-      ></gmap-marker>
-    </gmap-map>
+    <h5>Basic information</h5>
     <table align="center">
-      <tr>
-          <td>ID</td>
-          <td>Species Type</td>
-    <td>Height (in metres)</td>
-    <td>Diameter (in metres)</td>
-    <td>Municipality</td>
-          <td>Owner</td>
-    <td>Longitude</td>
-          <td>Latitude</td>
-    <td>Status</td>
-      </tr>
-      <tr v-for="tree in trees" >
-        <td>{{ tree.id }}</td>
-        <td>{{ tree.species }}</td>
-        <td>{{ tree.height }}</td>
-        <td>{{ tree.diameter }}</td>
-        <td>{{ tree.treeMunicipality.name }}</td>
-        <td>{{ tree.owner.name }}</td>
-        <td>{{ tree.coordinates.longitude }}</td>
-        <td>{{ tree.coordinates.latitude }}</td>
-        <td>{{ tree.status }}</td>
-      </tr>
-    <!-- ... -->
-      <!--
-          //<td>
-              //<input type="text" placeholder="Species">
-          //</td>
-    //<td>
-              //<input type="text" placeholder="Latitude">
-          //</td>
-          //<td>
-              //<input type="text" placeholder="Longitude">
-          //</td>
-          //<td>
-              //<input type="text" placeholder="Status">
-          //</td>
-          //<td>
-              //<button>Create tree</button>
-          //</td>
-      //</tr>
--->
+        <tr>
+          <td style="padding:0 5px 0 5px;">Based on Version #</td>
+          <td style="padding:0 5px 0 5px;">
+            <input type="text" placeholder="1.0">
+          </td>
+        </tr>
+        <tr>
+          <td style="padding:0 5px 0 5px;">Time lapse (in years)</td>
+          <td style="padding:0 5px 0 5px;">
+            <input type="text" placeholder="5">
+          </td>
+        </tr>
+        <tr>
+          <td style="padding:0 5px 0 5px;">New Version #</td>
+          <td style="padding:0 5px 0 5px;">
+            <input type="text" placeholder="1.1">
+          </td>
+        </tr>
     </table>
-    <p>
-      <span v-if="errorTree" style="color:red">Error: {{errorTree}} </span>
-    </p>
-    </div>
+    <br>
+    <br>
+    <h5>Trees to be deleted</h5>
+    <table align="center">
+        <tr>
+          <td style="padding:0 5px 0 5px;">Tree ID#</td>
+          <td style="padding:0 5px 0 5px;">
+            <input type="text" placeholder="34">
+          </td>
+          <td><button class='forecastbutton'>OK</button></td>
+        </tr>
+    </table>
+    <br>
+    <p>The current trees to be deleted are given as follows:</p>
+    <p>DYNAMIC LIST</p>
+    <br>
+    <br>
+    <h5>Trees to be added</h5>
+    <table align="center">
+        <tr>
+          <td style="padding:0 5px 0 5px;">Species</td>
+          <td style="padding:0 5px 0 5px;">Height(m)</td>
+          <td style="padding:0 5px 0 5px;">Diameter(m)</td>
+          <td style="padding:0 5px 0 5px;">Municipality</td>
+          <td style="padding:0 5px 0 5px;">Latitude</td>
+          <td style="padding:0 5px 0 5px;">Longitude</td>
+        </tr>
+        <tr>
+          <td style="padding:0 5px 0 5px;">
+            <input type="text" placeholder="White Ash">
+          </td>
+          <td style="padding:0 5px 0 5px;">
+            <input type="text" placeholder="4.0">
+          </td>
+          <td style="padding:0 5px 0 5px;">
+            <input type="text" placeholder="1.0">
+          </td>
+          <td style="padding:0 5px 0 5px;">
+            <input type="text" placeholder="Outremont">
+          </td>
+          <td style="padding:0 5px 0 5px;">
+            <input type="text" placeholder="34.555">
+          </td>
+          <td style="padding:0 5px 0 5px;">
+            <input type="text" placeholder="98.777">
+          </td>
+          <td><button class='forecastbutton'>OK</button></td>
+        </tr>
+    </table>
+    <br>
+    <p>The current trees to be added are given as follows:</p>
+    <p>DYNAMIC LIST</p>
+    <br>
+    <button class='submitbutton'>Submit new forecast</button>
+  </div>
 </template>
 
-<script src="./treelist.js">
-</script>
+<style>
+.forecastbutton {
+    border: none;
+    border-width:thick;
+    border-radius:2px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.forecastbutton:hover {
+    background: green;
+    color: white;
+}
+
+.submitbutton {
+    border: #193366;
+    border-style: solid;
+    border-width: thin;
+    border-radius:4px;
+    color:#193366;
+    font-size: 30px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.submitbutton:hover {
+    background:#193366;
+    color: white;
+    border:#193366;
+}
+</style>
+
+

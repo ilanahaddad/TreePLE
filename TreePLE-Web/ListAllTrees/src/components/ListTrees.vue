@@ -3,7 +3,7 @@
   <div id="listtrees">
     <table align="center">
       <tr>
-        <td style="padding:0 5px 0 5px;"><a href='http://127.0.0.1:8087/#/app'>View Trees</a> - </td>
+        <td style="padding:0 5px 0 5px;"><a href='http://127.0.0.1:8087/#/app'><span style="font-weight: bold; color: green">View Trees</span></a> - </td>
         <td style="padding:0 5px 0 5px;"><a href='http://127.0.0.1:8087/#/generatereport'>Generate Report</a> - </td>
         <td style="padding:0 5px 0 5px;"><a href='http://127.0.0.1:8087/#/ViewReports'>View Reports</a> - </td>
         <td style="padding:0 5px 0 5px;"><a href='http://127.0.0.1:8087/#/Forecast'>Forecast</a> - </td>
