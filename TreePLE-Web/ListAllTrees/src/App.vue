@@ -7,12 +7,16 @@
 
 <script>
 import GenerateReport from './components/GenerateReport'
+import Report from './components/Report'
+import Forecast from './components/Forecast'
 import ListTrees from './components/ListTrees'
 export default {
   name: 'app',
   components: {
     ListTrees,
-    GenerateReport
+    GenerateReport,
+    Report,
+    Forecast
   }
 }
 </script>

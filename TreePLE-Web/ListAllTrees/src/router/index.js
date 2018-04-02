@@ -3,6 +3,8 @@ import Router from 'vue-router'
 import Hello from '@/components/Hello'
 import ListTrees from '@/components/ListTrees'
 import GenerateReport from '@/components/GenerateReport'
+import Report from '@/components/Report'
+import Forecast from '@/components/Forecast'
 Vue.use(Router)
 
 export default new Router({
@@ -21,6 +23,16 @@ export default new Router({
       path: '/generatereport',
       name: 'GenerateReport',
       component: GenerateReport
+    },
+    {
+      path: '/generatedreport',
+      name: 'Report',
+      component: Report
+    },
+    {
+      path: '/forecast',
+      name: 'Forecast',
+      component: Forecast
     }
   ]
 })

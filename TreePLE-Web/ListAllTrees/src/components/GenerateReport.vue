@@ -73,15 +73,17 @@
     </table>
     <br>
     <br>
-    <button class="submit_button">SUBMIT</button>
+    <button class="submit_button" onclick="location.href = 'http://127.0.0.1:8087/#/report'">GENERATE REPORT</button>
     </div>
 </template>
 
 <style>
+
 .submit_button {
     border: none;
     text-align: center;
     cursor: pointer;
+    font-style: bold;
 }
 
 .submit_button:hover {
