@@ -21,7 +21,39 @@
             android:visibility="gone"
             android:text=""
             android:textColor="@color/colorAccent"/>
-
+        <Button
+            android:id="@+id/home_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Home"/>
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:id="@+id/typed_treeID"
+            android:hint="Type tree ID"/>
+        <Button
+            android:id="@+id/btnViewSurveys"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="View Surveys"
+            android:onClick="viewSurveysPage"/>
+        <Button
+            android:id="@+id/btnAddSurvey"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Add Survey"
+            android:onClick="addSurveyPage"
+            />
+        <Button
+            android:id="@+id/btnCreateTree"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="new tree"
+            android:onClick="createTree"/>
 
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>
