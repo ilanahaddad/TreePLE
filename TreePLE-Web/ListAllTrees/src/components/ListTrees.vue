@@ -16,18 +16,18 @@
     <table align="center">
       <tr>
         <td><h2>List Trees By:</h2></td>
-        <td style="padding:0 15px 0 15px;">All</td>
+        <td style="padding:0 15px 0 15px;"><button id="All_Button" class="button">All</button></td>
         <td style="padding:0 15px 0 15px;">
-          Species
+          <button id="Species_Button" class="button">Species</button></td>
         </td>
         <td style="padding:0 15px 0 15px;">
-          Municipality
+          <button id="Municipality_Button" class="button">Municipality</button></td>
         </td>
         <td style="padding:0 15px 0 15px;">
-          Status
+          <button id="Status_Button" class="button">Status</button></td>
         </td>
         <td style="padding:0 15px 0 15px;">
-          Land Use
+          <button id="LandUse_Button" class="button">Land Use</button></td>
         </td>
       </tr>
       <tr></tr>
@@ -98,3 +98,16 @@
 
 <script src="./treelist.js">
 </script>
+
+<style>
+.button {
+    border: none;
+    text-align: center;
+    cursor: pointer;
+}
+
+.button:hover {
+    background: green;
+    color: white;
+}
+</style>
