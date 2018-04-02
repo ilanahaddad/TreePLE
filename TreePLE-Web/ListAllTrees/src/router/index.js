@@ -25,7 +25,7 @@ export default new Router({
       component: GenerateReport
     },
     {
-      path: '/generatedreport',
+      path: '/report',
       name: 'Report',
       component: Report
     },
