@@ -1,13 +1,28 @@
 <resources>
     <string name="app_name">TreePLE-Android</string>
     <string name="action_settings">Settings</string>
-    <string name="setUserType_button">Set User Type</string>
-    <string name="searchTree">Search Tree</string>
-<!--
-    <string name="userType_prompt">Choose a User Type</string>
+    <string name="setUserType_button">Set user type</string>
+    <string name="userTypeSpinner_label">Choose user type</string>
+    <string name="speciesName_hint">Type species name</string>
+    <string name="treeHeight_hint">Type Tree height</string>
+    <string name="municipality_label">Choose municipality</string>
+    <string name="treeDiameter_hint">Type tree diameter</string>
+    <string name="treeLongitude_hint">Type tree longitude</string>
+    <string name="treeLatitude_hint">Type tree latitude</string>
+    <string name="treeAge_hint">Type tree age</string>
+    <string name="addTree">Add tree</string>
+    <string name="treeID_hint">Type tree ID</string>
+    <string name="newSurvey">Change tree </string>
+    <string name="status_label">Choose new tree status </string>
 
-    <string-array name="userType_array">
-        <item>Local Resident</item>
-        <item>Professional</item>
-    </string-array>-->
+
+
+
+    <!--
+        <string name="userType_prompt">Choose a User Type</string>
+
+        <string-array name="userType_array">
+            <item>Local Resident</item>
+            <item>Professional</item>
+        </string-array>-->
 </resources>

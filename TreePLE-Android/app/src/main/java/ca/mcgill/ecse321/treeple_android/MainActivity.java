@@ -40,14 +40,14 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        /*FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
-        });
+        });*/
 
         // initialize error message text view
         refreshErrorMessage();
@@ -118,40 +118,6 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    //No need for refresh list since list is finite
-    /*public void refreshLists(View view) {
-
-        refreshList(userTypeAdapter ,userTypes, "setUserType");
-    }
-
-    private void refreshList(final ArrayAdapter<String> adapter, final List<String> names, String restFunctionName) {
-        HttpUtils.get(restFunctionName, new RequestParams(), new JsonHttpResponseHandler() {
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
-                names.clear();
-                names.add("Please select...");
-                for( int i = 0; i < response.length(); i++){
-                    try {
-                        names.add(response.getJSONObject(i).getString("name"));
-                    } catch (Exception e) {
-                        error += e.getMessage();
-                    }
-                    refreshErrorMessage();
-                }
-                adapter.notifyDataSetChanged();
-            }
-
-            @Override
-            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-                try {
-                    error += errorResponse.get("message").toString();
-                } catch (JSONException e) {
-                    error += e.getMessage();
-                }
-                refreshErrorMessage();
-            }
-        });
-    }*/
     public void setUserType(View v) {
         Spinner userTypeSpin = (Spinner) findViewById(R.id.userTypeSpinner);
         error = "";
@@ -159,7 +125,7 @@ public class MainActivity extends AppCompatActivity {
         //Issue and HTTP POST
         RequestParams rp = new RequestParams();
         rp.add("userType", userTypeSpin.getSelectedItem().toString());
-
+        //TODO: REST service
         HttpUtils.post("setUserType/" , rp, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
