@@ -71,14 +71,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });*/
 
-        /*Button btn = (Button)findViewById(R.id.btnContinue);
+        Button btn = (Button)findViewById(R.id.btnContinue);
 
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(MainActivity.this, OptionsActivity.class));
             }
-        });*/
+        });
 
 
     }
