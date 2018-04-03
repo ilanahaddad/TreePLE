@@ -19,13 +19,8 @@ import ca.mcgill.ecse321.TreePLE.service.TreeManager.TestMoveTree;
 import ca.mcgill.ecse321.TreePLE.service.TreeManager.TestUpdateTreeData;
 
 @RunWith(Suite.class)
-@SuiteClasses({TestPersistence.class, 
-	TestCreateForecast.class,
-	TestCreateReport.class,TestGetNumSpecies.class,
-	TestEditSurvey.class,TestCreateSurvey.class,
-	TestCreateTreeAndMunicipality.class, TestListTreesByLandUse.class, TestListTreesByMunicipality.class,
-	TestListTreesBySpecies.class, TestListTreesByStatus.class, TestMoveTree.class, TestUpdateTreeData.class
-	})
+@SuiteClasses({AllForecastTests.class, AllReportTests.class, 
+	AllSurveyTests.class, AllTreeManagerTests.class})
 public class AllTests {
 
 }

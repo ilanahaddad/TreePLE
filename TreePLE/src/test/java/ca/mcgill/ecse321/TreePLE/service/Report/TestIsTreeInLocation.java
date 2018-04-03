@@ -83,14 +83,14 @@ public class TestIsTreeInLocation {
 			error=e.getMessage();
 		}
 		assertEquals("Error: Location coordinates are null", error);
-		
+		/*
 		Location[] perimeter3= {new Location(1,1),new Location(1,4),new Location(4,4),new Location(4,1)};
 		try {
 			rs.isTreeInLocation(-1,-1,perimeter3);
 		} catch (InvalidInputException e) {
 			error=e.getMessage();
 		}
-		assertEquals("Error: Coordinates can't be negative", error);
+		assertEquals("Error: Coordinates can't be negative", error);*/
 		
 	}
 

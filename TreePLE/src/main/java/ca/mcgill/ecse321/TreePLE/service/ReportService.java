@@ -24,15 +24,21 @@ public class ReportService {
 
 	public SustainabilityReport createReport(String reporterName, Date reportDate, Location[] perimeter) throws InvalidInputException{
 		if(reporterName == null||reportDate ==null||perimeter==null) {
-			throw new InvalidInputException("Error: Report name, date, or parameter is null");
+			throw new InvalidInputException("Error: Reporter name, date, or parameter is null");
 		}
 		for(int i = 0; i<perimeter.length;i++) {
 			if(perimeter[i]==null) {
 				throw new InvalidInputException("Error: Location coordinates are null");
 			}
-			if(perimeter[i].getLatitude()<0||perimeter[i].getLongitude()<0) {
-				throw new InvalidInputException("Error: Location coordinates are negative");
-			}
+		}
+		Location loc1 = perimeter[0];
+		Location loc2 = perimeter[1];
+		Location loc3 = perimeter[2];
+		Location loc4 = perimeter[3];
+		if(loc1.equals(loc2) || loc1.equals(loc3) || loc1.equals(loc4)
+				|| loc2.equals(loc3) || loc2.equals(loc4)|| loc3.equals(loc4)) {
+			throw new InvalidInputException("All coordinates must be different.\n");
+			
 		}
 		SustainabilityReport report = new SustainabilityReport(reporterName, reportDate, perimeter);
 		double biodiversityIndex = calculateBiodiversityIndex(perimeter);
@@ -125,9 +131,9 @@ public class ReportService {
 		if(perimeter == null) {
 			throw new InvalidInputException("Error: Perimeter is null");
 		}
-		if(x<0||y<0) {
+	/*	if(x<0||y<0) {
 			throw new InvalidInputException("Error: Coordinates can't be negative");
-		}
+		}*/
 		boolean isTreeInLocation = false;
 		int npoints = perimeter.length;
 		int ypoints[] = new int[npoints];
