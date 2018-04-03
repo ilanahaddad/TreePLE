@@ -17,8 +17,8 @@ import ca.mcgill.ecse321.TreePLE.persistence.PersistenceXStream;
 public class SurveyService {
 	private TreeManager tm;
 
-	public SurveyService(TreeManager tm) {
-		this.tm=tm;
+	public SurveyService() {
+
 	}
 	
 	public Survey createSurvey(Date reportDate, Tree tree, String surveyor, Status newTreeStatus) throws InvalidInputException{

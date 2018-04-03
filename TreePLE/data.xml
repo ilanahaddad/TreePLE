@@ -1,4 +1,4 @@
-<manager id="1">
+<treeManager id="1">
   <isCurrent>true</isCurrent>
   <version>1.0</version>
   <versionYear>2018</versionYear>
@@ -8,7 +8,7 @@
       <species>WhiteOak</species>
       <height>1.5</height>
       <status>Planted</status>
-      <diameter>0.2</diameter>
+      <diameter>2.5</diameter>
       <land>Residential</land>
       <age>3</age>
       <id>1</id>
@@ -32,8 +32,8 @@
   </locations>
   <surveys id="10"/>
   <municipalities id="11">
-    <ca.mcgill.ecse321.TreePLE.model.Municipality reference="6"/>
+    <municipality reference="6"/>
   </municipalities>
   <user id="12"/>
   <reports id="13"/>
-</manager>
+</treeManager>

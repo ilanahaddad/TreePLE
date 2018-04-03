@@ -15,14 +15,21 @@ import ca.mcgill.ecse321.TreePLE.model.Tree.Status;
 import ca.mcgill.ecse321.TreePLE.model.TreeManager;
 import ca.mcgill.ecse321.TreePLE.model.User;
 import ca.mcgill.ecse321.TreePLE.model.User.UserType;
+import ca.mcgill.ecse321.TreePLE.model.VersionManager;
 import ca.mcgill.ecse321.TreePLE.persistence.PersistenceXStream;
 
 @Service
 public class TreeManagerService {
 	private TreeManager tm;
+	private VersionManager vm;
 
-	public TreeManagerService(TreeManager tm) {
-		this.tm=tm;
+	public TreeManagerService(VersionManager vm) {
+		List<TreeManager> treemanagers = vm.getTreeManagers();
+		for(TreeManager treeM : treemanagers) {
+			if(treeM.getIsCurrent()) {
+				tm = treeM;
+			}
+		}
 	}
 	public Tree createTree(String ownerName, String species,  double height, double diameter, 
 			int age, Location location, 

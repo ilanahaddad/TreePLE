@@ -48,6 +48,7 @@ public class TreePLESpringApplication extends SpringBootServletInitializer {
 		return PersistenceXStream.initializeModelManager(PersistenceXStream.getFilename());
 	}
 
+
 	// Enable CORS globally
 	@Bean
 	public WebMvcConfigurer corsConfigurer() {

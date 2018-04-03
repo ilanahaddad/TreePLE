@@ -18,8 +18,8 @@ import ca.mcgill.ecse321.TreePLE.persistence.PersistenceXStream;
 public class ReportService {
 	private TreeManager tm;
 
-	public ReportService(TreeManager tm) {
-		this.tm=tm;
+	public ReportService() {
+		
 	}
 
 	public SustainabilityReport createReport(String reporterName, Date reportDate, Location[] perimeter) throws InvalidInputException{
