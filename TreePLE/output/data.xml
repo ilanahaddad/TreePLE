@@ -1,4 +1,4 @@
-<manager id="1">
+<treeManager id="1">
   <isCurrent>true</isCurrent>
   <version>1.0</version>
   <versionYear>2018</versionYear>
@@ -11,7 +11,7 @@
       <diameter>10.0</diameter>
       <land>Residential</land>
       <age>17</age>
-      <id>71</id>
+      <id>11</id>
       <surveys id="4"/>
       <coordinates id="5">
         <latitude>1.5</latitude>
@@ -31,7 +31,7 @@
             <diameter>12.4</diameter>
             <land>Residential</land>
             <age>10</age>
-            <id>72</id>
+            <id>12</id>
             <surveys id="10"/>
             <coordinates id="11">
               <latitude>3.0</latitude>
@@ -50,4 +50,4 @@
   <municipalities id="14"/>
   <user id="15"/>
   <reports id="16"/>
-</manager>
+</treeManager>
