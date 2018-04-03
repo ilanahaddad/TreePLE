@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="ca.mcgill.ecse321.treeple_android.OptionsActivity"
-    tools:showIn="@layout/activity_options">
+    tools:context="ca.mcgill.ecse321.treeple_android.OptionsActivity">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -23,12 +22,12 @@
 
     <include layout="@layout/content_options" />
 
-    <android.support.design.widget.FloatingActionButton
+    <!--<android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
-        app:srcCompat="@android:drawable/ic_dialog_email" />
+        app:srcCompat="@android:drawable/ic_dialog_email" />-->
 
 </android.support.design.widget.CoordinatorLayout>

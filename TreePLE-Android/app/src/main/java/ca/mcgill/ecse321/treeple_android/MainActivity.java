@@ -61,7 +61,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /*public void gotoHome (View view){
-        startActivity(new Intent (this, OptionsActivity.class));
+        s
+        tartActivity(new Intent (this, OptionsActivity.class));
     }*/
 
     @Override

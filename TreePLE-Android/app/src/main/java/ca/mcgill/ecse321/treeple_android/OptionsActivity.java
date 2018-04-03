@@ -1,9 +1,11 @@
 package ca.mcgill.ecse321.treeple_android;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 
@@ -13,7 +15,7 @@ import android.widget.TextView;
 
 public class OptionsActivity extends AppCompatActivity {
 
-    private String error = null;
+    private String error = "";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -23,6 +25,15 @@ public class OptionsActivity extends AppCompatActivity {
 
         // initialize error message text view
         refreshErrorMessage();
+
+        Button btnBack = (Button)findViewById(R.id.back_button);
+
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                OptionsActivity.this.startActivity(new Intent(OptionsActivity.this, MainActivity.class));
+            }
+        });
 
      }
 
@@ -44,5 +55,8 @@ public class OptionsActivity extends AppCompatActivity {
     }
 
     public void createSurvey(View view) {
+    }
+
+    public void refreshLists(View view) {
     }
 }
