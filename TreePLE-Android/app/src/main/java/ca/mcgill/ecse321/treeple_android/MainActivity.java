@@ -31,7 +31,6 @@ public class MainActivity extends AppCompatActivity {
     private String error = null;
     private List<String> userTypes = new ArrayList<String>(){{add("LocalResident");add("Professional");}};
     private ArrayAdapter<String> userTypeAdapter;
-    Button continueButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,15 +38,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        /*FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });*/
 
         // initialize error message text view
         refreshErrorMessage();
@@ -57,31 +47,22 @@ public class MainActivity extends AppCompatActivity {
         userTypeAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, userTypes);
         userTypeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         userTypeSpinner.setAdapter(userTypeAdapter);
-        //Get initial contents for spinners:
-        //No need for this
-        //refreshLists(this.getCurrentFocus());
-        /*
-        //Locate the continue button in activity_main.xml:
-        continueButton = (Button) findViewById(R.id.btnContinue);
-        //capture button clicks:
-        continueButton.setOnClickListener(new OnClickListener(){
-            public void onClick(View arg0){
-                //start new activity class:
-                Intent myIntent = new Intent(MainActivity.this, OptionsActivity.class);
-            }
-        });*/
 
-        Button btn = (Button)findViewById(R.id.btnContinue);
+        Button btnLogin = (Button)findViewById(R.id.btnLogin);
 
-        btn.setOnClickListener(new View.OnClickListener() {
+        btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, OptionsActivity.class));
+                MainActivity.this.startActivity(new Intent(MainActivity.this, OptionsActivity.class));
             }
         });
 
 
     }
+
+    /*public void gotoHome (View view){
+        startActivity(new Intent (this, OptionsActivity.class));
+    }*/
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

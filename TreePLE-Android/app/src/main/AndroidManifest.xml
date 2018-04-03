@@ -22,7 +22,8 @@
         </activity>
         <activity
             android:name=".OptionsActivity"
-            android:label="TreePLE-Android">
+            android:label="@string/home"
+            >
         </activity>
     </application>
 

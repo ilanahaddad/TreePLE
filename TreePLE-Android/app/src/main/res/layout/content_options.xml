@@ -18,7 +18,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/back_button"/>
-    <LinearLayout
+    <!--<LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -31,27 +31,27 @@
             android:layout_height="54dp"
             android:text=""
             android:textColor="@color/colorAccent"
-            android:visibility="gone" />
+            android:visibility="gone" />-->
         <!-- Layout for creating tree-->
-        <LinearLayout
+       <!-- <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="vertical">-->
 
             <!-- Type species name of tree -->
-            <EditText
+            <!--<EditText
                 android:id="@+id/speciesName"
                 android:layout_width="335dp"
                 android:layout_height="wrap_content"
                 android:hint="@string/speciesName_hint" />
-            <!-- Type height of tree -->
-            <EditText
+            <!- Type height of tree -->
+           <!-- <EditText
                 android:id="@+id/height"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/treeHeight_hint" />
-            <!-- Choose municipality -->
-            <TextView
+            <!- Choose municipality -->
+            <!--<TextView
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
                 android:text="@string/municipality_label"/>
@@ -61,32 +61,32 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
                 android:layout_margin="0dp"/>
-            <!-- Type diameter of tree-->
-            <EditText
+            <!- Type diameter of tree-->
+           <!-- <EditText
                 android:id="@+id/diameter"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/treeDiameter_hint" />
-            <!-- Type latitude of tree  -->
-            <EditText
+            <!- Type latitude of tree  -->
+            <!--<EditText
                 android:id="@+id/latitude"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/treeLatitude_hint" />
-            <!-- Type longitude of tree -->
-            <EditText
+            <!- Type longitude of tree -->
+            <!--<EditText
                 android:id="@+id/longitude"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/treeLongitude_hint" />
-            <!-- Type age of tree -->
-            <EditText
+            <!- Type age of tree -->
+            <!--<EditText
                 android:id="@+id/age"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/treeAge_hint" />
-            <!-- then create the tree -->
-            <Button
+            <!- then create the tree -->
+            <!--<Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
@@ -94,25 +94,25 @@
                 android:onClick="createTree"/>
 
         </LinearLayout>
-        <!-- Line to seperate two layouts -->
-        <View
+        <!- Line to seperate two layouts -->
+        <!---<View
             android:layout_height="2dp"
             android:layout_width="fill_parent"
             android:background="#16552e"/>
 
-        <!-- Layout for surveys -->
-        <LinearLayout
+        <!- Layout for surveys -->
+        <!--<LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-            <!-- Type tree ID -->
-            <EditText
+            <!- Type tree ID -->
+           <!-- <EditText
                 android:id="@+id/treeID"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/treeID_hint" />
-            <!-- Choose new status -->
-            <TextView
+            <!- Choose new status -->
+            <!--<TextView
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
                 android:text="@string/status_label"/>
@@ -122,22 +122,22 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
                 android:layout_margin="0dp"/>
-            <!-- create the survey -->
-            <Button
+            <!- create the survey -->
+           <!-- <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
                 android:text="@string/addSurvey"
                 android:onClick="createSurvey"/>
-            <!-- TODO: View history of tree -->
+            <!- TODO: View history of tree -->
 
             <!-- Line to seperate view survey -->
-            <View
+            <!--<View
                 android:layout_height="2dp"
                 android:layout_width="fill_parent"
                 android:background="#16552e"/>
-            <!-- View surveys of a tree -->
-            <Button
+            <!- View surveys of a tree -->
+            <!--<Button
                 android:id="@+id/viewSurveys"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -145,80 +145,6 @@
                 android:text="@string/viewSurveys"/>
         </LinearLayout>
 
-    </LinearLayout>
+    </LinearLayout>-->
 </ScrollView>
-
-        <!--<LinearLayout
-         android:layout_width="278dp"
-          android:layout_height="199dp"
-        android:orientation="horizontal"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="53dp"
-        tools:layout_editor_absoluteY="48dp">
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/something" />
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/something" />
-
-
-        <Button
-            android:id="@+id/btnCreateTree"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="New tree" />
-    </LinearLayout>-->
-
-    <!--<LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/error"
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            android:visibility="gone"
-            android:text=""
-            android:textColor="@color/colorAccent"/>
-        <Button
-            android:id="@+id/home_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Home"/>
-        <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:id="@+id/typed_treeID"
-            android:hint="Type tree ID"/>
-        <Spinner
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/btnStatus"
-        />
-
-        <Button
-            android:id="@+id/btnAddSurvey"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="Change Status"
-            android:onClick="createSurvey"
-            />
-        <Button
-            android:id="@+id/btnViewSurveys"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="View Surveys" />
-
-
-    </LinearLayout>-->
 </android.support.constraint.ConstraintLayout>

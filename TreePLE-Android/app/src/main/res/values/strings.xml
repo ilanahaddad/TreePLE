@@ -17,6 +17,12 @@
     <string name="addSurvey">Submit survey</string>
     <string name="viewSurveys">View history of tree</string>
     <string name="back_button">Back</string>
+    <string name="login_button">Login</string>
+    <string name="userName_hint">Name</string>
+    <string name="login">Login Page</string>
+    <string name="home">Home Page</string>
+
+
 
 
 
