@@ -26,12 +26,31 @@ public class OptionsActivity extends AppCompatActivity {
         // initialize error message text view
         refreshErrorMessage();
 
+        //Back button -> takes to login page
         Button btnBack = (Button)findViewById(R.id.back_button);
-
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 OptionsActivity.this.startActivity(new Intent(OptionsActivity.this, MainActivity.class));
+            }
+        });
+
+        //Tree button -> takes to tree page
+        Button btnTree = (Button)findViewById(R.id.btnTree);
+        btnTree.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                OptionsActivity.this.startActivity(new Intent(OptionsActivity.this, TreeActivity.class));
+            }
+        });
+
+
+        //Survey button -> takes to survey page
+        Button btnSurvey = (Button)findViewById(R.id.btnSurvey);
+        btnSurvey.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                OptionsActivity.this.startActivity(new Intent(OptionsActivity.this, SurveyActivity.class));
             }
         });
 
@@ -50,13 +69,4 @@ public class OptionsActivity extends AppCompatActivity {
 
     }
 
-
-    public void createTree(View view) {
-    }
-
-    public void createSurvey(View view) {
-    }
-
-    public void refreshLists(View view) {
-    }
 }

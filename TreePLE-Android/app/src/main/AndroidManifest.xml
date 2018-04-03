@@ -22,7 +22,17 @@
         </activity>
         <activity
             android:name=".OptionsActivity"
-            android:label="@string/home"
+            android:label="@string/options_page_title"
+            >
+        </activity>
+        <activity
+            android:name=".TreeActivity"
+            android:label="@string/tree_page_title"
+            >
+        </activity>
+        <activity
+            android:name=".SurveyActivity"
+            android:label="@string/survey_page_title"
             >
         </activity>
     </application>

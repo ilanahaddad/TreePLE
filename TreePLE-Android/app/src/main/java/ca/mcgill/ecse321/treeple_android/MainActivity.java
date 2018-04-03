@@ -48,8 +48,8 @@ public class MainActivity extends AppCompatActivity {
         userTypeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         userTypeSpinner.setAdapter(userTypeAdapter);
 
+        //Login button takes user to home page
         Button btnLogin = (Button)findViewById(R.id.btnLogin);
-
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -59,11 +59,10 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
-
-    /*public void gotoHome (View view){
-        s
-        tartActivity(new Intent (this, OptionsActivity.class));
-    }*/
+    /*//Login button takes user to home page
+    public void gotoHome (View view){
+        MainActivity.this.startActivity(new Intent (MainActivity.this, OptionsActivity.class));
+    } this is nicer and more neat, but it's not working, experiment later*/
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -108,7 +107,7 @@ public class MainActivity extends AppCompatActivity {
         RequestParams rp = new RequestParams();
         rp.add("userType", userTypeSpin.getSelectedItem().toString());
         //TODO: REST service
-        HttpUtils.post("setUserType/" , rp, new JsonHttpResponseHandler() {
+        HttpUtils.post("setUserType/", rp, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 refreshErrorMessage();
@@ -129,60 +128,6 @@ public class MainActivity extends AppCompatActivity {
         userTypeSpin.setSelection(0);
         refreshErrorMessage();
     }
-    /*
-    public void addListenerOnSpinnerItemSelection(){
-        userTypeSpinner = (Spinner) findViewById(R.id.userTypeSpinner);
-        userTypeSpinner.setOnItemSelectedListener(new CustomOnItemSelectedListener());
-    }
-    //get the selected dropdown list value
-    public void addListenerOnButton(){
-        userTypeSpinner = (Spinner) findViewById(R.id.userTypeSpinner);
-        btnSetUserType = (Button) findViewById(R.id.btnSetUserType);
-        btnSetUserType.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v){
-                Toast.makeText(MainActivity.this,
-                        "OnClickListener : " +
-                                "\nSpinner 1 : "+ String.valueOf(userTypeSpinner.getSelectedItem()),
-                        Toast.LENGTH_SHORT).show();
-            }
-        });
-        HttpUtils.post("setUserType/" + String.valueOf(userTypeSpinner.getSelectedItem(), new RequestParams(), new JsonHttpResponseHandler() {
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                refreshErrorMessage();
-                //tv.setText("");
-            }
-            @Override
-            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-                try {
-                    error += errorResponse.get("message").toString();
-                } catch (JSONException e) {
-                    error += e.getMessage();
-                }
-                refreshErrorMessage();
-            }
-        });
-    }
 
-    public void setUserType(View v) {
-        error = "";
-        final TextView tv = (TextView) findViewById(R.id.userTypeSpinner);
-        HttpUtils.post("setUserType/" + tv.getText().toString(), new RequestParams(), new JsonHttpResponseHandler() {
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                refreshErrorMessage();
-                tv.setText("");
-            }
-            @Override
-            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-                try {
-                    error += errorResponse.get("message").toString();
-                } catch (JSONException e) {
-                    error += e.getMessage();
-                }
-                refreshErrorMessage();
-            }
-        });
-    }*/
+    //TODO: setUserType RESTful service
 }

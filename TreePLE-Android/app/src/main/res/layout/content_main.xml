@@ -52,13 +52,15 @@
                 android:layout_width="310dp"
                 android:layout_height="wrap_content"
                 android:hint="@string/userName_hint" />
+            <!-- Login button -->
             <Button
                 android:id="@+id/btnLogin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="left"
                 android:text="@string/login_button"/>
-                <!--android:onClick="gotoHome"/>-->
+                <!--android:onClick="gotoHome" does not work, experiment later-->
+            />
         </LinearLayout>
 
     </LinearLayout>

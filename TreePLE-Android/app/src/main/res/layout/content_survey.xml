@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="ca.mcgill.ecse321.treeple_android.SurveyActivity"
+    tools:showIn="@layout/activity_survey">
+
+
+        <LinearLayout
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:orientation="vertical">
+            <!-- error message -->
+            <TextView
+                android:id="@+id/error"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:visibility="gone"
+                android:text=""
+                android:textColor="@color/colorAccent"/>
+            <!--Back button -> to Login page-->
+            <Button
+                android:id="@+id/back_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/back_button"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                tools:layout_editor_absoluteX="0dp"
+                tools:layout_editor_absoluteY="48dp">
+
+                <!-- Line to seperate two layouts -->
+                <View
+                    android:layout_height="2dp"
+                    android:layout_width="fill_parent"
+                    android:background="#16552e"/>
+
+                <!-- Layout for surveys -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <!-- Type tree ID -->
+                    <EditText
+                        android:id="@+id/treeID"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/treeID_hint" />
+                    <!-- View surveys of a tree -->
+                    <Button
+                        android:id="@+id/viewSurveys"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end"
+                        android:text="@string/viewSurveys"/>
+                    <!-- Choose new status -->
+                    <TextView
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:text="@string/status_label"/>
+                    <Spinner
+                        android:id="@+id/statusSpinner"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end"
+                        android:layout_margin="0dp"/>
+                    <!-- create the survey -->
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end"
+                        android:text="@string/addSurvey"
+                        android:onClick="createSurvey"/>
+                    <!-- Refresh history of tree -->
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end"
+                        android:text="@string/refresh"
+                        android:onClick="refreshLists"/>
+                    <!-- TODO: View history of tree -->
+
+                </LinearLayout>
+
+            </LinearLayout>
+        </LinearLayout>
+</android.support.constraint.ConstraintLayout>
