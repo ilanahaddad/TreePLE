@@ -17,11 +17,6 @@ import ca.mcgill.ecse321.TreePLE.persistence.PersistenceXStream;
 @Service
 public class SurveyService {
 	private TreeManager tm;
-<<<<<<< HEAD
-	
-	public SurveyService(TreeManager tm) {
-		this.tm=tm;
-=======
 	private VersionManager vm;
 
 	public SurveyService(VersionManager vm) {
@@ -31,7 +26,6 @@ public class SurveyService {
 				tm = treeM;
 			}
 		}
->>>>>>> origin/versionManager
 	}
 
 	public Survey createSurvey(Date reportDate, Tree tree, String surveyor, Status newTreeStatus) throws InvalidInputException{
