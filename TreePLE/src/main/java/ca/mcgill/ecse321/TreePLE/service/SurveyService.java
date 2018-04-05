@@ -49,7 +49,7 @@ public class SurveyService {
 		tree.setStatus(newTreeStatus);
 		tm.addSurvey(s);
 
-		PersistenceXStream.saveToXMLwithXStream(tm);
+		PersistenceXStream.saveToXMLwithXStream(vm);
 		return s;
 	}
 	public Tree getTreeForSurvey(Survey survey) {
@@ -82,6 +82,7 @@ public class SurveyService {
 				throw new InvalidInputException("Error: Survey does not exist");
 			}
 		}
+		PersistenceXStream.saveToXMLwithXStream(vm);
 	}
 
 }

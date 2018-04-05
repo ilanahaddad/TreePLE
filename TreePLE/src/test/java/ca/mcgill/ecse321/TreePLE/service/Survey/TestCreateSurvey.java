@@ -18,13 +18,18 @@ import ca.mcgill.ecse321.TreePLE.model.Tree;
 import ca.mcgill.ecse321.TreePLE.model.Tree.Status;
 import ca.mcgill.ecse321.TreePLE.model.TreeManager;
 import ca.mcgill.ecse321.TreePLE.model.User;
+import ca.mcgill.ecse321.TreePLE.model.VersionManager;
 import ca.mcgill.ecse321.TreePLE.model.User.UserType;
 import ca.mcgill.ecse321.TreePLE.persistence.PersistenceXStream;
 import ca.mcgill.ecse321.TreePLE.service.InvalidInputException;
 import ca.mcgill.ecse321.TreePLE.service.SurveyService;
 
 public class TestCreateSurvey {
+	private VersionManager vm;
 	private TreeManager tm;
+	private User user;
+	private SurveyService sc;
+	
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
 		PersistenceXStream.initializeModelManager("output" + File.separator + "data.xml");
@@ -36,13 +41,17 @@ public class TestCreateSurvey {
 
 	@Before
 	public void setUp() throws Exception {
-		User user= new User();
-		tm=new TreeManager(true, "1.0", 2018, user);
+		vm = new VersionManager();
+		user = new User();
+		tm=new TreeManager(true, "1.0", 2018,user);
+		user.setUsertype(UserType.Professional);
+		vm.addTreeManager(tm);
+		sc = new SurveyService(vm);
 	}
 
 	@After
 	public void tearDown() throws Exception {
-		tm.delete();
+		vm.delete();
 	}
 
 	@Test
@@ -58,8 +67,6 @@ public class TestCreateSurvey {
 		Calendar c = Calendar.getInstance();
 		c.set(2017, Calendar.MARCH, 16, 9, 0, 0);
 		Date date= new Date(c.getTimeInMillis());
-
-		SurveyService sc = new SurveyService(tm);
 				
 		try {
 			sc.createSurvey(date, tree, "Ilana", Tree.Status.Diseased );
@@ -67,7 +74,13 @@ public class TestCreateSurvey {
 			e.printStackTrace();
 		}
 		checkResultSurvey(date, tree, "Ilana", Tree.Status.Diseased, tm );
-		tm = (TreeManager) PersistenceXStream.loadFromXMLwithXStream();
+		if(!PersistenceXStream.saveToXMLwithXStream(vm)) {
+			fail("Could not save file");
+		}
+		vm = (VersionManager) PersistenceXStream.loadFromXMLwithXStream();
+		if(vm==null) {
+			fail("Could not load file");
+		}
 		// check file contents
 		checkResultSurvey(date, tree, "Ilana", Tree.Status.Diseased, tm );
 	}
@@ -85,7 +98,6 @@ public class TestCreateSurvey {
 		c.set(2017, Calendar.MARCH, 16, 9, 0, 0);
 		Date date= new Date(c.getTimeInMillis());
 
-		SurveyService sc = new SurveyService(tm);
 		String error=null;
 		
 		try {
@@ -109,7 +121,6 @@ public class TestCreateSurvey {
 		Status status = null;
 		
 		String error = null;
-		SurveyService sc = new SurveyService(tm);
 		
 		try {
 			sc.createSurvey(date,tree,"Ilana",status);
@@ -145,7 +156,6 @@ public class TestCreateSurvey {
 		Date date= new Date(c.getTimeInMillis());
 		
 		String error = null;
-		SurveyService sc = new SurveyService(tm);
 		
 		//create survey and set tree status to diseased
 		try {
@@ -185,7 +195,6 @@ public class TestCreateSurvey {
 		Date date= new Date(c.getTimeInMillis());
 		
 		String error = null;
-		SurveyService sc = new SurveyService(tm);
 		
 		//create survey and set tree status to diseased
 		try {

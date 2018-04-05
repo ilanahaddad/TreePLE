@@ -48,7 +48,6 @@ public class PersistenceXStream {
 			vm = (VersionManager) loadFromXMLwithXStream();
 		} else {
 			try {
-				System.out.println(file.getAbsolutePath()); //added by marton for debugging
 				file.createNewFile();
 			} catch (IOException e) {
 				e.printStackTrace();

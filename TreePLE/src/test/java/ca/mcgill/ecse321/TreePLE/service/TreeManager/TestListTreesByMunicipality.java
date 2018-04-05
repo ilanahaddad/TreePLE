@@ -12,13 +12,16 @@ import ca.mcgill.ecse321.TreePLE.model.Location;
 import ca.mcgill.ecse321.TreePLE.model.Municipality;
 import ca.mcgill.ecse321.TreePLE.model.Tree;
 import ca.mcgill.ecse321.TreePLE.model.Tree.LandUse;
+import ca.mcgill.ecse321.TreePLE.persistence.PersistenceXStream;
 import ca.mcgill.ecse321.TreePLE.service.InvalidInputException;
 import ca.mcgill.ecse321.TreePLE.service.TreeManagerService;
 import ca.mcgill.ecse321.TreePLE.model.TreeManager;
 import ca.mcgill.ecse321.TreePLE.model.User;
+import ca.mcgill.ecse321.TreePLE.model.VersionManager;
 
 public class TestListTreesByMunicipality {
-
+	private VersionManager vm;
+	private TreeManagerService tmc;
 	private static TreeManager tm;
 	//characteristics for first tree
 	String ownerName = "Jessica";
@@ -44,20 +47,22 @@ public class TestListTreesByMunicipality {
 
 	@Before
 	public void setUp() throws Exception {
+		vm = new VersionManager();
 		user = new User();
 		tm=new TreeManager(true, "1.0", 2018,user);
+		vm.addTreeManager(tm);
+		tmc = new TreeManagerService(vm);
 	}
 
 
 	@After
 	public void tearDown() throws Exception {
-		tm.delete();
+		vm.delete();
 	}
 
 	@Test
 	public void testListTreesbyMunicipality(){ //Add a tree and test that ListTreesbyMunicipality method can find it
 		String error = "";
-		TreeManagerService tmc = new TreeManagerService(tm);
 		List<Tree> treeWithM = null;
 		try {
 			tmc.createTree(ownerName, species, treeHeight, treeDiameter, 
@@ -93,7 +98,6 @@ public class TestListTreesByMunicipality {
 	}
 	@Test
 		public void testlistTreesByMunicipalityNull() { //Tests error handling of ListTreesbyMunicipality method for empty input
-			TreeManagerService tmc = new TreeManagerService(tm);
 			Municipality nullMun = null;
 			String error = "";
 			
@@ -114,7 +118,6 @@ public class TestListTreesByMunicipality {
 		}
 	@Test
 		public void testlistTreesByLandUseNoMunicipality() { //Tests error handling of ListTreesbyMunicipality method when no trees are found
-			TreeManagerService tmc = new TreeManagerService(tm);
 			Municipality noMun1 = new Municipality("Outremont");
 			Municipality noMun2 = new Municipality("Ville-Marie");;
 			String error = "false";

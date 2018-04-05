@@ -55,7 +55,7 @@ public class TreeManagerService {
 		location.setTreeInLocation(t);
 		tm.addTree(t);
 
-		PersistenceXStream.saveToXMLwithXStream(tm);
+		PersistenceXStream.saveToXMLwithXStream(vm);
 		return t;
 	}
 	public Municipality createMunicipality(String name) throws InvalidInputException {
@@ -73,7 +73,7 @@ public class TreeManagerService {
 		}
 		Municipality municipality = new Municipality(name);
 		tm.addMunicipality(municipality);
-		PersistenceXStream.saveToXMLwithXStream(tm);
+		PersistenceXStream.saveToXMLwithXStream(vm);
 		return municipality;
 	}
 	/**
@@ -114,6 +114,7 @@ public class TreeManagerService {
 		oldLoc.setTreeInLocation(null);
 		//And update the location of the tree
 		tree.setCoordinates(loc);
+		PersistenceXStream.saveToXMLwithXStream(vm);
 		
 	}
 	public Location createLocation(double latitude, double longitude) throws InvalidInputException{
@@ -125,6 +126,7 @@ public class TreeManagerService {
 		}
 		Location location = new Location(latitude, longitude);
 		tm.addLocation(location);
+		PersistenceXStream.saveToXMLwithXStream(vm);
 		return location;
 	}
 	public Location getLocationByCoordinates(double lati, double longi) throws InvalidInputException {
@@ -208,6 +210,7 @@ public class TreeManagerService {
 		}
 		User user = tm.getUser();
 		user.setUsertype(userType); 
+		PersistenceXStream.saveToXMLwithXStream(vm);
 		return user;
 	}
 
@@ -262,6 +265,7 @@ public class TreeManagerService {
 		tree.setSpecies(newSpecies);
 		tree.setLand(newLandUse);
 		tree.setTreeMunicipality(newMunicipality);
+		PersistenceXStream.saveToXMLwithXStream(vm);
 	}
 	
 

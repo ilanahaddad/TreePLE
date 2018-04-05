@@ -15,6 +15,7 @@ import ca.mcgill.ecse321.TreePLE.model.Municipality;
 import ca.mcgill.ecse321.TreePLE.model.Tree;
 import ca.mcgill.ecse321.TreePLE.model.TreeManager;
 import ca.mcgill.ecse321.TreePLE.model.User;
+import ca.mcgill.ecse321.TreePLE.model.VersionManager;
 import ca.mcgill.ecse321.TreePLE.model.Tree.LandUse;
 import ca.mcgill.ecse321.TreePLE.model.User.UserType;
 import ca.mcgill.ecse321.TreePLE.persistence.PersistenceXStream;
@@ -22,6 +23,7 @@ import ca.mcgill.ecse321.TreePLE.service.InvalidInputException;
 import ca.mcgill.ecse321.TreePLE.service.TreeManagerService;
 
 public class TestMoveTree {
+	private VersionManager vm;
 	private TreeManager tm;
 	private User user;
 	private TreeManagerService tms;
@@ -34,6 +36,7 @@ public class TestMoveTree {
 
 	@Before
 	public void setUp() throws Exception {
+		vm = new VersionManager();
 		user = new User();
 		tm = new TreeManager(true, "1.0", 2018, user);
 		user.setUsertype(UserType.Professional);
@@ -43,15 +46,17 @@ public class TestMoveTree {
 		double height = 10;
 		double diameter = 15;
 		int age = 3;
-		tms = new TreeManagerService(tm);
 		tree = new Tree("Ben", "American Elm",height, diameter, age, treeLoc, treeMun);
 		tree.setLand(LandUse.Residential);
 		tm.addTree(tree);
+		
+		vm.addTreeManager(tm);
+		tms = new TreeManagerService(vm);
 	}
 
 	@After
 	public void tearDown() throws Exception {
-		tm.delete();
+		vm.delete();
 	}
 	
 	@AfterClass
