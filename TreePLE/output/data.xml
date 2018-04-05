@@ -1,0 +1,43 @@
+<versionManager id="1">
+  <treeManagers id="2">
+    <treeManager id="3">
+      <isCurrent>true</isCurrent>
+      <version>1.0</version>
+      <versionYear>2018</versionYear>
+      <trees id="4">
+        <tree id="5">
+          <ownerName>Ilana</ownerName>
+          <species>White Ash</species>
+          <height>1.5</height>
+          <status>Planted</status>
+          <diameter>0.2</diameter>
+          <land>Residential</land>
+          <age>0</age>
+          <id>89</id>
+          <surveys id="6"/>
+          <coordinates id="7">
+            <latitude>1.5</latitude>
+            <longitude>1.5</longitude>
+            <treeInLocation reference="5"/>
+          </coordinates>
+          <treeMunicipality id="8">
+            <name>Outremont</name>
+            <forecasts id="9"/>
+            <listOfTrees id="10">
+              <tree reference="5"/>
+            </listOfTrees>
+          </treeMunicipality>
+        </tree>
+      </trees>
+      <locations id="11">
+        <location reference="7"/>
+      </locations>
+      <surveys id="12"/>
+      <municipalities id="13">
+        <municipality reference="8"/>
+      </municipalities>
+      <user id="14"/>
+      <reports id="15"/>
+    </treeManager>
+  </treeManagers>
+</versionManager>
