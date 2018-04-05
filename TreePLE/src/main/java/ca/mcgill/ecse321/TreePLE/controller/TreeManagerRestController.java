@@ -107,11 +107,9 @@ public class TreeManagerRestController {
 	@PostMapping(value = {"/newTree/{species}", "/newTree/{species}/"})
 	public TreeDto createTree(
 			@PathVariable("species") String species,
-			//@RequestParam(name = "species") String species,
 			@RequestParam(name = "height") double height, 
-			//@RequestParam(name = "diameter") double diameter,
-			@RequestParam(name= "municipality") MunicipalityDto munDto,
 			@RequestParam(name = "diameter") double diameter,
+			@RequestParam(name= "municipality") MunicipalityDto munDto,
 			@RequestParam(name="latitude") double latitude,
 			@RequestParam(name="longitude") double longitude,
 			@RequestParam(name="owner") String ownerName,
@@ -194,12 +192,11 @@ public class TreeManagerRestController {
 		report = reportService.createReport(reporterName, reportDate, perimeter);
 		return report;
 	}
-	//TODO
-	/*
+	
 	@GetMapping(value = { "/species/", "/species" })
 	public List<String> findAllSpecies() {
-		return treeManagerService.getAllSpecies(tm);
-	}*/
+		return treeManagerService.getAllSpecies();
+	}
 	
 	
 /*	DONT DELETE: NOT SURE IF WE NEED THESE: 

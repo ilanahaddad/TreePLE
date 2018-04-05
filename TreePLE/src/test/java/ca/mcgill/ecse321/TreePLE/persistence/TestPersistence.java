@@ -19,13 +19,14 @@ import ca.mcgill.ecse321.TreePLE.model.TreeManager;
 import ca.mcgill.ecse321.TreePLE.model.User;
 
 import ca.mcgill.ecse321.TreePLE.model.User.UserType;
-
+import ca.mcgill.ecse321.TreePLE.model.VersionManager;
 import ca.mcgill.ecse321.TreePLE.model.Tree.LandUse;
 
 public class TestPersistence {
 	//TODO: ADD SURVEY 
 	private TreeManager tm;
 	private User user;
+	private VersionManager vm;
 	@Before
 	public void setUp() throws Exception {
 		user = new User();

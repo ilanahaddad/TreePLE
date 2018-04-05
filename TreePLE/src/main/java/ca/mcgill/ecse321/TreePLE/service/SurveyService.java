@@ -10,15 +10,22 @@ import ca.mcgill.ecse321.TreePLE.model.Tree.Status;
 import ca.mcgill.ecse321.TreePLE.model.Tree;
 import ca.mcgill.ecse321.TreePLE.model.TreeManager;
 import ca.mcgill.ecse321.TreePLE.model.User;
+import ca.mcgill.ecse321.TreePLE.model.VersionManager;
 import ca.mcgill.ecse321.TreePLE.model.User.UserType;
 import ca.mcgill.ecse321.TreePLE.persistence.PersistenceXStream;
 
 @Service
 public class SurveyService {
 	private TreeManager tm;
+	private VersionManager vm;
 
-	public SurveyService() {
-
+	public SurveyService(VersionManager vm) {
+		List<TreeManager> treemanagers = vm.getTreeManagers();
+		for(TreeManager treeM : treemanagers) {
+			if(treeM.getIsCurrent()) {
+				tm = treeM;
+			}
+		}
 	}
 	
 	public Survey createSurvey(Date reportDate, Tree tree, String surveyor, Status newTreeStatus) throws InvalidInputException{

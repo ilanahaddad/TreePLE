@@ -26,14 +26,58 @@
         </listOfTrees>
       </treeMunicipality>
     </tree>
+    <tree id="9">
+      <ownerName>John</ownerName>
+      <species>WhiteOak</species>
+      <height>2.0</height>
+      <status>Planted</status>
+      <diameter>1.5</diameter>
+      <land>Residential</land>
+      <age>2</age>
+      <id>2</id>
+      <surveys id="10"/>
+      <coordinates id="11">
+        <latitude>46.0</latitude>
+        <longitude>-74.0</longitude>
+        <treeInLocation reference="9"/>
+      </coordinates>
+      <treeMunicipality id="12">
+        <name>Outremont</name>
+        <forecasts id="13"/>
+        <listOfTrees id="14">
+          <tree reference="9"/>
+          <tree id="15">
+            <ownerName>Bob</ownerName>
+            <species>Pine</species>
+            <height>2.0</height>
+            <status>Planted</status>
+            <diameter>1.5</diameter>
+            <land>NonResidential</land>
+            <age>2</age>
+            <id>3</id>
+            <surveys id="16"/>
+            <coordinates id="17">
+              <latitude>50.0</latitude>
+              <longitude>-70.0</longitude>
+              <treeInLocation reference="15"/>
+            </coordinates>
+            <treeMunicipality reference="12"/>
+          </tree>
+        </listOfTrees>
+      </treeMunicipality>
+    </tree>
+    <tree reference="15"/>
   </trees>
-  <locations id="9">
+  <locations id="18">
     <location reference="5"/>
+    <location reference="11"/>
+    <location reference="17"/>
   </locations>
-  <surveys id="10"/>
-  <municipalities id="11">
+  <surveys id="19"/>
+  <municipalities id="20">
     <municipality reference="6"/>
+    <municipality reference="12"/>
   </municipalities>
-  <user id="12"/>
-  <reports id="13"/>
+  <user id="21"/>
+  <reports id="22"/>
 </treeManager>

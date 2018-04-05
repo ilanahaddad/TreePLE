@@ -308,7 +308,7 @@ public class TreeManagerService {
 		}
 		return null;
 	}
-	public List<String> getAllSpecies(TreeManager tm){
+	public List<String> getAllSpecies(){
 		List<String> species = new ArrayList<String>();
 		for(Tree tree: tm.getTrees()) {
 			if(!species.contains(tree.getSpecies().toLowerCase())) {
