@@ -50,8 +50,8 @@ public class TreeManagerRestController {
 	@Autowired
 	private ReportService reportService;
 	
-	@Autowired
-	private VersionManager versionManager;
+	//@Autowired
+	//private VersionManager versionManager;
 
 	@Autowired
 	private ModelMapper modelMapper;
