@@ -29,24 +29,34 @@ export default {
       trees: [],
       newTree: '',
       errorTree: '',
-      response: []
+      response: [],
+      selectedMunicipality: ''
     }
   },
   created: function () {
     // Initializing trees from backend
-   /* AXIOS.get('/trees')
+    AXIOS.get('/trees')
     .then(response => {
       // JSON responses are automatically parsed.
       this.trees = response.data
     })
     .catch(e => {
       this.errorTree = e;
-    });*/
+    });
      //Test data
-    const t1 = new TreeDto('Pine', '4', '0.5', 'coordinates', 'Thomas', 'Outremont', '1', 'Park', 'Planted', '100')
-    const t2 = new TreeDto('Cedar', '4', '0.5', 'coordinates', 'Thomas', 'Outremont', '1', 'Park', 'Planted', '112')
+    //const t1 = new TreeDto('Pine', '4', '0.5', 'coordinates', 'Thomas', 'Outremont', '1', 'Park', 'Planted', '100')
+    //const t2 = new TreeDto('Cedar', '4', '0.5', 'coordinates', 'Thomas', 'Outremont', '1', 'Park', 'Planted', '112')
     // Sample initial content
-    this.trees = [t1, t2]
+    //this.trees = [t1, t2]
+
+    AXIOS.get('/municipalities')
+    .then(response => {
+      // JSON responses are automatically parsed.
+      this.trees = response.data
+    })
+    .catch(e => {
+      this.errorTree = e;
+    });
   },
 
   methods: {
@@ -57,7 +67,18 @@ export default {
         } else {
             panel.style.display = "block";
         }
-     }
+     },
+
+    listByMunicipality: function(selectedMunicipality){
+      AXIOS.get('/municipalities/' + selectedMunicipality)
+      .then(responseEvent => {
+      // JSON responses are automatically parsed.
+       this.municipalities = response.data
+       })
+    .catch(e => {
+      this.errorTree = e;
+    });
+    }
     //createTree: function (treeId, treeSpecies, treeLongitude, treeLatitude, treeStatus) {
       //AXIOS.post(`/trees/`+treeId, {}, {})
       //.then(response => {
