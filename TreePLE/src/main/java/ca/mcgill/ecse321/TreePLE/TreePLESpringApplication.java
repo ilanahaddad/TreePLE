@@ -14,7 +14,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 
 import ca.mcgill.ecse321.TreePLE.controller.configuration.AndroidProperties;
 import ca.mcgill.ecse321.TreePLE.controller.configuration.WebFrontendProperties;
-import ca.mcgill.ecse321.TreePLE.model.TreeManager;
+import ca.mcgill.ecse321.TreePLE.model.VersionManager;
 import ca.mcgill.ecse321.TreePLE.persistence.PersistenceXStream;
 
 
@@ -43,9 +43,10 @@ public class TreePLESpringApplication extends SpringBootServletInitializer {
 	}
 
 	@Bean
-	public TreeManager treeMan() {
+	public VersionManager versionMan() {
 		return PersistenceXStream.initializeModelManager(PersistenceXStream.getFilename());
 	}
+
 
 	// Enable CORS globally
 	@Bean

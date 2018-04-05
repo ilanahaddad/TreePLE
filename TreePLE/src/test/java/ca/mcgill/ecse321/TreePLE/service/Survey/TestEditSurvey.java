@@ -17,14 +17,20 @@ import ca.mcgill.ecse321.TreePLE.model.Municipality;
 import ca.mcgill.ecse321.TreePLE.model.Survey;
 import ca.mcgill.ecse321.TreePLE.model.Tree;
 import ca.mcgill.ecse321.TreePLE.model.Tree.Status;
+import ca.mcgill.ecse321.TreePLE.model.User.UserType;
 import ca.mcgill.ecse321.TreePLE.model.TreeManager;
 import ca.mcgill.ecse321.TreePLE.model.User;
+import ca.mcgill.ecse321.TreePLE.model.VersionManager;
 import ca.mcgill.ecse321.TreePLE.persistence.PersistenceXStream;
 import ca.mcgill.ecse321.TreePLE.service.InvalidInputException;
 import ca.mcgill.ecse321.TreePLE.service.SurveyService;
 
 public class TestEditSurvey {
+	private VersionManager vm;
 	private TreeManager tm;
+	private User user;
+	private SurveyService sc;
+	
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
 		PersistenceXStream.initializeModelManager("output" + File.separator + "data.xml");
@@ -37,14 +43,17 @@ public class TestEditSurvey {
 
 	@Before
 	public void setUp() throws Exception {
-		User user= new User();
-		tm=new TreeManager(true, "1.0", 2018, user);
+		vm = new VersionManager();
+		user = new User();
+		tm=new TreeManager(true, "1.0", 2018,user);
+		user.setUsertype(UserType.Professional);
+		vm.addTreeManager(tm);
+		sc = new SurveyService(vm);
 	}
 
 	@After
 	public void tearDown() throws Exception {
-		tm.delete();
-
+		vm.delete();
 	}
 
 	@Test
@@ -62,7 +71,6 @@ public class TestEditSurvey {
 
 		Survey survey= new Survey("Ilana", date1, tree);
 		tm.addSurvey(survey);
-		SurveyService sc = new SurveyService(tm);
 
 		Calendar c2 = Calendar.getInstance();
 		c2.set(2018, Calendar.MARCH, 16, 9, 0, 0);
@@ -76,8 +84,13 @@ public class TestEditSurvey {
 		assertEquals("Diana", tm.getSurvey(0).getSurveyorName());
 		assertEquals(date2, tm.getSurvey(0).getReportDate());
 		assertEquals(Status.Diseased, tm.getSurvey(0).getTree().getStatus());
-
-		tm = (TreeManager) PersistenceXStream.loadFromXMLwithXStream();
+		if(!PersistenceXStream.saveToXMLwithXStream(vm)) {
+			fail("Could not save file");
+		}
+		vm = (VersionManager) PersistenceXStream.loadFromXMLwithXStream();
+		if(vm == null) {
+			fail("Could not load file");
+		}
 		assertEquals("Diana", tm.getSurvey(0).getSurveyorName());
 		//assertEquals(date2, tm.getSurvey(0).getReportDate()); //TODO: solve assertion error
 		assertEquals(Status.Diseased, tm.getSurvey(0).getTree().getStatus());
@@ -96,8 +109,6 @@ public class TestEditSurvey {
 
 		Survey survey= new Survey("Ilana", date1, tree);
 		tm.addSurvey(survey);
-
-		SurveyService sc= new SurveyService(tm);
 
 		Calendar c2 = Calendar.getInstance();
 		c2.set(2018, Calendar.MARCH, 16, 9, 0, 0);

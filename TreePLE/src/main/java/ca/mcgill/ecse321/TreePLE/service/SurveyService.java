@@ -10,15 +10,28 @@ import ca.mcgill.ecse321.TreePLE.model.Tree.Status;
 import ca.mcgill.ecse321.TreePLE.model.Tree;
 import ca.mcgill.ecse321.TreePLE.model.TreeManager;
 import ca.mcgill.ecse321.TreePLE.model.User;
+import ca.mcgill.ecse321.TreePLE.model.VersionManager;
 import ca.mcgill.ecse321.TreePLE.model.User.UserType;
 import ca.mcgill.ecse321.TreePLE.persistence.PersistenceXStream;
 
 @Service
 public class SurveyService {
 	private TreeManager tm;
+<<<<<<< HEAD
 	
 	public SurveyService(TreeManager tm) {
 		this.tm=tm;
+=======
+	private VersionManager vm;
+
+	public SurveyService(VersionManager vm) {
+		List<TreeManager> treemanagers = vm.getTreeManagers();
+		for(TreeManager treeM : treemanagers) {
+			if(treeM.getIsCurrent()) {
+				tm = treeM;
+			}
+		}
+>>>>>>> origin/versionManager
 	}
 
 	public Survey createSurvey(Date reportDate, Tree tree, String surveyor, Status newTreeStatus) throws InvalidInputException{
@@ -42,7 +55,7 @@ public class SurveyService {
 		tree.setStatus(newTreeStatus);
 		tm.addSurvey(s);
 
-		PersistenceXStream.saveToXMLwithXStream(tm);
+		PersistenceXStream.saveToXMLwithXStream(vm);
 		return s;
 	}
 	public Tree getTreeForSurvey(Survey survey) {
@@ -75,6 +88,7 @@ public class SurveyService {
 				throw new InvalidInputException("Error: Survey does not exist");
 			}
 		}
+		PersistenceXStream.saveToXMLwithXStream(vm);
 	}
 
 }

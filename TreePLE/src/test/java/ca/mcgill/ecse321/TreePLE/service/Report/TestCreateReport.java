@@ -18,13 +18,19 @@ import ca.mcgill.ecse321.TreePLE.model.SustainabilityReport;
 import ca.mcgill.ecse321.TreePLE.model.Tree;
 import ca.mcgill.ecse321.TreePLE.model.TreeManager;
 import ca.mcgill.ecse321.TreePLE.model.User;
+import ca.mcgill.ecse321.TreePLE.model.VersionManager;
 import ca.mcgill.ecse321.TreePLE.model.Tree.Status;
+import ca.mcgill.ecse321.TreePLE.model.User.UserType;
 import ca.mcgill.ecse321.TreePLE.persistence.PersistenceXStream;
 import ca.mcgill.ecse321.TreePLE.service.InvalidInputException;
 import ca.mcgill.ecse321.TreePLE.service.ReportService;
+import ca.mcgill.ecse321.TreePLE.service.SurveyService;
 
 public class TestCreateReport {
+	private VersionManager vm;
 	private TreeManager tm;
+	private User user;
+	private ReportService rs;
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
@@ -37,8 +43,12 @@ public class TestCreateReport {
 
 	@Before
 	public void setUp() throws Exception {
-		User user= new User();
-		tm=new TreeManager(true, "1.0", 2018, user);
+		vm = new VersionManager();
+		user = new User();
+		tm=new TreeManager(true, "1.0", 2018,user);
+		user.setUsertype(UserType.Professional);
+		vm.addTreeManager(tm);
+		rs = new ReportService(vm);
 		String species= "White Ash";
 
 		Location treeLoc1 = new Location (1,1);
@@ -62,13 +72,12 @@ public class TestCreateReport {
 
 	@After
 	public void tearDown() throws Exception {
-		tm.delete();
+		vm.delete();
 	}
 
 	@Test
 	public void testCreateReport() throws InvalidInputException {
 		assertEquals(0, tm.getReports().size());
-		ReportService rs = new ReportService(tm);
 		String reporter = "Asma";
 		Calendar c = Calendar.getInstance();
 		c.set(2017, Calendar.MARCH, 16, 9, 0, 0);
@@ -81,7 +90,6 @@ public class TestCreateReport {
 	
 	@Test
 	public void testInvalidInput() {
-		ReportService rs = new ReportService(tm);
 		String error=null;
 
 		String reporter = "Asma";

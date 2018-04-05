@@ -12,12 +12,14 @@ import org.junit.Test;
 
 import ca.mcgill.ecse321.TreePLE.model.TreeManager;
 import ca.mcgill.ecse321.TreePLE.model.User;
+import ca.mcgill.ecse321.TreePLE.model.VersionManager;
 import ca.mcgill.ecse321.TreePLE.model.User.UserType;
 import ca.mcgill.ecse321.TreePLE.persistence.PersistenceXStream;
 import ca.mcgill.ecse321.TreePLE.service.InvalidInputException;
 import ca.mcgill.ecse321.TreePLE.service.TreeManagerService;
 
 public class TestCreateLocation {
+	private VersionManager vm;
 	private TreeManager tm;
 	private User user;
 	private TreeManagerService tms;
@@ -33,15 +35,17 @@ public class TestCreateLocation {
 
 	@Before
 	public void setUp() throws Exception {
+		vm = new VersionManager();
 		user = new User();
 		tm=new TreeManager(true, "1.0", 2018,user);
 		user.setUsertype(UserType.Professional);
-		tms = new TreeManagerService(tm);
+		vm.addTreeManager(tm);
+		tms = new TreeManagerService(vm);
 	}
 
 	@After
 	public void tearDown() throws Exception {
-		tm.delete();
+		vm.delete();
 	}
 
 	@Test 

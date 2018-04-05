@@ -12,14 +12,21 @@ import ca.mcgill.ecse321.TreePLE.model.Location;
 import ca.mcgill.ecse321.TreePLE.model.SustainabilityReport;
 import ca.mcgill.ecse321.TreePLE.model.Tree;
 import ca.mcgill.ecse321.TreePLE.model.TreeManager;
+import ca.mcgill.ecse321.TreePLE.model.VersionManager;
 import ca.mcgill.ecse321.TreePLE.persistence.PersistenceXStream;
 
 @Service
 public class ReportService {
 	private TreeManager tm;
+	private VersionManager vm;
 
-	public ReportService(TreeManager tm) {
-		this.tm=tm;
+	public ReportService(VersionManager vm) {
+		List<TreeManager> treemanagers = vm.getTreeManagers();
+		for(TreeManager treeM : treemanagers) {
+			if(treeM.getIsCurrent()) {
+				tm = treeM;
+			}
+		}
 	}
 
 	public SustainabilityReport createReport(String reporterName, Date reportDate, Location[] perimeter) throws InvalidInputException{
@@ -48,7 +55,7 @@ public class ReportService {
 		report.setCanopy(canopy);
 		report.setCarbonSequestration(carbonSequestration);
 		tm.addReport(report);
-		PersistenceXStream.saveToXMLwithXStream(tm);
+		PersistenceXStream.saveToXMLwithXStream(vm);
 		return report;
 	}
 

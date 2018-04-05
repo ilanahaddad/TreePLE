@@ -15,14 +15,21 @@ import ca.mcgill.ecse321.TreePLE.model.Tree.Status;
 import ca.mcgill.ecse321.TreePLE.model.TreeManager;
 import ca.mcgill.ecse321.TreePLE.model.User;
 import ca.mcgill.ecse321.TreePLE.model.User.UserType;
+import ca.mcgill.ecse321.TreePLE.model.VersionManager;
 import ca.mcgill.ecse321.TreePLE.persistence.PersistenceXStream;
 
 @Service
 public class TreeManagerService {
 	private TreeManager tm;
+	private VersionManager vm;
 
-	public TreeManagerService(TreeManager tm) {
-		this.tm=tm;
+	public TreeManagerService(VersionManager vm) {
+		List<TreeManager> treemanagers = vm.getTreeManagers();
+		for(TreeManager treeM : treemanagers) {
+			if(treeM.getIsCurrent()) {
+				tm = treeM;
+			}
+		}
 	}
 	public Tree createTree(String ownerName, String species,  double height, double diameter, 
 			int age, Location location, 
@@ -48,7 +55,7 @@ public class TreeManagerService {
 		location.setTreeInLocation(t);
 		tm.addTree(t);
 
-		PersistenceXStream.saveToXMLwithXStream(tm);
+		PersistenceXStream.saveToXMLwithXStream(vm);
 		return t;
 	}
 	public Municipality createMunicipality(String name) throws InvalidInputException {
@@ -66,7 +73,7 @@ public class TreeManagerService {
 		}
 		Municipality municipality = new Municipality(name);
 		tm.addMunicipality(municipality);
-		PersistenceXStream.saveToXMLwithXStream(tm);
+		PersistenceXStream.saveToXMLwithXStream(vm);
 		return municipality;
 	}
 	/**
@@ -107,6 +114,7 @@ public class TreeManagerService {
 		oldLoc.setTreeInLocation(null);
 		//And update the location of the tree
 		tree.setCoordinates(loc);
+		PersistenceXStream.saveToXMLwithXStream(vm);
 		
 	}
 	public Location createLocation(double latitude, double longitude) throws InvalidInputException{
@@ -118,6 +126,7 @@ public class TreeManagerService {
 		}
 		Location location = new Location(latitude, longitude);
 		tm.addLocation(location);
+		PersistenceXStream.saveToXMLwithXStream(vm);
 		return location;
 	}
 	public Location getLocationByCoordinates(double lati, double longi) throws InvalidInputException {
@@ -201,6 +210,7 @@ public class TreeManagerService {
 		}
 		User user = tm.getUser();
 		user.setUsertype(userType); 
+		PersistenceXStream.saveToXMLwithXStream(vm);
 		return user;
 	}
 
@@ -255,6 +265,7 @@ public class TreeManagerService {
 		tree.setSpecies(newSpecies);
 		tree.setLand(newLandUse);
 		tree.setTreeMunicipality(newMunicipality);
+		PersistenceXStream.saveToXMLwithXStream(vm);
 	}
 	
 
@@ -301,7 +312,7 @@ public class TreeManagerService {
 		}
 		return null;
 	}
-	public List<String> getAllSpecies(TreeManager tm){
+	public List<String> getAllSpecies(){
 		List<String> species = new ArrayList<String>();
 		for(Tree tree: tm.getTrees()) {
 			if(!species.contains(tree.getSpecies().toLowerCase())) {
