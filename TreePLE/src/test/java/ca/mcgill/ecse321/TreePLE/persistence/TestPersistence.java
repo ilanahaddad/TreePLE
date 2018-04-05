@@ -29,18 +29,19 @@ public class TestPersistence {
 	private VersionManager vm;
 	@Before
 	public void setUp() throws Exception {
+		vm = new VersionManager();
 		user = new User();
 		tm = new TreeManager(true, "1.0", 2018, user);
-		Location l1 = new Location(1.5,1.5);
+		vm.addTreeManager(tm);
 		
+		Location l1 = new Location(1.5,1.5);
 		Municipality m = new Municipality("Outremont");
 		String owner="Ilana";
 		int age=0;
-		
 		Tree t1 = new Tree(owner,"White Ash",1.5, 0.2, age, l1,m);
-
 		t1.setLand(LandUse.Residential);
 		tm.addTree(t1);
+		tm.addMunicipality(m);
 		tm.addLocation(l1);
 	}
 
@@ -54,31 +55,37 @@ public class TestPersistence {
 		// initialize model file
 		PersistenceXStream.initializeModelManager("output"+File.separator+"data.xml");
 		// save model that is loaded during test setup
-		if (!PersistenceXStream.saveToXMLwithXStream(tm))
+		if (!PersistenceXStream.saveToXMLwithXStream(vm)) {
 			fail("Could not save file.");
+		}
+			
 
 		// clear the model in memory
+		vm.delete();
 		tm.delete();
-		assertEquals(0, tm.getTrees().size());
-		assertEquals(0, tm.getLocations().size());
+		assertEquals(0, vm.numberOfTreeManagers());
+		assertEquals(0, tm.numberOfTrees());
+		assertEquals(0, tm.numberOfLocations());
+		assertEquals(0, tm.numberOfMunicipalities());
 		
 		// load model
-		tm = (TreeManager) PersistenceXStream.loadFromXMLwithXStream();
-		if (tm == null)
+		vm = (VersionManager) PersistenceXStream.loadFromXMLwithXStream();
+		if (vm == null)
 			fail("Could not load file.");
 		
 		Location l1 = new Location(1.5,1.5);
-
-
-
 		Municipality m = new Municipality("Outremont");
 		String owner = "Ilana";
 		String version="1.0";
 		double height = 1.5;
 		double diameter = 0.2;
 		
+		//check vm has tm
+		assertEquals(1, vm.numberOfTreeManagers());
+		//assertEquals(tm, vm.getTreeManager(0));
+		tm = vm.getTreeManager(0);
 		// check tree attributes
-		assertEquals(1, tm.getTrees().size());
+		assertEquals(1, tm.numberOfTrees());
 		assertEquals("Ilana", tm.getTree(0).getOwnerName());
 		assertEquals(2018, tm.getVersionYear());
 		assertEquals(true, tm.getIsCurrent());
@@ -88,9 +95,7 @@ public class TestPersistence {
 		assertEquals(m.getName(), tm.getTree(0).getTreeMunicipality().getName());
 		assertEquals(l1.getLatitude(), tm.getTree(0).getCoordinates().getLatitude(),0);
 		assertEquals(l1.getLongitude(), tm.getTree(0).getCoordinates().getLongitude(),0);
-
 		assertEquals(0, tm.getTree(0).getAge());
-
 		assertEquals(version, tm.getVersion());
 		assertEquals(owner, tm.getTree(0).getOwnerName());
 		assertEquals(LandUse.Residential, tm.getTree(0).getLand());
@@ -99,6 +104,10 @@ public class TestPersistence {
 		assertEquals(1, tm.getLocations().size());
 		assertEquals(1.5, tm.getLocation(0).getLatitude(),0);
 		assertEquals(1.5, tm.getLocation(0).getLongitude(),0);
+		
+		//check municipality
+		assertEquals(1, tm.numberOfMunicipalities());
+		assertEquals("Outremont", tm.getMunicipality(0).getName());
 		
 
 	}
