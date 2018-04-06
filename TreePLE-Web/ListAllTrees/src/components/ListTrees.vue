@@ -27,6 +27,7 @@
         <!-- ALL -->
         <td style="padding: 0 10px 0 15px;" id="All_select">All</td>
 
+
         <!--SPECIES -->
         <td style="padding:0 10px 0 10px;" id="Species_select">
         <select v-model="selectedSpecies">
@@ -38,8 +39,8 @@
             <button id="species_list" @click="listBySpecies(selectedSpecies)">OK</button>
         </td>
 
-        <!--MUNICIPALITY -->
 
+        <!--MUNICIPALITY -->
         <td style="padding:0 10px 0 10px;" id="Municipality_select">
           <select v-model="selectedMunicipality">
               <option disabled value="">Select Municipality</option>
@@ -50,30 +51,31 @@
             <button id="municipality_list" @click="listByMunicipality(selectedMunicipality)">OK</button>
         </td>
 
+
         <!--STATUS -->
-        <td style="padding:0 10px 0 10px;">
-          <td style="padding:0 10px 0 10px;" id="Status_select">
-            <select>
-              <option value="Planted">Planted</option>
-              <option value="ToBeCutdown">To be cutdown</option>
-              <option value="Diseased">Diseased</option>
+        <td style="padding:0 10px 0 10px;" id="Status_select">
+          <select v-model="selectedStatus">
+              <option disabled value="">Select Status</option>
+              <option v-for="status in statuses" >
+                  <td>{{ status }}</td>
+              </option>         
             </select>
-            <button class='selection'>OK</button>
-          </td>
+            <button id="status_list" @click="listByStatus(selectedStatus)">OK</button>
         </td>
+        
 
         <!--LAND USE-->
-        <td style="padding:0 10px 0 10px;">
-          <td style="padding:0 10px 0 10px;" id="LandUse_select">
-            <select>
-              <option value="Residential">Residential</option>
-              <option value="NonResidential">Non-Residential</option>
+        <td style="padding:0 10px 0 10px;" id="LandUse_select">
+          <select v-model="selectedLandUse">
+              <option disabled value="">Select Land Use</option>
+              <option v-for="l in LandUses" >
+                  <td>{{ l }}</td>
+              </option>         
             </select>
-            <button class='selection'>OK</button>
-          </td>
+            <button id="status_list" @click="listByStatus(selectedStatus)">OK</button>
+        </td>
         </td>
       </tr>
-      <tr></tr>
     </table>
     <br>
 
@@ -141,7 +143,7 @@
     
 
 
-    
+
     <!-- ... -->
       <!--
           //<td>

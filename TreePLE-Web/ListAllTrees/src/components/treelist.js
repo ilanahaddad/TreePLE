@@ -28,14 +28,20 @@ export default {
     return {
       trees: [],
       municipalities: [],
+      statuses: [],
       species: [],
+      landUses: [],
       newTree: '',
       errorTree: '',
       errorSpecies: '',
+      errorStatus: '',
       errorMunicipalities:'',
+      errorLandUse: '',
       response: [],
       selectedMunicipality: '',
-      selectedSpecies: ''
+      selectedSpecies: '',
+      selectedStatus: '',
+      selectedlandUse: ''
     }
   },
   created: function () {
@@ -67,6 +73,15 @@ export default {
     .then(response => {
       // JSON responses are automatically parsed.
       this.species = response.data
+    })
+    .catch(e => {
+      this.errorSpecies = e;
+    });
+
+    AXIOS.get('/statuses')
+    .then(response => {
+      // JSON responses are automatically parsed.
+      this.statuses = response.data
     })
     .catch(e => {
       this.errorSpecies = e;
@@ -104,6 +119,28 @@ export default {
        })
     .catch(e => {
       this.errorSpecies = e;
+    });
+    },
+
+    listByStatus: function(selectedStatus){
+      AXIOS.get('/treesByStatus/' + selectedStatus)
+      .then(responseEvent => {
+      // JSON responses are automatically parsed.
+       this.trees = response.data
+       })
+    .catch(e => {
+      this.errorStatus = e;
+    });
+    },
+
+    listByLandUse: function(selectedLandUse){
+      AXIOS.get('/treesByLandUse/' + selectedLandUse)
+      .then(responseEvent => {
+      // JSON responses are automatically parsed.
+       this.trees = response.data
+       })
+    .catch(e => {
+      this.errorLandUse = e;
     });
     }
     //createTree: function (treeId, treeSpecies, treeLongitude, treeLatitude, treeStatus) {
