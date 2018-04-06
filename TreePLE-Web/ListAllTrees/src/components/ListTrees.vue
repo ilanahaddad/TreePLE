@@ -8,7 +8,7 @@
       <tr>
         <td style="padding:0 5px 0 5px;"><a href='http://127.0.0.1:8087/#/app'><span style="font-weight: bold; color: green">View Trees</span></a> - </td>
         <td style="padding:0 5px 0 5px;"><a href='http://127.0.0.1:8087/#/generatereport'>Generate Report</a> - </td>
-        <td style="padding:0 5px 0 5px;"><a href='http://127.0.0.1:8087/#/viewreportspreliminary'>View Reports</a> - </td>
+        <td style="padding:0 5px 0 5px;"><a href='http://127.0.0.1:8087/#/viewreportspreliminary'>View Surveys</a> - </td>
         <td style="padding:0 5px 0 5px;"><a href='http://127.0.0.1:8087/#/forecast'>Forecast</a> - </td>
         <td style="padding:0 5px 0 5px;"><a href='http://127.0.0.1:8087/#/editTree'>Edit Tree</a> - </td>
         <td style="padding:0 5px 0 5px;"><a href='http://127.0.0.1:8087/#/moveTree'>Move Tree</a></td>
@@ -68,11 +68,11 @@
         <td style="padding:0 10px 0 10px;" id="LandUse_select">
           <select v-model="selectedLandUse">
               <option disabled value="">Select Land Use</option>
-              <option v-for="l in LandUses" >
+              <option v-for="l in landUses" >
                   <td>{{ l }}</td>
               </option>         
             </select>
-            <button id="status_list" @click="listByStatus(selectedStatus)">OK</button>
+            <button id="status_list" @click="listByLandUse(selectedLandUse)">OK</button>
         </td>
         </td>
       </tr>
