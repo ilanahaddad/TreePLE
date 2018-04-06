@@ -30,7 +30,8 @@ export default {
       newTree: '',
       errorTree: '',
       response: [],
-      selectedMunicipality: ''
+      selectedMunicipality: '',
+      selectedSpecies: ''
     }
   },
   created: function () {
@@ -57,6 +58,15 @@ export default {
     .catch(e => {
       this.errorTree = e;
     });
+
+    AXIOS.get('/species')
+    .then(response => {
+      // JSON responses are automatically parsed.
+      this.trees = response.data
+    })
+    .catch(e => {
+      this.errorTree = e;
+    });
   },
 
   methods: {
@@ -74,6 +84,17 @@ export default {
       .then(responseEvent => {
       // JSON responses are automatically parsed.
        this.municipalities = response.data
+       })
+    .catch(e => {
+      this.errorTree = e;
+    });
+    },
+
+    listBySpecies: function(selectedSpecies){
+      AXIOS.get('/treesBySpecies/' + selectedSpecies)
+      .then(responseEvent => {
+      // JSON responses are automatically parsed.
+       this.species = response.data
        })
     .catch(e => {
       this.errorTree = e;

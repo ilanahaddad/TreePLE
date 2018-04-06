@@ -18,7 +18,15 @@
       <tr>
         <td style="padding: 0 10px 0 0"><h2>List Trees By:</h2></td>
         <td style="padding: 0 10px 0 15px;" id="All_select">All</td>
-        <td style="padding:0 10px 0 10px;" id="Species_select">Species</td>
+        <td style="padding:0 10px 0 10px;" id="Species_select">
+        <select v-model="selectedSpecies">
+              <option disabled value="">Select Species</option>
+              <option v-for="s in species" >
+                  <td>{{ s }}</td>
+              </option>         
+            </select>
+            <button id="species_list" @click="listBySpecies(selectedSpecies)">OK</button>
+        </td>
         <td style="padding:0 10px 0 10px;" id="Municipality_select">
           <select v-model="selectedMunicipality">
               <option disabled value="">Select Municipality</option>
