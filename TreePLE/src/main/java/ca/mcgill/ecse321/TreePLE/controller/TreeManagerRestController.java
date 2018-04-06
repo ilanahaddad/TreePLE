@@ -197,8 +197,40 @@ public class TreeManagerRestController {
 	public List<String> findAllSpecies() {
 		return treeManagerService.getAllSpecies();
 	}
-	
-	
+	//listTreeByMunicipality as a RESTful service in class TreeManagerRestController.java 
+	@GetMapping(value = { "/treesByMunicipality/{municipality}", "/treesByMunicipality/{municipality}/" })
+	public List<TreeDto> listTreesByMunicipality(@PathVariable("municipality") MunicipalityDto mDto) throws InvalidInputException{
+
+		Municipality mun = convertToDomainObject(mDto);
+		List<Tree> TreebyMunList = treeManagerService.listTreesByMunicipality(mun);
+		List<TreeDto> TreebyMunListDto = new ArrayList<TreeDto>();
+		for(Tree t: TreebyMunList) {
+			TreebyMunListDto.add(convertToDto(t));	
+
+		}
+
+		return TreebyMunListDto;
+
+	}
+	private Municipality convertToDomainObject(MunicipalityDto mDto) {
+		// Mapping DTO to the domain object without using the mapper
+		List<Municipality> allMunicipality = treeManagerService.findAllMunicipalities();
+		for (Municipality municipality : allMunicipality) {
+			if (municipality.getName().equals(mDto.getName())) {
+				return municipality;
+			}
+		}
+		return null;
+	}
+	private Tree convertToDomainObject(TreeDto tDto) {
+		List<Tree> allTrees = treeManagerService.findAllTrees();
+		for (Tree tree : allTrees) {
+			if (tree.getId()==tDto.getId()) {
+				return tree;
+			}
+		}
+		return null;
+	}
 /*	DONT DELETE: NOT SURE IF WE NEED THESE: 
  * private Participant convertToDomainObject(ParticipantDto pDto) {
 		// Mapping DTO to the domain object without using the mapper
