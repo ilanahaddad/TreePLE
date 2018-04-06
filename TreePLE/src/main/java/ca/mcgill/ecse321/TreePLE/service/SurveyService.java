@@ -26,6 +26,7 @@ public class SurveyService {
 				tm = treeM;
 			}
 		}
+		this.vm = vm;
 	}
 
 	public Survey createSurvey(Date reportDate, Tree tree, String surveyor, Status newTreeStatus) throws InvalidInputException{

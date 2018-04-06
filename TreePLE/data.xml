@@ -1,0 +1,20 @@
+<versionManager id="1">
+  <treeManagers id="2">
+    <treeManager id="3">
+      <isCurrent>true</isCurrent>
+      <version>1.0</version>
+      <versionYear>2018</versionYear>
+      <trees id="4"/>
+      <locations id="5"/>
+      <surveys id="6"/>
+      <municipalities id="7">
+        <municipality id="8">
+          <name>Plateau</name>
+          <listOfTrees id="9"/>
+        </municipality>
+      </municipalities>
+      <user id="10"/>
+      <reports id="11"/>
+    </treeManager>
+  </treeManagers>
+</versionManager>

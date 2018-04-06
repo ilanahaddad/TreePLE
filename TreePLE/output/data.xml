@@ -22,22 +22,21 @@
           </coordinates>
           <treeMunicipality id="8">
             <name>Outremont</name>
-            <forecasts id="9"/>
-            <listOfTrees id="10">
+            <listOfTrees id="9">
               <tree reference="5"/>
             </listOfTrees>
           </treeMunicipality>
         </tree>
       </trees>
-      <locations id="11">
+      <locations id="10">
         <location reference="7"/>
       </locations>
-      <surveys id="12"/>
-      <municipalities id="13">
+      <surveys id="11"/>
+      <municipalities id="12">
         <municipality reference="8"/>
       </municipalities>
-      <user id="14"/>
-      <reports id="15"/>
+      <user id="13"/>
+      <reports id="14"/>
     </treeManager>
   </treeManagers>
 </versionManager>

@@ -30,6 +30,7 @@ public class TreeManagerService {
 				tm = treeM;
 			}
 		}
+		this.vm = vm;
 	}
 	public Tree createTree(String ownerName, String species,  double height, double diameter, 
 			int age, Location location, 
@@ -73,6 +74,7 @@ public class TreeManagerService {
 		}
 		Municipality municipality = new Municipality(name);
 		tm.addMunicipality(municipality);
+		//PersistenceXStream.saveToXMLwithXStream(municipality);
 		PersistenceXStream.saveToXMLwithXStream(vm);
 		return municipality;
 	}
