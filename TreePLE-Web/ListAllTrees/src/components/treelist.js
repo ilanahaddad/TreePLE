@@ -179,9 +179,10 @@ export default {
         position: {lat: 45.51, lng: -73.58}
       }]
     }
-  }
+  }*/
 
-  */
+  
+
 }
 
 import * as VueGoogleMaps from 'vue2-google-maps'

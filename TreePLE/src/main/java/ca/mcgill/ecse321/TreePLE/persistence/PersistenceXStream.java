@@ -32,7 +32,6 @@ public class PersistenceXStream {
 		setFilename(fileName);
 		setAlias("versionManager", VersionManager.class);
 		setAlias("treeManager", TreeManager.class);
-		setAlias("versionManager", VersionManager.class);
 		setAlias("tree", Tree.class);
 		setAlias("municipality", Municipality.class);
 		setAlias("survey", Survey.class);
