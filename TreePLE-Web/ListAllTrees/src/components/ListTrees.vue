@@ -118,26 +118,26 @@
   
     <table align="center">
       <tr>
-          <td>ID</td>
-          <td>Species Type</td>
-          <td>Height (in metres)</td>
-          <td>Diameter (in metres)</td>
-          <td>Municipality</td>
-          <td>Owner</td>
-          <td>Longitude</td>
-          <td>Latitude</td>
-          <td>Status</td>
+          <td style="padding:0 5px 0 5px;">ID</td>
+          <td style="padding:0 5px 0 5px;">Species Type</td>
+          <td style="padding:0 5px 0 5px;">Height (in metres)</td>
+          <td style="padding:0 5px 0 5px;">Diameter (in metres)</td>
+          <td style="padding:0 5px 0 5px;">Municipality</td>
+          <td style="padding:0 5px 0 5px;">Owner</td>
+          <td style="padding:0 5px 0 5px;">Longitude</td>
+          <td style="padding:0 5px 0 5px;">Latitude</td>
+          <td style="padding:0 5px 0 5px;">Status</td>
       </tr>
       <tr v-for="tree in trees" >
-        <td>{{ tree.id }}</td>
-        <td>{{ tree.species }}</td>
-        <td>{{ tree.height }}</td>
-        <td>{{ tree.diameter }}</td>
-        <td>{{ tree.treeMunicipality.name }}</td>
-        <td>{{ tree.owner.name }}</td>
-        <td>{{ tree.coordinates.longitude }}</td>
-        <td>{{ tree.coordinates.latitude }}</td>
-        <td>{{ tree.status }}</td>
+        <td style="padding:0 5px 0 5px;">{{ tree.id }}</td>
+        <td style="padding:0 5px 0 5px;">{{ tree.species }}</td>
+        <td style="padding:0 5px 0 5px;">{{ tree.height }}</td>
+        <td style="padding:0 5px 0 5px;">{{ tree.diameter }}</td>
+        <td style="padding:0 5px 0 5px;">{{ tree.treeMunicipality.name }}</td>
+        <td style="padding:0 5px 0 5px;">{{ tree.owner.name }}</td>
+        <td style="padding:0 5px 0 5px;">{{ tree.coordinates.longitude }}</td>
+        <td style="padding:0 5px 0 5px;">{{ tree.coordinates.latitude }}</td>
+        <td style="padding:0 5px 0 5px;">{{ tree.status }}</td>
       </tr>
     
 
