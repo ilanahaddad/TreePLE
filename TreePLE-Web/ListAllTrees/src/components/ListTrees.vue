@@ -45,7 +45,7 @@
           <select v-model="selectedMunicipality">
               <option disabled value="">Select Municipality</option>
               <option v-for="municipality in municipalities" >
-                  <td>{{ municipality }}</td>
+                  <td>{{ municipality.name }}</td>
               </option>         
             </select>
             <button id="municipality_list" @click="listByMunicipality(selectedMunicipality)">OK</button>
@@ -96,7 +96,7 @@
     </gmap-map>
     
     <!-- TREE LIST (Accordion Version) -->
-
+    <!--
     <div style="padding: 20px 0 0 0;">
     <div v-for="tree in trees" style="padding: 5px 0 0 0;">
     	<button class="accordion" v-on:click="showTreeData">Tree ID: {{ tree.id }} Lat: {{ tree.coordinates.latitude }} Long: {{ tree.coordinates.longitude }} </button>
@@ -112,9 +112,10 @@
 			</div>
 		</div>
 		</div>
+  -->
   
   <!-- TREE LIST (Normal version) -->
-  <!--
+  
     <table align="center">
       <tr>
           <td>ID</td>
@@ -138,8 +139,6 @@
         <td>{{ tree.coordinates.latitude }}</td>
         <td>{{ tree.status }}</td>
       </tr>
-
-    ->
     
 
 
