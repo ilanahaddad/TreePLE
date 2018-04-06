@@ -73,10 +73,14 @@
     </table>
     <br>
     <br>
+<!--
     <button class="submit_button" onclick="location.href = 'http://127.0.0.1:8087/#/report'">GENERATE REPORT</button>
+-->
+		<button class="submit_button" v-on:click="generateReport()" >GENERATE REPORT</button>
     </div>
 </template>
-
+<script src="./generateReport.js">
+</script>
 <style>
 
 .submit_button {
