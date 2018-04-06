@@ -27,8 +27,12 @@ export default {
   data () {
     return {
       trees: [],
+      municipalities: [],
+      species: [],
       newTree: '',
       errorTree: '',
+      errorSpecies: '',
+      errorMunicipalities:'',
       response: [],
       selectedMunicipality: '',
       selectedSpecies: ''
@@ -53,20 +57,22 @@ export default {
     AXIOS.get('/municipalities')
     .then(response => {
       // JSON responses are automatically parsed.
-      this.trees = response.data
+      this.municipalities = response.data
     })
     .catch(e => {
-      this.errorTree = e;
+      this.errorMunicipalities = e;
     });
 
     AXIOS.get('/species')
     .then(response => {
       // JSON responses are automatically parsed.
-      this.trees = response.data
+      this.species = response.data
     })
     .catch(e => {
-      this.errorTree = e;
+      this.errorSpecies = e;
     });
+
+
   },
 
   methods: {
@@ -80,13 +86,13 @@ export default {
      },
 
     listByMunicipality: function(selectedMunicipality){
-      AXIOS.get('/municipalities/' + selectedMunicipality)
+      AXIOS.get('/treesByMunicipality/' + selectedMunicipality)
       .then(responseEvent => {
       // JSON responses are automatically parsed.
-       this.municipalities = response.data
+       this.trees = response.data
        })
     .catch(e => {
-      this.errorTree = e;
+      this.errorMunicipalities = e;
     });
     },
 
@@ -94,10 +100,10 @@ export default {
       AXIOS.get('/treesBySpecies/' + selectedSpecies)
       .then(responseEvent => {
       // JSON responses are automatically parsed.
-       this.species = response.data
+       this.trees = response.data
        })
     .catch(e => {
-      this.errorTree = e;
+      this.errorSpecies = e;
     });
     }
     //createTree: function (treeId, treeSpecies, treeLongitude, treeLatitude, treeStatus) {

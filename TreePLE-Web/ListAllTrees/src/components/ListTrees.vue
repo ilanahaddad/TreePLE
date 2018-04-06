@@ -1,6 +1,9 @@
 
 <template>
   <div id="listtrees">
+    
+    <!--NAVIGATION TABLE -->
+
     <table align="center">
       <tr>
         <td style="padding:0 5px 0 5px;"><a href='http://127.0.0.1:8087/#/app'><span style="font-weight: bold; color: green">View Trees</span></a> - </td>
@@ -14,10 +17,17 @@
     </table>
     <h6><font color ="#3366cc">Current Version: 1.0</font></h6> <!--CHANGE TO CURRENT VERSION -->
     <hr>
+
+    <!--LIST TREES BY -->
+
     <table align="center">
       <tr>
         <td style="padding: 0 10px 0 0"><h2>List Trees By:</h2></td>
+
+        <!-- ALL -->
         <td style="padding: 0 10px 0 15px;" id="All_select">All</td>
+
+        <!--SPECIES -->
         <td style="padding:0 10px 0 10px;" id="Species_select">
         <select v-model="selectedSpecies">
               <option disabled value="">Select Species</option>
@@ -27,6 +37,9 @@
             </select>
             <button id="species_list" @click="listBySpecies(selectedSpecies)">OK</button>
         </td>
+
+        <!--MUNICIPALITY -->
+
         <td style="padding:0 10px 0 10px;" id="Municipality_select">
           <select v-model="selectedMunicipality">
               <option disabled value="">Select Municipality</option>
@@ -36,6 +49,8 @@
             </select>
             <button id="municipality_list" @click="listByMunicipality(selectedMunicipality)">OK</button>
         </td>
+
+        <!--STATUS -->
         <td style="padding:0 10px 0 10px;">
           <td style="padding:0 10px 0 10px;" id="Status_select">
             <select>
@@ -46,6 +61,8 @@
             <button class='selection'>OK</button>
           </td>
         </td>
+
+        <!--LAND USE-->
         <td style="padding:0 10px 0 10px;">
           <td style="padding:0 10px 0 10px;" id="LandUse_select">
             <select>
@@ -59,6 +76,8 @@
       <tr></tr>
     </table>
     <br>
+
+    <!--MAP STUFF -->
     <gmap-map
       :center="center"
       :zoom="13"
@@ -73,7 +92,9 @@
         @click="center=m.position"
       ></gmap-marker>
     </gmap-map>
-    <!-->
+    
+    <!-- TREE LIST (Accordion Version) -->
+
     <div style="padding: 20px 0 0 0;">
     <div v-for="tree in trees" style="padding: 5px 0 0 0;">
     	<button class="accordion" v-on:click="showTreeData">Tree ID: {{ tree.id }} Lat: {{ tree.coordinates.latitude }} Long: {{ tree.coordinates.longitude }} </button>
@@ -89,8 +110,9 @@
 			</div>
 		</div>
 		</div>
-  -->
   
+  <!-- TREE LIST (Normal version) -->
+  <!--
     <table align="center">
       <tr>
           <td>ID</td>
@@ -114,6 +136,11 @@
         <td>{{ tree.coordinates.latitude }}</td>
         <td>{{ tree.status }}</td>
       </tr>
+
+    ->
+    
+
+
     
     <!-- ... -->
       <!--
