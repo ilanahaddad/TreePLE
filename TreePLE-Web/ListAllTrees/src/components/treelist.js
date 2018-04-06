@@ -41,7 +41,13 @@ export default {
       selectedMunicipality: '',
       selectedSpecies: '',
       selectedStatus: '',
-      selectedlandUse: ''
+      selectedlandUse: '',
+      center: {lat: 45.5048, lng: -73.5772},
+      markers: [{
+        position: {lat: 45.50, lng: -73.57}
+      }, {
+        position: {lat: 45.51, lng: -73.58}
+      }]
     }
   },
   created: function () {
@@ -163,7 +169,7 @@ export default {
       //this.newTree = ''
     //}
   },
-
+/*
   data () {
     return {
       center: {lat: 45.5048, lng: -73.5772},
@@ -174,6 +180,8 @@ export default {
       }]
     }
   }
+
+  */
 }
 
 import * as VueGoogleMaps from 'vue2-google-maps'
