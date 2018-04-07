@@ -26,7 +26,7 @@ export default {
   name: 'ListTrees',
   data () {
     return {
-      frontendUrlHome : 'http://' + config.dev.host + ':' + config.dev.port + '/#/app'
+      frontendUrlHome : 'http://' + config.dev.host + ':' + config.dev.port + '/#/app',
       trees: [],
       versions: [],
       municipalities: [],
