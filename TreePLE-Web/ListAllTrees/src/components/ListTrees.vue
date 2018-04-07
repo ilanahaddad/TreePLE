@@ -1,11 +1,14 @@
 
 <template>
   <div id="listtrees">
+    
+    <!--NAVIGATION TABLE -->
+
     <table align="center">
       <tr>
         <td style="padding:0 5px 0 5px;"><a href='http://127.0.0.1:8087/#/app'><span style="font-weight: bold; color: green">View Trees</span></a> - </td>
         <td style="padding:0 5px 0 5px;"><a href='http://127.0.0.1:8087/#/generatereport'>Generate Report</a> - </td>
-        <td style="padding:0 5px 0 5px;"><a href='http://127.0.0.1:8087/#/viewreportspreliminary'>View Reports</a> - </td>
+        <td style="padding:0 5px 0 5px;"><a href='http://127.0.0.1:8087/#/viewreportspreliminary'>View Surveys</a> - </td>
         <td style="padding:0 5px 0 5px;"><a href='http://127.0.0.1:8087/#/forecast'>Forecast</a> - </td>
         <td style="padding:0 5px 0 5px;"><a href='http://127.0.0.1:8087/#/editTree'>Edit Tree</a> - </td>
         <td style="padding:0 5px 0 5px;"><a href='http://127.0.0.1:8087/#/moveTree'>Move Tree</a></td>
@@ -14,10 +17,18 @@
     </table>
     <h6><font color ="#3366cc">Current Version: 1.0</font></h6> <!--CHANGE TO CURRENT VERSION -->
     <hr>
+
+    <!--LIST TREES BY -->
+
     <table align="center">
       <tr>
         <td style="padding: 0 10px 0 0"><h2>List Trees By:</h2></td>
+
+        <!-- ALL -->
         <td style="padding: 0 10px 0 15px;" id="All_select">All</td>
+
+
+        <!--SPECIES -->
         <td style="padding:0 10px 0 10px;" id="Species_select">
         <select v-model="selectedSpecies">
               <option disabled value="">Select Species</option>
@@ -27,38 +38,48 @@
             </select>
             <button id="species_list" @click="listBySpecies(selectedSpecies)">OK</button>
         </td>
+
+
+        <!--MUNICIPALITY -->
         <td style="padding:0 10px 0 10px;" id="Municipality_select">
           <select v-model="selectedMunicipality">
               <option disabled value="">Select Municipality</option>
               <option v-for="municipality in municipalities" >
-                  <td>{{ municipality }}</td>
+                  <td>{{ municipality.name }}</td>
               </option>         
             </select>
             <button id="municipality_list" @click="listByMunicipality(selectedMunicipality)">OK</button>
         </td>
-        <td style="padding:0 10px 0 10px;">
-          <td style="padding:0 10px 0 10px;" id="Status_select">
-            <select>
-              <option value="Planted">Planted</option>
-              <option value="ToBeCutdown">To be cutdown</option>
-              <option value="Diseased">Diseased</option>
+
+
+        <!--STATUS -->
+        <td style="padding:0 10px 0 10px;" id="Status_select">
+          <select v-model="selectedStatus">
+              <option disabled value="">Select Status</option>
+              <option v-for="status in statuses" >
+                  <td>{{ status }}</td>
+              </option>         
             </select>
-            <button class='selection'>OK</button>
-          </td>
+            <button id="status_list" @click="listByStatus(selectedStatus)">OK</button>
         </td>
-        <td style="padding:0 10px 0 10px;">
-          <td style="padding:0 10px 0 10px;" id="LandUse_select">
-            <select>
-              <option value="Residential">Residential</option>
-              <option value="NonResidential">Non-Residential</option>
+        
+
+        <!--LAND USE-->
+        <td style="padding:0 10px 0 10px;" id="LandUse_select">
+          <select v-model="selectedLandUse">
+              <option disabled value="">Select Land Use</option>
+              <option v-for="l in landUses" >
+                  <td>{{ l }}</td>
+              </option>         
             </select>
-            <button class='selection'>OK</button>
-          </td>
+            <button id="status_list" @click="listByLandUse(selectedLandUse)">OK</button>
+        </td>
         </td>
       </tr>
-      <tr></tr>
     </table>
     <br>
+
+    <!--MAP STUFF -->
     <gmap-map
       :center="center"
       :zoom="13"
@@ -73,7 +94,9 @@
         @click="center=m.position"
       ></gmap-marker>
     </gmap-map>
-    <!-->
+    
+    <!-- TREE LIST (Accordion Version) -->
+    <!--
     <div style="padding: 20px 0 0 0;">
     <div v-for="tree in trees" style="padding: 5px 0 0 0;">
     	<button class="accordion" v-on:click="showTreeData">Tree ID: {{ tree.id }} Lat: {{ tree.coordinates.latitude }} Long: {{ tree.coordinates.longitude }} </button>
@@ -91,30 +114,35 @@
 		</div>
   -->
   
+  <!-- TREE LIST (Normal version) -->
+  
     <table align="center">
       <tr>
-          <td>ID</td>
-          <td>Species Type</td>
-          <td>Height (in metres)</td>
-          <td>Diameter (in metres)</td>
-          <td>Municipality</td>
-          <td>Owner</td>
-          <td>Longitude</td>
-          <td>Latitude</td>
-          <td>Status</td>
+          <td style="padding:0 5px 0 5px;">ID</td>
+          <td style="padding:0 5px 0 5px;">Species Type</td>
+          <td style="padding:0 5px 0 5px;">Height (in metres)</td>
+          <td style="padding:0 5px 0 5px;">Diameter (in metres)</td>
+          <td style="padding:0 5px 0 5px;">Municipality</td>
+          <td style="padding:0 5px 0 5px;">Owner</td>
+          <td style="padding:0 5px 0 5px;">Longitude</td>
+          <td style="padding:0 5px 0 5px;">Latitude</td>
+          <td style="padding:0 5px 0 5px;">Status</td>
       </tr>
       <tr v-for="tree in trees" >
-        <td>{{ tree.id }}</td>
-        <td>{{ tree.species }}</td>
-        <td>{{ tree.height }}</td>
-        <td>{{ tree.diameter }}</td>
-        <td>{{ tree.treeMunicipality.name }}</td>
-        <td>{{ tree.owner.name }}</td>
-        <td>{{ tree.coordinates.longitude }}</td>
-        <td>{{ tree.coordinates.latitude }}</td>
-        <td>{{ tree.status }}</td>
+        <td style="padding:0 5px 0 5px;">{{ tree.id }}</td>
+        <td style="padding:0 5px 0 5px;">{{ tree.species }}</td>
+        <td style="padding:0 5px 0 5px;">{{ tree.height }}</td>
+        <td style="padding:0 5px 0 5px;">{{ tree.diameter }}</td>
+        <td style="padding:0 5px 0 5px;">{{ tree.treeMunicipality.name }}</td>
+        <td style="padding:0 5px 0 5px;">{{ tree.owner.name }}</td>
+        <td style="padding:0 5px 0 5px;">{{ tree.coordinates.longitude }}</td>
+        <td style="padding:0 5px 0 5px;">{{ tree.coordinates.latitude }}</td>
+        <td style="padding:0 5px 0 5px;">{{ tree.status }}</td>
       </tr>
     
+
+
+
     <!-- ... -->
       <!--
           //<td>

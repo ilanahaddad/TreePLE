@@ -27,11 +27,21 @@ export default {
   data () {
     return {
       trees: [],
+      municipalities: [],
+      statuses: [],
+      species: [],
+      landUses: [],
       newTree: '',
       errorTree: '',
+      errorSpecies: '',
+      errorStatus: '',
+      errorMunicipalities:'',
+      errorLandUse: '',
       response: [],
       selectedMunicipality: '',
       selectedSpecies: '',
+      selectedStatus: '',
+      selectedlandUse: '',
       center: {lat: 45.5048, lng: -73.5772},
       markers: [{
         position: {lat: 45.50, lng: -73.57}
@@ -59,20 +69,31 @@ export default {
     AXIOS.get('/municipalities')
     .then(response => {
       // JSON responses are automatically parsed.
-      this.trees = response.data
+      this.municipalities = response.data
     })
     .catch(e => {
-      this.errorTree = e;
+      this.errorMunicipalities = e;
     });
 
     AXIOS.get('/species')
     .then(response => {
       // JSON responses are automatically parsed.
-      this.trees = response.data
+      this.species = response.data
     })
     .catch(e => {
-      this.errorTree = e;
+      this.errorSpecies = e;
     });
+
+    AXIOS.get('/statuses')
+    .then(response => {
+      // JSON responses are automatically parsed.
+      this.statuses = response.data
+    })
+    .catch(e => {
+      this.errorSpecies = e;
+    });
+
+
   },
 
   methods: {
@@ -86,13 +107,13 @@ export default {
      },
 
     listByMunicipality: function(selectedMunicipality){
-      AXIOS.get('/municipalities/' + selectedMunicipality)
+      AXIOS.get('/treesByMunicipality/' + selectedMunicipality)
       .then(responseEvent => {
       // JSON responses are automatically parsed.
-       this.municipalities = response.data
+       this.trees = response.data
        })
     .catch(e => {
-      this.errorTree = e;
+      this.errorMunicipalities = e;
     });
     },
 
@@ -100,10 +121,32 @@ export default {
       AXIOS.get('/treesBySpecies/' + selectedSpecies)
       .then(responseEvent => {
       // JSON responses are automatically parsed.
-       this.species = response.data
+       this.trees = response.data
        })
     .catch(e => {
-      this.errorTree = e;
+      this.errorSpecies = e;
+    });
+    },
+
+    listByStatus: function(selectedStatus){
+      AXIOS.get('/treesByStatus/' + selectedStatus)
+      .then(responseEvent => {
+      // JSON responses are automatically parsed.
+       this.trees = response.data
+       })
+    .catch(e => {
+      this.errorStatus = e;
+    });
+    },
+
+    listByLandUse: function(selectedLandUse){
+      AXIOS.get('/treesByLandUse/' + selectedLandUse)
+      .then(responseEvent => {
+      // JSON responses are automatically parsed.
+       this.trees = response.data
+       })
+    .catch(e => {
+      this.errorLandUse = e;
     });
     }
     //createTree: function (treeId, treeSpecies, treeLongitude, treeLatitude, treeStatus) {
@@ -137,6 +180,9 @@ export default {
       }]
     }
   }*/
+
+  
+
 }
 
 import * as VueGoogleMaps from 'vue2-google-maps'
