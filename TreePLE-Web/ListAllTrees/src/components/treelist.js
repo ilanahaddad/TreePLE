@@ -44,7 +44,7 @@ export default {
       selectedVersion: '',
       selectedSpecies: '',
       selectedStatus: '',
-      selectedlandUse: '',
+      selectedLandUse: '',
       center: {lat: 45.5048, lng: -73.5772},
       markers: [{
         position: {lat: 45.50, lng: -73.57}
@@ -131,7 +131,7 @@ export default {
 
     listAll: function(){
       AXIOS.get('/trees/')
-      .then(responseEvent => {
+      .then(response => {
       // JSON responses are automatically parsed.
        this.trees = response.data
        })
@@ -142,7 +142,7 @@ export default {
 
     listByMunicipality: function(selectedMunicipality){
       AXIOS.get('/treesByMunicipality/' + selectedMunicipality)
-      .then(responseEvent => {
+      .then(response => {
       // JSON responses are automatically parsed.
        this.trees = response.data
        //this.trees = []
@@ -156,7 +156,7 @@ export default {
       //const t1 = new TreeDto('Pine', '4', '0.5', 'coordinates', 'Thomas', 'Outremont', '1', 'Park', 'Planted', '100')
     
       AXIOS.get('/treesBySpecies/' + selectedSpecies)
-      .then(responseEvent => {
+      .then(response => {
       //JSON responses are automatically parsed.
        this.trees = response.data
       //this.trees = [t1]
