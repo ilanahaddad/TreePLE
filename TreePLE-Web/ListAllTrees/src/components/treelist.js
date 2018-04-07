@@ -118,7 +118,7 @@ export default {
       this.errorLandUse = e;
     });
 
-    for (i=0;i<trees.length;i++){
+    for (var i=0;i<this.trees.length;i++){
       this.markers.push({position: {lng: trees[i].coordinates.longitude, lat: trees[i].coordinates.latitude}})
     }
 
