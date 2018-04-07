@@ -118,8 +118,8 @@ export default {
       this.errorLandUse = e;
     });
 
-    for (var i=0;i<this.trees.length;i++){
-      this.markers.push({position: {lng: trees[i].coordinates.longitude, lat: trees[i].coordinates.latitude}})
+    for(var i=0;i<this.trees.length;i++){
+      this.markers.push({position: {lng: parseFloat(trees[i].coordinates.longitude), lat: parseFloat(trees[i].coordinates.latitude)}})
     }
 
   },
