@@ -15,7 +15,24 @@
       </tr>
       <tr></tr>
     </table>
-    <h6><font color ="#3366cc">Current Version: 1.0</font></h6> <!--CHANGE TO CURRENT VERSION -->
+    <hr>
+    <h6><font color ="#3366cc">Current Version: 1.0</font></h6>
+    <table align="center">
+      <tr>
+        <td>Change version:</td>
+        <td>
+          <select v-model="selectedVersion">
+              <option disabled value="">Select Version</option>
+              <option v-for="version in versions" >
+                  <td>{{ version }}</td>
+              </option>         
+            </select>
+        </td>
+        <td>
+           <button id="updateVersion" @click="updateVersion(VersionNumber)">Update</button>
+        </td>
+      </tr>
+    </table>
     <hr>
 
     <!--LIST TREES BY -->
@@ -25,7 +42,12 @@
         <td style="padding: 0 10px 0 0"><h2>List Trees By:</h2></td>
 
         <!-- ALL -->
-        <td style="padding: 0 10px 0 15px;" id="All_select">All</td>
+        <td style="padding: 0 10px 0 15px;" id="All_select">
+          All
+        </td>
+        <td>
+          <button id="all_list" @click="listAll()">OK</button>
+        </td>
 
 
         <!--SPECIES -->
