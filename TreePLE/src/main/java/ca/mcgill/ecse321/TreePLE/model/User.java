@@ -6,11 +6,11 @@ package ca.mcgill.ecse321.TreePLE.model;
 // line 18 "../../../../../TreePLE.ump"
 public class User
 {
-	public enum UserType {LocalResident, Professional}
+
   //------------------------
   // MEMBER VARIABLES
   //------------------------
-
+	public enum UserType {LocalResident, Professional}
   //User Attributes
   private UserType usertype;
 

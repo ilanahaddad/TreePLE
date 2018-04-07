@@ -16,7 +16,6 @@ public class Municipality
   private String name;
 
   //Municipality Associations
-  private List<Forecast> forecasts;
   private List<Tree> listOfTrees;
 
   //------------------------
@@ -26,7 +25,6 @@ public class Municipality
   public Municipality(String aName)
   {
     name = aName;
-    forecasts = new ArrayList<Forecast>();
     listOfTrees = new ArrayList<Tree>();
   }
 
@@ -45,36 +43,6 @@ public class Municipality
   public String getName()
   {
     return name;
-  }
-
-  public Forecast getForecast(int index)
-  {
-    Forecast aForecast = forecasts.get(index);
-    return aForecast;
-  }
-
-  public List<Forecast> getForecasts()
-  {
-    List<Forecast> newForecasts = Collections.unmodifiableList(forecasts);
-    return newForecasts;
-  }
-
-  public int numberOfForecasts()
-  {
-    int number = forecasts.size();
-    return number;
-  }
-
-  public boolean hasForecasts()
-  {
-    boolean has = forecasts.size() > 0;
-    return has;
-  }
-
-  public int indexOfForecast(Forecast aForecast)
-  {
-    int index = forecasts.indexOf(aForecast);
-    return index;
   }
 
   public Tree getListOfTree(int index)
@@ -105,88 +73,6 @@ public class Municipality
   {
     int index = listOfTrees.indexOf(aListOfTree);
     return index;
-  }
-
-  public static int minimumNumberOfForecasts()
-  {
-    return 0;
-  }
-
-  public boolean addForecast(Forecast aForecast)
-  {
-    boolean wasAdded = false;
-    if (forecasts.contains(aForecast)) { return false; }
-    forecasts.add(aForecast);
-    if (aForecast.indexOfMunicipality(this) != -1)
-    {
-      wasAdded = true;
-    }
-    else
-    {
-      wasAdded = aForecast.addMunicipality(this);
-      if (!wasAdded)
-      {
-        forecasts.remove(aForecast);
-      }
-    }
-    return wasAdded;
-  }
-
-  public boolean removeForecast(Forecast aForecast)
-  {
-    boolean wasRemoved = false;
-    if (!forecasts.contains(aForecast))
-    {
-      return wasRemoved;
-    }
-
-    int oldIndex = forecasts.indexOf(aForecast);
-    forecasts.remove(oldIndex);
-    if (aForecast.indexOfMunicipality(this) == -1)
-    {
-      wasRemoved = true;
-    }
-    else
-    {
-      wasRemoved = aForecast.removeMunicipality(this);
-      if (!wasRemoved)
-      {
-        forecasts.add(oldIndex,aForecast);
-      }
-    }
-    return wasRemoved;
-  }
-
-  public boolean addForecastAt(Forecast aForecast, int index)
-  {  
-    boolean wasAdded = false;
-    if(addForecast(aForecast))
-    {
-      if(index < 0 ) { index = 0; }
-      if(index > numberOfForecasts()) { index = numberOfForecasts() - 1; }
-      forecasts.remove(aForecast);
-      forecasts.add(index, aForecast);
-      wasAdded = true;
-    }
-    return wasAdded;
-  }
-
-  public boolean addOrMoveForecastAt(Forecast aForecast, int index)
-  {
-    boolean wasAdded = false;
-    if(forecasts.contains(aForecast))
-    {
-      if(index < 0 ) { index = 0; }
-      if(index > numberOfForecasts()) { index = numberOfForecasts() - 1; }
-      forecasts.remove(aForecast);
-      forecasts.add(index, aForecast);
-      wasAdded = true;
-    } 
-    else 
-    {
-      wasAdded = addForecastAt(aForecast, index);
-    }
-    return wasAdded;
   }
 
   public static int minimumNumberOfListOfTrees()
@@ -263,19 +149,6 @@ public class Municipality
 
   public void delete()
   {
-    ArrayList<Forecast> copyOfForecasts = new ArrayList<Forecast>(forecasts);
-    forecasts.clear();
-    for(Forecast aForecast : copyOfForecasts)
-    {
-      if (aForecast.numberOfMunicipalities() <= Forecast.minimumNumberOfMunicipalities())
-      {
-        aForecast.delete();
-      }
-      else
-      {
-        aForecast.removeMunicipality(this);
-      }
-    }
     for(int i=listOfTrees.size(); i > 0; i--)
     {
       Tree aListOfTree = listOfTrees.get(i - 1);
