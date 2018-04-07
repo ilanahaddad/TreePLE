@@ -89,24 +89,6 @@ public class TreeManagerService {
 		if(tree == null) {
 			throw new InvalidInputException("Tree cannot be null. Please select a tree.\n");
 		}
-		/*
-		//check if location already exists
-		Location loc = null;
-		boolean locExists = false;
-		List<Location> locations = tm.getLocations();
-		for(Location l: locations) {
-			if(l.getLatitude()==newLatitude && l.getLongitude()==newLongitude) { //location exists
-				loc = l;
-				locExists = true;
-			}
-		}
-		if(loc.hasTreeInLocation()) {
-			throw new InvalidInputException("There's already a tree in this location.\n");
-		}
-		if(!locExists){ //create new loc if it didn't already exist in system
-			loc = createLocation(newLatitude, newLongitude);
-		}
-*/
 		Location loc = getLocationByCoordinates(newLatitude, newLongitude);
 		if(loc.hasTreeInLocation()) {
 			throw new InvalidInputException("There's already a tree in this location.\n");
@@ -160,7 +142,15 @@ public class TreeManagerService {
 		}
 		return null;
 	}
-
+	public Tree getTreeById(int id) {
+		List<Tree> trees = tm.getTrees();
+		for(Tree t:trees) {
+			if(t.getId()==id) {
+				return t;
+			}
+		}
+		return null;
+	}
 	public List<Municipality> findAllMunicipalities() {
 
 		return tm.getMunicipalities();

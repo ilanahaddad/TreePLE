@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 import ca.mcgill.ecse321.TreePLE.dto.LocationDto;
 import ca.mcgill.ecse321.TreePLE.dto.MunicipalityDto;
 import ca.mcgill.ecse321.TreePLE.dto.SurveyDto;
+import ca.mcgill.ecse321.TreePLE.dto.SustainabilityReportDto;
 import ca.mcgill.ecse321.TreePLE.dto.TreeDto;
 import ca.mcgill.ecse321.TreePLE.dto.UserDto;
 import ca.mcgill.ecse321.TreePLE.model.Location;
@@ -30,6 +31,8 @@ import ca.mcgill.ecse321.TreePLE.model.Municipality;
 import ca.mcgill.ecse321.TreePLE.model.Survey;
 import ca.mcgill.ecse321.TreePLE.model.SustainabilityReport;
 import ca.mcgill.ecse321.TreePLE.model.Tree;
+import ca.mcgill.ecse321.TreePLE.model.Tree.LandUse;
+import ca.mcgill.ecse321.TreePLE.model.Tree.Status;
 import ca.mcgill.ecse321.TreePLE.model.User;
 import ca.mcgill.ecse321.TreePLE.model.User.UserType;
 import ca.mcgill.ecse321.TreePLE.model.VersionManager;
@@ -124,9 +127,6 @@ public class TreeManagerRestController {
 	}
 	@PostMapping(value = {"/newSurvey", "/newSurvey/"})
 	public SurveyDto createSurvey(
-			//@PathVariable(name="reportDate") @DateTimeFormat(pattern= "yyyy-MM-dd") Date reportDate,
-			//@PathVariable("reportDate") @DateTimeFormat(pattern = "yyyy-MM-dd") Date reportDate,
-			
 			@RequestParam Date reportDate,
 			//@RequestParam(name = "tree") TreeDto treeDto, 
 			@RequestParam(name = "tree") int treeID, 
@@ -200,16 +200,76 @@ public class TreeManagerRestController {
 	//listTreeByMunicipality as a RESTful service in class TreeManagerRestController.java 
 	@GetMapping(value = { "/treesByMunicipality/{municipality}", "/treesByMunicipality/{municipality}/" })
 	public List<TreeDto> listTreesByMunicipality(@PathVariable("municipality") MunicipalityDto mDto) throws InvalidInputException{
-
 		Municipality mun = convertToDomainObject(mDto);
 		List<Tree> TreebyMunList = treeManagerService.listTreesByMunicipality(mun);
 		List<TreeDto> TreebyMunListDto = new ArrayList<TreeDto>();
 		for(Tree t: TreebyMunList) {
 			TreebyMunListDto.add(convertToDto(t));	
-
 		}
-
 		return TreebyMunListDto;
+
+	}
+	@GetMapping(value = { "/treesByStatus/{status}", "/treesByStatus/{status}/" })
+	public List<TreeDto> listTreesByStatus(@PathVariable("status") Status status) throws InvalidInputException{
+		List<Tree> TreesByStatusList = treeManagerService.listTreesByStatus(status);
+		List<TreeDto> TreesByStatusListDto = new ArrayList<TreeDto>();
+		for(Tree t: TreesByStatusList) {
+			TreesByStatusListDto.add(convertToDto(t));
+		}
+		return TreesByStatusListDto;
+
+	}
+	@GetMapping(value = { "/treesBySpecies/{species}", "/treesBySpecies/{species}/" })
+	public List<TreeDto> listTreesBySpecies(@PathVariable("species") String species) throws InvalidInputException{
+		List<Tree> TreesBySpeciesList = treeManagerService.listTreesBySpecies(species);
+		List<TreeDto> TreesBySpeciesListDto = new ArrayList<TreeDto>();
+		for(Tree t: TreesBySpeciesList) {
+			TreesBySpeciesListDto.add(convertToDto(t));
+		}
+		return TreesBySpeciesListDto;
+	}
+	@GetMapping(value = { "/treesByLandUse/{land}", "/treesByLandUse/{land}/" })
+	public List<TreeDto> listTreesByLandUse(@PathVariable("land") LandUse landUse) throws InvalidInputException{
+		List<Tree> TreesByLandUseList = treeManagerService.listTreesByLandUse(landUse);
+		List<TreeDto> TreesByLandUseListDto = new ArrayList<TreeDto>();
+		for(Tree t: TreesByLandUseList) {
+			TreesByLandUseListDto.add(convertToDto(t));
+		}
+		return TreesByLandUseListDto;
+
+	}
+	@PostMapping(value = { "/moveTree/", "/moveTree/" })
+	public void moveTree(
+			@RequestParam(name = "tree") int treeID, 
+			@RequestParam(name = "latitude") double newLat,
+			@RequestParam(name = "longitude") double newLong) throws InvalidInputException{
+	
+		Tree tree = treeManagerService.getTreeById(treeID);
+		treeManagerService.moveTree(tree, newLat, newLong);
+	}
+	@PostMapping(value = { "/updateTreeData/", "/updateTreeData/" })
+	public TreeDto updateTreeData(
+			@RequestParam(name = "tree") int treeID, 
+			@RequestParam(name = "newHeight") double newHeight,
+			@RequestParam(name = "newDiameter") double newDiameter,
+			@RequestParam(name = "newAge") int newAge,
+			@RequestParam(name = "newOwnerName") String newOwnerName,
+			@RequestParam(name = "newSpecies") String newSpecies,
+			@RequestParam(name = "newLandUse") LandUse newLandUse,
+			@RequestParam(name = "newMunicipality") MunicipalityDto newMunDto) throws InvalidInputException{
+		Municipality newMunicipality = convertToDomainObject(newMunDto);
+		Tree tree = treeManagerService.getTreeById(treeID);
+		treeManagerService.updateTreeData(tree, newHeight, newDiameter, newAge, newOwnerName, newSpecies, newLandUse, newMunicipality);
+		return convertToDto(tree);
+	}
+	@GetMapping(value = { "/reports/", "/reports" })
+	public List<SustainabilityReportDto> getAllSustainabilityReports() {
+		List<SustainabilityReport> reportsList = reportService.getAllSustainabilityReports();
+		List<SustainabilityReportDto> reportsListDto = new ArrayList<SustainabilityReportDto>();
+		for(SustainabilityReport sr: reportsList) {
+			//reportsListDto.add(convertToDto(sr));
+		}
+		return reportsListDto;
 
 	}
 	private Municipality convertToDomainObject(MunicipalityDto mDto) {
@@ -231,25 +291,5 @@ public class TreeManagerRestController {
 		}
 		return null;
 	}
-/*	DONT DELETE: NOT SURE IF WE NEED THESE: 
- * private Participant convertToDomainObject(ParticipantDto pDto) {
-		// Mapping DTO to the domain object without using the mapper
-		List<Participant> allParticipants = service.findAllParticipants();
-		for (Participant participant : allParticipants) {
-			if (participant.getName().equals(pDto.getName())) {
-				return participant;
-			}
-		}
-		return null;
-	}
-
-	private RegistrationDto convertToDto(Registration r, Participant p, Event e) {
-		// Now using the mapper would not help too much
-		// RegistrationDto registrationDto = modelMapper.map(r, RegistrationDto.class);
-		// Manual conversion instead
-		EventDto eDto = convertToDto(e);
-		ParticipantDto pDto = convertToDto(p);
-		return new RegistrationDto(pDto, eDto);
-	}*/
 
 }

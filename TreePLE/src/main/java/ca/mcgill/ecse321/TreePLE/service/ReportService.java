@@ -160,5 +160,8 @@ public class ReportService {
 		return isTreeInLocation;
 		
 	}
+	public List<SustainabilityReport> getAllSustainabilityReports(){
+		return tm.getReports();
+	}
 	
 }
