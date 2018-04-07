@@ -31,10 +31,21 @@ public class SurveyService {
 
 	public Survey createSurvey(Date reportDate, Tree tree, String surveyor, Status newTreeStatus) throws InvalidInputException{
 		//Check if any of the fields are null, and throw corresponding exception
-		if(reportDate == null||tree ==null||surveyor==null||newTreeStatus==null) {
+		/*if(reportDate == null||tree ==null||surveyor==null||newTreeStatus==null) {
 			throw new InvalidInputException("Error: Report Date, tree, surveyor, or status is null");
+		}*/
+		if(reportDate == null) {
+			throw new InvalidInputException("Error: Report date cannot be null.\n");
 		}
-
+		if(tree == null) {
+			throw new InvalidInputException("Error: Tree cannot be null.\n");
+		}
+		if(surveyor == null) {
+			throw new InvalidInputException("Error: Surveyor name cannot be null.\n");
+		}
+		if(newTreeStatus == null) {
+			throw new InvalidInputException("Error: New Tree Status cannot be null.\n");
+		}
 		if(surveyor=="") {
 			throw new InvalidInputException("Error: Surveyor name cannot be empty");
 		}

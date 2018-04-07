@@ -171,7 +171,7 @@ public class TreeManagerService {
 		List<Tree> TreeList = tm.getTrees();
 		List<Tree> SpeciesList = new ArrayList<Tree>();
 		for(Tree t: TreeList) {
-			if(t.getSpecies()==species) { 
+			if(t.getSpecies().equalsIgnoreCase(species)) { 
 				SpeciesList.add(t);
 			}
 		}
@@ -321,9 +321,14 @@ public class TreeManagerService {
 		}
 		return statusesList;
 	}
-	public List<Survey> getAllSurveys(){
-		return tm.getSurveys();
+	public List<LandUse> getAllLandUseTypes() {
+		List<Tree.LandUse> landUseTypesList = new ArrayList<Tree.LandUse>();
+		Tree.LandUse[] landUseTypesArray = Tree.LandUse.values();
+		for(int i = 0; i<landUseTypesArray.length;i++) {
+			landUseTypesList.add(landUseTypesArray[i]);
+		}
+		return landUseTypesList;
 	}
-	
+
 
 }

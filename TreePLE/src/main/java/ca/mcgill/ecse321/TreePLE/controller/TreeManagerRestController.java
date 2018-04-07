@@ -186,7 +186,7 @@ public class TreeManagerRestController {
 		treeManagerService.setUserType(userType);
 	}
 
-	@PostMapping(value = { "/newReport/{reporterName}/", "/setUserType/{reporterName}" })
+	@PostMapping(value = { "/newReport/{reporterName}/", "/newReport/{reporterName}" })
 	public SustainabilityReportDto generateSustainabilityReport(@PathVariable("reporterName") String reporterName,
 		@RequestParam Date reportDate,
 		@RequestParam(name="lat1") double lat1,
@@ -255,17 +255,17 @@ public class TreeManagerRestController {
 		return TreesByLandUseListDto;
 
 	}
-	@PostMapping(value = { "/moveTree/", "/moveTree/" })
-	public void moveTree(
-			@RequestParam(name = "tree") int treeID, 
+	@PostMapping(value = { "/moveTree/{id}", "/moveTree/{id}/" })
+	public void moveTree(@PathVariable("id") int treeID,
+			//@RequestParam(name = "tree") int treeID, 
 			@RequestParam(name = "latitude") double newLat,
 			@RequestParam(name = "longitude") double newLong) throws InvalidInputException{
 		Tree tree = treeManagerService.getTreeById(treeID);
 		treeManagerService.moveTree(tree, newLat, newLong);
 	}
-	@PostMapping(value = { "/updateTreeData/", "/updateTreeData/" })
-	public TreeDto updateTreeData(
-			@RequestParam(name = "tree") int treeID, 
+	@PostMapping(value = { "/updateTreeData/{id}", "/updateTreeData/{id}/" })
+	public TreeDto updateTreeData(@PathVariable("id") int treeID,
+			//@RequestParam(name = "tree") int treeID, 
 			@RequestParam(name = "newHeight") double newHeight,
 			@RequestParam(name = "newDiameter") double newDiameter,
 			@RequestParam(name = "newAge") int newAge,
@@ -292,6 +292,11 @@ public class TreeManagerRestController {
 		List<Tree.Status> statuses = treeManagerService.getAllStatuses();
 		return statuses;
 	}
+	@GetMapping(value = { "/landUseTypes/", "/landUseTypes" })
+	public List<Tree.LandUse> getLandUseTypes() {
+		List<Tree.LandUse> statuses = treeManagerService.getAllLandUseTypes();
+		return statuses;
+	}
 	@GetMapping(value = { "/surveys/", "/surveys" })
 	public List<SurveyDto> getSurveys(){
 		List<Survey> surveysList = surveyService.getAllSurveys();
@@ -301,7 +306,13 @@ public class TreeManagerRestController {
 		}
 		return surveysListDto;
 	}
-	
+	/*
+	@GetMapping(value = { "/versions/", "/versions" })
+	public List<String> getAllSystemVersions(){
+		List<String> versions = null; //TODO:
+				//versionManagerService.getAllSystemVersions();
+		return versions;
+	}*/
 	
 	
 

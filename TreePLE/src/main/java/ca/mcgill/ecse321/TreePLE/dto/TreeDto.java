@@ -25,10 +25,10 @@ public class TreeDto {
 	private MunicipalityDto treeMunicipality;
 	private int id;
 
-	/*public TreeDto() {
+	public TreeDto() {
 	}
 
-		public TreeDto(String name) {
+/*	public TreeDto(String name) {
 		this(name, Date.valueOf("1971-01-01"), Time.valueOf("00:00:00"), Time.valueOf("23:59:59"));
 	}*/
 
