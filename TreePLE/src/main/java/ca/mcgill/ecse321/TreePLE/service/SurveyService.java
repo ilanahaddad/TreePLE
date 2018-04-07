@@ -85,5 +85,9 @@ public class SurveyService {
 		}
 		PersistenceXStream.saveToXMLwithXStream(vm);
 	}
+	public List<Survey> getAllSurveys(){
+		return tm.getSurveys();
+	}
+	
 
 }

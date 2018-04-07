@@ -73,8 +73,8 @@ public class TreeManagerRestController {
 		return treeDto;
 	}
 
-	private UserDto convertToDto(User user) {
-		return modelMapper.map(user, UserDto.class);
+	private SustainabilityReportDto convertToDto(SustainabilityReport report) {
+		return modelMapper.map(report, SustainabilityReportDto.class);
 
 	}
 	private LocationDto convertToDto(Location location) {
@@ -96,7 +96,7 @@ public class TreeManagerRestController {
 		return convertToDto(locationForTree);
 	}
 
-
+	
 	private MunicipalityDto createMunicipalityDtoForTree(Tree t) {
 		Municipality municipalityForTree = treeManagerService.getMunicipalityForTree(t);
 		return convertToDto(municipalityForTree);
@@ -106,7 +106,25 @@ public class TreeManagerRestController {
 		Tree treeForSurvey = surveyService.getTreeForSurvey(survey);
 		return convertToDto(treeForSurvey);
 	}
-	
+	private Municipality convertToDomainObject(MunicipalityDto mDto) {
+		// Mapping DTO to the domain object without using the mapper
+		List<Municipality> allMunicipality = treeManagerService.findAllMunicipalities();
+		for (Municipality municipality : allMunicipality) {
+			if (municipality.getName().equals(mDto.getName())) {
+				return municipality;
+			}
+		}
+		return null;
+	}
+	private Tree convertToDomainObject(TreeDto tDto) {
+		List<Tree> allTrees = treeManagerService.findAllTrees();
+		for (Tree tree : allTrees) {
+			if (tree.getId()==tDto.getId()) {
+				return tree;
+			}
+		}
+		return null;
+	}
 	@PostMapping(value = {"/newTree/{species}", "/newTree/{species}/"})
 	public TreeDto createTree(
 			@PathVariable("species") String species,
@@ -167,9 +185,9 @@ public class TreeManagerRestController {
 		UserType userType= treeManagerService.getUserTypeByName(userTypeName);
 		treeManagerService.setUserType(userType);
 	}
-	//TODO: ADD DTO HERE
+
 	@PostMapping(value = { "/newReport/{reporterName}/", "/setUserType/{reporterName}" })
-	public SustainabilityReport generateSustainabilityReport(@PathVariable("reporterName") String reporterName,
+	public SustainabilityReportDto generateSustainabilityReport(@PathVariable("reporterName") String reporterName,
 		@RequestParam Date reportDate,
 		@RequestParam(name="lat1") double lat1,
 		@RequestParam(name="long1") double long1,
@@ -188,9 +206,8 @@ public class TreeManagerRestController {
 		perimeter[1] = location2;
 		perimeter[2] = location3;
 		perimeter[3] = location4;
-		SustainabilityReport report = null;
-		report = reportService.createReport(reporterName, reportDate, perimeter);
-		return report;
+		SustainabilityReport report = reportService.createReport(reporterName, reportDate, perimeter);
+		return convertToDto(report);
 	}
 	
 	@GetMapping(value = { "/species/", "/species" })
@@ -243,7 +260,6 @@ public class TreeManagerRestController {
 			@RequestParam(name = "tree") int treeID, 
 			@RequestParam(name = "latitude") double newLat,
 			@RequestParam(name = "longitude") double newLong) throws InvalidInputException{
-	
 		Tree tree = treeManagerService.getTreeById(treeID);
 		treeManagerService.moveTree(tree, newLat, newLong);
 	}
@@ -266,30 +282,27 @@ public class TreeManagerRestController {
 	public List<SustainabilityReportDto> getAllSustainabilityReports() {
 		List<SustainabilityReport> reportsList = reportService.getAllSustainabilityReports();
 		List<SustainabilityReportDto> reportsListDto = new ArrayList<SustainabilityReportDto>();
-		for(SustainabilityReport sr: reportsList) {
-			//reportsListDto.add(convertToDto(sr));
+		for(SustainabilityReport r: reportsList) {
+			reportsListDto.add(convertToDto(r));
 		}
 		return reportsListDto;
-
 	}
-	private Municipality convertToDomainObject(MunicipalityDto mDto) {
-		// Mapping DTO to the domain object without using the mapper
-		List<Municipality> allMunicipality = treeManagerService.findAllMunicipalities();
-		for (Municipality municipality : allMunicipality) {
-			if (municipality.getName().equals(mDto.getName())) {
-				return municipality;
-			}
+	@GetMapping(value = { "/statuses/", "/statuses" })
+	public List<Tree.Status> getStatuses() {
+		List<Tree.Status> statuses = treeManagerService.getAllStatuses();
+		return statuses;
+	}
+	@GetMapping(value = { "/surveys/", "/surveys" })
+	public List<SurveyDto> getSurveys(){
+		List<Survey> surveysList = surveyService.getAllSurveys();
+		List<SurveyDto> surveysListDto = new ArrayList<SurveyDto>();
+		for(Survey s: surveysList) {
+			surveysListDto.add(convertToDto(s));
 		}
-		return null;
+		return surveysListDto;
 	}
-	private Tree convertToDomainObject(TreeDto tDto) {
-		List<Tree> allTrees = treeManagerService.findAllTrees();
-		for (Tree tree : allTrees) {
-			if (tree.getId()==tDto.getId()) {
-				return tree;
-			}
-		}
-		return null;
-	}
+	
+	
+	
 
 }

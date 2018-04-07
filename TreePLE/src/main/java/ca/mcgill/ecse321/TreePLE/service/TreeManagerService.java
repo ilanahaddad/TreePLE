@@ -6,6 +6,8 @@ import org.springframework.stereotype.Service;
 
 import ca.mcgill.ecse321.TreePLE.model.Location;
 import ca.mcgill.ecse321.TreePLE.model.Municipality;
+import ca.mcgill.ecse321.TreePLE.model.Survey;
+import ca.mcgill.ecse321.TreePLE.model.SustainabilityReport;
 import ca.mcgill.ecse321.TreePLE.model.Tree;
 
 import ca.mcgill.ecse321.TreePLE.model.Tree.LandUse;
@@ -259,8 +261,6 @@ public class TreeManagerService {
 		tree.setTreeMunicipality(newMunicipality);
 		PersistenceXStream.saveToXMLwithXStream(vm);
 	}
-	
-
 	public List<Tree> listTreesByMunicipality(Municipality municipality) throws InvalidInputException{
 		if(municipality==null) {
 			throw new InvalidInputException("Error: Municipality entry cannot be null!");
@@ -313,5 +313,17 @@ public class TreeManagerService {
 		}
 		return species;
 	}
+	public List<Tree.Status> getAllStatuses(){
+		List<Tree.Status> statusesList = new ArrayList<Tree.Status>();
+		Tree.Status[] statusesArray = Tree.Status.values();
+		for(int i = 0; i<statusesArray.length;i++) {
+			statusesList.add(statusesArray[i]);
+		}
+		return statusesList;
+	}
+	public List<Survey> getAllSurveys(){
+		return tm.getSurveys();
+	}
+	
 
 }
