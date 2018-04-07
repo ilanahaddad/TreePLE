@@ -38,7 +38,7 @@
     <button align="center" v-on:click="moveTree(treeId, newLat, newLong)">Move Tree</button>
  </div>
 </template>
-<script src="./movetree.js">
+<script src="./moveTree.js">
 </script>
 <style>
 tr,td {
