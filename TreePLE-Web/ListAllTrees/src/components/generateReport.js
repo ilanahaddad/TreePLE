@@ -10,7 +10,7 @@ var AXIOS = axios.create({
   baseURL: backendUrl,
   headers: { 'Access-Control-Allow-Origin': frontendUrl }
 })
-function ReportDto(reporterName, reportDate, lat1, long1, lat2, long2, lat3, long3, lat4, long4, biodiversityIndex, canopy, carbonSequestration){
+/*function ReportDto(reporterName, reportDate, lat1, long1, lat2, long2, lat3, long3, lat4, long4, biodiversityIndex, canopy, carbonSequestration){
 	this.reporterName=reporterName
 	this.reportDate=reportDate
 	this.lat1=lat1
@@ -25,7 +25,7 @@ function ReportDto(reporterName, reportDate, lat1, long1, lat2, long2, lat3, lon
   this.canopy=canopy
   this.carbonSequestration=carbonSequestration
 	
-}
+}*/
 
 export default {
   name: 'ListTrees',

@@ -22,37 +22,37 @@
     	<tr>
     		<td style="padding:0 5px 0 5px;">1</td>
     		<td style="padding:0 5px 0 5px;">
-    			<input type="text" placeholder="latitude">
+    			<input type="text" v-model= "lat1" placeholder="latitude">
     		</td>
     		<td style="padding:0 5px 0 5px;">
-    			<input type="text" placeholder="longitude">
+    			<input type="text" v-model= "long1" placeholder="longitude">
     		</td>
     	</tr>
     	<tr>
     		<td style="padding:0 5px 0 5px;">2</td>
     		<td style="padding:0 5px 0 5px;">
-    			<input type="text" placeholder="latitude">
+    			<input type="text" v-model= "lat2" placeholder="latitude">
     		</td>
     		<td style="padding:0 5px 0 5px;">
-    			<input type="text" placeholder="longitude">
+    			<input type="text" v-model= "long2" placeholder="longitude">
     		</td>
     	</tr>
     	<tr>
     		<td style="padding:0 5px 0 5px;">3</td>
     		<td style="padding:0 5px 0 5px;">
-    			<input type="text" placeholder="latitude">
+    			<input type="text" v-model= "lat3" placeholder="latitude">
     		</td>
     		<td style="padding:0 5px 0 5px;">
-    			<input type="text" placeholder="longitude">
+    			<input type="text" v-model= "long3" placeholder="longitude">
     		</td>
     	</tr>
     	<tr>
     		<td style="padding:0 5px 0 5px;">4</td>
     		<td style="padding:0 5px 0 5px;">
-    			<input type="text" placeholder="latitude">
+    			<input type="text" v-model= "lat4" placeholder="latitude">
     		</td>
     		<td style="padding:0 5px 0 5px;">
-    			<input type="text" placeholder="longitude">
+    			<input type="text" v-model= "long4" placeholder="longitude">
     		</td>
     	</tr>
     </table>
@@ -61,13 +61,19 @@
     <tr>
     	<td style="padding:0 5px 0 5px;">Reporter Name</td>
     	<td style="padding:0 5px 0 5px;">
-			<input type="text" placeholder="John Doe">
+			<input type="text" v-model= "reporterName" placeholder="John Doe">
     	</td>
     </tr>
     <tr>
     	<td style="padding:0 5px 0 5px;">Version #</td>
     	<td style="padding:0 5px 0 5px;">
 			<input type="text" placeholder="1.0">
+    	</td>
+    </tr>
+  	<tr>
+    	<td style="padding:0 5px 0 5px;">Report Date</td>
+    	<td style="padding:0 5px 0 5px;">
+			<input type="date" v-model="reportDate" placeholder="YYYY-MM-DD">
     	</td>
     </tr>
     </table>
@@ -79,8 +85,10 @@
 		<button class="submit_button" v-on:click="generateReport()" >GENERATE REPORT</button>
     </div>
 </template>
+<!--
 <script src="./generateReport.js">
 </script>
+-->
 <style>
 
 .submit_button {
