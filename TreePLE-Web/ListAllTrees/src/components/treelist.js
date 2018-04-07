@@ -46,7 +46,7 @@ export default {
       selectedStatus: '',
       selectedLandUse: '',
       center: {lat: 45.5048, lng: -73.5772},
-      marker: '',
+      markers: '',
       /*
       markers: [{
         position: {lat: 45.50, lng: -73.57}
@@ -119,7 +119,7 @@ export default {
     });
 
     for (i=0;i<trees.length;i++){
-      marker = new google.maps.Markers({
+      markers = new google.maps.Markers({
             position: new google.maps.LatLng(trees[i].coordinates.longitude, trees[i].coordinates.latitude),
             map: map
         });
