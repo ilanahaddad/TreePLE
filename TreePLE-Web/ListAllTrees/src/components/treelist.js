@@ -250,7 +250,7 @@ import Vue from 'vue'
 Vue.use(VueGoogleMaps, {
   load: {
     key: 'AIzaSyDUSNhFJa7yvEUUKHiQCeWgqBPI4xDgXHg',
-    v: '1.0'
+    v: '3.32'
     // libraries: 'places', //// If you need to use place input
   }
 })
