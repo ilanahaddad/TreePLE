@@ -47,5 +47,7 @@
   </table>
  </div>
 </template>
+<!--
 <script src="./generateReport.js">
 </script>
+-->

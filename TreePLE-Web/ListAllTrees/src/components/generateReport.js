@@ -1,5 +1,5 @@
 import axios from 'axios'
-import router from '../router'
+//import router from '../router'
 var config = require('../../config')
 
 
@@ -10,25 +10,22 @@ var AXIOS = axios.create({
   baseURL: backendUrl,
   headers: { 'Access-Control-Allow-Origin': frontendUrl }
 })
-/*function ReportDto(reporterName, reportDate, lat1, long1, lat2, long2, lat3, long3, lat4, long4, biodiversityIndex, canopy, carbonSequestration){
+function ReportDto(reporterName, reportDate, reportPerimeter, bioIndex, canopy, carbonSeq){
 	this.reporterName=reporterName
 	this.reportDate=reportDate
-	this.lat1=lat1
-  this.long1=long1
-  this.lat2=lat2
-  this.long2=long2
-  this.lat3=lat3
-  this.long3=long3
-  this.lat4=lat4
-  this.long4=long4
-  this.biodiversityIndex=biodiversityIndex
-  this.canopy=canopy
-  this.carbonSequestration=carbonSequestration
-	
-}*/
+
+	this.reportPerimeter=reportPerimeter
+	this.biodiversityIndex=bioIndex
+	this.canopy=canopy
+	this.carbonSequestration=carbonSeq
+}
+function LocationDto(lat, long){
+	this.latitude=lat
+	this.longitude=long
+}
 
 export default {
-  name: 'ListTrees',
+  name: 'GenerateReport',
   data () {
     return {
       reporterName: '',
@@ -42,12 +39,31 @@ export default {
       lat4:'',
       long4:'',
       curReport:'',
-      reports: []
-    }
+      reports: [],
+      showReport: false,
+      showGenerate: true,
+    }	
   },
+  /*created : function(){
+  		var lat1=1
+      var long1=1
+      var lat2=1
+      var long2=2
+      var lat3=2
+      var long3=2
+      var lat4=2
+      var long4=1
+  		var loc1= new LocationDto(lat1, long1)
+			var loc2= new LocationDto(lat2, long2)
+			var loc3= new LocationDto(lat3, long3)
+			var loc4= new LocationDto(lat4, long4)
+			var rPerim= [loc1, loc2, loc3,loc4]
+  	const r= new ReportDto('Diana', '2018-02-02', rPerim, '1.2', '1.3', '1.4')
+  	this.curReport= r
+  },*/
   methods: {
 			generateReport: function(reporterName, reporterDate, lat1, long1, lat2, long2, lat3, long3, lat4, long4) {
-				AXIOS.post('/newReport/'+reporterName, {}, {params: {reportDate: reportDate, lat1: lat1, long1: long1, lat2: lat2, long2: long2, lat3: lat3, long3: long3, lat4: lat4, long4: long4}}).then(response => {
+				/*AXIOS.post('/newReport/'+reporterName, {}, {params: {reportDate: reportDate, lat1: lat1, long1: long1, lat2: lat2, long2: long2, lat3: lat3, long3: long3, lat4: lat4, long4: long4}}).then(response => {
 					this.reports.push(response.data)
 					curReport=response.data
 					this.reporterName=''
@@ -65,8 +81,9 @@ export default {
 					var errorMsg= e.response.data.message
 					console.log(errorMsg)
 					this.errorEvent = errorMsg 
-				})
-				router.push({name:"Report"})
+				})*/
+				this.showReport=true
+				this.showGenerate=false
      	}
   }
 }
