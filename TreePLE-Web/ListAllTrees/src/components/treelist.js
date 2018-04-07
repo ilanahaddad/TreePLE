@@ -26,12 +26,15 @@ export default {
   name: 'ListTrees',
   data () {
     return {
+      UrlHome : 'http://' + config.dev.backendHost + ':' + config.dev.backendport + '/#/app',
       trees: [],
+      versions: [],
       municipalities: [],
       statuses: [],
       species: [],
       landUses: [],
       newTree: '',
+      errorVersions: '',
       errorTree: '',
       errorSpecies: '',
       errorStatus: '',
@@ -39,9 +42,10 @@ export default {
       errorLandUse: '',
       response: [],
       selectedMunicipality: '',
+      selectedVersion: '',
       selectedSpecies: '',
       selectedStatus: '',
-      selectedlandUse: '',
+      selectedLandUse: '',
       center: {lat: 45.5048, lng: -73.5772},
       markers: [{
         position: {lat: 45.50, lng: -73.57}
@@ -84,6 +88,9 @@ export default {
       this.errorSpecies = e;
     });
 
+
+    this.species = ['Pine', 'Cedar']
+
     AXIOS.get('/statuses')
     .then(response => {
       // JSON responses are automatically parsed.
@@ -93,6 +100,23 @@ export default {
       this.errorSpecies = e;
     });
 
+    AXIOS.get('/versions')
+    .then(response => {
+      // JSON responses are automatically parsed.
+      this.versions = response.data
+    })
+    .catch(e => {
+      this.errorVersions = e;
+    });
+
+    AXIOS.get('/landUses')
+    .then(response => {
+      // JSON responses are automatically parsed.
+      this.landUses = response.data
+    })
+    .catch(e => {
+      this.errorLandUse = e;
+    });
 
   },
 
@@ -106,11 +130,23 @@ export default {
         }
      },
 
-    listByMunicipality: function(selectedMunicipality){
-      AXIOS.get('/treesByMunicipality/' + selectedMunicipality)
-      .then(responseEvent => {
+    listAll: function(){
+      AXIOS.get('/trees/')
+      .then(response => {
       // JSON responses are automatically parsed.
        this.trees = response.data
+       })
+    .catch(e => {
+      this.errorTree = e;
+    });
+    },
+
+    listByMunicipality: function(selectedMunicipality){
+      AXIOS.get('/treesByMunicipality/' + selectedMunicipality)
+      .then(response => {
+      // JSON responses are automatically parsed.
+       this.trees = response.data
+       //this.trees = []
        })
     .catch(e => {
       this.errorMunicipalities = e;
@@ -118,10 +154,13 @@ export default {
     },
 
     listBySpecies: function(selectedSpecies){
+      //const t1 = new TreeDto('Pine', '4', '0.5', 'coordinates', 'Thomas', 'Outremont', '1', 'Park', 'Planted', '100')
+    
       AXIOS.get('/treesBySpecies/' + selectedSpecies)
-      .then(responseEvent => {
-      // JSON responses are automatically parsed.
+      .then(response => {
+      //JSON responses are automatically parsed.
        this.trees = response.data
+      //this.trees = [t1]
        })
     .catch(e => {
       this.errorSpecies = e;
@@ -148,7 +187,19 @@ export default {
     .catch(e => {
       this.errorLandUse = e;
     });
+    },
+
+    updateVersion: function(VersionNumber){
+      AXIOS.get('/treesByLandUse/' + selectedLandUse)
+      .then(responseEvent => {
+      // JSON responses are automatically parsed.
+       this.trees = response.data
+       })
+    .catch(e => {
+      this.errorLandUse = e;
+    });
     }
+
     //createTree: function (treeId, treeSpecies, treeLongitude, treeLatitude, treeStatus) {
       //AXIOS.post(`/trees/`+treeId, {}, {})
       //.then(response => {
