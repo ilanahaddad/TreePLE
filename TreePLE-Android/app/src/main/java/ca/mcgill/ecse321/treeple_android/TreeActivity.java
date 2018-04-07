@@ -4,8 +4,22 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
+
+import com.loopj.android.http.JsonHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import cz.msebera.android.httpclient.Header;
 
 /**
  * Created by Asma Alromaih on 02/04/18.
@@ -14,12 +28,16 @@ import android.widget.TextView;
 public class TreeActivity extends AppCompatActivity {
 
     private String error = "";
+    private Object AdapterView;
+    private List<String> municipalities = new ArrayList<String>(){{add("Outermount");add("Verdun");}};
+    private ArrayAdapter<String> municipalitiesAdapter;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //Get the view from activity_options.xml
-        setContentView(R.layout.activity_options);
+        setContentView(R.layout.activity_tree);
 
         // initialize error message text view
         refreshErrorMessage();
@@ -41,6 +59,11 @@ public class TreeActivity extends AppCompatActivity {
             }
         });
 
+        //Setting spinner for municipalities
+        Spinner municipalitiesSpinner = (Spinner) findViewById(R.id.municipalitySpinner);
+        municipalitiesAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, municipalities);
+        municipalitiesAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        municipalitiesSpinner.setAdapter(municipalitiesAdapter);
 
     }
 
@@ -58,5 +81,63 @@ public class TreeActivity extends AppCompatActivity {
     }
 
     public void createTree(View view) {
+        error = "";
+
+        //To get species from user
+        EditText et = (EditText) findViewById(R.id.speciesName);
+        String species = et.getText().toString();
+
+        //To get height from user
+        et = (EditText) findViewById(R.id.height);
+        String heightString= et.getText().toString();
+        double height = Double.parseDouble(heightString);
+
+        //To get diameter from user
+        et = (EditText) findViewById(R.id.diameter);
+        String diameterString= et.getText().toString();
+        double diameter = Double.parseDouble(diameterString);
+
+        //To get municipality from user
+        Spinner sp = (Spinner) findViewById(R.id.municipalitySpinner);
+        String municipality = sp.getSelectedItem().toString(); //TODO: make it MunicipalityDTO
+
+        //To get latitude
+        et = (EditText) findViewById(R.id.latitude);
+        String latitudeString= et.getText().toString();
+        double latitude = Double.parseDouble(latitudeString);
+
+        //To get longitude
+        et = (EditText) findViewById(R.id.longitude);
+        String longitudeString= et.getText().toString();
+        double longitude = Double.parseDouble(longitudeString);
+
+        //To get owner name
+        et = (EditText) findViewById(R.id.userName);
+        String userName= et.getText().toString();
+
+        //To get tree age
+        et = (EditText) findViewById(R.id.age);
+        String ageString= et.getText().toString();
+        double age = Double.parseDouble(ageString);
+
+        //TODO: land use
+
+       HttpUtils.post("/newTree/" +species+height+diameter+municipality+latitude+longitude+userName+age, new RequestParams(), new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                refreshErrorMessage();
+                //tv.setText("");
+            }
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                try {
+                    error += errorResponse.get("message").toString();
+                } catch (JSONException e) {
+                    error += e.getMessage();
+                }
+                refreshErrorMessage();
+            }
+        });
     }
+
 }

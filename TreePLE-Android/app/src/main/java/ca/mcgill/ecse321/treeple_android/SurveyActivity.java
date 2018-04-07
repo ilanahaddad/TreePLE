@@ -22,7 +22,7 @@ public class SurveyActivity extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //Get the view from activity_options.xml
-        setContentView(R.layout.activity_options);
+        setContentView(R.layout.activity_survey);
 
         // initialize error message text view
         refreshErrorMessage();

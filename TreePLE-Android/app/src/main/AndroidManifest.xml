@@ -35,6 +35,9 @@
             android:label="@string/survey_page_title"
             >
         </activity>
+
+
+
     </application>
 
 </manifest>
