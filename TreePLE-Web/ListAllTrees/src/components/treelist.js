@@ -165,7 +165,7 @@ export default {
 
     listByStatus: function(selectedStatus){
       AXIOS.get('/treesByStatus/' + selectedStatus)
-      .then(responseEvent => {
+      .then(response => {
       // JSON responses are automatically parsed.
        this.trees = response.data
        })
@@ -176,7 +176,7 @@ export default {
 
     listByLandUse: function(selectedLandUse){
       AXIOS.get('/treesByLandUse/' + selectedLandUse)
-      .then(responseEvent => {
+      .then(response => {
       // JSON responses are automatically parsed.
        this.trees = response.data
        })
@@ -187,7 +187,7 @@ export default {
 
     updateVersion: function(VersionNumber){
       AXIOS.get('/treesByLandUse/' + selectedLandUse)
-      .then(responseEvent => {
+      .then(response => {
       // JSON responses are automatically parsed.
        this.trees = response.data
        })
