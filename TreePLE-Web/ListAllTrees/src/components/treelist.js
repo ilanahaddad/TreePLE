@@ -119,9 +119,7 @@ export default {
     });
 
     for (i=0;i<trees.length;i++){
-      markers = new google.maps.Markers({
-            position: new google.maps.LatLng(trees[i].coordinates.longitude, trees[i].coordinates.latitude),
-            map: map
+      this.markers.push({position: {lng: trees[i].coordinates.longitude, lat: trees[i].coordinates.latitude})
         });
     }
 
