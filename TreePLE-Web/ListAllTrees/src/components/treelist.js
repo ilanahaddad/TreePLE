@@ -88,9 +88,6 @@ export default {
       this.errorSpecies = e;
     });
 
-
-    this.species = ['Pine', 'Cedar']
-
     AXIOS.get('/statuses')
     .then(response => {
       // JSON responses are automatically parsed.
