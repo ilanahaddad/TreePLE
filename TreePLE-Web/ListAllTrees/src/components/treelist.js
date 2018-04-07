@@ -2,6 +2,7 @@ import axios from 'axios'
 var config = require('../../config')
 
 var frontendUrl = 'http://' + config.dev.host + ':' + config.dev.port
+var frontendUrlHome = 'http://' + config.dev.host + ':' + config.dev.port + '/#/app'
 var backendUrl = 'http://' + config.dev.backendHost + ':' + config.dev.backendPort
 
 var AXIOS = axios.create({
