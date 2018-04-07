@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -28,8 +29,7 @@ import cz.msebera.android.httpclient.Header;
 public class TreeActivity extends AppCompatActivity {
 
     private String error = "";
-    private Object AdapterView;
-    private List<String> municipalities = new ArrayList<String>(){{add("Outermount");add("Verdun");}};
+    private List<String> municipalities = new ArrayList<>();
     private ArrayAdapter<String> municipalitiesAdapter;
 
 
@@ -50,6 +50,7 @@ public class TreeActivity extends AppCompatActivity {
                 TreeActivity.this.startActivity(new Intent(TreeActivity.this, OptionsActivity.class));
             }
         });
+
         //Login button -> takes to login page
         Button btnLogin = (Button)findViewById(R.id.btnLogin);
         btnLogin.setOnClickListener(new View.OnClickListener() {
@@ -65,19 +66,8 @@ public class TreeActivity extends AppCompatActivity {
         municipalitiesAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         municipalitiesSpinner.setAdapter(municipalitiesAdapter);
 
-    }
-
-    private void refreshErrorMessage() {
-        // set the error message
-        TextView tvError = (TextView) findViewById(R.id.error);
-        tvError.setText(error);
-
-        if (error == null || error.length() == 0) {
-            tvError.setVisibility(View.GONE);
-        } else {
-            tvError.setVisibility(View.VISIBLE);
-        }
-
+        //Retireiving the municipalities from backend
+        refreshLists(this.getCurrentFocus());
     }
 
     public void createTree(View view) {
@@ -138,6 +128,57 @@ public class TreeActivity extends AppCompatActivity {
                 refreshErrorMessage();
             }
         });
+    }
+
+    public void refreshLists(View view) {
+        refreshList(municipalitiesAdapter, municipalities, "municipalities");//TODO: maybe /municipalities
+    }
+
+    private void refreshList(final ArrayAdapter<String> adapter, final List<String> names, String restFunctionName) {
+        HttpUtils.get(restFunctionName, new RequestParams(), new JsonHttpResponseHandler() {
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
+                names.clear();
+                names.add("Please select...");
+                TextView tvError = (TextView) findViewById(R.id.error);
+                tvError.setText(error);
+                for( int i = 0; i < response.length(); i++){
+                    try {
+                        names.add(response.getJSONObject(i).getString("name")); //TODO: maybe munName
+                    } catch (Exception e) {
+                        error += e.getMessage();
+                    }
+                    refreshErrorMessage();
+                }
+                adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                try {
+                    error += errorResponse.getString("message");
+                    //error += errorResponse.get("message").toString();
+
+                } catch (JSONException e) {
+                    error += e.getMessage();
+                }
+                refreshErrorMessage();
+            }
+        });
+    }
+
+    private void refreshErrorMessage() {
+        // set the error message
+        TextView tvError = (TextView) findViewById(R.id.error);
+        tvError.setText(error);
+
+        if (error == null || error.length() == 0) {
+            tvError.setVisibility(View.GONE);
+        } else {
+            tvError.setVisibility(View.VISIBLE);
+        }
+
     }
 
 }

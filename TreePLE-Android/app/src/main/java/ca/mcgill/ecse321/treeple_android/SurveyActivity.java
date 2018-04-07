@@ -52,13 +52,11 @@ public class SurveyActivity extends AppCompatActivity {
     }
 
 
-    public void createTree(View view) {
-    }
 
     public void createSurvey(View view) {
     }
 
+
     public void refreshLists(View view) {
     }
-
 }
