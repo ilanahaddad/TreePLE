@@ -6,6 +6,8 @@ import org.springframework.stereotype.Service;
 
 import ca.mcgill.ecse321.TreePLE.model.Location;
 import ca.mcgill.ecse321.TreePLE.model.Municipality;
+import ca.mcgill.ecse321.TreePLE.model.Survey;
+import ca.mcgill.ecse321.TreePLE.model.SustainabilityReport;
 import ca.mcgill.ecse321.TreePLE.model.Tree;
 
 import ca.mcgill.ecse321.TreePLE.model.Tree.LandUse;
@@ -30,6 +32,7 @@ public class TreeManagerService {
 				tm = treeM;
 			}
 		}
+		this.vm = vm;
 	}
 	public Tree createTree(String ownerName, String species,  double height, double diameter, 
 			int age, Location location, 
@@ -73,6 +76,7 @@ public class TreeManagerService {
 		}
 		Municipality municipality = new Municipality(name);
 		tm.addMunicipality(municipality);
+		//PersistenceXStream.saveToXMLwithXStream(municipality);
 		PersistenceXStream.saveToXMLwithXStream(vm);
 		return municipality;
 	}
@@ -87,24 +91,6 @@ public class TreeManagerService {
 		if(tree == null) {
 			throw new InvalidInputException("Tree cannot be null. Please select a tree.\n");
 		}
-		/*
-		//check if location already exists
-		Location loc = null;
-		boolean locExists = false;
-		List<Location> locations = tm.getLocations();
-		for(Location l: locations) {
-			if(l.getLatitude()==newLatitude && l.getLongitude()==newLongitude) { //location exists
-				loc = l;
-				locExists = true;
-			}
-		}
-		if(loc.hasTreeInLocation()) {
-			throw new InvalidInputException("There's already a tree in this location.\n");
-		}
-		if(!locExists){ //create new loc if it didn't already exist in system
-			loc = createLocation(newLatitude, newLongitude);
-		}
-*/
 		Location loc = getLocationByCoordinates(newLatitude, newLongitude);
 		if(loc.hasTreeInLocation()) {
 			throw new InvalidInputException("There's already a tree in this location.\n");
@@ -158,7 +144,15 @@ public class TreeManagerService {
 		}
 		return null;
 	}
-
+	public Tree getTreeById(int id) {
+		List<Tree> trees = tm.getTrees();
+		for(Tree t:trees) {
+			if(t.getId()==id) {
+				return t;
+			}
+		}
+		return null;
+	}
 	public List<Municipality> findAllMunicipalities() {
 
 		return tm.getMunicipalities();
@@ -177,7 +171,7 @@ public class TreeManagerService {
 		List<Tree> TreeList = tm.getTrees();
 		List<Tree> SpeciesList = new ArrayList<Tree>();
 		for(Tree t: TreeList) {
-			if(t.getSpecies()==species) { 
+			if(t.getSpecies().equalsIgnoreCase(species)) { 
 				SpeciesList.add(t);
 			}
 		}
@@ -267,8 +261,6 @@ public class TreeManagerService {
 		tree.setTreeMunicipality(newMunicipality);
 		PersistenceXStream.saveToXMLwithXStream(vm);
 	}
-	
-
 	public List<Tree> listTreesByMunicipality(Municipality municipality) throws InvalidInputException{
 		if(municipality==null) {
 			throw new InvalidInputException("Error: Municipality entry cannot be null!");
@@ -321,5 +313,22 @@ public class TreeManagerService {
 		}
 		return species;
 	}
+	public List<Tree.Status> getAllStatuses(){
+		List<Tree.Status> statusesList = new ArrayList<Tree.Status>();
+		Tree.Status[] statusesArray = Tree.Status.values();
+		for(int i = 0; i<statusesArray.length;i++) {
+			statusesList.add(statusesArray[i]);
+		}
+		return statusesList;
+	}
+	public List<LandUse> getAllLandUseTypes() {
+		List<Tree.LandUse> landUseTypesList = new ArrayList<Tree.LandUse>();
+		Tree.LandUse[] landUseTypesArray = Tree.LandUse.values();
+		for(int i = 0; i<landUseTypesArray.length;i++) {
+			landUseTypesList.add(landUseTypesArray[i]);
+		}
+		return landUseTypesList;
+	}
+
 
 }

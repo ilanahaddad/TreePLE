@@ -27,6 +27,7 @@ public class ReportService {
 				tm = treeM;
 			}
 		}
+		this.vm = vm;
 	}
 
 	public SustainabilityReport createReport(String reporterName, Date reportDate, Location[] perimeter) throws InvalidInputException{
@@ -158,6 +159,9 @@ public class ReportService {
 		}
 		return isTreeInLocation;
 		
+	}
+	public List<SustainabilityReport> getAllSustainabilityReports(){
+		return tm.getReports();
 	}
 	
 }
