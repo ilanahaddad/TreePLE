@@ -120,7 +120,6 @@ export default {
 
     for (i=0;i<trees.length;i++){
       this.markers.push({position: {lng: trees[i].coordinates.longitude, lat: trees[i].coordinates.latitude}})
-        });
     }
 
   },
