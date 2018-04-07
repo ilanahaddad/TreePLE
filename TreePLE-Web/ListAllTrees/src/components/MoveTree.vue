@@ -35,10 +35,11 @@
         </td>
       </tr>
     </table>
-    <button align="center">Move Tree</button>
+    <button align="center" v-on:click="moveTree(treeId, newLat, newLong)">Move Tree</button>
  </div>
 </template>
-
+<script src="./movetree.js">
+</script>
 <style>
 tr,td {
     padding: 15px;

@@ -17,27 +17,16 @@ export default {
   data () {
     return {
       treeId: '',
-      ownerName: '',
-      species: '',
-      age: '',
-			diameter: '',
-			height: '',
-			municipality: '',
-			landuse: ''
+      newLat: '',
+      newLong: ''
     }
   }, 
   methods: {
-  		editTree: function(height, diameter, age, ownerName, species, landuse, municipality){
-  			AXIOS.post('/updateTreeData/'+treeId, {}, {params: {newHeight: height, newDiameter: diameter, newAge: age, newOwnerName: ownerName, newSpecies: species, newLandUse: landuse, newMunicipality: municipality}}).then(response => {
+  		moveTree: function(treeId, newLat, newLong){
+  			AXIOS.post('/moveTree/'+treeId, {}, {params: {newLat: newLat, newlong: newLong}}).then(response => {
 					this.treeId=''
-      		this.ownerName=''
-      		this.species=''
-      		this.age=''
-      		this.diameter=''
-      		this.long2=''
-      		this.height=''
-      		this.municipality=''
-      		this.landuse=''
+      		this.newLat=''
+      		this.newLong=''
 				})
 				.catch(e =>{
 					var errorMsg= e.response.data.message
