@@ -105,7 +105,7 @@ export default {
       this.errorVersions = e;
     });
 
-    AXIOS.get('/landUses')
+    AXIOS.get('/landUseTypes')
     .then(response => {
       // JSON responses are automatically parsed.
       this.landUses = response.data
