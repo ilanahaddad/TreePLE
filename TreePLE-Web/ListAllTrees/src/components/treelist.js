@@ -195,6 +195,8 @@ export default {
           this.trees = response.data
         })
         .catch(e => {
+          var errorMsg = e.message
+          console.log(errorMsg)
           this.errorStatus = e;
         });
     },
