@@ -3,6 +3,7 @@ package ca.mcgill.ecse321.TreePLE.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import ca.mcgill.ecse321.TreePLE.model.Forecast;
 import ca.mcgill.ecse321.TreePLE.model.Location;
@@ -13,6 +14,7 @@ import ca.mcgill.ecse321.TreePLE.model.Tree;
 import ca.mcgill.ecse321.TreePLE.model.TreeManager;
 import ca.mcgill.ecse321.TreePLE.model.VersionManager;
 
+@Service
 public class ForecastService {
 	@Autowired
 	private TreeManagerService tms;

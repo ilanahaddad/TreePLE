@@ -61,6 +61,9 @@ public class ReportService {
 
 	private double calculateBiodiversityIndex(Location[] perimeter) throws InvalidInputException {
 		int numTrees = getTreesInLocation(perimeter).size();
+		if(numTrees==0) {
+			return 0;
+		}
 		int numSpecies = getNumSpecies(perimeter);
 		double biodiversityIndex = numSpecies/numTrees;
 		return biodiversityIndex;

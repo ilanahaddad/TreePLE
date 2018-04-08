@@ -16,16 +16,19 @@ import org.springframework.format.annotation.DateTimeFormat.ISO;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import ca.mcgill.ecse321.TreePLE.dto.ForecastDto;
 import ca.mcgill.ecse321.TreePLE.dto.LocationDto;
 import ca.mcgill.ecse321.TreePLE.dto.MunicipalityDto;
 import ca.mcgill.ecse321.TreePLE.dto.SurveyDto;
 import ca.mcgill.ecse321.TreePLE.dto.SustainabilityReportDto;
 import ca.mcgill.ecse321.TreePLE.dto.TreeDto;
 import ca.mcgill.ecse321.TreePLE.dto.UserDto;
+import ca.mcgill.ecse321.TreePLE.model.Forecast;
 import ca.mcgill.ecse321.TreePLE.model.Location;
 import ca.mcgill.ecse321.TreePLE.model.Municipality;
 import ca.mcgill.ecse321.TreePLE.model.Survey;
@@ -36,6 +39,7 @@ import ca.mcgill.ecse321.TreePLE.model.Tree.Status;
 import ca.mcgill.ecse321.TreePLE.model.User;
 import ca.mcgill.ecse321.TreePLE.model.User.UserType;
 import ca.mcgill.ecse321.TreePLE.model.VersionManager;
+import ca.mcgill.ecse321.TreePLE.service.ForecastService;
 import ca.mcgill.ecse321.TreePLE.service.InvalidInputException;
 import ca.mcgill.ecse321.TreePLE.service.ReportService;
 import ca.mcgill.ecse321.TreePLE.service.SurveyService;
@@ -56,6 +60,9 @@ public class TreeManagerRestController {
 	
 	@Autowired
 	private VersionManagerService versionManagerService;
+	
+	@Autowired
+	private ForecastService forecastService;
 
 	@Autowired
 	private ModelMapper modelMapper;
@@ -73,10 +80,12 @@ public class TreeManagerRestController {
 		treeDto.setLocation(createLocationDtoForTree(t));
 		return treeDto;
 	}
+	private ForecastDto convertToDto(Forecast forecast) {
+		return modelMapper.map(forecast, ForecastDto.class);
 
+	}
 	private SustainabilityReportDto convertToDto(SustainabilityReport report) {
 		return modelMapper.map(report, SustainabilityReportDto.class);
-
 	}
 	private LocationDto convertToDto(Location location) {
 		return modelMapper.map(location, LocationDto.class);
@@ -313,22 +322,23 @@ public class TreeManagerRestController {
 		List<String> versions = versionManagerService.getAllVersions();
 		return versions;
 	}
-	/*
+	
 	@PostMapping(value = { "/newForecast/{name}", "/newForecast/{name}/" })
-	public TreeDto createNewForecast(@PathVariable("name") String name,
+	public ForecastDto createNewForecast(@PathVariable("name") String name,
 			@RequestParam(name = "baseVersion") String baseVersion,
 			@RequestParam(name = "futureYear") int futureYear,
-			@RequestParam(name = "newAge") int newAge,
-			@RequestParam(name = "newOwnerName") String newOwnerName,
-			@RequestParam(name = "newSpecies") String newSpecies,
-			@RequestParam(name = "newLandUse") LandUse newLandUse,
-			@RequestParam(name = "newMunicipality") MunicipalityDto newMunDto) throws InvalidInputException{
-		Municipality newMunicipality = convertToDomainObject(newMunDto);
-		Tree tree = treeManagerService.getTreeById(treeID);
-		treeManagerService.updateTreeData(tree, newHeight, newDiameter, newAge, newOwnerName, newSpecies, newLandUse, newMunicipality);
-		return convertToDto(tree);
-	}*/
-	
-	
+			@RequestParam(name = "treesToPlant") List<TreeDto> treesToPlantDto,
+			@RequestParam(name = "treesToCutDown") List<Integer> treeIdsToCutDown) throws InvalidInputException{
+		List<Tree> treesToCutDown = new ArrayList<Tree>();
+		for(int id: treeIdsToCutDown) {
+			treesToCutDown.add(treeManagerService.getTreeById(id));
+		}
+		List<Tree> treesToPlant = new ArrayList<Tree>();
+		for(TreeDto tDto:treesToPlantDto ) {
+			treesToPlant.add(convertToDomainObject(tDto));
+		}
+		Forecast forecast = forecastService.createForecast(name, baseVersion, futureYear, treesToPlant, treesToCutDown);
+		return convertToDto(forecast);
+	}
 
 }

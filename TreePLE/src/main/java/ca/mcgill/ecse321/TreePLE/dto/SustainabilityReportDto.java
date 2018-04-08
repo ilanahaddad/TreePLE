@@ -12,6 +12,10 @@ public class SustainabilityReportDto {
 	private double carbonSequestration;
 	private List<LocationDto> reportPerimeter;
 	
+	public SustainabilityReportDto(){
+		
+	}
+	
 	public SustainabilityReportDto(String reporterName, Date reportDate, ArrayList<LocationDto> perimeter ) {
 		this.reporterName = reporterName;
 		this.reportdate = reportDate;
