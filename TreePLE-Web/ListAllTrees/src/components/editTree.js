@@ -23,9 +23,30 @@ export default {
 			diameter: '',
 			height: '',
 			municipality: '',
-			landuse: ''
+			landuse: '',
+			municipalities: [],
+     	landUses: []
     }
   }, 
+ 	created : function(){
+
+  	AXIOS.get('/municipalities')
+    .then(response => {
+      // JSON responses are automatically parsed.
+      this.municipalities = response.data
+    })
+    .catch(e => {
+      this.errorMunicipalities = e;
+    });
+    AXIOS.get('/landUseTypes')
+    .then(response => {
+      // JSON responses are automatically parsed.
+      this.landUses = response.data
+    })
+    .catch(e => {
+      this.errorLandUse = e;
+    });
+  },
   methods: {
   		editTree: function(height, diameter, age, ownerName, species, landuse, municipality){
   			AXIOS.post('/updateTreeData/'+treeId, {}, {params: {newHeight: height, newDiameter: diameter, newAge: age, newOwnerName: ownerName, newSpecies: species, newLandUse: landuse, newMunicipality: municipality}}).then(response => {

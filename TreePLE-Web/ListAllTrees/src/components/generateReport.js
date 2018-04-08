@@ -41,7 +41,7 @@ export default {
       curReport:'',
       reports: [],
       showReport: false,
-      showGenerate: true,
+      showGenerate: true
     }	
   },
   /*created : function(){
@@ -60,6 +60,7 @@ export default {
 			var rPerim= [loc1, loc2, loc3,loc4]
   	const r= new ReportDto('Diana', '2018-02-02', rPerim, '1.2', '1.3', '1.4')
   	this.curReport= r
+  	
   },*/
   methods: {
 			generateReport: function(reporterName, reporterDate, lat1, long1, lat2, long2, lat3, long3, lat4, long4) {

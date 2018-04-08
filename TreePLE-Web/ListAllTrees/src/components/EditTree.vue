@@ -60,14 +60,26 @@
         <td>
           Municipality:
         </td>
-        <td>
-          <input type="text" v-model="municipality" placeHolder="Municipality">
+        <td style="padding:0 10px 0 10px;" id="Municipality_select">
+          <select v-model="municipality">
+              <option disabled value="">Select Municipality</option>
+              <option v-for="municipality in municipalities" >
+                  <td>{{ municipality.name }}</td>
+              </option>         
+            </select>
         </td>
         <td>
           Land Use:
         </td>
-        <td>
-          <input type="text" v-model="landuse" placeHolder="Land Use">
+        <td style="padding:0 10px 0 10px;" id="LandUse_select">
+          <select v-model="selectedLandUse">
+              <option disabled value="">Select Land Use</option>
+              <option v-for="l in landUses" >
+                  <td>{{ l }}</td>
+              </option>         
+            </select>
+            <button id="status_list" @click="listByLandUse(selectedLandUse)">OK</button>
+        </td>
         </td>
       </tr>
     </table>
