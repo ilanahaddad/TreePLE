@@ -70,7 +70,7 @@ export default {
       // JSON responses are automatically parsed.
       this.trees = response.data
       for(var i=0;i<this.trees.length;i++){
-      this.markers.push({position: {lng: this.trees[i].coordinates.longitude, lat: this.trees[i].coordinates.latitude}, icon: {url:'https://imageshack.com/i/pmdeEdYFp'}})
+      this.markers.push({position: {lng: this.trees[i].coordinates.longitude, lat: this.trees[i].coordinates.latitude}, icon: {url: 'imageshack.com/i/pmdeEdYFp'}})
     }
     })
     .catch(e => {
