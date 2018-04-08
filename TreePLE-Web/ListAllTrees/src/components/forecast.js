@@ -12,15 +12,13 @@ var AXIOS = axios.create({
 })
 function TreeDto (species, height, diameter, coordinates, owner, treeMunicipality, age, land) {
   this.species = species
-  this.status = status 
   this.height = height
   this.diameter = diameter
   this.coordinates = coordinates
   this.owner = owner
   this.treeMunicipality = treeMunicipality
-  this.versions = versions
   this.land = land
-	this.age=age
+	this.age = age
 
 }
 function LocationDto(lat, long){
