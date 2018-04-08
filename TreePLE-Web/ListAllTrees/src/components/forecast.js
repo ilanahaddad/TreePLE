@@ -115,7 +115,7 @@ export default {
 					var errorMsg=e.response.data.message
 					console.log(errorMsg)
 					this.errorAddTree= errorMsg
-				}
+				})
   		},
   		deleteTree: function(treeId){
   				this.deleteTreeIdList.push(treeId)
