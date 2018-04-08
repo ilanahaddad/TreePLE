@@ -12,6 +12,11 @@ public class Forecast
   // MEMBER VARIABLES
   //------------------------
 
+  //Forecast Attributes
+  private String name;
+  private String versionCreated;
+  private int year;
+
   //Forecast Associations
   private List<VersionManager> versions;
 
@@ -19,14 +24,56 @@ public class Forecast
   // CONSTRUCTOR
   //------------------------
 
-  public Forecast()
+  public Forecast(String aName, String aVersionCreated, int aYear)
   {
+    name = aName;
+    versionCreated = aVersionCreated;
+    year = aYear;
     versions = new ArrayList<VersionManager>();
   }
 
   //------------------------
   // INTERFACE
   //------------------------
+
+  public boolean setName(String aName)
+  {
+    boolean wasSet = false;
+    name = aName;
+    wasSet = true;
+    return wasSet;
+  }
+
+  public boolean setVersionCreated(String aVersionCreated)
+  {
+    boolean wasSet = false;
+    versionCreated = aVersionCreated;
+    wasSet = true;
+    return wasSet;
+  }
+
+  public boolean setYear(int aYear)
+  {
+    boolean wasSet = false;
+    year = aYear;
+    wasSet = true;
+    return wasSet;
+  }
+
+  public String getName()
+  {
+    return name;
+  }
+
+  public String getVersionCreated()
+  {
+    return versionCreated;
+  }
+
+  public int getYear()
+  {
+    return year;
+  }
 
   public VersionManager getVersion(int index)
   {
@@ -120,4 +167,12 @@ public class Forecast
     versions.clear();
   }
 
+
+  public String toString()
+  {
+    return super.toString() + "["+
+            "name" + ":" + getName()+ "," +
+            "versionCreated" + ":" + getVersionCreated()+ "," +
+            "year" + ":" + getYear()+ "]";
+  }
 }

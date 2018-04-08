@@ -23,13 +23,12 @@ public class ReportService {
 	public ReportService(VersionManager vm) {
 		List<TreeManager> treemanagers = vm.getTreeManagers();
 		for(TreeManager treeM : treemanagers) {
-			if(treeM.getIsCurrent()) {
-				tm = treeM;
+			if(treeM.getIsSelected()) {
+				this.tm = treeM;
 			}
 		}
 		this.vm = vm;
 	}
-
 	public SustainabilityReport createReport(String reporterName, Date reportDate, Location[] perimeter) throws InvalidInputException{
 		if(reporterName == null||reportDate ==null||perimeter==null) {
 			throw new InvalidInputException("Error: Reporter name, date, or parameter is null");
@@ -62,6 +61,9 @@ public class ReportService {
 
 	private double calculateBiodiversityIndex(Location[] perimeter) throws InvalidInputException {
 		int numTrees = getTreesInLocation(perimeter).size();
+		if(numTrees==0) {
+			return 0;
+		}
 		int numSpecies = getNumSpecies(perimeter);
 		double biodiversityIndex = numSpecies/numTrees;
 		return biodiversityIndex;

@@ -5,7 +5,7 @@ package ca.mcgill.ecse321.TreePLE.model;
 import java.util.*;
 import java.sql.Date;
 
-// line 46 "../../../../../TreePLE.ump"
+// line 48 "../../../../../TreePLE.ump"
 public class TreeManager
 {
 
@@ -14,7 +14,8 @@ public class TreeManager
   //------------------------
 
   //TreeManager Attributes
-  private boolean isCurrent;
+  private boolean isEditable;
+  private boolean isSelected;
   private String version;
   private int versionYear;
 
@@ -30,9 +31,10 @@ public class TreeManager
   // CONSTRUCTOR
   //------------------------
 
-  public TreeManager(boolean aIsCurrent, String aVersion, int aVersionYear, User aUser)
+  public TreeManager(boolean aIsEditable, boolean aIsSelected, String aVersion, int aVersionYear, User aUser)
   {
-    isCurrent = aIsCurrent;
+    isEditable = aIsEditable;
+    isSelected = aIsSelected;
     version = aVersion;
     versionYear = aVersionYear;
     trees = new ArrayList<Tree>();
@@ -50,10 +52,18 @@ public class TreeManager
   // INTERFACE
   //------------------------
 
-  public boolean setIsCurrent(boolean aIsCurrent)
+  public boolean setIsEditable(boolean aIsEditable)
   {
     boolean wasSet = false;
-    isCurrent = aIsCurrent;
+    isEditable = aIsEditable;
+    wasSet = true;
+    return wasSet;
+  }
+
+  public boolean setIsSelected(boolean aIsSelected)
+  {
+    boolean wasSet = false;
+    isSelected = aIsSelected;
     wasSet = true;
     return wasSet;
   }
@@ -74,9 +84,14 @@ public class TreeManager
     return wasSet;
   }
 
-  public boolean getIsCurrent()
+  public boolean getIsEditable()
   {
-    return isCurrent;
+    return isEditable;
+  }
+
+  public boolean getIsSelected()
+  {
+    return isSelected;
   }
 
   public String getVersion()
@@ -554,7 +569,8 @@ public class TreeManager
   public String toString()
   {
     return super.toString() + "["+
-            "isCurrent" + ":" + getIsCurrent()+ "," +
+            "isEditable" + ":" + getIsEditable()+ "," +
+            "isSelected" + ":" + getIsSelected()+ "," +
             "version" + ":" + getVersion()+ "," +
             "versionYear" + ":" + getVersionYear()+ "]" + System.getProperties().getProperty("line.separator") +
             "  " + "user = "+(getUser()!=null?Integer.toHexString(System.identityHashCode(getUser())):"null");

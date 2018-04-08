@@ -39,12 +39,15 @@ class Municipality{
 }
 
 class Forecast{
-  
+  name;
+  versionCreated;
+  int year;
    
 }
 
 class TreeManager{
-  boolean isCurrent;
+  boolean isEditable;
+  boolean isSelected;
   String version;
   int versionYear;
   1 -> * Tree trees;

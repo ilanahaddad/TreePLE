@@ -31,7 +31,7 @@ public class TestPersistence {
 	public void setUp() throws Exception {
 		vm = new VersionManager();
 		user = new User();
-		tm = new TreeManager(true, "1.0", 2018, user);
+		tm=new TreeManager(true,true, "1.0", 2018,user);
 		vm.addTreeManager(tm);
 		
 		Location l1 = new Location(1.5,1.5);
@@ -88,7 +88,7 @@ public class TestPersistence {
 		assertEquals(1, tm.numberOfTrees());
 		assertEquals("Ilana", tm.getTree(0).getOwnerName());
 		assertEquals(2018, tm.getVersionYear());
-		assertEquals(true, tm.getIsCurrent());
+		assertEquals(true, tm.getIsEditable());
 		assertEquals("White Ash", tm.getTree(0).getSpecies());
 		assertEquals(height, tm.getTree(0).getHeight(),0);
 		assertEquals(diameter, tm.getTree(0).getDiameter(),0);

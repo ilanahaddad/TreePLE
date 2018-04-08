@@ -18,15 +18,15 @@
   <table align="center">
       <tr>
         <td style="padding:0 5px 0 5px;">Location Perimeter</td>
-        <td style="padding:0 5px 0 5px;">TO DO 98.333, 34.555, 98.4444, 34.5666 TO DO</td>
+        <td style="padding:0 5px 0 5px;">({{curReport.lat1}}, {{curReport.long1}}) ({{curReport.lat2}},{{curReport.long2}}) ({{curReport.lat3}}, {{curReport.lat3}}) ({{curReport.lat4}}, {{curReport.lat4}}) </td>
       </tr>
       <tr>
         <td style="padding:0 5px 0 5px;">Reporter</td>
-        <td style="padding:0 5px 0 5px;">TO DO John Doe TO DO</td>
-      </tr>
+        <td style="padding:0 5px 0 5px;">{{curReport.reporterName}}</td>
+      </tr
       <tr>
         <td style="padding:0 5px 0 5px;">Date</td>
-        <td style="padding:0 5px 0 5px;">TO DO January 1st, 2018 TO DO</td>
+        <td style="padding:0 5px 0 5px;">{{curReport.reportDate}}</td>
       </tr>
   </table>
   <br>
@@ -34,17 +34,20 @@
   <table align="center">
       <tr>
         <td style="padding:0 5px 0 5px;">Biological Index</td>
-        <td style="padding:0 5px 0 5px;">TO DO 6.0 TO DO</td>
+        <td style="padding:0 5px 0 5px;">{{curReport.biodiversityIndex}}</td>
       </tr>
       <tr>
         <td style="padding:0 5px 0 5px;">Canopy Size</td>
-        <td style="padding:0 5px 0 5px;">TO DO 5m TO DO</td>
+        <td style="padding:0 5px 0 5px;">{{curReport.canopy}}</td>
       </tr>
       <tr>
         <td style="padding:0 5px 0 5px;">Carbon Sequestration Index</td>
-        <td style="padding:0 5px 0 5px;">TO DO 4.0 TO DO</td>
+        <td style="padding:0 5px 0 5px;">{{curReport.carbonSequestration}}</td>
       </tr>
   </table>
  </div>
 </template>
-
+<!--
+<script src="./generateReport.js">
+</script>
+-->
