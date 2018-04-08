@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 import ca.mcgill.ecse321.TreePLE.dto.LocationDto;
 import ca.mcgill.ecse321.TreePLE.dto.MunicipalityDto;
 import ca.mcgill.ecse321.TreePLE.dto.SurveyDto;
+import ca.mcgill.ecse321.TreePLE.dto.SustainabilityReportDto;
 import ca.mcgill.ecse321.TreePLE.dto.TreeDto;
 import ca.mcgill.ecse321.TreePLE.dto.UserDto;
 import ca.mcgill.ecse321.TreePLE.model.Location;
@@ -30,8 +31,11 @@ import ca.mcgill.ecse321.TreePLE.model.Municipality;
 import ca.mcgill.ecse321.TreePLE.model.Survey;
 import ca.mcgill.ecse321.TreePLE.model.SustainabilityReport;
 import ca.mcgill.ecse321.TreePLE.model.Tree;
+import ca.mcgill.ecse321.TreePLE.model.Tree.LandUse;
+import ca.mcgill.ecse321.TreePLE.model.Tree.Status;
 import ca.mcgill.ecse321.TreePLE.model.User;
 import ca.mcgill.ecse321.TreePLE.model.User.UserType;
+import ca.mcgill.ecse321.TreePLE.model.VersionManager;
 import ca.mcgill.ecse321.TreePLE.service.InvalidInputException;
 import ca.mcgill.ecse321.TreePLE.service.ReportService;
 import ca.mcgill.ecse321.TreePLE.service.SurveyService;
@@ -48,24 +52,18 @@ public class TreeManagerRestController {
 	
 	@Autowired
 	private ReportService reportService;
+	
+	//@Autowired
+	//private VersionManager versionManager;
 
 	@Autowired
 	private ModelMapper modelMapper;
 
 	@RequestMapping("/")
 	public String index() {
-		return "TreePLE application root. Web-based frontend is a TODO. Use the REST API to manage events and participants.\n";
+		return "TreePLE application root.\n";
 	}
 
-
-/*
-	@PostMapping(value = { "/participants/{name}", "/participants/{name}/" })
-	public Tree createParticipant(@PathVariable("name") String name) throws InvalidInputException {
-		Participant participant = service.createParticipant(name);
-		return convertToDto(participant);
-	}
-
-*/
 	// Conversion methods (not part of the API)
 	private TreeDto convertToDto(Tree t) {
 		// In simple cases, the mapper service is convenient
@@ -75,8 +73,8 @@ public class TreeManagerRestController {
 		return treeDto;
 	}
 
-	private UserDto convertToDto(User user) {
-		return modelMapper.map(user, UserDto.class);
+	private SustainabilityReportDto convertToDto(SustainabilityReport report) {
+		return modelMapper.map(report, SustainabilityReportDto.class);
 
 	}
 	private LocationDto convertToDto(Location location) {
@@ -98,7 +96,7 @@ public class TreeManagerRestController {
 		return convertToDto(locationForTree);
 	}
 
-
+	
 	private MunicipalityDto createMunicipalityDtoForTree(Tree t) {
 		Municipality municipalityForTree = treeManagerService.getMunicipalityForTree(t);
 		return convertToDto(municipalityForTree);
@@ -108,16 +106,31 @@ public class TreeManagerRestController {
 		Tree treeForSurvey = surveyService.getTreeForSurvey(survey);
 		return convertToDto(treeForSurvey);
 	}
-	
-	
+	private Municipality convertToDomainObject(MunicipalityDto mDto) {
+		// Mapping DTO to the domain object without using the mapper
+		List<Municipality> allMunicipality = treeManagerService.findAllMunicipalities();
+		for (Municipality municipality : allMunicipality) {
+			if (municipality.getName().equals(mDto.getName())) {
+				return municipality;
+			}
+		}
+		return null;
+	}
+	private Tree convertToDomainObject(TreeDto tDto) {
+		List<Tree> allTrees = treeManagerService.findAllTrees();
+		for (Tree tree : allTrees) {
+			if (tree.getId()==tDto.getId()) {
+				return tree;
+			}
+		}
+		return null;
+	}
 	@PostMapping(value = {"/newTree/{species}", "/newTree/{species}/"})
 	public TreeDto createTree(
 			@PathVariable("species") String species,
-			//@RequestParam(name = "species") String species,
 			@RequestParam(name = "height") double height, 
-			//@RequestParam(name = "diameter") double diameter,
-			@RequestParam(name= "municipality") MunicipalityDto munDto,
 			@RequestParam(name = "diameter") double diameter,
+			@RequestParam(name= "municipality") MunicipalityDto munDto,
 			@RequestParam(name="latitude") double latitude,
 			@RequestParam(name="longitude") double longitude,
 			@RequestParam(name="owner") String ownerName,
@@ -132,9 +145,6 @@ public class TreeManagerRestController {
 	}
 	@PostMapping(value = {"/newSurvey", "/newSurvey/"})
 	public SurveyDto createSurvey(
-			//@PathVariable(name="reportDate") @DateTimeFormat(pattern= "yyyy-MM-dd") Date reportDate,
-			//@PathVariable("reportDate") @DateTimeFormat(pattern = "yyyy-MM-dd") Date reportDate,
-			
 			@RequestParam Date reportDate,
 			//@RequestParam(name = "tree") TreeDto treeDto, 
 			@RequestParam(name = "tree") int treeID, 
@@ -170,15 +180,14 @@ public class TreeManagerRestController {
 		return trees;
 	}
 	
-	//TODO: ADD DTO HERE
-	@PostMapping(value = { "/setUserType/{userType}/", "/setUserType/{userType}" })
-	public User setUserType(@PathVariable("userType") UserType userType) throws InvalidInputException{
-		User user = treeManagerService.setUserType(userType);
-		return user;
+	@PostMapping(value = { "/setUserType/{userTypeName}/", "/setUserType/{userTypeName}" })
+	public void setUserType(@PathVariable("userTypeName") String userTypeName) throws InvalidInputException{
+		UserType userType= treeManagerService.getUserTypeByName(userTypeName);
+		treeManagerService.setUserType(userType);
 	}
-	//TODO: ADD DTO HERE
-	@PostMapping(value = { "/newReport/{reporterName}/", "/setUserType/{reporterName}" })
-	public SustainabilityReport generateSustainabilityReport(@PathVariable("reporterName") String reporterName,
+
+	@PostMapping(value = { "/newReport/{reporterName}/", "/newReport/{reporterName}" })
+	public SustainabilityReportDto generateSustainabilityReport(@PathVariable("reporterName") String reporterName,
 		@RequestParam Date reportDate,
 		@RequestParam(name="lat1") double lat1,
 		@RequestParam(name="long1") double long1,
@@ -187,7 +196,7 @@ public class TreeManagerRestController {
 		@RequestParam(name="lat3") double lat3,
 		@RequestParam(name="long3") double long3,
 		@RequestParam(name="lat4") double lat4,
-		@RequestParam(name="long4") double long4) {
+		@RequestParam(name="long4") double long4) throws InvalidInputException {
 		Location location1 = treeManagerService.getLocationByCoordinates(lat1, long1);
 		Location location2 = treeManagerService.getLocationByCoordinates(lat2, long2);
 		Location location3 = treeManagerService.getLocationByCoordinates(lat3, long3);
@@ -197,37 +206,114 @@ public class TreeManagerRestController {
 		perimeter[1] = location2;
 		perimeter[2] = location3;
 		perimeter[3] = location4;
-		SustainabilityReport report = null;
-		try {
-			report = reportService.createReport(reporterName, reportDate, perimeter);
-		} catch (InvalidInputException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return report;
+		SustainabilityReport report = reportService.createReport(reporterName, reportDate, perimeter);
+		return convertToDto(report);
 	}
 	
-	
-	
-/*	DONT DELETE: NOT SURE IF WE NEED THESE: 
- * private Participant convertToDomainObject(ParticipantDto pDto) {
-		// Mapping DTO to the domain object without using the mapper
-		List<Participant> allParticipants = service.findAllParticipants();
-		for (Participant participant : allParticipants) {
-			if (participant.getName().equals(pDto.getName())) {
-				return participant;
-			}
-		}
-		return null;
+	@GetMapping(value = { "/species/", "/species" })
+	public List<String> findAllSpecies() {
+		return treeManagerService.getAllSpecies();
 	}
+	//listTreeByMunicipality as a RESTful service in class TreeManagerRestController.java 
+	@GetMapping(value = { "/treesByMunicipality/{municipality}", "/treesByMunicipality/{municipality}/" })
+	public List<TreeDto> listTreesByMunicipality(@PathVariable("municipality") MunicipalityDto mDto) throws InvalidInputException{
+		Municipality mun = convertToDomainObject(mDto);
+		List<Tree> TreebyMunList = treeManagerService.listTreesByMunicipality(mun);
+		List<TreeDto> TreebyMunListDto = new ArrayList<TreeDto>();
+		for(Tree t: TreebyMunList) {
+			TreebyMunListDto.add(convertToDto(t));	
+		}
+		return TreebyMunListDto;
 
-	private RegistrationDto convertToDto(Registration r, Participant p, Event e) {
-		// Now using the mapper would not help too much
-		// RegistrationDto registrationDto = modelMapper.map(r, RegistrationDto.class);
-		// Manual conversion instead
-		EventDto eDto = convertToDto(e);
-		ParticipantDto pDto = convertToDto(p);
-		return new RegistrationDto(pDto, eDto);
+	}
+	@GetMapping(value = { "/treesByStatus/{status}", "/treesByStatus/{status}/" })
+	public List<TreeDto> listTreesByStatus(@PathVariable("status") Status status) throws InvalidInputException{
+		List<Tree> TreesByStatusList = treeManagerService.listTreesByStatus(status);
+		List<TreeDto> TreesByStatusListDto = new ArrayList<TreeDto>();
+		for(Tree t: TreesByStatusList) {
+			TreesByStatusListDto.add(convertToDto(t));
+		}
+		return TreesByStatusListDto;
+
+	}
+	@GetMapping(value = { "/treesBySpecies/{species}", "/treesBySpecies/{species}/" })
+	public List<TreeDto> listTreesBySpecies(@PathVariable("species") String species) throws InvalidInputException{
+		List<Tree> TreesBySpeciesList = treeManagerService.listTreesBySpecies(species);
+		List<TreeDto> TreesBySpeciesListDto = new ArrayList<TreeDto>();
+		for(Tree t: TreesBySpeciesList) {
+			TreesBySpeciesListDto.add(convertToDto(t));
+		}
+		return TreesBySpeciesListDto;
+	}
+	@GetMapping(value = { "/treesByLandUse/{land}", "/treesByLandUse/{land}/" })
+	public List<TreeDto> listTreesByLandUse(@PathVariable("land") LandUse landUse) throws InvalidInputException{
+		List<Tree> TreesByLandUseList = treeManagerService.listTreesByLandUse(landUse);
+		List<TreeDto> TreesByLandUseListDto = new ArrayList<TreeDto>();
+		for(Tree t: TreesByLandUseList) {
+			TreesByLandUseListDto.add(convertToDto(t));
+		}
+		return TreesByLandUseListDto;
+
+	}
+	@PostMapping(value = { "/moveTree/{id}", "/moveTree/{id}/" })
+	public void moveTree(@PathVariable("id") int treeID,
+			//@RequestParam(name = "tree") int treeID, 
+			@RequestParam(name = "latitude") double newLat,
+			@RequestParam(name = "longitude") double newLong) throws InvalidInputException{
+		Tree tree = treeManagerService.getTreeById(treeID);
+		treeManagerService.moveTree(tree, newLat, newLong);
+	}
+	@PostMapping(value = { "/updateTreeData/{id}", "/updateTreeData/{id}/" })
+	public TreeDto updateTreeData(@PathVariable("id") int treeID,
+			//@RequestParam(name = "tree") int treeID, 
+			@RequestParam(name = "newHeight") double newHeight,
+			@RequestParam(name = "newDiameter") double newDiameter,
+			@RequestParam(name = "newAge") int newAge,
+			@RequestParam(name = "newOwnerName") String newOwnerName,
+			@RequestParam(name = "newSpecies") String newSpecies,
+			@RequestParam(name = "newLandUse") LandUse newLandUse,
+			@RequestParam(name = "newMunicipality") MunicipalityDto newMunDto) throws InvalidInputException{
+		Municipality newMunicipality = convertToDomainObject(newMunDto);
+		Tree tree = treeManagerService.getTreeById(treeID);
+		treeManagerService.updateTreeData(tree, newHeight, newDiameter, newAge, newOwnerName, newSpecies, newLandUse, newMunicipality);
+		return convertToDto(tree);
+	}
+	@GetMapping(value = { "/reports/", "/reports" })
+	public List<SustainabilityReportDto> getAllSustainabilityReports() {
+		List<SustainabilityReport> reportsList = reportService.getAllSustainabilityReports();
+		List<SustainabilityReportDto> reportsListDto = new ArrayList<SustainabilityReportDto>();
+		for(SustainabilityReport r: reportsList) {
+			reportsListDto.add(convertToDto(r));
+		}
+		return reportsListDto;
+	}
+	@GetMapping(value = { "/statuses/", "/statuses" })
+	public List<Tree.Status> getStatuses() {
+		List<Tree.Status> statuses = treeManagerService.getAllStatuses();
+		return statuses;
+	}
+	@GetMapping(value = { "/landUseTypes/", "/landUseTypes" })
+	public List<Tree.LandUse> getLandUseTypes() {
+		List<Tree.LandUse> statuses = treeManagerService.getAllLandUseTypes();
+		return statuses;
+	}
+	@GetMapping(value = { "/surveys/", "/surveys" })
+	public List<SurveyDto> getSurveys(){
+		List<Survey> surveysList = surveyService.getAllSurveys();
+		List<SurveyDto> surveysListDto = new ArrayList<SurveyDto>();
+		for(Survey s: surveysList) {
+			surveysListDto.add(convertToDto(s));
+		}
+		return surveysListDto;
+	}
+	/*
+	@GetMapping(value = { "/versions/", "/versions" })
+	public List<String> getAllSystemVersions(){
+		List<String> versions = null; //TODO:
+				//versionManagerService.getAllSystemVersions();
+		return versions;
 	}*/
+	
+	
 
 }

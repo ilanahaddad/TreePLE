@@ -27,9 +27,30 @@ export default {
   data () {
     return {
       trees: [],
+      versions: [],
+      municipalities: [],
+      statuses: [],
+      species: [],
+      landUses: [],
       newTree: '',
+      errorVersions: '',
       errorTree: '',
-      response: []
+      errorSpecies: '',
+      errorStatus: '',
+      errorMunicipalities:'',
+      errorLandUse: '',
+      response: [],
+      selectedMunicipality: '',
+      selectedVersion: '',
+      selectedSpecies: '',
+      selectedStatus: '',
+      selectedLandUse: '',
+      center: {lat: 45.5048, lng: -73.5772},
+      markers: [{
+        position: {lat: 45.50, lng: -73.57}
+      }, {
+        position: {lat: 45.51, lng: -73.58}
+      }]
     }
   },
   created: function () {
@@ -42,14 +63,139 @@ export default {
     .catch(e => {
       this.errorTree = e;
     });
-    // Test data
-    //const t1 = new TreeDto('Pine', '4', '0.5', 'coordinates', 'Thomas', 'Outremont', '1', 'Park', 'Planted', '112')
+     //Test data
+    //const t1 = new TreeDto('Pine', '4', '0.5', 'coordinates', 'Thomas', 'Outremont', '1', 'Park', 'Planted', '100')
     //const t2 = new TreeDto('Cedar', '4', '0.5', 'coordinates', 'Thomas', 'Outremont', '1', 'Park', 'Planted', '112')
     // Sample initial content
     //this.trees = [t1, t2]
+
+    AXIOS.get('/municipalities')
+    .then(response => {
+      // JSON responses are automatically parsed.
+      this.municipalities = response.data
+    })
+    .catch(e => {
+      this.errorMunicipalities = e;
+    });
+
+    AXIOS.get('/species')
+    .then(response => {
+      // JSON responses are automatically parsed.
+      this.species = response.data
+    })
+    .catch(e => {
+      this.errorSpecies = e;
+    });
+
+    AXIOS.get('/statuses')
+    .then(response => {
+      // JSON responses are automatically parsed.
+      this.statuses = response.data
+    })
+    .catch(e => {
+      this.errorSpecies = e;
+    });
+
+    AXIOS.get('/versions')
+    .then(response => {
+      // JSON responses are automatically parsed.
+      this.versions = response.data
+    })
+    .catch(e => {
+      this.errorVersions = e;
+    });
+
+    AXIOS.get('/landUseTypes')
+    .then(response => {
+      // JSON responses are automatically parsed.
+      this.landUses = response.data
+    })
+    .catch(e => {
+      this.errorLandUse = e;
+    });
+
   },
 
-  //methods: {
+  methods: {
+		showTreeData: function(event) {
+        var panel = event.target.nextElementSibling;
+        if (panel.style.display === "block") {
+            panel.style.display = "none";
+        } else {
+            panel.style.display = "block";
+        }
+     },
+
+    listAll: function(){
+      AXIOS.get('/trees/')
+      .then(response => {
+      // JSON responses are automatically parsed.
+       this.trees = response.data
+       })
+    .catch(e => {
+      this.errorTree = e;
+    });
+    },
+
+    listByMunicipality: function(selectedMunicipality){
+      AXIOS.get('/treesByMunicipality/' + selectedMunicipality)
+      .then(response => {
+      // JSON responses are automatically parsed.
+       this.trees = response.data
+       //this.trees = []
+       })
+    .catch(e => {
+      this.errorMunicipalities = e;
+    });
+    },
+
+    listBySpecies: function(selectedSpecies){
+      //const t1 = new TreeDto('Pine', '4', '0.5', 'coordinates', 'Thomas', 'Outremont', '1', 'Park', 'Planted', '100')
+    
+      AXIOS.get('/treesBySpecies/' + selectedSpecies)
+      .then(response => {
+      //JSON responses are automatically parsed.
+       this.trees = response.data
+      //this.trees = [t1]
+       })
+    .catch(e => {
+      this.errorSpecies = e;
+    });
+    },
+
+    listByStatus: function(selectedStatus){
+      AXIOS.get('/treesByStatus/' + selectedStatus)
+      .then(response => {
+      // JSON responses are automatically parsed.
+       this.trees = response.data
+       })
+    .catch(e => {
+      this.errorStatus = e;
+    });
+    },
+
+    listByLandUse: function(selectedLandUse){
+      AXIOS.get('/treesByLandUse/' + selectedLandUse)
+      .then(response => {
+      // JSON responses are automatically parsed.
+       this.trees = response.data
+       })
+    .catch(e => {
+      this.errorLandUse = e;
+    });
+    },
+
+    updateVersion: function(VersionNumber){
+      AXIOS.get('/treesByLandUse/' + selectedLandUse)
+      .then(response => {
+      // JSON responses are automatically parsed.
+       this.trees = response.data
+       })
+    .catch(e => {
+      this.errorLandUse = e;
+    });
+    }
+
     //createTree: function (treeId, treeSpecies, treeLongitude, treeLatitude, treeStatus) {
       //AXIOS.post(`/trees/`+treeId, {}, {})
       //.then(response => {
@@ -69,7 +215,7 @@ export default {
       // Reset the name field for new participants
       //this.newTree = ''
     //}
-  //}
+  },
 /*
   data () {
     return {
@@ -81,8 +227,11 @@ export default {
       }]
     }
   }*/
+
+  
+
 }
-/*
+
 import * as VueGoogleMaps from 'vue2-google-maps'
 import Vue from 'vue'
 
@@ -92,6 +241,6 @@ Vue.use(VueGoogleMaps, {
     v: '1.0'
     // libraries: 'places', //// If you need to use place input
   }
-})*/
+})
 
 

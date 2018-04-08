@@ -67,8 +67,8 @@ association{
    
   * Forecast -> 0..* VersionManager versions;
   
-  0..* Forecast -- 1..* Municipality municipalities;
-  0..*Forecast -> 4 Location forecastPerimeter;
+ // 0..* Forecast -- 1..* Municipality municipalities;
+ // 0..*Forecast -> 4 Location forecastPerimeter;
   
   1 Municipality treeMunicipality -- 0..* Tree listOfTrees; 
   0..* SustainabilityReport -> 4 Location reportPerimeter;

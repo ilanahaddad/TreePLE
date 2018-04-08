@@ -15,12 +15,18 @@ import ca.mcgill.ecse321.TreePLE.model.Municipality;
 import ca.mcgill.ecse321.TreePLE.model.Tree;
 import ca.mcgill.ecse321.TreePLE.model.TreeManager;
 import ca.mcgill.ecse321.TreePLE.model.User;
+import ca.mcgill.ecse321.TreePLE.model.VersionManager;
+import ca.mcgill.ecse321.TreePLE.model.User.UserType;
 import ca.mcgill.ecse321.TreePLE.persistence.PersistenceXStream;
 import ca.mcgill.ecse321.TreePLE.service.InvalidInputException;
 import ca.mcgill.ecse321.TreePLE.service.ReportService;
 
 public class TestGetNumSpecies {
+	private VersionManager vm;
 	private TreeManager tm;
+	private User user;
+	private ReportService rs;
+	
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
 		PersistenceXStream.initializeModelManager("output" + File.separator + "data.xml");
@@ -32,8 +38,12 @@ public class TestGetNumSpecies {
 
 	@Before
 	public void setUp() throws Exception {
-		User user= new User();
-		tm=new TreeManager(true, "1.0", 2018, user);
+		vm = new VersionManager();
+		user = new User();
+		tm=new TreeManager(true, "1.0", 2018,user);
+		user.setUsertype(UserType.Professional);
+		vm.addTreeManager(tm);
+		rs = new ReportService(vm);
 		
 		String species1 = "White oak";
 		String species2 = "Giant sequoia ";
@@ -60,12 +70,11 @@ public class TestGetNumSpecies {
 
 	@After
 	public void tearDown() throws Exception {
-		tm.delete();
+		vm.delete();
 	}
 
 	@Test
 	public void testNull() {
-		ReportService rs = new ReportService(tm);
 		String error=null;
 
 		Location[] perimeter1 = null;
@@ -89,7 +98,7 @@ public class TestGetNumSpecies {
 	
 	@Test
 	public void testNumSpecies() throws InvalidInputException {
-		ReportService rs = new ReportService(tm);
+
 		Location[] perimeter1 = {new Location(0,0), new Location(0,2.5), 
 				new Location(2.5,2.5), new Location(2.5,0)};
 		assertEquals(1, rs.getNumSpecies(perimeter1));

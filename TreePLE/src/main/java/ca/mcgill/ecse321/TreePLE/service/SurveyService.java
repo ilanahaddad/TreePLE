@@ -10,28 +10,45 @@ import ca.mcgill.ecse321.TreePLE.model.Tree.Status;
 import ca.mcgill.ecse321.TreePLE.model.Tree;
 import ca.mcgill.ecse321.TreePLE.model.TreeManager;
 import ca.mcgill.ecse321.TreePLE.model.User;
+import ca.mcgill.ecse321.TreePLE.model.VersionManager;
 import ca.mcgill.ecse321.TreePLE.model.User.UserType;
 import ca.mcgill.ecse321.TreePLE.persistence.PersistenceXStream;
 
 @Service
 public class SurveyService {
 	private TreeManager tm;
+	private VersionManager vm;
 
-	public SurveyService(TreeManager tm) {
-		this.tm=tm;
+	public SurveyService(VersionManager vm) {
+		List<TreeManager> treemanagers = vm.getTreeManagers();
+		for(TreeManager treeM : treemanagers) {
+			if(treeM.getIsCurrent()) {
+				tm = treeM;
+			}
+		}
+		this.vm = vm;
 	}
-	
+
 	public Survey createSurvey(Date reportDate, Tree tree, String surveyor, Status newTreeStatus) throws InvalidInputException{
 		//Check if any of the fields are null, and throw corresponding exception
-		if(reportDate == null||tree ==null||surveyor==null||newTreeStatus==null) {
+		/*if(reportDate == null||tree ==null||surveyor==null||newTreeStatus==null) {
 			throw new InvalidInputException("Error: Report Date, tree, surveyor, or status is null");
+		}*/
+		if(reportDate == null) {
+			throw new InvalidInputException("Error: Report date cannot be null.\n");
 		}
-
+		if(tree == null) {
+			throw new InvalidInputException("Error: Tree cannot be null.\n");
+		}
+		if(surveyor == null) {
+			throw new InvalidInputException("Error: Surveyor name cannot be null.\n");
+		}
+		if(newTreeStatus == null) {
+			throw new InvalidInputException("Error: New Tree Status cannot be null.\n");
+		}
 		if(surveyor=="") {
 			throw new InvalidInputException("Error: Surveyor name cannot be empty");
 		}
-		
-		//TODO: did we decide to change this?
 		//check if status is already the one requested
 		if(newTreeStatus == tree.getStatus()) { 
 			throw new InvalidInputException("Error: This tree already has this status");
@@ -44,7 +61,7 @@ public class SurveyService {
 		tree.setStatus(newTreeStatus);
 		tm.addSurvey(s);
 
-		PersistenceXStream.saveToXMLwithXStream(tm);
+		PersistenceXStream.saveToXMLwithXStream(vm);
 		return s;
 	}
 	public Tree getTreeForSurvey(Survey survey) {
@@ -77,6 +94,11 @@ public class SurveyService {
 				throw new InvalidInputException("Error: Survey does not exist");
 			}
 		}
+		PersistenceXStream.saveToXMLwithXStream(vm);
 	}
+	public List<Survey> getAllSurveys(){
+		return tm.getSurveys();
+	}
+	
 
 }

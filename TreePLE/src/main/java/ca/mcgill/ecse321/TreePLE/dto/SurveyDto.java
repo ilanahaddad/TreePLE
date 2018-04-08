@@ -29,7 +29,7 @@ public class SurveyDto {
 	{
 		return lastReport;
 	}
-	public UserDto getSurveyer()
+	public UserDto getSurveyor()
 	{
 		return surveyor;
 	}

@@ -6,6 +6,8 @@ import org.springframework.stereotype.Service;
 
 import ca.mcgill.ecse321.TreePLE.model.Location;
 import ca.mcgill.ecse321.TreePLE.model.Municipality;
+import ca.mcgill.ecse321.TreePLE.model.Survey;
+import ca.mcgill.ecse321.TreePLE.model.SustainabilityReport;
 import ca.mcgill.ecse321.TreePLE.model.Tree;
 
 import ca.mcgill.ecse321.TreePLE.model.Tree.LandUse;
@@ -15,14 +17,22 @@ import ca.mcgill.ecse321.TreePLE.model.Tree.Status;
 import ca.mcgill.ecse321.TreePLE.model.TreeManager;
 import ca.mcgill.ecse321.TreePLE.model.User;
 import ca.mcgill.ecse321.TreePLE.model.User.UserType;
+import ca.mcgill.ecse321.TreePLE.model.VersionManager;
 import ca.mcgill.ecse321.TreePLE.persistence.PersistenceXStream;
 
 @Service
 public class TreeManagerService {
 	private TreeManager tm;
+	private VersionManager vm;
 
-	public TreeManagerService(TreeManager tm) {
-		this.tm=tm;
+	public TreeManagerService(VersionManager vm) {
+		List<TreeManager> treemanagers = vm.getTreeManagers();
+		for(TreeManager treeM : treemanagers) {
+			if(treeM.getIsCurrent()) {
+				tm = treeM;
+			}
+		}
+		this.vm = vm;
 	}
 	public Tree createTree(String ownerName, String species,  double height, double diameter, 
 			int age, Location location, 
@@ -42,16 +52,13 @@ public class TreeManagerService {
 		if(location.hasTreeInLocation()) {
 			throw new InvalidInputException("Error: There is already a tree in this location!");
 		}
-		//TODO: if owner is a local resident, check tree location is contained in owner's perimeter
-
-
 		Tree t = new Tree(ownerName, species, height, diameter,age, location, municipality);
 		t.setLand(land);
 
 		location.setTreeInLocation(t);
 		tm.addTree(t);
 
-		PersistenceXStream.saveToXMLwithXStream(tm);
+		PersistenceXStream.saveToXMLwithXStream(vm);
 		return t;
 	}
 	public Municipality createMunicipality(String name) throws InvalidInputException {
@@ -69,12 +76,57 @@ public class TreeManagerService {
 		}
 		Municipality municipality = new Municipality(name);
 		tm.addMunicipality(municipality);
-		PersistenceXStream.saveToXMLwithXStream(tm);
+		//PersistenceXStream.saveToXMLwithXStream(municipality);
+		PersistenceXStream.saveToXMLwithXStream(vm);
 		return municipality;
 	}
-
-
-
+	/**
+	 * This feature is for users to move a tree. They choose a tree and input its new latitude and longitude 
+	 * coordinates and if all inputs our correct, the tree will have this new location.
+	 * @param tree
+	 * @param newLatitude
+	 * @param newLongitude
+	 */
+	public void moveTree(Tree tree, double newLatitude, double newLongitude) throws InvalidInputException{
+		if(tree == null) {
+			throw new InvalidInputException("Tree cannot be null. Please select a tree.\n");
+		}
+		Location loc = getLocationByCoordinates(newLatitude, newLongitude);
+		if(loc.hasTreeInLocation()) {
+			throw new InvalidInputException("There's already a tree in this location.\n");
+		}
+		Location oldLoc = tree.getCoordinates();
+		//Erase the tree from the old location
+		oldLoc.setTreeInLocation(null);
+		//And update the location of the tree
+		tree.setCoordinates(loc);
+		PersistenceXStream.saveToXMLwithXStream(vm);
+		
+	}
+	public Location createLocation(double latitude, double longitude) throws InvalidInputException{
+		if(latitude < -90 || latitude >90) {
+			throw new InvalidInputException("Latitude must be in range [-90,90].\n");
+		}
+		if(longitude < -180 || longitude >180) {
+			throw new InvalidInputException("Longitude must be in range [-180,180].\n");
+		}
+		Location location = new Location(latitude, longitude);
+		tm.addLocation(location);
+		PersistenceXStream.saveToXMLwithXStream(vm);
+		return location;
+	}
+	public Location getLocationByCoordinates(double lati, double longi) throws InvalidInputException {
+		//check if location already exists
+		List<Location> locations = tm.getLocations();
+		for(Location l: locations) {
+			if(l.getLatitude()==lati && l.getLongitude()==longi) { //location exists
+				return l;
+			}
+		}
+		//return new one if existing one wasnt found in for loop
+		Location location = createLocation(lati,longi);
+		return location;
+	}
 	public Location getLocationForTree(Tree t) {
 		return t.getCoordinates();
 	}
@@ -92,21 +144,15 @@ public class TreeManagerService {
 		}
 		return null;
 	}
-	public Location getLocationByCoordinates(double lati, double longi) {
-		//check if location already exists
-		List<Location> locations = tm.getLocations();
-		for(Location l: locations) {
-			if(l.getLatitude()==lati && l.getLongitude()==longi) { //location exists
-				return l;
+	public Tree getTreeById(int id) {
+		List<Tree> trees = tm.getTrees();
+		for(Tree t:trees) {
+			if(t.getId()==id) {
+				return t;
 			}
 		}
-		Location location=new Location(lati,longi); //return new one if existing one wasnt found in for loop
-		tm.addLocation(location);
-		return location;
-
+		return null;
 	}
-
-
 	public List<Municipality> findAllMunicipalities() {
 
 		return tm.getMunicipalities();
@@ -114,9 +160,6 @@ public class TreeManagerService {
 	public List<Tree> findAllTrees() {
 		return tm.getTrees();
 	}
-	
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	//Thomas Methods
 	
 	public List<Tree> listTreesBySpecies(String species) throws InvalidInputException{
 		if(species==null) {
@@ -128,7 +171,7 @@ public class TreeManagerService {
 		List<Tree> TreeList = tm.getTrees();
 		List<Tree> SpeciesList = new ArrayList<Tree>();
 		for(Tree t: TreeList) {
-			if(t.getSpecies()==species) { 
+			if(t.getSpecies().equalsIgnoreCase(species)) { 
 				SpeciesList.add(t);
 			}
 		}
@@ -154,16 +197,14 @@ public class TreeManagerService {
 		}
 		return LandUseList;
 	}	
-	//End of Thomas Methods
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		
-	
+
 	public User setUserType(UserType userType) throws InvalidInputException {
 		if(userType==null) {
 			throw new InvalidInputException("Error: UserType cannot be null!");
 		}
 		User user = tm.getUser();
 		user.setUsertype(userType); 
+		PersistenceXStream.saveToXMLwithXStream(vm);
 		return user;
 	}
 
@@ -208,7 +249,6 @@ public class TreeManagerService {
 		for(int i=0; i<newSpecies.length();i++) {
 			char c = newSpecies.charAt(i);
 			if((c >32 && c<65) ||(c>90 && c<97) || c>122 ) {
-				System.out.println(c);
 				throw new InvalidInputException("New species name cannot contain numbers or any special character.\n");
 			}
 		}
@@ -219,37 +259,8 @@ public class TreeManagerService {
 		tree.setSpecies(newSpecies);
 		tree.setLand(newLandUse);
 		tree.setTreeMunicipality(newMunicipality);
+		PersistenceXStream.saveToXMLwithXStream(vm);
 	}
-	/**
-	 * This feature is for users to move a tree. They choose a tree and input its new latitude and longitude 
-	 * coordinates and if all inputs our correct, the tree will have this new location.
-	 * @param tree
-	 * @param newLatitude
-	 * @param newLongitude
-	 */
-	public void moveTree(Tree tree, double newLatitude, double newLongitude) throws InvalidInputException{
-		if(tree == null) {
-			throw new InvalidInputException("Tree cannot be null. Please select a tree.\n");
-		}
-		if(newLatitude < -90 || newLatitude >90) {
-			throw new InvalidInputException("New latitude must be in range [-90,90].\n");
-		}
-		if(newLongitude < -180 || newLongitude >180) {
-			throw new InvalidInputException("New longitude must be in range [-180,180].\n");
-		}
-		Location newLoc = new Location(newLatitude, newLongitude);
-		if(newLoc.hasTreeInLocation()) {
-			throw new InvalidInputException("There's already a tree in this location");
-		}
-		else {
-			Location oldLoc = tree.getCoordinates();
-			//Erase the tree from the old location
-			oldLoc.setTreeInLocation(null);
-			//And update the location of the tree
-			tree.setCoordinates(newLoc);
-		}
-	}
-
 	public List<Tree> listTreesByMunicipality(Municipality municipality) throws InvalidInputException{
 		if(municipality==null) {
 			throw new InvalidInputException("Error: Municipality entry cannot be null!");
@@ -284,5 +295,40 @@ public class TreeManagerService {
 		}
 		return StatusList;
 	}
+	public UserType getUserTypeByName(String userTypeName) {
+		UserType[] userTypes = UserType.values();
+		for(UserType ut: userTypes) {
+			if(userTypeName.equals(ut.toString())) {
+				return ut;
+			}
+		}
+		return null;
+	}
+	public List<String> getAllSpecies(){
+		List<String> species = new ArrayList<String>();
+		for(Tree tree: tm.getTrees()) {
+			if(!species.contains(tree.getSpecies().toLowerCase())) {
+				species.add(tree.getSpecies().toLowerCase());
+			}
+		}
+		return species;
+	}
+	public List<Tree.Status> getAllStatuses(){
+		List<Tree.Status> statusesList = new ArrayList<Tree.Status>();
+		Tree.Status[] statusesArray = Tree.Status.values();
+		for(int i = 0; i<statusesArray.length;i++) {
+			statusesList.add(statusesArray[i]);
+		}
+		return statusesList;
+	}
+	public List<LandUse> getAllLandUseTypes() {
+		List<Tree.LandUse> landUseTypesList = new ArrayList<Tree.LandUse>();
+		Tree.LandUse[] landUseTypesArray = Tree.LandUse.values();
+		for(int i = 0; i<landUseTypesArray.length;i++) {
+			landUseTypesList.add(landUseTypesArray[i]);
+		}
+		return landUseTypesList;
+	}
+
 
 }

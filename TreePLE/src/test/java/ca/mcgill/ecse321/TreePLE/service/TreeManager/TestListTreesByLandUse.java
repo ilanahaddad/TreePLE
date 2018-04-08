@@ -1,7 +1,7 @@
 package ca.mcgill.ecse321.TreePLE.service.TreeManager;
 
 import static org.junit.Assert.assertEquals;
-
+import static org.junit.Assert.fail;
 
 import java.util.List;
 
@@ -16,50 +16,62 @@ import ca.mcgill.ecse321.TreePLE.model.Location;
 import ca.mcgill.ecse321.TreePLE.model.Municipality;
 import ca.mcgill.ecse321.TreePLE.model.Tree;
 import ca.mcgill.ecse321.TreePLE.model.Tree.LandUse;
+import ca.mcgill.ecse321.TreePLE.persistence.PersistenceXStream;
 import ca.mcgill.ecse321.TreePLE.service.InvalidInputException;
 import ca.mcgill.ecse321.TreePLE.service.TreeManagerService;
 import ca.mcgill.ecse321.TreePLE.model.TreeManager;
 import ca.mcgill.ecse321.TreePLE.model.User;
+import ca.mcgill.ecse321.TreePLE.model.VersionManager;
 
 
 public class TestListTreesByLandUse {
-
+	private VersionManager vm;
+	private TreeManagerService tmc;
 	private TreeManager tm;
-	String species = "White Ash";
-	Location treeLoc = new Location(1.5,1.5);
-	Municipality m = new Municipality("Outremont");
-	Tree.LandUse land = Tree.LandUse.Residential;
-	User user;
+	private User user;
+	private String species;
+	private Location treeLoc;
+	private Municipality m;
+	private Tree.LandUse land;
+
 
 	@Before
 	public void setUp() throws Exception {
+		vm = new VersionManager();
 		user = new User();
 		tm=new TreeManager(true, "1.0", 2018,user);	
+		species = "White Ash";
+		treeLoc = new Location(1.5,1.5);
+		m = new Municipality("Outremont");
+		land = Tree.LandUse.Residential;
+		vm.addTreeManager(tm);
+		tmc = new TreeManagerService(vm);
 	}
 
 	@After
 	public void tearDown() throws Exception {
-		tm.delete();
+		vm.delete();
 	}
 	
 	@Test
 	public void testListTreesbyLandUse() { //Add a tree and test that ListTreesbySpecies method can find it
-		TreeManagerService tmc = new TreeManagerService(tm);
 		Tree.LandUse land = Tree.LandUse.Residential;
-		String error = "false";
+		String error = null;
 		List<Tree> trees = null;
 		
 		try {
 			tmc.createTree("Thomas", species, 1, 0.2,3, treeLoc, m, land );
 		} catch (InvalidInputException e) {
-			assertEquals(error, "Was not able to create tree");
+			e.printStackTrace();
 		}
-		
+		assertEquals(1, tm.numberOfTrees());
 		try {
 			trees = tmc.listTreesByLandUse(land);
 		} catch (InvalidInputException e) {
-			assertEquals(error, "Was not able to list trees by land use");
+			error = e.getMessage();
+			
 		}
+		assertEquals(null, error);
 		assertEquals(1, trees.size());
 		Tree currentTree = trees.get(0);
 		assertEquals("Thomas", currentTree.getOwnerName());
@@ -74,7 +86,6 @@ public class TestListTreesByLandUse {
 	
 	@Test
 	public void testlistTreesByLandUseNull() { //Tests error handling of ListTreesbySpecies method for empty input
-		TreeManagerService tmc = new TreeManagerService(tm);
 		Tree.LandUse land = null;
 		String error = "false";
 		
@@ -95,7 +106,6 @@ public class TestListTreesByLandUse {
 
 	@Test
 	public void testlistTreesByLandUseNoLandUse() { //Tests error handling of ListTreesbySpecies method when no trees are found
-		TreeManagerService tmc = new TreeManagerService(tm);
 		Tree.LandUse land = Tree.LandUse.NonResidential;
 		String error = "false";
 		

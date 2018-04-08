@@ -15,6 +15,7 @@ import ca.mcgill.ecse321.TreePLE.model.Municipality;
 import ca.mcgill.ecse321.TreePLE.model.Tree;
 import ca.mcgill.ecse321.TreePLE.model.TreeManager;
 import ca.mcgill.ecse321.TreePLE.model.User;
+import ca.mcgill.ecse321.TreePLE.model.VersionManager;
 import ca.mcgill.ecse321.TreePLE.model.Tree.LandUse;
 import ca.mcgill.ecse321.TreePLE.model.User.UserType;
 import ca.mcgill.ecse321.TreePLE.persistence.PersistenceXStream;
@@ -22,6 +23,7 @@ import ca.mcgill.ecse321.TreePLE.service.InvalidInputException;
 import ca.mcgill.ecse321.TreePLE.service.TreeManagerService;
 
 public class TestMoveTree {
+	private VersionManager vm;
 	private TreeManager tm;
 	private User user;
 	private TreeManagerService tms;
@@ -34,23 +36,27 @@ public class TestMoveTree {
 
 	@Before
 	public void setUp() throws Exception {
+		vm = new VersionManager();
 		user = new User();
 		tm = new TreeManager(true, "1.0", 2018, user);
 		user.setUsertype(UserType.Professional);
 		Location treeLoc = new Location(3,5);
+		tm.addLocation(treeLoc);
 		Municipality treeMun = new Municipality("Outremont");
 		double height = 10;
 		double diameter = 15;
 		int age = 3;
-		tms = new TreeManagerService(tm);
 		tree = new Tree("Ben", "American Elm",height, diameter, age, treeLoc, treeMun);
 		tree.setLand(LandUse.Residential);
 		tm.addTree(tree);
+		
+		vm.addTreeManager(tm);
+		tms = new TreeManagerService(vm);
 	}
 
 	@After
 	public void tearDown() throws Exception {
-		tm.delete();
+		vm.delete();
 	}
 	
 	@AfterClass
@@ -76,6 +82,35 @@ public class TestMoveTree {
 		//check no change in memory:
 		assertEquals(1, tm.numberOfTrees());
 	}
+	@Test
+	public void testErrorLocationAlreadyOccupiedByTree() {
+		assertEquals(1, tm.numberOfTrees());
+		assertEquals(3, tm.getTree(0).getCoordinates().getLatitude(),0);
+		assertEquals(5, tm.getTree(0).getCoordinates().getLongitude(),0);
+		String error = null;
+		Location tree2Loc = new Location(30,50);
+		Municipality treeMun = new Municipality("Outremont");
+		double height = 11;
+		double diameter = 16;
+		int age = 4;
+		Tree tree2 = new Tree("Jack", "American Elm",height, diameter, age, tree2Loc, treeMun);
+		tree.setLand(LandUse.Residential);
+		//tm.addTree(tree2);
+		try { //try to move tree2 at location tree1 is in 
+			tms.moveTree(tree2, 3,5);
+		} catch (InvalidInputException e) {
+			error = e.getMessage();
+		}
+		//check it throws the correct error
+		assertEquals("There's already a tree in this location.\n", error);
+		//check no change in memory:
+		assertEquals(1, tm.numberOfTrees());
+	}
+	@Test
+	public void testMoveTreeToExistingLocation() {
+		
+	}
+	/*
 	@Test 
 	public void testInvalidLatitudes() {
 		assertEquals(1, tm.numberOfTrees());
@@ -138,7 +173,7 @@ public class TestMoveTree {
 		
 		//check no change in memory:
 		assertEquals(1, tm.numberOfTrees());
-	}
+	}*/
 	@Test
 	public void testAllValidInputs() {
 		assertEquals(1, tm.numberOfTrees());

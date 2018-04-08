@@ -1,40 +1,42 @@
-<manager id="1">
-  <isCurrent>true</isCurrent>
-  <version>1.0</version>
-  <versionYear>2018</versionYear>
-  <trees id="2"/>
-  <locations id="3"/>
-  <surveys id="4">
-    <ca.mcgill.ecse321.TreePLE.model.Survey id="5">
-      <surveyorName>Diana</surveyorName>
-      <reportDate id="6">2018-03-16</reportDate>
-      <tree id="7">
-        <ownerName>Ilana</ownerName>
-        <species>White Ash</species>
-        <height>1.2</height>
-        <status>Diseased</status>
-        <diameter>0.2</diameter>
-        <age>0</age>
-        <id>2</id>
-        <surveys id="8">
-          <ca.mcgill.ecse321.TreePLE.model.Survey reference="5"/>
-        </surveys>
-        <coordinates id="9">
-          <latitude>1.5</latitude>
-          <longitude>1.5</longitude>
-          <treeInLocation reference="7"/>
-        </coordinates>
-        <treeMunicipality id="10">
-          <name>Outremont</name>
-          <forecasts id="11"/>
-          <listOfTrees id="12">
-            <tree reference="7"/>
-          </listOfTrees>
-        </treeMunicipality>
-      </tree>
-    </ca.mcgill.ecse321.TreePLE.model.Survey>
-  </surveys>
-  <municipalities id="13"/>
-  <user id="14"/>
-  <reports id="15"/>
-</manager>
+<versionManager id="1">
+  <treeManagers id="2">
+    <treeManager id="3">
+      <isCurrent>true</isCurrent>
+      <version>1.0</version>
+      <versionYear>2018</versionYear>
+      <trees id="4">
+        <tree id="5">
+          <ownerName>Ilana</ownerName>
+          <species>White Ash</species>
+          <height>1.5</height>
+          <status>Planted</status>
+          <diameter>0.2</diameter>
+          <land>Residential</land>
+          <age>0</age>
+          <id>89</id>
+          <surveys id="6"/>
+          <coordinates id="7">
+            <latitude>1.5</latitude>
+            <longitude>1.5</longitude>
+            <treeInLocation reference="5"/>
+          </coordinates>
+          <treeMunicipality id="8">
+            <name>Outremont</name>
+            <listOfTrees id="9">
+              <tree reference="5"/>
+            </listOfTrees>
+          </treeMunicipality>
+        </tree>
+      </trees>
+      <locations id="10">
+        <location reference="7"/>
+      </locations>
+      <surveys id="11"/>
+      <municipalities id="12">
+        <municipality reference="8"/>
+      </municipalities>
+      <user id="13"/>
+      <reports id="14"/>
+    </treeManager>
+  </treeManagers>
+</versionManager>
