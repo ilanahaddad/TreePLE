@@ -17,7 +17,7 @@
     </table>
 -->
     <hr>
-    <h6><font color ="#3366cc">Current Version: 1.0</font></h6>
+    <h5><font color =green>Current Version: {{selectedVersion}}</font></h5>
     <table align="center">
       <tr>
         <td>Change version:</td>
@@ -34,13 +34,19 @@
         </td>
       </tr>
     </table>
+<!-- CREATE MUNICIPALITY -->
     <hr>
-
+		<h5><font color =green> Add Municipality </font></h5>
+		<table align= "center">
+			<td><input type ="text" v-model="newMun" placeHolder= "ex. Outremont"></td>
+			<td><button align="center" @click="addMunicipality(newMun)"> Add Municipality </button> </td>
+		</table>
+		<hr>
     <!--LIST TREES BY -->
 
     <table align="center">
       <tr>
-        <td style="padding: 0 10px 0 0"><h2>List Trees By:</h2></td>
+        <td style="padding: 0 10px 0 0"><h4><font color= green>List Trees By:</font></h4></td>
 
         <!-- ALL -->
         <td style="padding: 0 10px 0 15px;" id="All_select">

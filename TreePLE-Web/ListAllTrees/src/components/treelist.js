@@ -39,6 +39,7 @@ export default {
       errorStatus: '',
       errorMunicipalities:'',
       errorLandUse: '',
+      errorCreateMun: '',
       response: [],
       selectedMunicipality: '',
       selectedVersion: '',
@@ -117,6 +118,16 @@ export default {
   },
 
   methods: {
+  	addMunicipality: function (newMun) {
+  		AXIOS.post('/newMunicipality/'+newMun, {}, {}).then(response => {
+					this.municipalities.push(response.data)
+				})
+				.catch(e =>{
+					var errorMsg= e.response.data.message
+					console.log(errorMsg)
+					this.errorCreateMun = errorMsg 
+				})
+  	},
 		showTreeData: function(event) {
         var panel = event.target.nextElementSibling;
         if (panel.style.display === "block") {
