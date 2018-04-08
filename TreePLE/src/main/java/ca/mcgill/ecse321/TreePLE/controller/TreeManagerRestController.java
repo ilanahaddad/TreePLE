@@ -379,7 +379,7 @@ public class TreeManagerRestController {
 	public List<SurveyDto> getSurveysForTree(@PathVariable("id") int id) throws InvalidInputException{
 		Tree tree = treeManagerService.getTreeById(id);
 		List<Survey> surveysForTree = surveyService.getSurveysForTree(tree);
-		List<SurveyDto> surveyDtosForTree = null;
+		List<SurveyDto> surveyDtosForTree = new ArrayList<SurveyDto>();
 		for(Survey s: surveysForTree) {
 			surveyDtosForTree.add(convertToDto(s));
 		}
@@ -390,5 +390,16 @@ public class TreeManagerRestController {
 		versionManagerService.setSelectedVersion(version);
 		return version;
 	}
+	@GetMapping(value = { "/versionYear", "/versionYear/" })
+	public int getVersionYear() throws InvalidInputException{
+		int versionYear = versionManagerService.getCurrentVersionYear();
+		return versionYear;
+	}
+	@GetMapping(value = { "/versionNumber", "/versionNumber/" })
+	public String getVersionNumber() throws InvalidInputException{
+		String versionNumber = versionManagerService.getCurrentVersionNumber();
+		return versionNumber;
+	}
+	
 
 }

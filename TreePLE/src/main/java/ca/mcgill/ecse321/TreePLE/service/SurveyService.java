@@ -106,8 +106,11 @@ public class SurveyService {
 		return tm.getSurveys();
 	}
 	public List<Survey> getSurveysForTree(Tree t) throws InvalidInputException{
-		List<Survey> surveys = t.getSurveys();
-		if(surveys.size()==0) {
+		List<Survey> surveys = null;
+		if(t.hasSurveys()) {
+			surveys = t.getSurveys();
+		}
+		if(surveys == null) {
 			throw new InvalidInputException("There are no surveys for this tree yet.\n");
 		}
 		return surveys;
