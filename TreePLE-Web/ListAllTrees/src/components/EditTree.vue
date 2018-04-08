@@ -78,7 +78,6 @@
                   <td>{{ l }}</td>
               </option>         
             </select>
-            <button id="status_list" @click="listByLandUse(selectedLandUse)">OK</button>
         </td>
         </td>
       </tr>
