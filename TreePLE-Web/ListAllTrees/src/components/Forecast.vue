@@ -30,7 +30,7 @@
               <option v-for="v in versions" >
                   <td>{{ v }}</td>
               </option>         
-            </select>
+           </select>
        		</td>
         </tr>
         <tr>
@@ -60,7 +60,9 @@
     </table>
     <br>
     <p>The current trees to be deleted are given as follows:</p>
-    <p>DYNAMIC LIST</p>
+    <div v-for="id in deleteTreeIdList">
+    	{{ id }}
+    </div>
     <br>
     <br>
     <h5>Trees to be added</h5>
@@ -120,11 +122,42 @@
     </table>
     <br>
     <p>The current trees to be added are given as follows:</p>
-    <p>DYNAMIC LIST</p>
+    <p>
+    <table align="center">
+      <tr>
+          <td style="padding:0 5px 0 5px;">ID</td>
+          <td style="padding:0 5px 0 5px;">Species Type</td>
+          <td style="padding:0 5px 0 5px;">Age</td>
+          <td style="padding:0 5px 0 5px;">Height (in metres)</td>
+          <td style="padding:0 5px 0 5px;">Diameter (in metres)</td>
+          <td style="padding:0 5px 0 5px;">Municipality</td>
+          <td style="padding:0 5px 0 5px;">Owner</td>
+          <td style="padding:0 5px 0 5px;">Longitude</td>
+          <td style="padding:0 5px 0 5px;">Latitude</td>
+          <td style="padding:0 5px 0 5px;">Status</td>
+          <td style="padding:0 5px 0 5px;">Land Use</td>
+      </tr>
+      <tr v-for="tree in newTrees" >
+        <td style="padding:0 5px 0 5px;">{{ tree.id }}</td>
+        <td style="padding:0 5px 0 5px;">{{ tree.species }}</td>
+        <td style="padding:0 5px 0 5px;">{{ tree.age }}</td>
+        <td style="padding:0 5px 0 5px;">{{ tree.height }}</td>
+        <td style="padding:0 5px 0 5px;">{{ tree.diameter }}</td>
+        <td style="padding:0 5px 0 5px;">{{ tree.treeMunicipality.name }}</td>
+        <td style="padding:0 5px 0 5px;">{{ tree.owner.name }}</td>
+        <td style="padding:0 5px 0 5px;">{{ tree.coordinates.longitude }}</td>
+        <td style="padding:0 5px 0 5px;">{{ tree.coordinates.latitude }}</td>
+        <td style="padding:0 5px 0 5px;">{{ tree.status }}</td>
+        <td style="padding:0 5px 0 5px;">{{ tree.landUse}}</td>
+      </tr>
+    </table>
+    </p>
     <br>
     <button class='submitbutton' @click= "createForecast(forecaster, versionBase, timeLapse)" >Submit new forecast</button>
   </div>
 </template>
+<script src="./forecast.js">
+</script>
 
 <style>
 .forecastbutton {
