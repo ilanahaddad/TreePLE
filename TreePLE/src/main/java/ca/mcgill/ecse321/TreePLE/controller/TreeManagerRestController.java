@@ -13,6 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.DateTimeFormat.ISO;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -340,6 +342,24 @@ public class TreeManagerRestController {
 		Forecast forecast = forecastService.createForecast(name, baseVersion, futureYear, treesToPlantDto, treesToCutDown);
 		return convertToDto(forecast);
 	}
+	@PostMapping(value = { "/newForecastTest/", "/newForecastTest" })
+	public ResponseEntity<RequestWrapper> createNewForecastTest(
+			@RequestBody RequestWrapper requestWrapper) throws InvalidInputException{
+		String name = requestWrapper.getName();
+		String baseVersion = requestWrapper.getBaseVersion();
+		int futureYear = requestWrapper.getFutureYear();
+		List<TreeDto> treesToPlantDto = requestWrapper.getTreesToPlantDto();
+		List<Integer> treeIdsToCutDown = requestWrapper.getTreeIdsCutDown();
+		List<Tree> treesToCutDown = new ArrayList<Tree>();
+		for(int id: treeIdsToCutDown) {
+			treesToCutDown.add(treeManagerService.getTreeById(id));
+		}
+		Forecast forecast = forecastService.createForecast(name, baseVersion, futureYear, treesToPlantDto, treesToCutDown);
+		return new ResponseEntity<RequestWrapper>(requestWrapper, HttpStatus.OK);
+	}
+	/**
+	 * Method used for forecast, need to create treeDto's in order to pass them to the list of treesToPlant
+	 */
 	@PostMapping(value = {"/newTreeDto/{species}", "/newTreeDto/{species}/"})
 	public TreeDto createTreeDto(
 			@PathVariable("species") String species,
@@ -351,15 +371,35 @@ public class TreeManagerRestController {
 			@RequestParam(name="owner") String ownerName,
 			@RequestParam(name="age") int age, 
 			@RequestParam(name="landuse") Tree.LandUse landuse ) throws InvalidInputException {
-		
-		//Location location = treeManagerService.getLocationByCoordinates(latitude, longitude);
-		//Location location = new Location(latitude, longitude);
-	//	User owner = treeManagerService.getOwnerByName(userDto.getName());
 		LocationDto locationDto = new LocationDto(latitude, longitude);
 		TreeDto tDto = new TreeDto(species, height, diameter, age, locationDto, ownerName, munDto,landuse );
-		//Municipality municipality = treeManagerService.getMunicipalityByName(munDto.getName());
-		//Tree t = treeManagerService.createTree(ownerName, species, height, diameter, age, location, municipality, landuse);
 		return tDto;
 	}
+	@GetMapping(value = { "/surveysForTree/{id}", "/treesBySpecies/{id}/" })
+	public List<SurveyDto> getSurveysForTree(@PathVariable("id") int id) throws InvalidInputException{
+		Tree tree = treeManagerService.getTreeById(id);
+		List<Survey> surveysForTree = surveyService.getSurveysForTree(tree);
+		List<SurveyDto> surveyDtosForTree = new ArrayList<SurveyDto>();
+		for(Survey s: surveysForTree) {
+			surveyDtosForTree.add(convertToDto(s));
+		}
+		return surveyDtosForTree;
+	}
+	@PostMapping(value = { "/updateVersion/{version}", "/updateVersion/{version}/" })
+	public String updateVersion(@PathVariable("version") String version) throws InvalidInputException{
+		versionManagerService.setSelectedVersion(version);
+		return version;
+	}
+	@GetMapping(value = { "/versionYear", "/versionYear/" })
+	public int getVersionYear() throws InvalidInputException{
+		int versionYear = versionManagerService.getCurrentVersionYear();
+		return versionYear;
+	}
+	@GetMapping(value = { "/versionNumber", "/versionNumber/" })
+	public String getVersionNumber() throws InvalidInputException{
+		String versionNumber = versionManagerService.getCurrentVersionNumber();
+		return versionNumber;
+	}
+	
 
 }
