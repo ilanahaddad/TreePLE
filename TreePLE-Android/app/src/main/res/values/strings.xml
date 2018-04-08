@@ -26,8 +26,8 @@
     <string name="options_page_title">Options Page</string>
     <string name="tree_page_title">Create Tree Page</string>
     <string name="survey_page_title">Create Survey Page</string>
-    <string name="tree_page_button">Tree</string>
-    <string name="survey_page_button">Survey</string>
+    <string name="tree_page_button">Add Tree</string>
+    <string name="survey_page_button">Add Survey</string>
 
     <string name="back_button_option">Options</string>
     <string name="back_button_login">Login</string>
