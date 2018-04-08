@@ -46,7 +46,7 @@ export default {
       selectedStatus: '',
       selectedLandUse: '',
       center: {lat: 45.5048, lng: -73.5772},
-      markers: '',
+      markers: []
       /*
       markers: [{
         position: {lat: 45.50, lng: -73.57}
