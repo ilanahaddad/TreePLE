@@ -34,7 +34,7 @@ export default {
       versionBase: '',
       versions: [],
       timeLapse: '',
-      forecaster: ''
+      forecaster: '',
       deleteTreeId: '',
       deleteTreeIdList: [],
 			newSpecies: '',
@@ -103,11 +103,11 @@ export default {
   				this.newMunicipality=''
   				this.newage=''
   				this.newLanduse=''
-  		}
+  		},
   		deleteTree: function(treeId){
   				this.deleteTreeIdList.push(treeId)
   				this.deleteTreeId=''
-  		}
+  		},
   		createForecast: function(name, versionBase, timeLapse){
   			AXIOS.post('/newForecast/'+name, {}, {params: {baseVersion: versionBase, futureYear: timeLapse, treesToPlant: this.newTrees, treesToCutDown: this.deleteTreeIdList}}).then(response => {
 					this.name=''
