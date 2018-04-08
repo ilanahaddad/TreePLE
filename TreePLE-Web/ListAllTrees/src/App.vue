@@ -15,7 +15,7 @@
       <tr>
         <nav><router-link to="app">View Trees</router-link></nav>
         <td style="padding:0 5px 0 5px;"><router-link to="generateReport">Generate Report</router-link></td>
-        <td style="padding:0 5px 0 5px;"><router-link to="viewReportspreliminary">View Surveys</router-link></td>
+        <td style="padding:0 5px 0 5px;"><router-link to="viewsurveyspreliminary">View Surveys</router-link></td>
         <td style="padding:0 5px 0 5px;"><router-link to="Forecast">Forecast</router-link> </td>
         <td style="padding:0 5px 0 5px;"><router-link to="EditTree">Edit Trees</router-link></td>
         <td style="padding:0 5px 0 5px;"><router-link to="MoveTree">Move Tree</router-link></td>
@@ -33,8 +33,8 @@ import Forecast from './components/Forecast'
 import ListTrees from './components/ListTrees'
 import EditTree from './components/EditTree'
 import MoveTree from './components/MoveTree'
-import ViewReports from './components/ViewReports'
-import ViewReportsPre from './components/ViewReportsPre'
+import ViewSurveys from './components/ViewSurveys'
+import ViewSurveysPre from './components/ViewSurveysPre'
 
 export default {
   name: 'app',
@@ -45,8 +45,8 @@ export default {
     Forecast,
     EditTree,
     MoveTree,
-    ViewReports,
-    ViewReportsPre
+    ViewSurveys,
+    ViewSurveysPre
   }
 }
 </script>

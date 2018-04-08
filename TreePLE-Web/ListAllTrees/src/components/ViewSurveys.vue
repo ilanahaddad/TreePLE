@@ -1,5 +1,5 @@
 <template>
-  <div id="viewreportspre">
+  <div id="viewsurveyspre">
 <!--
   	<table align="center">
       <tr>

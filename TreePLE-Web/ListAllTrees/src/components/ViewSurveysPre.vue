@@ -1,5 +1,6 @@
+
 <template>
-  <div id="viewreportspre">
+  <div id="viewsurveyspre">
   <!--
   	<table align="center">
       <tr>
@@ -22,7 +23,7 @@
         <input type="text" v-model= "treeId" placeHolder= "Tree ID">
       </td>
       <td>
-        <button onclick="location.href = 'http://127.0.0.1:8087/#/viewreports'">OK</button>
+        <button onclick="location.href = 'http://127.0.0.1:8087/#/viewsurveys'">OK</button>
       </td>
     </tr>
   </table>
