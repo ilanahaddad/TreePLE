@@ -144,6 +144,7 @@
         <td style="padding:0 5px 0 5px;">{{ tree.owner }}</td>
         <td style="padding:0 5px 0 5px;">{{ tree.coordinates.longitude }}</td>
         <td style="padding:0 5px 0 5px;">{{ tree.coordinates.latitude }}</td>
+
         <td style="padding:0 5px 0 5px;">{{ tree.landUse}}</td>
       </tr>
     </table>
