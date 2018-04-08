@@ -189,9 +189,9 @@
 -->
     </table>
     <p>
-      <span v-if="errorTree" style="color:red">Error: {{errorTree}} </span>
-      <span v-if="errorStatus" style="color:red">Error: {{errorStatus}} </span>
-      <span v-if="errorLandUse" style="color:red">Error: {{errorLandUse}} </span>
+      <span v-if="errorTree" style="color:red">{{errorTree}} </span>
+      <span v-if="errorStatus" style="color:red">{{errorStatus}} </span>
+      <span v-if="errorLandUse" style="color:red">{{errorLandUse}} </span>
     </p>
     </div>
 </template>

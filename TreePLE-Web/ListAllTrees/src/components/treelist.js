@@ -157,9 +157,13 @@ export default {
           this.trees = response.data
         })
         .catch(e => {
-          var errorMsg = e.message
+          var errorMsg = e.response.data.message
           console.log(errorMsg)
           this.errorTree = errorMsg;
+          this.errorStatus = '';
+          this.errorLandUse = '';
+          this.errorSpecies = '';
+          this.errorMunicipalities = '';
         });
     },
 
@@ -173,6 +177,10 @@ export default {
         .catch(e => {
           var errorMsg = e.response.data.message
           console.log(errorMsg)
+          this.errorStatus = '';
+          this.errorTree = '';
+          this.errorLandUse = '';
+          this.errorSpecies = '';
           this.errorMunicipalities = errorMsg;
         });
 
@@ -190,7 +198,11 @@ export default {
         .catch(e => {
           var errorMsg = e.response.data.message
           console.log(errorMsg)
-          this.errorSpecies = errorMsg
+          this.errorStatus = '';
+          this.errorLandUse = '';
+          this.errorTree = '';
+          this.errorMunicipalities = '';
+          this.errorSpecies = errorMsg;
         });
     },
 
@@ -204,6 +216,10 @@ export default {
           var errorMsg = e.response.data.message
           console.log(errorMsg)
           this.errorStatus = errorMsg;
+          this.errorLandUse = '';
+          this.errorTree = '';
+          this.errorSpecies = '';
+          this.errorMunicipalities = '';
         });
     },
 
@@ -216,7 +232,11 @@ export default {
         .catch(e => {
           var errorMsg = e.response.data.message
           console.log(errorMsg)
-          this.errorLandUse = errorMsg
+          this.errorLandUse = errorMsg;
+          this.errorStatus = '';
+          this.errorTree = '';
+          this.errorSpecies = '';
+          this.errorMunicipalities = '';
         });
     },
 
