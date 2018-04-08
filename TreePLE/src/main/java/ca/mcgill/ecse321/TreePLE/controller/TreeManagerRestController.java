@@ -40,6 +40,7 @@ import ca.mcgill.ecse321.TreePLE.service.InvalidInputException;
 import ca.mcgill.ecse321.TreePLE.service.ReportService;
 import ca.mcgill.ecse321.TreePLE.service.SurveyService;
 import ca.mcgill.ecse321.TreePLE.service.TreeManagerService;
+import ca.mcgill.ecse321.TreePLE.service.VersionManagerService;
 
 
 @RestController
@@ -53,8 +54,8 @@ public class TreeManagerRestController {
 	@Autowired
 	private ReportService reportService;
 	
-	//@Autowired
-	//private VersionManager versionManager;
+	@Autowired
+	private VersionManagerService versionManagerService;
 
 	@Autowired
 	private ModelMapper modelMapper;
@@ -306,12 +307,26 @@ public class TreeManagerRestController {
 		}
 		return surveysListDto;
 	}
-	/*
+	
 	@GetMapping(value = { "/versions/", "/versions" })
 	public List<String> getAllSystemVersions(){
-		List<String> versions = null; //TODO:
-				//versionManagerService.getAllSystemVersions();
+		List<String> versions = versionManagerService.getAllVersions();
 		return versions;
+	}
+	/*
+	@PostMapping(value = { "/newForecast/{name}", "/newForecast/{name}/" })
+	public TreeDto createNewForecast(@PathVariable("name") String name,
+			@RequestParam(name = "baseVersion") String baseVersion,
+			@RequestParam(name = "futureYear") int futureYear,
+			@RequestParam(name = "newAge") int newAge,
+			@RequestParam(name = "newOwnerName") String newOwnerName,
+			@RequestParam(name = "newSpecies") String newSpecies,
+			@RequestParam(name = "newLandUse") LandUse newLandUse,
+			@RequestParam(name = "newMunicipality") MunicipalityDto newMunDto) throws InvalidInputException{
+		Municipality newMunicipality = convertToDomainObject(newMunDto);
+		Tree tree = treeManagerService.getTreeById(treeID);
+		treeManagerService.updateTreeData(tree, newHeight, newDiameter, newAge, newOwnerName, newSpecies, newLandUse, newMunicipality);
+		return convertToDto(tree);
 	}*/
 	
 	

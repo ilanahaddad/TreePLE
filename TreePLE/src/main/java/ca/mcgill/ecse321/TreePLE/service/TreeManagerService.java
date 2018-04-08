@@ -6,17 +6,13 @@ import org.springframework.stereotype.Service;
 
 import ca.mcgill.ecse321.TreePLE.model.Location;
 import ca.mcgill.ecse321.TreePLE.model.Municipality;
-import ca.mcgill.ecse321.TreePLE.model.Survey;
-import ca.mcgill.ecse321.TreePLE.model.SustainabilityReport;
 import ca.mcgill.ecse321.TreePLE.model.Tree;
-
 import ca.mcgill.ecse321.TreePLE.model.Tree.LandUse;
-
 import ca.mcgill.ecse321.TreePLE.model.Tree.Status;
-
 import ca.mcgill.ecse321.TreePLE.model.TreeManager;
 import ca.mcgill.ecse321.TreePLE.model.User;
 import ca.mcgill.ecse321.TreePLE.model.User.UserType;
+//import ca.mcgill.ecse321.TreePLE.model.User.UserType;
 import ca.mcgill.ecse321.TreePLE.model.VersionManager;
 import ca.mcgill.ecse321.TreePLE.persistence.PersistenceXStream;
 
@@ -28,16 +24,21 @@ public class TreeManagerService {
 	public TreeManagerService(VersionManager vm) {
 		List<TreeManager> treemanagers = vm.getTreeManagers();
 		for(TreeManager treeM : treemanagers) {
-			if(treeM.getIsCurrent()) {
-				tm = treeM;
+			if(treeM.getIsSelected()) {
+				this.tm = treeM;
 			}
 		}
 		this.vm = vm;
 	}
+	public void checkIfEditable(TreeManager tm)throws InvalidInputException {
+		if(!tm.getIsEditable()) {
+			throw new InvalidInputException("You cannot edit this version of the system");
+		}
+	}
 	public Tree createTree(String ownerName, String species,  double height, double diameter, 
 			int age, Location location, 
 			Municipality municipality,  Tree.LandUse land) throws InvalidInputException{
-		
+		checkIfEditable(this.tm);
 		if(species==null) {
 			throw new InvalidInputException("Error: Species name  cannot be null");
 		}
@@ -62,6 +63,7 @@ public class TreeManagerService {
 		return t;
 	}
 	public Municipality createMunicipality(String name) throws InvalidInputException {
+		checkIfEditable(this.tm);
 		List<Municipality> municipalities = tm.getMunicipalities();
 		if (name==null) {
 			throw new InvalidInputException("Error: Name of Municipality is null!");
@@ -88,6 +90,7 @@ public class TreeManagerService {
 	 * @param newLongitude
 	 */
 	public void moveTree(Tree tree, double newLatitude, double newLongitude) throws InvalidInputException{
+		checkIfEditable(this.tm);
 		if(tree == null) {
 			throw new InvalidInputException("Tree cannot be null. Please select a tree.\n");
 		}
@@ -104,6 +107,7 @@ public class TreeManagerService {
 		
 	}
 	public Location createLocation(double latitude, double longitude) throws InvalidInputException{
+		checkIfEditable(this.tm);
 		if(latitude < -90 || latitude >90) {
 			throw new InvalidInputException("Latitude must be in range [-90,90].\n");
 		}
@@ -154,7 +158,6 @@ public class TreeManagerService {
 		return null;
 	}
 	public List<Municipality> findAllMunicipalities() {
-
 		return tm.getMunicipalities();
 	}
 	public List<Tree> findAllTrees() {
@@ -199,6 +202,7 @@ public class TreeManagerService {
 	}	
 
 	public User setUserType(UserType userType) throws InvalidInputException {
+		checkIfEditable(this.tm);
 		if(userType==null) {
 			throw new InvalidInputException("Error: UserType cannot be null!");
 		}
@@ -223,6 +227,7 @@ public class TreeManagerService {
 	 */
 	public void updateTreeData(Tree tree, double newHeight, double newDiameter, int newAge, String newOwnerName, 
 			String newSpecies,LandUse newLandUse, Municipality newMunicipality) throws InvalidInputException{
+		checkIfEditable(this.tm);
 		if(tree == null) {
 			throw new InvalidInputException("Tree cannot be null. Please select a tree.\n");
 		}

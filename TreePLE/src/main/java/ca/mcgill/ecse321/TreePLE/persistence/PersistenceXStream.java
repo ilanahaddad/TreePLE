@@ -53,7 +53,7 @@ public class PersistenceXStream {
 			}
 			vm = new VersionManager();
 			User defaultUser = new User();
-			TreeManager tm = new TreeManager(true, "1.0", 2018, defaultUser);
+			TreeManager tm = new TreeManager(true, true, "1.0", 2018, defaultUser);
 			vm.addTreeManager(tm);
 			saveToXMLwithXStream(vm);
 		}
