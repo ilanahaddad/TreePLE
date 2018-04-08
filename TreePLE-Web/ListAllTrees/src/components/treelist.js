@@ -11,7 +11,7 @@ var AXIOS = axios.create({
 
 var icons = {
   planted: {
-    icon: https:'//imageshack.com/a/img922/879/deEdYF.png'
+    icon: 'https://imageshack.com/a/img922/879/deEdYF.png'
   }
 }
 
