@@ -23,7 +23,7 @@ export default {
   }, 
   methods: {
   		moveTree: function(treeId, newLat, newLong){
-  			AXIOS.post('/moveTree/'+treeId, {}, {params: {newLat: newLat, newlong: newLong}}).then(response => {
+  			AXIOS.post('/moveTree/'+treeId, {}, {params: {latitude: newLat, longitude: newLong}}).then(response => {
 					this.treeId=''
       		this.newLat=''
       		this.newLong=''
