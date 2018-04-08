@@ -13,7 +13,6 @@ var AXIOS = axios.create({
 function ReportDto(reporterName, reportDate, reportPerimeter, bioIndex, canopy, carbonSeq){
 	this.reporterName=reporterName
 	this.reportDate=reportDate
-
 	this.reportPerimeter=reportPerimeter
 	this.biodiversityIndex=bioIndex
 	this.canopy=canopy
