@@ -55,7 +55,8 @@ export default {
 			errorVersions: '',
 			responseForecast: '',
 			newTree: '',
-			newCoordinates: ''
+			newCoordinates: '',
+			errorForecast: ''
     }
   }, 
  	created : function(){
@@ -122,7 +123,7 @@ export default {
 				.catch(e =>{
 					var errorMsg= e.response.data.message
 					console.log(errorMsg)
-					this.errorEvent = errorMsg 
+					this.errorForecast = errorMsg 
 				})
   		}
   }  
