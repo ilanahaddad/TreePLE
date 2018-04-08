@@ -169,7 +169,9 @@ export default {
           //this.trees = []
         })
         .catch(e => {
-          this.errorMunicipalities = e;
+          var errorMsg = e.message
+          console.log(errorMsg)
+          this.errorMunicipalities = errorMsg;
         });
 
     },
@@ -184,7 +186,9 @@ export default {
           //this.trees = [t1]
         })
         .catch(e => {
-          this.errorSpecies = e;
+          var errorMsg = e.message
+          console.log(errorMsg)
+          this.errorSpecies = errorMsg
         });
     },
 
@@ -197,7 +201,7 @@ export default {
         .catch(e => {
           var errorMsg = e.message
           console.log(errorMsg)
-          this.errorStatus = e;
+          this.errorStatus = errorMsg;
         });
     },
 
@@ -208,7 +212,9 @@ export default {
           this.trees = response.data
         })
         .catch(e => {
-          this.errorLandUse = e;
+          var errorMsg = e.message
+          console.log(errorMsg)
+          this.errorLandUse = errorMsg
         });
     },
 
