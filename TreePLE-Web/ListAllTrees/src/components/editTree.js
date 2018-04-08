@@ -26,7 +26,9 @@ export default {
 			landuse: '',
 			municipalities: [],
      	landUses: [],
-			changedTree: ''
+			changedTree: '',
+			errorMunicipalities: '', 
+			errorLandUse: ''
     }
   }, 
  	created : function(){
