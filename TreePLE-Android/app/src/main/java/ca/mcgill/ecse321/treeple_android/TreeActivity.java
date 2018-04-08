@@ -132,7 +132,7 @@ public class TreeActivity extends AppCompatActivity {
     }
 
     public void refreshLists(View view) {
-        refreshList(municipalitiesAdapter, municipalities, "municipalities");//TODO: maybe /municipalities
+        refreshList(municipalitiesAdapter, municipalities, "/municipalities");//TODO: maybe /municipalities
     }
 
     private void refreshList(final ArrayAdapter<String> adapter, final List<String> names, String restFunctionName) {
@@ -158,10 +158,10 @@ public class TreeActivity extends AppCompatActivity {
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
                 try {
-                    error += errorResponse.getString("message");
-                    //error += errorResponse.get("message").toString();
+                    //error += errorResponse.getString("message");
+                    error += errorResponse.get("message").toString();
 
-                } catch (Exception e) {
+                } catch (JSONException e) {
                     error += e.getMessage();
                 }
                 refreshErrorMessage();
