@@ -57,7 +57,7 @@ export default {
 			errorVersions: '',
 			responseForecast: '',
 			newTree: '',
-			newCoordinate: ''
+			newCoordinates: ''
     }
   }, 
  	created : function(){
@@ -95,7 +95,7 @@ export default {
   },
   methods: {
   		addTree: function(species, height, diameter, newLat, newLong, owner,treeMunicipality, age, land){
-  				this.coordinates= new LocationDto(newLat, newLong)
+  				this.newCoordinates= new LocationDto(newLat, newLong)
   				this.newTree= new TreeDto(species, height, diameter, this.coordinates, owner, treeMunicipality, age, land)
   				this.newTrees.push(this.newtree)
   				this.newSpecies=''
