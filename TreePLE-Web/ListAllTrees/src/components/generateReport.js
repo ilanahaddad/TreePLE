@@ -31,17 +31,16 @@ export default {
   data() {
     return {
       reporterName: '',
-      reportDate: '',
-      lat1: '',
-      long1: '',
-      lat2: '',
-      long2: '',
-      lat3: '',
-      long3: '',
-      lat4: '',
-      long4: '',
-      curReport: '',
-      reports: [],
+      reportDate:'',
+      lat1:'',
+      long1:'',
+      lat2:'',
+      long2:'',
+      lat3:'',
+      long3:'',
+      lat4:'',
+      long4:'',
+      curReport:'',
       showReport: false,
       showGenerate: true
     }
@@ -65,40 +64,28 @@ export default {
     
   },*/
   methods: {
-    generateReport: function(reporterName, reporterDate, lat1, long1, lat2, long2, lat3, long3, lat4, long4) {
-      AXIOS.post('/newReport/' + reporterName, {}, {
-          params: {
-            reportDate: reportDate,
-            lat1: lat1,
-            long1: long1,
-            lat2: lat2,
-            long2: long2,
-            lat3: lat3,
-            long3: long3,
-            lat4: lat4,
-            long4: long4
-          }
-        }).then(response => {
-          this.reports.push(response.data)
-          curReport = response.data
-          this.reporterName = ''
-          this.reportDate = ''
-          this.lat1 = ''
-          this.long1 = ''
-          this.lat2 = ''
-          this.long2 = ''
-          this.lat3 = ''
-          this.long3 = ''
-          this.lat4 = ''
-          this.long4 = ''
-        })
-        .catch(e => {
-          var errorMsg = e.response.data.message
-          console.log(errorMsg)
-          this.errorEvent = errorMsg
-        })
-      this.showReport = true
-      this.showGenerate = false
-    }
+			generateReport: function(reporterName, reporterDate, lat1, long1, lat2, long2, lat3, long3, lat4, long4) {
+				AXIOS.post('/newReport/'+reporterName, {}, {params: {reportDate: reportDate, lat1: lat1, long1: long1, lat2: lat2, long2: long2, lat3: lat3, long3: long3, lat4: lat4, long4: long4}}).then(response => {
+					curReport=response.data
+					this.reporterName=''
+      		this.reportDate=''
+      		this.lat1=''
+      		this.long1=''
+      		this.lat2=''
+      		this.long2=''
+      		this.lat3=''
+      		this.long3=''
+      		this.lat4=''
+      		this.long4=''
+				})
+				.catch(e =>{
+					var errorMsg= e.response.data.message
+					console.log(errorMsg)
+					this.errorEvent = errorMsg 
+				})
+				this.showReport=true
+				this.showGenerate=false
+     	}
+
   }
 }
