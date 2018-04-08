@@ -9,6 +9,12 @@ var AXIOS = axios.create({
   headers: { 'Access-Control-Allow-Origin': frontendUrl }
 })
 
+var icons = {
+  planted: {
+    icon: https:'//imageshack.com/a/img922/879/deEdYF.png'
+  }
+}
+
 function TreeDto (species, height, diameter, coordinates, owner, treeMunicipality, versions, land, status, id) {
   this.id = id
   this.species = species
@@ -64,7 +70,7 @@ export default {
       // JSON responses are automatically parsed.
       this.trees = response.data
       for(var i=0;i<this.trees.length;i++){
-      this.markers.push({position: {lng: this.trees[i].coordinates.longitude, lat: this.trees[i].coordinates.latitude}})
+      this.markers.push({position: {lng: this.trees[i].coordinates.longitude, lat: this.trees[i].coordinates.latitude}}, {type: 'planted'})
     }
     })
     .catch(e => {
