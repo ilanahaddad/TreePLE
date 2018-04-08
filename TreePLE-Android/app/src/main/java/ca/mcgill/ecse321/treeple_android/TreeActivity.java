@@ -146,7 +146,7 @@ public class TreeActivity extends AppCompatActivity {
                 tvError.setText(error);
                 for( int i = 0; i < response.length(); i++){
                     try {
-                        names.add(response.getJSONObject(i).getString("munName")); //TODO: maybe munName
+                        names.add(response.getJSONObject(i).getString("name")); //TODO: maybe munName
                     } catch (Exception e) {
                         error += e.getMessage();
                     }
@@ -158,8 +158,8 @@ public class TreeActivity extends AppCompatActivity {
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
                 try {
-                    error += errorResponse.getString("message");
-                    //error += errorResponse.get("message").toString();
+                    //error += errorResponse.getString("message");
+                    error += errorResponse.get("message").toString();
 
                 } catch (JSONException e) {
                     error += e.getMessage();
