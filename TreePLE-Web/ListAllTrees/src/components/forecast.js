@@ -11,7 +11,6 @@ var AXIOS = axios.create({
   headers: { 'Access-Control-Allow-Origin': frontendUrl }
 })
 function TreeDto (species, height, diameter, coordinates, owner, treeMunicipality, age, land) {
-  this.id = id
   this.species = species
   this.status = status 
   this.height = height
@@ -21,6 +20,8 @@ function TreeDto (species, height, diameter, coordinates, owner, treeMunicipalit
   this.treeMunicipality = treeMunicipality
   this.versions = versions
   this.land = land
+	this.age=age
+
 }
 function LocationDto(lat, long){
 	this.latitude=lat
@@ -39,7 +40,7 @@ export default {
       deleteTreeIdList: [],
 			newSpecies: '',
 			species: [],
-			newTreeheight: '',
+			newTreeHeight: '',
 			newTreeDiameter: '', 
 			newMunicipality: '',
 			municipalities: [],
@@ -53,7 +54,8 @@ export default {
 			errorLandUse: '', 
 			errorMunicipalities: '',
 			errorSpecies: '',
-			errorVersions: ''
+			errorVersions: '',
+			responseForecast: ''
     }
   }, 
  	created : function(){
@@ -98,7 +100,7 @@ export default {
   				this.newTreeHeight=''
   				this.newTreeDiameter=''
   				this.newLat=''
-  				this.newLogn=''
+  				this.newLong=''
   				this.newOwner= ''
   				this.newMunicipality=''
   				this.newage=''
@@ -110,6 +112,7 @@ export default {
   		},
   		createForecast: function(name, versionBase, timeLapse){
   			AXIOS.post('/newForecast/'+name, {}, {params: {baseVersion: versionBase, futureYear: timeLapse, treesToPlant: this.newTrees, treesToCutDown: this.deleteTreeIdList}}).then(response => {
+					this.responseForecast=response.data
 					this.name=''
       		this.versionBase=''
       		this.timeLapse=''
