@@ -168,8 +168,8 @@ public class TreeManagerRestController {
 	}
 	//if user doesn't find municipality in dropdown for createTree, they create a new one
 	@PostMapping(value = {"/newMunicipality/{name}", "/newMunicipality/{name}/"})
-	public MunicipalityDto createMunicipality(@PathVariable("name") String munName) throws InvalidInputException {
-		Municipality m = treeManagerService.createMunicipality(munName);
+	public MunicipalityDto createMunicipality(@PathVariable("name") String name) throws InvalidInputException {
+		Municipality m = treeManagerService.createMunicipality(name);
 		return convertToDto(m);
 	}
 	

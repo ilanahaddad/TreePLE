@@ -37,7 +37,7 @@ public class TestListTreesBySpecies {
 	public void setUp() throws Exception {
 		vm = new VersionManager();
 		user = new User();
-		tm=new TreeManager(true, "1.0", 2018,user);	
+		tm=new TreeManager(true,true, "1.0", 2018,user);	
 		vm.addTreeManager(tm);
 		tmc = new TreeManagerService(vm);
 	}
