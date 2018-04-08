@@ -94,7 +94,7 @@ export default {
   methods: {
   		addTree: function(species, height, diameter, newLat, newLong, owner,treeMunicipality, age, land){
   				this.newCoordinates= new LocationDto(newLat, newLong)
-  				this.newTree= new TreeDto(species, height, diameter, this.coordinates, owner, treeMunicipality, age, land)
+  				this.newTree= new TreeDto(species, height, diameter, this.newCoordinates, owner, treeMunicipality, age, land)
   				this.newTrees.push(this.newtree)
   				this.newSpecies=''
   				this.newTreeHeight=''
