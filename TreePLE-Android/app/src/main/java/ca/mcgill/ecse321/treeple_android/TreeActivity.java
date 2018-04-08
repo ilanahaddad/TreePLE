@@ -66,7 +66,7 @@ public class TreeActivity extends AppCompatActivity {
         municipalitiesAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         municipalitiesSpinner.setAdapter(municipalitiesAdapter);
 
-        //Retireiving the municipalities from backend
+        //Retrieving the municipalities from backend
         refreshLists(this.getCurrentFocus());
     }
 
@@ -89,7 +89,8 @@ public class TreeActivity extends AppCompatActivity {
 
         //To get municipality from user
         Spinner sp = (Spinner) findViewById(R.id.municipalitySpinner);
-        String municipality = sp.getSelectedItem().toString(); //TODO: make it MunicipalityDTO
+        RequestParams rpMunicipality = new RequestParams();
+        rpMunicipality.add("municipality", sp.getSelectedItem().toString()); //TODO: municipalityDTO
 
         //To get latitude
         et = (EditText) findViewById(R.id.latitude);
@@ -112,7 +113,7 @@ public class TreeActivity extends AppCompatActivity {
 
         //TODO: land use
 
-       HttpUtils.post("/newTree/" +species+height+diameter+municipality+latitude+longitude+userName+age, new RequestParams(), new JsonHttpResponseHandler() {
+       HttpUtils.post("/newTree/" +species+height+diameter+rpMunicipality+latitude+longitude+userName+age, new RequestParams(), new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 refreshErrorMessage();

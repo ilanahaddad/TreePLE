@@ -54,6 +54,12 @@ public class SurveyActivity extends AppCompatActivity {
 
 
     public void createSurvey(View view) {
+        /*error = "";
+        Date report date;
+        tree int tree
+                surveyor string surveyor
+                */
+
     }
 
 
