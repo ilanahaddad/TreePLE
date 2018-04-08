@@ -5,6 +5,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import ca.mcgill.ecse321.TreePLE.dto.LocationDto;
+import ca.mcgill.ecse321.TreePLE.dto.MunicipalityDto;
+import ca.mcgill.ecse321.TreePLE.dto.TreeDto;
 import ca.mcgill.ecse321.TreePLE.model.Forecast;
 import ca.mcgill.ecse321.TreePLE.model.Location;
 import ca.mcgill.ecse321.TreePLE.model.Municipality;
@@ -13,11 +16,15 @@ import ca.mcgill.ecse321.TreePLE.model.SustainabilityReport;
 import ca.mcgill.ecse321.TreePLE.model.Tree;
 import ca.mcgill.ecse321.TreePLE.model.TreeManager;
 import ca.mcgill.ecse321.TreePLE.model.VersionManager;
+import ca.mcgill.ecse321.TreePLE.model.Tree.Status;
 
 @Service
 public class ForecastService {
 	@Autowired
 	private TreeManagerService tms;
+	
+	@Autowired
+	private SurveyService ss;
 	
 	private VersionManager vm;
 
@@ -31,7 +38,7 @@ public class ForecastService {
 		this.vm = vm;
 	}
 	public Forecast createForecast(String name, String baseVersion, int futureYear,
-			List<Tree> treesToPlant, List<Tree> treesToCutDown) throws InvalidInputException{
+			List<TreeDto> treesToPlant, List<Tree> treesToCutDown) throws InvalidInputException{
 		List<TreeManager> treemanagers = vm.getTreeManagers();
 		TreeManager baseTM = null;
 		for(TreeManager tm: treemanagers) { //look for demanded base versions in TreeManagers
@@ -98,14 +105,38 @@ public class ForecastService {
 			tmCopiedTo.addSurvey(s);
 		}
 	}
-	public void plantTrees(List<Tree> treesToPlant) { //TODO
-		/*for(Tree tree: treesToPlant) {
-			tms.createTree(tree.ownerName, species, height, diameter, age, location, municipality, land)
-		}*/
+	public void plantTrees(List<TreeDto> treesToPlantDto) throws InvalidInputException{
+		for(TreeDto treeDto: treesToPlantDto) {
+			Location location = convertToDomainObject(treeDto.getCoordinates());
+			Municipality municipality = convertToDomainObject(treeDto.getTreeMunicipality());
+			tms.createTree(treeDto.getOwner(), treeDto.getSpecies(), treeDto.getHeight(), treeDto.getDiameter(),
+					treeDto.getAge(), location, municipality, treeDto.getLand());
+		}
 	}
-	public void cutDownTrees(List<Tree> treesToCutDown) { //TODO
-		
+	public void cutDownTrees(List<Tree> treesToCutDown) {
+		for(Tree tree: treesToCutDown) {
+			tree.setStatus(Status.CutDown);
+		}
 	}
-	
+	private Municipality convertToDomainObject(MunicipalityDto mDto) {
+		// Mapping DTO to the domain object without using the mapper
+		List<Municipality> allMunicipality = tms.findAllMunicipalities();
+		for (Municipality municipality : allMunicipality) {
+			if (municipality.getName().equals(mDto.getName())) {
+				return municipality;
+			}
+		}
+		return null;
+	}
+	private Location convertToDomainObject(LocationDto lDto) {
+		// Mapping DTO to the domain object without using the mapper
+		List<Location> allLocations = tms.getAllLocations();
+		for (Location location : allLocations) {
+			if (location.getLatitude()==lDto.getLatitude() && location.getLongitude()==lDto.getLongitude()) {
+				return location;
+			}
+		}
+		return null;
+	}
 
 }

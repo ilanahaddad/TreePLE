@@ -55,7 +55,9 @@ export default {
 			errorVersions: '',
 			responseForecast: '',
 			newTree: '',
-			newCoordinates: ''
+			newCoordinates: '',
+			errorForecast: '',
+			errorAddTree: ''
     }
   }, 
  	created : function(){
@@ -92,10 +94,13 @@ export default {
     });
   },
   methods: {
-  		addTree: function(species, height, diameter, age, coordinates, owner, treeMunicipality, land){
-  				this.newCoordinates= new LocationDto(newLat, newLong)
-  				this.newTree= new TreeDto(species, height, diameter, age, this.newCoordinates, owner, treeMunicipality, land)
-  				this.newTrees.push(this.newTree)
+  		addTree: function(species, height, diameter,newLat, newLong, owner, treeMunicipality, age, land){
+  				//this.newCoordinates= new LocationDto(newLat, newLong)
+  				//this.newTree= new TreeDto(species, height, diameter, age, this.newCoordinates, owner, treeMunicipality, land
+					AXIOS.post('/newTreeDto/'+species, {}, {params: {height: height, diameter: diameter, municipality: treeMunicipality, latitude: newLat, longitude: newLong, owner: owner, age: age, landuse: land}}).then(response => {
+
+  				this.newTrees.push(response.data)
+					this.newTree=response.data
   				this.newSpecies=''
   				this.newTreeHeight=''
   				this.newTreeDiameter=''
@@ -105,6 +110,12 @@ export default {
   				this.newMunicipality=''
   				this.newAge=''
   				this.newLanduse=''
+				})
+				.catch(e =>{
+					var errorMsg=e.response.data.message
+					console.log(errorMsg)
+					this.errorAddTree= errorMsg
+				})
   		},
   		deleteTree: function(treeId){
   				this.deleteTreeIdList.push(treeId)
@@ -122,7 +133,7 @@ export default {
 				.catch(e =>{
 					var errorMsg= e.response.data.message
 					console.log(errorMsg)
-					this.errorEvent = errorMsg 
+					this.errorForecast = errorMsg 
 				})
   		}
   }  
