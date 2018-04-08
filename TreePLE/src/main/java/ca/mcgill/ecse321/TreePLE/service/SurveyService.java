@@ -22,18 +22,23 @@ public class SurveyService {
 	public SurveyService(VersionManager vm) {
 		List<TreeManager> treemanagers = vm.getTreeManagers();
 		for(TreeManager treeM : treemanagers) {
-			if(treeM.getIsCurrent()) {
-				tm = treeM;
+			if(treeM.getIsSelected()) {
+				this.tm = treeM;
 			}
 		}
 		this.vm = vm;
 	}
-
+	public void checkIfEditable(TreeManager tm)throws InvalidInputException {
+		if(!tm.getIsEditable()) {
+			throw new InvalidInputException("You cannot edit this version of the system");
+		}
+	}
 	public Survey createSurvey(Date reportDate, Tree tree, String surveyor, Status newTreeStatus) throws InvalidInputException{
 		//Check if any of the fields are null, and throw corresponding exception
 		/*if(reportDate == null||tree ==null||surveyor==null||newTreeStatus==null) {
 			throw new InvalidInputException("Error: Report Date, tree, surveyor, or status is null");
 		}*/
+		checkIfEditable(this.tm);
 		if(reportDate == null) {
 			throw new InvalidInputException("Error: Report date cannot be null.\n");
 		}
@@ -78,6 +83,7 @@ public class SurveyService {
 	}
 	public void editSurvey(Survey survey,Date editDate, 
 			String editor, Status editedTreeStatus) throws InvalidInputException{
+		checkIfEditable(this.tm);
 		//Check if any of the fields are null, and throw corresponding exception
 		if(survey == null||editDate ==null||editor==null||editedTreeStatus==null) {
 			throw new InvalidInputException("Error: Survey,Report Date,surveyor, or status is null");
