@@ -1,5 +1,6 @@
 <template>
   <div id="viewreportspre">
+  <!--
   	<table align="center">
       <tr>
         <td style="padding:0 5px 0 5px;"><a href='http://127.0.0.1:8087/#/app'>View Trees</a> - </td>
@@ -11,6 +12,7 @@
       </tr>
       <tr></tr>
   </table>
+  -->
   <hr>
   <p>Please enter desired tree ID to view reports:</p>
   <table align="center">

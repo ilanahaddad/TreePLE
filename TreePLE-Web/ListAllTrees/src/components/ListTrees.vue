@@ -3,7 +3,7 @@
   <div id="listtrees">
     
     <!--NAVIGATION TABLE -->
-
+	<!--
     <table align="center">
       <tr>
         <td style="padding:0 5px 0 5px;"><a href=UrlHome><span style="font-weight: bold; color: green">View Trees</span></a> - </td>
@@ -15,6 +15,7 @@
       </tr>
       <tr></tr>
     </table>
+-->
     <hr>
     <h6><font color ="#3366cc">Current Version: 1.0</font></h6>
     <table align="center">
