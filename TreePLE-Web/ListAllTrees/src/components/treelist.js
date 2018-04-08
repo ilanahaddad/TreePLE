@@ -63,6 +63,9 @@ export default {
     .then(response => {
       // JSON responses are automatically parsed.
       this.trees = response.data
+      for(var i=0;i<this.trees.length;i++){
+      this.markers.push({position: {lng: parseFloat(trees[i].coordinates.longitude), lat: parseFloat(trees[i].coordinates.latitude)}})
+    }
     })
     .catch(e => {
       this.errorTree = e;
@@ -117,10 +120,6 @@ export default {
     .catch(e => {
       this.errorLandUse = e;
     });
-
-    for(var i=0;i<this.trees.length;i++){
-      this.markers.push({position: {lng: parseFloat(trees[i].coordinates.longitude), lat: parseFloat(trees[i].coordinates.latitude)}})
-    }
 
   },
 
