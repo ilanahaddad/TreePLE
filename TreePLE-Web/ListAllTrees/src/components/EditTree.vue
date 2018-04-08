@@ -72,7 +72,7 @@
           Land Use:
         </td>
         <td style="padding:0 10px 0 10px;" id="LandUse_select">
-          <select v-model="selectedLandUse">
+          <select v-model="landuse">
               <option disabled value="">Select Land Use</option>
               <option v-for="l in landUses" >
                   <td>{{ l }}</td>
