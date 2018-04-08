@@ -159,7 +159,8 @@ public class TreeActivity extends AppCompatActivity {
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
                 try {
                     //error += errorResponse.getString("message");
-                    error += errorResponse.get("message").toString();
+                    if(errorResponse.isNull("message")) //trial
+                        error += errorResponse.get("message").toString();
 
                 } catch (JSONException e) {
                     error += e.getMessage();
