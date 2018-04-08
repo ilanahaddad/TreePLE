@@ -16,16 +16,19 @@ import org.springframework.format.annotation.DateTimeFormat.ISO;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import ca.mcgill.ecse321.TreePLE.dto.ForecastDto;
 import ca.mcgill.ecse321.TreePLE.dto.LocationDto;
 import ca.mcgill.ecse321.TreePLE.dto.MunicipalityDto;
 import ca.mcgill.ecse321.TreePLE.dto.SurveyDto;
 import ca.mcgill.ecse321.TreePLE.dto.SustainabilityReportDto;
 import ca.mcgill.ecse321.TreePLE.dto.TreeDto;
 import ca.mcgill.ecse321.TreePLE.dto.UserDto;
+import ca.mcgill.ecse321.TreePLE.model.Forecast;
 import ca.mcgill.ecse321.TreePLE.model.Location;
 import ca.mcgill.ecse321.TreePLE.model.Municipality;
 import ca.mcgill.ecse321.TreePLE.model.Survey;
@@ -36,10 +39,12 @@ import ca.mcgill.ecse321.TreePLE.model.Tree.Status;
 import ca.mcgill.ecse321.TreePLE.model.User;
 import ca.mcgill.ecse321.TreePLE.model.User.UserType;
 import ca.mcgill.ecse321.TreePLE.model.VersionManager;
+import ca.mcgill.ecse321.TreePLE.service.ForecastService;
 import ca.mcgill.ecse321.TreePLE.service.InvalidInputException;
 import ca.mcgill.ecse321.TreePLE.service.ReportService;
 import ca.mcgill.ecse321.TreePLE.service.SurveyService;
 import ca.mcgill.ecse321.TreePLE.service.TreeManagerService;
+import ca.mcgill.ecse321.TreePLE.service.VersionManagerService;
 
 
 @RestController
@@ -53,8 +58,11 @@ public class TreeManagerRestController {
 	@Autowired
 	private ReportService reportService;
 	
-	//@Autowired
-	//private VersionManager versionManager;
+	@Autowired
+	private VersionManagerService versionManagerService;
+	
+	@Autowired
+	private ForecastService forecastService;
 
 	@Autowired
 	private ModelMapper modelMapper;
@@ -72,10 +80,12 @@ public class TreeManagerRestController {
 		treeDto.setLocation(createLocationDtoForTree(t));
 		return treeDto;
 	}
+	private ForecastDto convertToDto(Forecast forecast) {
+		return modelMapper.map(forecast, ForecastDto.class);
 
+	}
 	private SustainabilityReportDto convertToDto(SustainabilityReport report) {
 		return modelMapper.map(report, SustainabilityReportDto.class);
-
 	}
 	private LocationDto convertToDto(Location location) {
 		return modelMapper.map(location, LocationDto.class);
@@ -158,8 +168,8 @@ public class TreeManagerRestController {
 	}
 	//if user doesn't find municipality in dropdown for createTree, they create a new one
 	@PostMapping(value = {"/newMunicipality/{name}", "/newMunicipality/{name}/"})
-	public MunicipalityDto createMunicipality(@PathVariable("name") String munName) throws InvalidInputException {
-		Municipality m = treeManagerService.createMunicipality(munName);
+	public MunicipalityDto createMunicipality(@PathVariable("name") String name) throws InvalidInputException {
+		Municipality m = treeManagerService.createMunicipality(name);
 		return convertToDto(m);
 	}
 	
@@ -306,14 +316,29 @@ public class TreeManagerRestController {
 		}
 		return surveysListDto;
 	}
-	/*
+	
 	@GetMapping(value = { "/versions/", "/versions" })
 	public List<String> getAllSystemVersions(){
-		List<String> versions = null; //TODO:
-				//versionManagerService.getAllSystemVersions();
+		List<String> versions = versionManagerService.getAllVersions();
 		return versions;
-	}*/
+	}
 	
-	
+	@PostMapping(value = { "/newForecast/{name}", "/newForecast/{name}/" })
+	public ForecastDto createNewForecast(@PathVariable("name") String name,
+			@RequestParam(name = "baseVersion") String baseVersion,
+			@RequestParam(name = "futureYear") int futureYear,
+			@RequestParam(name = "treesToPlant") List<TreeDto> treesToPlantDto,
+			@RequestParam(name = "treesToCutDown") List<Integer> treeIdsToCutDown) throws InvalidInputException{
+		List<Tree> treesToCutDown = new ArrayList<Tree>();
+		for(int id: treeIdsToCutDown) {
+			treesToCutDown.add(treeManagerService.getTreeById(id));
+		}
+		List<Tree> treesToPlant = new ArrayList<Tree>();
+		for(TreeDto tDto:treesToPlantDto ) {
+			treesToPlant.add(convertToDomainObject(tDto));
+		}
+		Forecast forecast = forecastService.createForecast(name, baseVersion, futureYear, treesToPlant, treesToCutDown);
+		return convertToDto(forecast);
+	}
 
 }
