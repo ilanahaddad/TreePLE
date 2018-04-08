@@ -82,7 +82,7 @@
         </td>
       </tr>
     </table>
-    <button align="center" v-on:click= "editTree(height, diameter, age, ownerName, species, landuse, municipality)">Edit Tree Data</button>
+    <button align="center" v-on:click= "editTree(treeId, height, diameter, age, ownerName, species, landuse, municipality)">Edit Tree Data</button>
  </div>
 </template>
 <script src="./editTree.js">
