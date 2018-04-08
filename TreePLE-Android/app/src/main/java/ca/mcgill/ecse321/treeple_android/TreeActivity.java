@@ -146,7 +146,7 @@ public class TreeActivity extends AppCompatActivity {
                 tvError.setText(error);
                 for( int i = 0; i < response.length(); i++){
                     try {
-                        names.add(response.getJSONObject(i).getString("name")); //TODO: maybe munName
+                        names.add(response.getJSONObject(i).getString("munName")); //TODO: maybe munName
                     } catch (Exception e) {
                         error += e.getMessage();
                     }
