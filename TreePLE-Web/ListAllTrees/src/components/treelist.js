@@ -37,6 +37,7 @@ export default {
       trees: [],
       versions: [],
       municipalities: [],
+      newMun: '',
       statuses: [],
       species: [],
       landUses: [],
@@ -47,6 +48,7 @@ export default {
       errorStatus: '',
       errorMunicipalities: '',
       errorLandUse: '',
+      errorCreateMun: '',
       response: [],
       selectedMunicipality: '',
       selectedVersion: '',
@@ -141,14 +143,26 @@ export default {
   },
 
   methods: {
-    showTreeData: function(event) {
-      var panel = event.target.nextElementSibling;
-      if (panel.style.display === "block") {
-        panel.style.display = "none";
-      } else {
-        panel.style.display = "block";
-      }
-    },
+
+  	addMunicipality: function (newMun) {
+  		AXIOS.post('/newMunicipality/'+newMun, {}, {}).then(response => {
+					this.municipalities.push(response.data)
+					this.newMun=''
+				})
+				.catch(e =>{
+					var errorMsg= e.response.data.message
+					console.log(errorMsg)
+					this.errorCreateMun = errorMsg 
+				})
+  	},
+		showTreeData: function(event) {
+        var panel = event.target.nextElementSibling;
+        if (panel.style.display === "block") {
+            panel.style.display = "none";
+        } else {
+            panel.style.display = "block";
+        }
+     },
 
     listAll: function() {
       AXIOS.get('/trees/')
