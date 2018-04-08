@@ -340,5 +340,26 @@ public class TreeManagerRestController {
 		Forecast forecast = forecastService.createForecast(name, baseVersion, futureYear, treesToPlantDto, treesToCutDown);
 		return convertToDto(forecast);
 	}
+	@PostMapping(value = {"/newTreeDto/{species}", "/newTreeDto/{species}/"})
+	public TreeDto createTreeDto(
+			@PathVariable("species") String species,
+			@RequestParam(name = "height") double height, 
+			@RequestParam(name = "diameter") double diameter,
+			@RequestParam(name= "municipality") MunicipalityDto munDto,
+			@RequestParam(name="latitude") double latitude,
+			@RequestParam(name="longitude") double longitude,
+			@RequestParam(name="owner") String ownerName,
+			@RequestParam(name="age") int age, 
+			@RequestParam(name="landuse") Tree.LandUse landuse ) throws InvalidInputException {
+		
+		//Location location = treeManagerService.getLocationByCoordinates(latitude, longitude);
+		//Location location = new Location(latitude, longitude);
+	//	User owner = treeManagerService.getOwnerByName(userDto.getName());
+		LocationDto locationDto = new LocationDto(latitude, longitude);
+		TreeDto tDto = new TreeDto(species, height, diameter, age, locationDto, ownerName, munDto,landuse );
+		//Municipality municipality = treeManagerService.getMunicipalityByName(munDto.getName());
+		//Tree t = treeManagerService.createTree(ownerName, species, height, diameter, age, location, municipality, landuse);
+		return tDto;
+	}
 
 }
