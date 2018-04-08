@@ -29,6 +29,7 @@ export default {
       trees: [],
       versions: [],
       municipalities: [],
+      newMun: '',
       statuses: [],
       species: [],
       landUses: [],
