@@ -35,7 +35,7 @@
         </td>
       </tr>
     </table>
-    <button align="center" v-on:click="moveTree(treeId, newLat, newLong)">Move Tree</button>
+    <button align="center" @click="moveTree(treeId, newLat, newLong)">Move Tree</button>
  </div>
 </template>
 <script src="./moveTree.js">

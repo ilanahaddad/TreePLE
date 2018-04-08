@@ -25,7 +25,10 @@ export default {
 			municipality: '',
 			landuse: '',
 			municipalities: [],
-     	landUses: []
+     	landUses: [],
+			changedTree: '',
+			errorMunicipalities: '', 
+			errorLandUse: ''
     }
   }, 
  	created : function(){
@@ -48,8 +51,9 @@ export default {
     });
   },
   methods: {
-  		editTree: function(height, diameter, age, ownerName, species, landuse, municipality){
+  		editTree: function(treeId, height, diameter, age, ownerName, species, landuse, municipality){
   			AXIOS.post('/updateTreeData/'+treeId, {}, {params: {newHeight: height, newDiameter: diameter, newAge: age, newOwnerName: ownerName, newSpecies: species, newLandUse: landuse, newMunicipality: municipality}}).then(response => {
+					this.changedTree=response.data
 					this.treeId=''
       		this.ownerName=''
       		this.species=''
