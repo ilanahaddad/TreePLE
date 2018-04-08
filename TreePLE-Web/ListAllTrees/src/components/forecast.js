@@ -10,7 +10,7 @@ var AXIOS = axios.create({
   baseURL: backendUrl,
   headers: { 'Access-Control-Allow-Origin': frontendUrl }
 })
-function TreeDto (species, height, diameter, coordinates, owner, treeMunicipality, age, land) {
+function TreeDto (species, height, diameter, age, coordinates, owner, treeMunicipality, land) {
   this.species = species
   this.height = height
   this.diameter = diameter
@@ -92,9 +92,9 @@ export default {
     });
   },
   methods: {
-  		addTree: function(species, height, diameter, newLat, newLong, owner,treeMunicipality, age, land){
+  		addTree: function(species, height, diameter, age, coordinates, owner, treeMunicipality, land){
   				this.newCoordinates= new LocationDto(newLat, newLong)
-  				this.newTree= new TreeDto(species, height, diameter, this.newCoordinates, owner, treeMunicipality, age, land)
+  				this.newTree= new TreeDto(species, height, diameter, age, this.newCoordinates, owner, treeMunicipality, land)
   				this.newTrees.push(this.newTree)
   				this.newSpecies=''
   				this.newTreeHeight=''
@@ -103,7 +103,7 @@ export default {
   				this.newLong=''
   				this.newOwner= ''
   				this.newMunicipality=''
-  				this.newage=''
+  				this.newAge=''
   				this.newLanduse=''
   		},
   		deleteTree: function(treeId){
