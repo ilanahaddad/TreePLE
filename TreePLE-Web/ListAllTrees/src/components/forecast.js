@@ -92,7 +92,7 @@ export default {
     });
   },
   methods: {
-  		addTree: function(species, height, diameter, age, coordinates, owner, treeMunicipality, land){
+  		addTree: function(species, height, diameter,newLat, newLong, owner, treeMunicipality, age, land){
   				this.newCoordinates= new LocationDto(newLat, newLong)
   				this.newTree= new TreeDto(species, height, diameter, age, this.newCoordinates, owner, treeMunicipality, land)
   				this.newTrees.push(this.newTree)
