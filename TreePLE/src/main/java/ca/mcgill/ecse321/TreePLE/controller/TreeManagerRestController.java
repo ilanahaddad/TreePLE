@@ -126,13 +126,13 @@ public class TreeManagerRestController {
 		}
 		return null;
 	}
-	private Tree convertToDomainObject(TreeDto tDto) {
-		List<Tree> allTrees = treeManagerService.findAllTrees();
+	private Tree convertToDomainObject(TreeDto tDto) { //unused for now
+		/*List<Tree> allTrees = treeManagerService.findAllTrees();
 		for (Tree tree : allTrees) {
 			if (tree.getId()==tDto.getId()) {
 				return tree;
 			}
-		}
+		}*/
 		return null;
 	}
 	@PostMapping(value = {"/newTree/{species}", "/newTree/{species}/"})
@@ -333,11 +333,11 @@ public class TreeManagerRestController {
 		for(int id: treeIdsToCutDown) {
 			treesToCutDown.add(treeManagerService.getTreeById(id));
 		}
-		List<Tree> treesToPlant = new ArrayList<Tree>();
+	/*	List<Tree> treesToPlant = new ArrayList<Tree>();
 		for(TreeDto tDto:treesToPlantDto ) {
 			treesToPlant.add(convertToDomainObject(tDto));
-		}
-		Forecast forecast = forecastService.createForecast(name, baseVersion, futureYear, treesToPlant, treesToCutDown);
+		}*/
+		Forecast forecast = forecastService.createForecast(name, baseVersion, futureYear, treesToPlantDto, treesToCutDown);
 		return convertToDto(forecast);
 	}
 

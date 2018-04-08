@@ -334,6 +334,9 @@ public class TreeManagerService {
 		}
 		return landUseTypesList;
 	}
+	public List<Location> getAllLocations(){
+		return tm.getLocations();
+	}
 
 
 }
