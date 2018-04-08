@@ -190,6 +190,7 @@
     </table>
     <p>
       <span v-if="errorTree" style="color:red">Error: {{errorTree}} </span>
+      <span v-if="errorStatus" style="color:red">Error: {{errorStatus}} </span>
     </p>
     </div>
 </template>
