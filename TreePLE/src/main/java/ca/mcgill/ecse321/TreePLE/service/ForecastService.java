@@ -17,6 +17,7 @@ import ca.mcgill.ecse321.TreePLE.model.Tree;
 import ca.mcgill.ecse321.TreePLE.model.TreeManager;
 import ca.mcgill.ecse321.TreePLE.model.VersionManager;
 import ca.mcgill.ecse321.TreePLE.model.Tree.Status;
+import ca.mcgill.ecse321.TreePLE.persistence.PersistenceXStream;
 
 @Service
 public class ForecastService {
@@ -69,6 +70,7 @@ public class ForecastService {
 		Forecast forecast = new Forecast(name,forecastVersion,futureYear); //creator, version, year
 		vm.addTreeManager(forecastTM);
 		vm.addTreeManager(duplicateTM);
+		PersistenceXStream.saveToXMLwithXStream(vm);
 		return forecast;
 	}
 	public String calculateDuplicateVersion(TreeManager baseTM) {
@@ -112,11 +114,13 @@ public class ForecastService {
 			tms.createTree(treeDto.getOwner(), treeDto.getSpecies(), treeDto.getHeight(), treeDto.getDiameter(),
 					treeDto.getAge(), location, municipality, treeDto.getLand());
 		}
+		PersistenceXStream.saveToXMLwithXStream(vm);
 	}
 	public void cutDownTrees(List<Tree> treesToCutDown) {
 		for(Tree tree: treesToCutDown) {
 			tree.setStatus(Status.CutDown);
 		}
+		PersistenceXStream.saveToXMLwithXStream(vm);
 	}
 	private Municipality convertToDomainObject(MunicipalityDto mDto) {
 		// Mapping DTO to the domain object without using the mapper
