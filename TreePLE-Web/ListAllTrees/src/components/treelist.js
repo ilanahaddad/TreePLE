@@ -59,7 +59,7 @@ export default {
         lat: 45.5048,
         lng: -73.5772
       },
-      markers: []
+      markers: [],
       /*
       markers: [{
         position: {lat: 45.50, lng: -73.57}
@@ -67,7 +67,8 @@ export default {
         position: {lat: 45.51, lng: -73.58}
       }]
       */
-
+			curVersion: '',
+			vYear: ''
     }
   },
   created: function() {
@@ -139,6 +140,20 @@ export default {
       .catch(e => {
         this.errorLandUse = e;
       });
+		AXIOS.get('/versionNumber')
+			.then(response => {
+				this.curVersion=response.data
+			})
+			.catch(e=> {
+				this.errorVersions=e;
+			});
+		AXIOS.get('/versionYear')
+			.then(response => {
+				this.vYear=response.data
+			})
+			.catch(e =>{
+				this.errorVersions=e;
+			});
 
   },
 
@@ -255,14 +270,15 @@ export default {
     },
 
     updateVersion: function(VersionNumber) {
-      AXIOS.get('/treesByLandUse/' + selectedLandUse)
+      AXIOS.post('/updateVersion/' + selectedVersion)
         .then(response => {
           // JSON responses are automatically parsed.
-          this.trees = response.data
+         	selectedVersion=''
         })
         .catch(e => {
           this.errorLandUse = e;
         });
+			
     }
 
     //createTree: function (treeId, treeSpecies, treeLongitude, treeLatitude, treeStatus) {

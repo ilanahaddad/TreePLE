@@ -17,7 +17,9 @@
     </table>
 -->
     <hr>
-    <h5><font color =green>Current Version: {{selectedVersion}}</font></h5>
+    <h5><font color =green>Current Version #: {{this.curVersion}}</font></h5>
+		<h6>Version Year: {{this.vYear}}</h6>
+
     <table align="center">
       <tr>
         <td>Change version:</td>
@@ -30,7 +32,7 @@
             </select>
         </td>
         <td>
-           <button id="updateVersion" @click="updateVersion(VersionNumber)">Update</button>
+           <button id="updateVersion" @click="updateVersion(selectedVersion)">Update</button>
         </td>
       </tr>
     </table>
