@@ -196,6 +196,25 @@ public class TreeActivity extends AppCompatActivity {
 
     public void testBackend(View view) {
         final TextView helloTextView = (TextView) findViewById(R.id.main_page_trial);
-        helloTextView.setText(HttpUtils.getBaseUrl());
+        HttpUtils.get(HttpUtils.getBaseUrl(), new RequestParams(),new JsonHttpResponseHandler() {
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
+                helloTextView.setText(HttpUtils.getBaseUrl());
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                try {
+                    //error += errorResponse.getString("message");
+                    error += errorResponse.get("message").toString();
+
+                } catch (JSONException e) {
+                    error += e.getMessage();
+                }
+                refreshErrorMessage();
+            }
+        });
+
     }
 }
