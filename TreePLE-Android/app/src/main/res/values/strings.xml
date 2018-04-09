@@ -31,6 +31,7 @@
 
     <string name="back_button_option">Options</string>
     <string name="back_button_login">Login</string>
+    <string name="check">Test backend</string>
 
     <!--TODO: array -->
    <!-- <string-array name="userType_array">

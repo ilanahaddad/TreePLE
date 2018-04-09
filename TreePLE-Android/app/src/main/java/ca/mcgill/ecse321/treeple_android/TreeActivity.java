@@ -69,11 +69,9 @@ public class TreeActivity extends AppCompatActivity {
         //Retrieving the municipalities from backend
         //refreshLists(this.getCurrentFocus());
     }
-
     public void createTree(View view) {
 
-        final TextView helloTextView = (TextView) findViewById(R.id.main_page_trial);
-        helloTextView.setText(HttpUtils.getBaseUrl());
+
 
         /*error = "";
         RequestParams rp = new RequestParams();
@@ -196,4 +194,8 @@ public class TreeActivity extends AppCompatActivity {
 
     }
 
+    public void testBackend(View view) {
+        final TextView helloTextView = (TextView) findViewById(R.id.main_page_trial);
+        helloTextView.setText(HttpUtils.getBaseUrl());
+    }
 }
