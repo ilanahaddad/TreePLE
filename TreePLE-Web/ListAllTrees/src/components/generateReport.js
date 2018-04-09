@@ -66,7 +66,7 @@ export default {
   methods: {
 			generateReport: function(reporterName, reportDate, lat1, long1, lat2, long2, lat3, long3, lat4, long4) {
 				AXIOS.post('/newReport/'+reporterName, {}, {params: {reportDate: reportDate, lat1: lat1, long1: long1, lat2: lat2, long2: long2, lat3: lat3, long3: long3, lat4: lat4, long4: long4}}).then(response => {
-					curReport=response.data
+					this.curReport=response.data
 					this.reporterName=''
       		this.reportDate=''
       		this.lat1=''

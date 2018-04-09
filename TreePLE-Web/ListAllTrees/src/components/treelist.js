@@ -278,6 +278,21 @@ export default {
         .catch(e => {
           this.errorLandUse = e;
         });
+			AXIOS.get('/versionNumber')
+			.then(response => {
+				this.curVersion=response.data
+			})
+			.catch(e=> {
+				this.errorVersions=e;
+			});
+			AXIOS.get('/versionYear')
+			.then(response => {
+				this.vYear=response.data
+			})
+			.catch(e =>{
+				this.errorVersions=e;
+			});
+
 			
     }
 
