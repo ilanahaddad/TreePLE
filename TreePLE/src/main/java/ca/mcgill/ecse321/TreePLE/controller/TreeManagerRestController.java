@@ -77,7 +77,11 @@ public class TreeManagerRestController {
 
 	}
 	private SustainabilityReportDto convertToDto(SustainabilityReport report) {
-		return modelMapper.map(report, SustainabilityReportDto.class);
+		SustainabilityReportDto reportDto = modelMapper.map(report, SustainabilityReportDto.class);
+		reportDto.setBiodiversityIndex(report.getBiodiversityIndex());
+		reportDto.setCanopy(report.getCanopy());
+		reportDto.setCarbonSequestration(report.getCarbonSequestration());
+		return reportDto;
 	}
 	private LocationDto convertToDto(Location location) {
 		return modelMapper.map(location, LocationDto.class);
