@@ -85,17 +85,6 @@
 
 <!-- GENERATED REPORT PAGE- ONLY APPEARS ONCE YOU CLICK SUBMIT BUTTON-->
 	<div v-if="showReport">
-	<table align="center">
-      <tr>
-        <td style="padding:0 5px 0 5px;"><a href='http://127.0.0.1:8087/#/app'>View Trees</a> - </td>
-        <td style="padding:0 5px 0 5px;"><a href='http://127.0.0.1:8087/#/generatereport'><span style="font-weight: bold; color: green">Generate Report</span></a> - </td>
-        <td style="padding:0 5px 0 5px;"><a href='http://127.0.0.1:8087/#/viewreportspreliminary'>View Reports</a> - </td>
-        <td style="padding:0 5px 0 5px;"><a href='http://127.0.0.1:8087/#/forecast'>Forecast</a> - </td>
-        <td style="padding:0 5px 0 5px;"><a href='http://127.0.0.1:8087/#/edittree'>Edit Tree</a> - </td>
-        <td style="padding:0 5px 0 5px;"><a href='http://127.0.0.1:8087/#/movetree'>Move Tree</a></td>
-      </tr>
-      <tr></tr>
-   </table>
   <h3>Sustainability Report</h3>
   <br>
   <h5>Basic information</h5>

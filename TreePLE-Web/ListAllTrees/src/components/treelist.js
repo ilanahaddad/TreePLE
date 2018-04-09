@@ -269,11 +269,11 @@ export default {
         });
     },
 
-    updateVersion: function(VersionNumber) {
-      AXIOS.post('/updateVersion/' + selectedVersion)
+    updateVersion: function(versionNumber) {
+      AXIOS.post('/updateVersion/' + versionNumber)
         .then(response => {
           // JSON responses are automatically parsed.
-         	selectedVersion=''
+         	this.selectedVersion=''
         })
         .catch(e => {
           this.errorLandUse = e;
