@@ -61,6 +61,18 @@
                 android:text="@string/login_button"/>
                 <!--android:onClick="gotoHome" does not work, experiment later-->
             />
+
+            <!--testing backend connection -->
+            <TextView
+                android:id="@+id/main_page_trial"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:text="@string/check"
+                android:onClick="testBackend"/>
         </LinearLayout>
 
     </LinearLayout>
