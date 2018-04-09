@@ -16,33 +16,34 @@ public class TreeDto {
 
 	private String species;
 	private double height;
-	private Status status;
+	//private Status status;
 	private double diameter;
 	private LandUse land;
 	private LocationDto coordinates;
-	private UserDto owner;
+	private String owner;
+	private int age;
 	private MunicipalityDto treeMunicipality;
-	private int id;
+	//private int id;
 
 	public TreeDto() {
 	}
 
-	/*	public TreeDto(String name) {
+/*	public TreeDto(String name) {
 		this(name, Date.valueOf("1971-01-01"), Time.valueOf("00:00:00"), Time.valueOf("23:59:59"));
 	}*/
 
-	public TreeDto(String species, double height, double diameter, 
-			LocationDto coordinates, UserDto owner, MunicipalityDto treeMunicipality, 
-			 LandUse land, Status status, int id){
+	public TreeDto(String species, double height, double diameter, int age,
+			LocationDto coordinates, String owner, MunicipalityDto treeMunicipality, 
+			 LandUse land){
 		this.species = species;
 		this.height = height;
-		this.status = status;
 		this.diameter = diameter;
 		this.land = land;
 		this.coordinates = coordinates;
 		this.owner = owner;
 		this.treeMunicipality = treeMunicipality;
-		this.id = id;
+		//this.id = id;
+		this.age = age;
 	}
 
 	public String getSpecies()
@@ -55,10 +56,10 @@ public class TreeDto {
 		return height;
 	}
 
-	public Status getStatus()
+/*	public Status getStatus()
 	{
 		return status;
-	}
+	}*/
 
 	public double getDiameter()
 	{
@@ -70,16 +71,16 @@ public class TreeDto {
 		return land;
 	}
 
-	public int getId()
+	/*public int getId()
 	{
 		return id;
-	}
+	}*/
 	public LocationDto getCoordinates()
 	{
 		return coordinates;
 	}
 
-	public UserDto getOwner()
+	public String getOwner()
 	{
 		return owner;
 	}
@@ -93,7 +94,9 @@ public class TreeDto {
 		Version aVersion = versions.get(index);
 		return aVersion;
 	}*/
-
+	public int getAge() {
+		return age;
+	}
 	public void setMunicipality(MunicipalityDto mun) {
 		this.treeMunicipality = mun;
 		
@@ -104,8 +107,8 @@ public class TreeDto {
 		
 	}
 
-	public void setUser(UserDto owner) {
+/*	public void setUser(UserDto owner) {
 		this.owner=owner;
 		
-	}
+	}*/
 }

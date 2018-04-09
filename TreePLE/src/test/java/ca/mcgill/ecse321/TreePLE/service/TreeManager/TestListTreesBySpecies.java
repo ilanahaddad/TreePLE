@@ -16,14 +16,17 @@ import ca.mcgill.ecse321.TreePLE.model.Location;
 import ca.mcgill.ecse321.TreePLE.model.Municipality;
 import ca.mcgill.ecse321.TreePLE.model.Tree;
 import ca.mcgill.ecse321.TreePLE.model.Tree.LandUse;
+import ca.mcgill.ecse321.TreePLE.persistence.PersistenceXStream;
 import ca.mcgill.ecse321.TreePLE.service.InvalidInputException;
 import ca.mcgill.ecse321.TreePLE.service.TreeManagerService;
 import ca.mcgill.ecse321.TreePLE.model.TreeManager;
 import ca.mcgill.ecse321.TreePLE.model.User;
+import ca.mcgill.ecse321.TreePLE.model.VersionManager;
 
 
 public class TestListTreesBySpecies {
-
+	private VersionManager vm;
+	private TreeManagerService tmc;
 	private TreeManager tm;
 	Location treeLoc = new Location(1.5,1.5);
 	Municipality m = new Municipality("Outremont");
@@ -32,18 +35,20 @@ public class TestListTreesBySpecies {
 
 	@Before
 	public void setUp() throws Exception {
+		vm = new VersionManager();
 		user = new User();
-		tm=new TreeManager(true, "1.0", 2018,user);	
+		tm=new TreeManager(true,true, "1.0", 2018,user);	
+		vm.addTreeManager(tm);
+		tmc = new TreeManagerService(vm);
 	}
 
 	@After
 	public void tearDown() throws Exception {
-		tm.delete();
+		vm.delete();
 	}
 
 	@Test
 	public void testListTreesbySpecies() { //Add a tree and test that ListTreesbySpecies method can find it
-		TreeManagerService tmc = new TreeManagerService(tm);
 		String species= "WhiteAsh";
 		String error = "false";
 		List<Tree> trees = null;
@@ -73,7 +78,6 @@ public class TestListTreesBySpecies {
 	
 	@Test
 	public void testListTreesbySpeciesNull() { //Tests error handling of ListTreesbySpecies method for null input
-		TreeManagerService tmc = new TreeManagerService(tm);
 		String species= null;
 		String error = "false";
 		
@@ -96,7 +100,6 @@ public class TestListTreesBySpecies {
 	
 	@Test
 	public void testlistTreesBySpeciesEmpty() { //Tests error handling of ListTreesbySpecies method for empty input
-		TreeManagerService tmc = new TreeManagerService(tm);
 		String species= " ";
 		String error = "false";
 		
@@ -118,7 +121,6 @@ public class TestListTreesBySpecies {
 	
 	@Test
 	public void testlistTreesBySpeciesNoSpecies() { //Tests error handling of ListTreesbySpecies method when no trees are found
-		TreeManagerService tmc = new TreeManagerService(tm);
 		String species= "Pine";
 		String error = "false";
 		

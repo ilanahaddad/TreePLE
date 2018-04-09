@@ -5,6 +5,7 @@ import static org.junit.Assert.*;
 import java.util.List;
 
 import org.junit.After;
+import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -13,13 +14,16 @@ import ca.mcgill.ecse321.TreePLE.model.Municipality;
 import ca.mcgill.ecse321.TreePLE.model.Tree;
 import ca.mcgill.ecse321.TreePLE.model.Tree.LandUse;
 import ca.mcgill.ecse321.TreePLE.model.Tree.Status;
+import ca.mcgill.ecse321.TreePLE.persistence.PersistenceXStream;
 import ca.mcgill.ecse321.TreePLE.service.InvalidInputException;
 import ca.mcgill.ecse321.TreePLE.service.TreeManagerService;
 import ca.mcgill.ecse321.TreePLE.model.TreeManager;
 import ca.mcgill.ecse321.TreePLE.model.User;
+import ca.mcgill.ecse321.TreePLE.model.VersionManager;
 
 public class TestListTreesByStatus {
-
+	private VersionManager vm;
+	private TreeManagerService tmc;
 	private static TreeManager tm;
 	//characteristics for first tree
 	String ownerName = "Jessica";
@@ -43,23 +47,25 @@ public class TestListTreesByStatus {
 
 	static User user;
 
-	@BeforeClass
-	public static void setUpBeforeClass() throws Exception {
+	@Before
+	public  void setUp() throws Exception {
+		vm = new VersionManager();
 		user = new User();
-		tm=new TreeManager(true, "1.0", 2018,user);
+		tm=new TreeManager(true,true, "1.0", 2018,user);
+		vm.addTreeManager(tm);
+		tmc = new TreeManagerService(vm);
 	}
 
 
 	@After
 	public void tearDown() throws Exception {
-		tm.delete();
+		vm.delete();
 	}
 
 	@Test
 	public void testListTreesbyStatus() throws InvalidInputException { //Add a tree and test that ListTreesbyStatus method can find it
 		String error = "false";
 		Status status = Status.Planted;
-		TreeManagerService tmc = new TreeManagerService(tm);
 		List<Tree> treeWithStatus = null;
 		try {
 			tmc.createTree(ownerName, species, treeHeight, treeDiameter, 

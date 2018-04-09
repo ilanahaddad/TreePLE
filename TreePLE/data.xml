@@ -1,39 +1,165 @@
-<manager id="1">
-  <isCurrent>true</isCurrent>
-  <version>1.0</version>
-  <versionYear>2018</versionYear>
-  <trees id="2">
-    <tree id="3">
-      <ownerName>Ilana</ownerName>
-      <species>WhiteOak</species>
-      <height>1.5</height>
-      <status>Planted</status>
-      <diameter>0.2</diameter>
-      <land>Residential</land>
-      <age>3</age>
-      <id>1</id>
-      <surveys id="4"/>
-      <coordinates id="5">
-        <latitude>45.0</latitude>
-        <longitude>-73.0</longitude>
-        <treeInLocation reference="3"/>
-      </coordinates>
-      <treeMunicipality id="6">
-        <name>Westmount</name>
-        <forecasts id="7"/>
-        <listOfTrees id="8">
-          <tree reference="3"/>
-        </listOfTrees>
-      </treeMunicipality>
-    </tree>
-  </trees>
-  <locations id="9">
-    <location reference="5"/>
-  </locations>
-  <surveys id="10"/>
-  <municipalities id="11">
-    <ca.mcgill.ecse321.TreePLE.model.Municipality reference="6"/>
-  </municipalities>
-  <user id="12"/>
-  <reports id="13"/>
-</manager>
+<versionManager id="1">
+  <treeManagers id="2">
+    <treeManager id="3">
+      <isEditable>false</isEditable>
+      <isSelected>true</isSelected>
+      <version>1.0</version>
+      <versionYear>2018</versionYear>
+      <trees id="4">
+        <tree id="5">
+          <ownerName>Ilana</ownerName>
+          <species>Cherry</species>
+          <height>3.0</height>
+          <status>Diseased</status>
+          <diameter>1.5</diameter>
+          <land>NonResidential</land>
+          <age>2</age>
+          <id>1</id>
+          <surveys id="6">
+            <survey id="7">
+              <surveyorName>Ilana</surveyorName>
+              <reportDate id="8">2018-02-23</reportDate>
+              <tree reference="5"/>
+            </survey>
+          </surveys>
+          <coordinates id="9">
+            <latitude>39.0</latitude>
+            <longitude>-60.0</longitude>
+            <treeInLocation reference="5"/>
+          </coordinates>
+          <treeMunicipality id="10">
+            <name>Plateau</name>
+            <listOfTrees id="11">
+              <tree reference="5"/>
+            </listOfTrees>
+          </treeMunicipality>
+        </tree>
+      </trees>
+      <locations id="12">
+        <location id="13">
+          <latitude>0.0</latitude>
+          <longitude>0.0</longitude>
+        </location>
+        <location id="14">
+          <latitude>0.0</latitude>
+          <longitude>1.0</longitude>
+        </location>
+        <location id="15">
+          <latitude>1.0</latitude>
+          <longitude>1.0</longitude>
+        </location>
+        <location id="16">
+          <latitude>1.0</latitude>
+          <longitude>0.0</longitude>
+        </location>
+        <location reference="9"/>
+      </locations>
+      <surveys id="17">
+        <survey reference="7"/>
+      </surveys>
+      <municipalities id="18">
+        <municipality reference="10"/>
+        <municipality id="19">
+          <name>Outremont</name>
+          <listOfTrees id="20"/>
+        </municipality>
+      </municipalities>
+      <user id="21"/>
+      <reports id="22">
+        <sustainabilityReport id="23">
+          <reporterName>Ilana</reporterName>
+          <date id="24">2018-04-07</date>
+          <biodiversityIndex>0.0</biodiversityIndex>
+          <canopy>0.0</canopy>
+          <carbonSequestration>0.0</carbonSequestration>
+          <reportPerimeter id="25">
+            <location reference="13"/>
+            <location reference="14"/>
+            <location reference="15"/>
+            <location reference="16"/>
+          </reportPerimeter>
+        </sustainabilityReport>
+        <sustainabilityReport id="26">
+          <reporterName>Ilana</reporterName>
+          <date id="27">2018-04-07</date>
+          <biodiversityIndex>0.0</biodiversityIndex>
+          <canopy>0.0</canopy>
+          <carbonSequestration>0.0</carbonSequestration>
+          <reportPerimeter id="28">
+            <location reference="13"/>
+            <location reference="14"/>
+            <location reference="15"/>
+            <location reference="16"/>
+          </reportPerimeter>
+        </sustainabilityReport>
+      </reports>
+    </treeManager>
+    <treeManager id="29">
+      <isEditable>false</isEditable>
+      <isSelected>false</isSelected>
+      <version>1.1</version>
+      <versionYear>2021</versionYear>
+      <trees id="30">
+        <tree reference="5"/>
+      </trees>
+      <locations id="31">
+        <location reference="13"/>
+        <location reference="14"/>
+        <location reference="15"/>
+        <location reference="16"/>
+        <location reference="9"/>
+      </locations>
+      <surveys id="32">
+        <survey reference="7"/>
+      </surveys>
+      <municipalities id="33">
+        <municipality reference="10"/>
+        <municipality reference="19"/>
+      </municipalities>
+      <user reference="21"/>
+      <reports id="34">
+        <sustainabilityReport reference="23"/>
+      </reports>
+    </treeManager>
+    <treeManager id="35">
+      <isEditable>true</isEditable>
+      <isSelected>false</isSelected>
+      <version>2.0</version>
+      <versionYear>2018</versionYear>
+      <trees id="36">
+        <tree reference="5"/>
+      </trees>
+      <locations id="37">
+        <location reference="13"/>
+        <location reference="14"/>
+        <location reference="15"/>
+        <location reference="16"/>
+        <location reference="9"/>
+      </locations>
+      <surveys id="38">
+        <survey reference="7"/>
+      </surveys>
+      <municipalities id="39">
+        <municipality reference="10"/>
+        <municipality reference="19"/>
+      </municipalities>
+      <user reference="21"/>
+      <reports id="40">
+        <sustainabilityReport reference="23"/>
+        <sustainabilityReport id="41">
+          <reporterName>Ilana</reporterName>
+          <date id="42">2018-04-07</date>
+          <biodiversityIndex>0.0</biodiversityIndex>
+          <canopy>0.0</canopy>
+          <carbonSequestration>0.0</carbonSequestration>
+          <reportPerimeter id="43">
+            <location reference="13"/>
+            <location reference="14"/>
+            <location reference="15"/>
+            <location reference="16"/>
+          </reportPerimeter>
+        </sustainabilityReport>
+      </reports>
+    </treeManager>
+  </treeManagers>
+</versionManager>
