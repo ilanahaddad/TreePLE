@@ -1,5 +1,6 @@
 <template>
   <div id="edittree">
+	<!--
   	<table align="center">
       <tr>
         <td style="padding:0 5px 0 5px;"><a href='http://127.0.0.1:8087/#/app'>View Trees</a> - </td>
@@ -11,6 +12,7 @@
       </tr>
       <tr></tr>
   </table>
+-->
   <hr>
   <h2>Edit Tree</h2>
     <table align="center">
@@ -72,18 +74,17 @@
           Land Use:
         </td>
         <td style="padding:0 10px 0 10px;" id="LandUse_select">
-          <select v-model="selectedLandUse">
+          <select v-model="landuse">
               <option disabled value="">Select Land Use</option>
               <option v-for="l in landUses" >
                   <td>{{ l }}</td>
               </option>         
             </select>
-            <button id="status_list" @click="listByLandUse(selectedLandUse)">OK</button>
         </td>
         </td>
       </tr>
     </table>
-    <button align="center" v-on:click= "editTree(height, diameter, age, ownerName, species, landuse, municipality)">Edit Tree Data</button>
+    <button align="center" @click= "editTree(treeId, height, diameter, age, ownerName, species, landuse, municipality)">Edit Tree Data</button>
  </div>
 </template>
 <script src="./editTree.js">

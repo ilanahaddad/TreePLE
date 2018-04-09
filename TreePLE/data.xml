@@ -1,97 +1,85 @@
 <versionManager id="1">
   <treeManagers id="2">
     <treeManager id="3">
-      <isCurrent>true</isCurrent>
+      <isEditable>true</isEditable>
+      <isSelected>true</isSelected>
       <version>1.0</version>
       <versionYear>2018</versionYear>
       <trees id="4">
         <tree id="5">
-          <ownerName>Asma</ownerName>
-          <species>Maple</species>
-          <height>50.0</height>
-          <status>Planted</status>
-          <diameter>20.0</diameter>
+          <ownerName>Ilana</ownerName>
+          <species>Cherry</species>
+          <height>3.0</height>
+          <status>Diseased</status>
+          <diameter>1.5</diameter>
           <land>NonResidential</land>
-          <age>50</age>
+          <age>2</age>
           <id>1</id>
-          <surveys id="6"/>
-          <coordinates id="7">
+          <surveys id="6">
+            <survey id="7">
+              <surveyorName>Ilana</surveyorName>
+              <reportDate id="8">2018-02-23</reportDate>
+              <tree reference="5"/>
+            </survey>
+          </surveys>
+          <coordinates id="9">
             <latitude>39.0</latitude>
             <longitude>-60.0</longitude>
             <treeInLocation reference="5"/>
           </coordinates>
-          <treeMunicipality id="8">
+          <treeMunicipality id="10">
             <name>Plateau</name>
-            <listOfTrees id="9">
+            <listOfTrees id="11">
               <tree reference="5"/>
             </listOfTrees>
           </treeMunicipality>
         </tree>
-        <tree id="10">
-          <ownerName>John</ownerName>
-          <species>Pine</species>
-          <height>2.0</height>
-          <status>Planted</status>
-          <diameter>1.5</diameter>
-          <land>Residential</land>
-          <age>2</age>
-          <id>1</id>
-          <surveys id="11"/>
-          <coordinates id="12">
-            <latitude>46.0</latitude>
-            <longitude>-74.0</longitude>
-            <treeInLocation reference="10"/>
-          </coordinates>
-          <treeMunicipality id="13">
-            <name>Outremont</name>
-            <listOfTrees id="14">
-              <tree reference="10"/>
-              <tree id="15">
-                <ownerName>John</ownerName>
-                <species>Pine</species>
-                <height>2.0</height>
-                <status>Diseased</status>
-                <diameter>1.5</diameter>
-                <land>Residential</land>
-                <age>2</age>
-                <id>2</id>
-                <surveys id="16">
-                  <survey id="17">
-                    <surveyorName>Ilana</surveyorName>
-                    <reportDate id="18">2018-02-23</reportDate>
-                    <tree reference="15"/>
-                  </survey>
-                </surveys>
-                <coordinates id="19">
-                  <latitude>30.0</latitude>
-                  <longitude>-40.0</longitude>
-                  <treeInLocation reference="15"/>
-                </coordinates>
-                <treeMunicipality reference="13"/>
-              </tree>
-            </listOfTrees>
-          </treeMunicipality>
-        </tree>
-        <tree reference="15"/>
       </trees>
-      <locations id="20">
-        <location reference="7"/>
-        <location reference="12"/>
-        <location id="21">
-          <latitude>47.0</latitude>
-          <longitude>-74.0</longitude>
+      <locations id="12">
+        <location id="13">
+          <latitude>0.0</latitude>
+          <longitude>0.0</longitude>
         </location>
-        <location reference="19"/>
+        <location id="14">
+          <latitude>0.0</latitude>
+          <longitude>1.0</longitude>
+        </location>
+        <location id="15">
+          <latitude>1.0</latitude>
+          <longitude>1.0</longitude>
+        </location>
+        <location id="16">
+          <latitude>1.0</latitude>
+          <longitude>0.0</longitude>
+        </location>
+        <location reference="9"/>
       </locations>
-      <surveys id="22">
-        <survey reference="17"/>
+      <surveys id="17">
+        <survey reference="7"/>
       </surveys>
-      <municipalities id="23">
-        <municipality reference="8"/>
-        <municipality reference="13"/>
+      <municipalities id="18">
+        <municipality reference="10"/>
+        <municipality id="19">
+          <name>Outremont</name>
+          <listOfTrees id="20"/>
+        </municipality>
       </municipalities>
-      <user id="24"/>
-      <reports id="25"/>
+      <user id="21"/>
+      <reports id="22">
+        <sustainabilityReport id="23">
+          <reporterName>Ilana</reporterName>
+          <date id="24">2018-04-07</date>
+          <biodiversityIndex>0.0</biodiversityIndex>
+          <canopy>0.0</canopy>
+          <carbonSequestration>0.0</carbonSequestration>
+          <reportPerimeter id="25">
+            <location reference="13"/>
+            <location reference="14"/>
+            <location reference="15"/>
+            <location reference="16"/>
+          </reportPerimeter>
+        </sustainabilityReport>
+      </reports>
     </treeManager>
   </treeManagers>
 </versionManager>

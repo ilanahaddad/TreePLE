@@ -41,7 +41,7 @@ public class TestGetTreesInLocation {
 	public void setUp() throws Exception {
 		vm = new VersionManager();
 		user = new User();
-		tm=new TreeManager(true, "1.0", 2018,user);
+		tm=new TreeManager(true,true, "1.0", 2018,user);
 		user.setUsertype(UserType.Professional);
 		vm.addTreeManager(tm);
 		rs = new ReportService(vm);
@@ -156,7 +156,7 @@ public class TestGetTreesInLocation {
 	public void testWorstCase() throws InvalidInputException {
 
 		User user= new User();
-		tm=new TreeManager(true, "1.0", 2018, user);
+		tm=new TreeManager(true,true, "1.0", 2018,user);
 		String species= "White Ash";
 
 		Location treeLoc1 = new Location (1.0003,1.0087);

@@ -1,5 +1,6 @@
 <template>
   <div id="movetree">
+<!--
   	<table align="center">
       <tr>
         <td style="padding:0 5px 0 5px;"><a href='http://127.0.0.1:8087/#/app'>View Trees</a> - </td>
@@ -11,6 +12,7 @@
       </tr>
       <tr></tr>
   </table>
+-->
   <hr>
   <h2>Move Tree</h2>
     <table align="center">
@@ -35,7 +37,7 @@
         </td>
       </tr>
     </table>
-    <button align="center" v-on:click="moveTree(treeId, newLat, newLong)">Move Tree</button>
+    <button align="center" @click="moveTree(treeId, newLat, newLong)">Move Tree</button>
  </div>
 </template>
 <script src="./moveTree.js">

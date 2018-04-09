@@ -1,6 +1,7 @@
 <template>
   <div id="generatereport">
 		<div v-if="showGenerate">
+	<!--
   	<table align="center">
       <tr>
         <td style="padding:0 5px 0 5px;"><a href='http://127.0.0.1:8087/#/app'>View Trees</a> - </td>
@@ -12,6 +13,7 @@
       </tr>
       <tr></tr>
     </table>
+	-->
     <hr>
     <h4>Perimeter Selection</h4>
     <table align="center">
