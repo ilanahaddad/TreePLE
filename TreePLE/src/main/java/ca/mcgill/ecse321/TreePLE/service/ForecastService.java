@@ -50,8 +50,12 @@ public class ForecastService {
 		String forecastVersion = calculateForecastVersion(baseTM);
 		TreeManager forecastTM = new TreeManager(true, true, forecastVersion, futureYear, baseTM.getUser()); 
 		copyAllContents(baseTM, forecastTM);//copy all data from baseTM to newTM
-		plantTrees(treesToPlant);//plant new trees requested in newTM
-		cutDownTrees(treesToCutDown);//cut down trees requested in newTM
+		if(treesToPlant!=null) {
+			plantTrees(treesToPlant);//plant new trees requested in newTM
+		}
+		if(treesToCutDown!=null) {
+			cutDownTrees(treesToCutDown);//cut down trees requested in newTM
+		}
 		//Set new forecastTM as non editable now that trees have been planted and cut down
 		forecastTM.setIsEditable(false); 
 		forecastTM.setIsSelected(false); //make it false, will be set to true if selected in dropdown
