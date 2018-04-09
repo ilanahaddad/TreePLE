@@ -67,20 +67,28 @@ public class TreeActivity extends AppCompatActivity {
         municipalitiesSpinner.setAdapter(municipalitiesAdapter);
 
         //Retrieving the municipalities from backend
-        refreshLists(this.getCurrentFocus());
+        //refreshLists(this.getCurrentFocus());
     }
 
     public void createTree(View view) {
-        error = "";
+
+        final TextView helloTextView = (TextView) findViewById(R.id.main_page_trial);
+        helloTextView.setText(HttpUtils.getBaseUrl());
+
+        /*error = "";
+        RequestParams rp = new RequestParams();
+
 
         //To get species from user
-        EditText et = (EditText) findViewById(R.id.speciesName);
-        String species = et.getText().toString();
+        TextView tv = (TextView) findViewById(R.id.speciesName);
+        String species = tv.getText().toString();
 
         //To get height from user
-        et = (EditText) findViewById(R.id.height);
-        String heightString= et.getText().toString();
+        tv = (TextView) findViewById(R.id.height);
+        String heightString= tv.getText().toString();
         double height = Double.parseDouble(heightString);
+        //rp.add("height",(findViewById(R.id.height).getText().toString()));
+        rp.add("height",height);
 
         //To get diameter from user
         et = (EditText) findViewById(R.id.diameter);
@@ -113,7 +121,15 @@ public class TreeActivity extends AppCompatActivity {
 
         //TODO: land use
 
-       HttpUtils.post("/newTree/" +species+height+diameter+rpMunicipality+latitude+longitude+userName+age, new RequestParams(), new JsonHttpResponseHandler() {
+        //Issue and HTTP POST
+        Spinner municiplaitySpinner = (Spinner) findViewById(R.id.municipalitySpinner);
+
+        rp.add("height", height);
+
+        rp.add("municipality", municiplaitySpinner.getSelectedItem().toString());
+        rp.add("event", eventSpinner.getSelectedItem().toString())
+
+       HttpUtils.post("/newTree/" +species, rp , new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 refreshErrorMessage();
@@ -128,11 +144,11 @@ public class TreeActivity extends AppCompatActivity {
                 }
                 refreshErrorMessage();
             }
-        });
+        });*/
     }
 
     public void refreshLists(View view) {
-        refreshList(municipalitiesAdapter, municipalities, "/municipalities");//TODO: maybe /municipalities
+        refreshList(municipalitiesAdapter, municipalities, "municipalities");//TODO: maybe /municipalities
     }
 
     private void refreshList(final ArrayAdapter<String> adapter, final List<String> names, String restFunctionName) {
@@ -142,8 +158,6 @@ public class TreeActivity extends AppCompatActivity {
             public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
                 names.clear();
                 names.add("Please select...");
-                TextView tvError = (TextView) findViewById(R.id.error);
-                tvError.setText(error);
                 for( int i = 0; i < response.length(); i++){
                     try {
                         names.add(response.getJSONObject(i).getString("name")); //TODO: maybe munName
