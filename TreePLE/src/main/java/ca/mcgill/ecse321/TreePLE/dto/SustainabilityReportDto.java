@@ -34,6 +34,15 @@ public class SustainabilityReportDto {
 	public List<LocationDto> getReportPerimeter() {
 		return reportPerimeter;
 	}
+	public double getBiodiversityIndex() {
+		return this.biodiversityIndex;
+	}
+	public double getCanopy() {
+		return this.canopy;
+	}
+	public double getCarbonSequestration() {
+		return this.carbonSequestration;
+	}
 	public void setBiodiversityIndex(double biodiversityIndex) {
 		this.biodiversityIndex = biodiversityIndex;
 	}

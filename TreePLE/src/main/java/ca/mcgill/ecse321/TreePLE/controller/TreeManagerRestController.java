@@ -203,10 +203,10 @@ public class TreeManagerRestController {
 		@RequestParam(name="long3") double long3,
 		@RequestParam(name="lat4") double lat4,
 		@RequestParam(name="long4") double long4) throws InvalidInputException {
-		Location location1 = treeManagerService.getLocationByCoordinates(lat1, long1);
-		Location location2 = treeManagerService.getLocationByCoordinates(lat2, long2);
-		Location location3 = treeManagerService.getLocationByCoordinates(lat3, long3);
-		Location location4 = treeManagerService.getLocationByCoordinates(lat4, long4);
+		Location location1 = reportService.getLocationByCoordinates(lat1, long1);
+		Location location2 = reportService.getLocationByCoordinates(lat2, long2);
+		Location location3 = reportService.getLocationByCoordinates(lat3, long3);
+		Location location4 = reportService.getLocationByCoordinates(lat4, long4);
 		Location[] perimeter = new Location[4];
 		perimeter[0] = location1;
 		perimeter[1] = location2;
@@ -382,8 +382,9 @@ public class TreeManagerRestController {
 		return surveyDtosForTree;
 	}
 	@PostMapping(value = { "/updateVersion/{version}", "/updateVersion/{version}/" })
-	public String updateVersion(@PathVariable("version") String version) throws InvalidInputException{
-		versionManagerService.setSelectedVersion(version);
+	public String updateVersion(@PathVariable("version") String version,
+			@RequestParam(name = "versionNum") String versionNum) throws InvalidInputException{
+		versionManagerService.setSelectedVersion(versionNum);
 		return version;
 	}
 	@GetMapping(value = { "/versionYear", "/versionYear/" })

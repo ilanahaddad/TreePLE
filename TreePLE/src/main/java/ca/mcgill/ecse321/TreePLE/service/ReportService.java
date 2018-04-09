@@ -165,5 +165,29 @@ public class ReportService {
 	public List<SustainabilityReport> getAllSustainabilityReports(){
 		return tm.getReports();
 	}
+	public Location createLocation(double latitude, double longitude) throws InvalidInputException{
+		if(latitude < -90 || latitude >90) {
+			throw new InvalidInputException("Latitude must be in range [-90,90].\n");
+		}
+		if(longitude < -180 || longitude >180) {
+			throw new InvalidInputException("Longitude must be in range [-180,180].\n");
+		}
+		Location location = new Location(latitude, longitude);
+		tm.addLocation(location);
+		PersistenceXStream.saveToXMLwithXStream(vm);
+		return location;
+	}
+	public Location getLocationByCoordinates(double lati, double longi) throws InvalidInputException {
+		//check if location already exists
+		List<Location> locations = tm.getLocations();
+		for(Location l: locations) {
+			if(l.getLatitude()==lati && l.getLongitude()==longi) { //location exists
+				return l;
+			}
+		}
+		//return new one if existing one wasnt found in for loop
+		Location location = createLocation(lati,longi);
+		return location;
+	}
 	
 }
