@@ -30,7 +30,6 @@ import ca.mcgill.ecse321.TreePLE.model.SustainabilityReport;
 import ca.mcgill.ecse321.TreePLE.model.Tree;
 import ca.mcgill.ecse321.TreePLE.model.Tree.LandUse;
 import ca.mcgill.ecse321.TreePLE.model.Tree.Status;
-import ca.mcgill.ecse321.TreePLE.model.TreeManager;
 import ca.mcgill.ecse321.TreePLE.model.User.UserType;
 import ca.mcgill.ecse321.TreePLE.service.ForecastService;
 import ca.mcgill.ecse321.TreePLE.service.InvalidInputException;
