@@ -372,7 +372,7 @@ public class TreeManagerRestController {
 		TreeDto tDto = new TreeDto(species, height, diameter, age, locationDto, ownerName, munDto,landuse );
 		return tDto;
 	}
-	@GetMapping(value = { "/surveysForTree/{id}", "/treesBySpecies/{id}/" })
+	@GetMapping(value = { "/surveysForTree/{id}", "/surveysForTree/{id}/" })
 	public List<SurveyDto> getSurveysForTree(@PathVariable("id") int id) throws InvalidInputException{
 		Tree tree = treeManagerService.getTreeById(id);
 		List<Survey> surveysForTree = surveyService.getSurveysForTree(tree);
