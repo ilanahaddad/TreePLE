@@ -16,10 +16,14 @@ public class SustainabilityReportDto {
 		
 	}
 	
-	public SustainabilityReportDto(String reporterName, Date reportDate, ArrayList<LocationDto> perimeter ) {
+	public SustainabilityReportDto(String reporterName, Date reportDate, ArrayList<LocationDto> reportPerimeter, 
+			double biodiversityIndex, double canopy, double carbonSequestration ) {
 		this.reporterName = reporterName;
 		this.reportDate = reportDate;
-		this.reportPerimeter = perimeter;
+		this.reportPerimeter = reportPerimeter;
+		this.biodiversityIndex = biodiversityIndex;
+		this.canopy = canopy;
+		this.carbonSequestration=carbonSequestration;
 	}
 	public String getReporterName() {
 		return reporterName;
