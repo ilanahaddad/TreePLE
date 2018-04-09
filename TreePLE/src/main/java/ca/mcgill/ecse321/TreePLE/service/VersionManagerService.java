@@ -16,13 +16,15 @@ public class VersionManagerService {
 		this.vm = vm;
 	}
 	
-	public void setSelectedVersion(String versionSelected) throws InvalidInputException{
+	public String setSelectedVersion(String versionSelected) throws InvalidInputException{
 		List<TreeManager> treeManagers = vm.getTreeManagers();
 		boolean foundRequestedVersion = false;
+		String newVersionSelected = "";
+		TreeManager tmSelected = null;
 		for(TreeManager tm: treeManagers) { //select new requested tm by version
 			if(tm.getVersion().equals(versionSelected)) {
 				foundRequestedVersion= true;
-				System.out.println("found");
+				tmSelected= tm;
 				tm.setIsSelected(true);
 				break;
 			}
@@ -31,12 +33,26 @@ public class VersionManagerService {
 			throw new InvalidInputException("No such version of the system exists");
 		}
 		for(TreeManager tm: treeManagers) {
+			if(!tm.equals(tmSelected)) { //set all other tms to not selected
+				tm.setIsSelected(false);
+			}
+		}
+		//return the one we want selected:
+		for(TreeManager tm: treeManagers) {
+			if(tm.getIsSelected()) {//ensure the one we want is the only one selected
+				newVersionSelected = tm.getVersion();
+				//break;
+			}
+		}
+
+	/*	for(TreeManager tm: treeManagers) {
 			if(tm.getIsSelected()) { //unselect old tm
 				tm.setIsSelected(false);
 				break;
 			}
-		}
+		}*/
 		PersistenceXStream.saveToXMLwithXStream(vm);
+		return newVersionSelected;
 	}
 	public List<String> getAllVersions() {
 		List<TreeManager> treeManagers = vm.getTreeManagers();
@@ -69,5 +85,9 @@ public class VersionManagerService {
 			}
 		}
 		return curVersionNumber;
+	}
+
+	public List<TreeManager> getTreeManagers() {
+		return vm.getTreeManagers();
 	}
 }

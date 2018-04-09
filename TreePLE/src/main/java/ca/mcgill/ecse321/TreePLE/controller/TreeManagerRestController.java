@@ -30,6 +30,7 @@ import ca.mcgill.ecse321.TreePLE.model.SustainabilityReport;
 import ca.mcgill.ecse321.TreePLE.model.Tree;
 import ca.mcgill.ecse321.TreePLE.model.Tree.LandUse;
 import ca.mcgill.ecse321.TreePLE.model.Tree.Status;
+import ca.mcgill.ecse321.TreePLE.model.TreeManager;
 import ca.mcgill.ecse321.TreePLE.model.User.UserType;
 import ca.mcgill.ecse321.TreePLE.service.ForecastService;
 import ca.mcgill.ecse321.TreePLE.service.InvalidInputException;
@@ -384,8 +385,8 @@ public class TreeManagerRestController {
 	@PostMapping(value = { "/updateVersion/{version}", "/updateVersion/{version}/" })
 	public String updateVersion(@PathVariable("version") String version,
 			@RequestParam(name = "versionNum") String versionNum) throws InvalidInputException{
-		versionManagerService.setSelectedVersion(versionNum);
-		return version;
+		String newVersion = versionManagerService.setSelectedVersion(versionNum);
+		return newVersion;
 	}
 	@GetMapping(value = { "/versionYear", "/versionYear/" })
 	public int getVersionYear() throws InvalidInputException{
@@ -397,6 +398,11 @@ public class TreeManagerRestController {
 		String versionNumber = versionManagerService.getCurrentVersionNumber();
 		return versionNumber;
 	}
+	/*@GetMapping(value = { "/vm", "/vm/" })
+	public List<TreeManager> getTreeManagers() throws InvalidInputException{
+		List<TreeManager> treeManagers = versionManagerService.getTreeManagers();
+		return treeManagers;
+	}*/
 	
 
 }
