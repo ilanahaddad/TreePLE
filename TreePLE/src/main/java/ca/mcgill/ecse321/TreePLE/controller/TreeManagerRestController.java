@@ -1,18 +1,11 @@
 package ca.mcgill.ecse321.TreePLE.controller;
 
 import java.sql.Date;
-import java.sql.Time;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.format.annotation.DateTimeFormat.ISO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,7 +22,6 @@ import ca.mcgill.ecse321.TreePLE.dto.MunicipalityDto;
 import ca.mcgill.ecse321.TreePLE.dto.SurveyDto;
 import ca.mcgill.ecse321.TreePLE.dto.SustainabilityReportDto;
 import ca.mcgill.ecse321.TreePLE.dto.TreeDto;
-import ca.mcgill.ecse321.TreePLE.dto.UserDto;
 import ca.mcgill.ecse321.TreePLE.model.Forecast;
 import ca.mcgill.ecse321.TreePLE.model.Location;
 import ca.mcgill.ecse321.TreePLE.model.Municipality;
@@ -38,9 +30,7 @@ import ca.mcgill.ecse321.TreePLE.model.SustainabilityReport;
 import ca.mcgill.ecse321.TreePLE.model.Tree;
 import ca.mcgill.ecse321.TreePLE.model.Tree.LandUse;
 import ca.mcgill.ecse321.TreePLE.model.Tree.Status;
-import ca.mcgill.ecse321.TreePLE.model.User;
 import ca.mcgill.ecse321.TreePLE.model.User.UserType;
-import ca.mcgill.ecse321.TreePLE.model.VersionManager;
 import ca.mcgill.ecse321.TreePLE.service.ForecastService;
 import ca.mcgill.ecse321.TreePLE.service.InvalidInputException;
 import ca.mcgill.ecse321.TreePLE.service.ReportService;
@@ -329,11 +319,13 @@ public class TreeManagerRestController {
 	public ForecastDto createNewForecast(@PathVariable("name") String name,
 			@RequestParam(name = "baseVersion") String baseVersion,
 			@RequestParam(name = "futureYear") int futureYear,
-			@RequestParam(name = "treesToPlant") List<TreeDto> treesToPlantDto,
-			@RequestParam(name = "treesToCutDown") List<Integer> treeIdsToCutDown) throws InvalidInputException{
+			@RequestParam(name = "treesToPlant", required = false) List<TreeDto> treesToPlantDto,
+			@RequestParam(name = "treesToCutDown", required = false) List<Integer> treeIdsToCutDown) throws InvalidInputException{
 		List<Tree> treesToCutDown = new ArrayList<Tree>();
-		for(int id: treeIdsToCutDown) {
-			treesToCutDown.add(treeManagerService.getTreeById(id));
+		if(treeIdsToCutDown != null) {
+			for(int id: treeIdsToCutDown) {
+				treesToCutDown.add(treeManagerService.getTreeById(id));
+			}
 		}
 	/*	List<Tree> treesToPlant = new ArrayList<Tree>();
 		for(TreeDto tDto:treesToPlantDto ) {
