@@ -29,12 +29,6 @@ public class ForecastService {
 	private VersionManager vm;
 
 	public ForecastService(VersionManager vm) {
-		/*List<TreeManager> treemanagers = vm.getTreeManagers();
-		for(TreeManager treeM : treemanagers) {
-			if(treeM.getIsCurrent()) {
-				tm = treeM;
-			}
-		}*/
 		this.vm = vm;
 	}
 	public Forecast createForecast(String name, String baseVersion, int futureYear,

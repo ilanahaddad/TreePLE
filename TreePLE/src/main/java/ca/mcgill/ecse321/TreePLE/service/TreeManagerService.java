@@ -148,14 +148,21 @@ public class TreeManagerService {
 		}
 		return null;
 	}
-	public Tree getTreeById(int id) {
+	public Tree getTreeById(int id) throws InvalidInputException{
 		List<Tree> trees = tm.getTrees();
+		boolean treeFound = false;
+		Tree tree = null;
 		for(Tree t:trees) {
 			if(t.getId()==id) {
-				return t;
+				treeFound = true;
+				tree = t;
+				break;
 			}
 		}
-		return null;
+		if(!treeFound) {
+			throw new InvalidInputException("No such tree with this ID exists in the system.\n");
+		}
+		return tree;
 	}
 	public List<Municipality> findAllMunicipalities() {
 		return tm.getMunicipalities();
