@@ -22,7 +22,9 @@ public class VersionManagerService {
 		for(TreeManager tm: treeManagers) { //select new requested tm by version
 			if(tm.getVersion().equals(versionSelected)) {
 				foundRequestedVersion= true;
+				System.out.println("found");
 				tm.setIsSelected(true);
+				break;
 			}
 		}
 		if(!foundRequestedVersion) {
@@ -51,6 +53,7 @@ public class VersionManagerService {
 		for(TreeManager tm: treeManagers) {
 			if(tm.getIsSelected()) {
 				curVersionYear = tm.getVersionYear();
+				break;
 			}
 		}
 		return curVersionYear;
@@ -62,6 +65,7 @@ public class VersionManagerService {
 		for(TreeManager tm: treeManagers) {
 			if(tm.getIsSelected()) {
 				curVersionNumber = tm.getVersion();
+				break;
 			}
 		}
 		return curVersionNumber;
