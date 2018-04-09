@@ -12,13 +12,13 @@ var AXIOS = axios.create({
   }
 })
 
-function ReportDto(reporterName, reportDate, reportPerimeter, bioIndex, canopy, carbonSeq) {
+function SustainabilityReportDto(reporterName, reportDate, reportPerimeter, biodiversityIndex, canopy, carbonSequestration) {
   this.reporterName = reporterName
   this.reportDate = reportDate
   this.reportPerimeter = reportPerimeter
-  this.biodiversityIndex = bioIndex
+  this.biodiversityIndex = biodiversityIndex
   this.canopy = canopy
-  this.carbonSequestration = carbonSeq
+  this.carbonSequestration = carbonSequestration
 }
 
 function LocationDto(lat, long) {
