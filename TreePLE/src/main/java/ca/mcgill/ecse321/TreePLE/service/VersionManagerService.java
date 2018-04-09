@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import ca.mcgill.ecse321.TreePLE.model.TreeManager;
 import ca.mcgill.ecse321.TreePLE.model.VersionManager;
+import ca.mcgill.ecse321.TreePLE.persistence.PersistenceXStream;
 @Service
 public class VersionManagerService {
 	private VersionManager vm;
@@ -33,6 +34,7 @@ public class VersionManagerService {
 				break;
 			}
 		}
+		PersistenceXStream.saveToXMLwithXStream(vm);
 	}
 	public List<String> getAllVersions() {
 		List<TreeManager> treeManagers = vm.getTreeManagers();

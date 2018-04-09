@@ -6,7 +6,7 @@ import java.util.List;
 
 public class SustainabilityReportDto {
 	private String reporterName;
-	private Date reportdate;
+	private Date reportDate;
 	private double biodiversityIndex;
 	private double canopy;
 	private double carbonSequestration;
@@ -18,14 +18,14 @@ public class SustainabilityReportDto {
 	
 	public SustainabilityReportDto(String reporterName, Date reportDate, ArrayList<LocationDto> perimeter ) {
 		this.reporterName = reporterName;
-		this.reportdate = reportDate;
+		this.reportDate = reportDate;
 		this.reportPerimeter = perimeter;
 	}
 	public String getReporterName() {
 		return reporterName;
 	}
 	public Date getReportDate() {
-		return reportdate;
+		return reportDate;
 	}
 	public List<LocationDto> getReportPerimeter() {
 		return reportPerimeter;
