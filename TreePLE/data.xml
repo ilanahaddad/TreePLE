@@ -2,7 +2,7 @@
   <treeManagers id="2">
     <treeManager id="3">
       <isEditable>false</isEditable>
-      <isSelected>false</isSelected>
+      <isSelected>true</isSelected>
       <version>1.0</version>
       <versionYear>2018</versionYear>
       <trees id="4">
@@ -96,7 +96,7 @@
     </treeManager>
     <treeManager id="29">
       <isEditable>false</isEditable>
-      <isSelected>true</isSelected>
+      <isSelected>false</isSelected>
       <version>1.1</version>
       <versionYear>2021</versionYear>
       <trees id="30">

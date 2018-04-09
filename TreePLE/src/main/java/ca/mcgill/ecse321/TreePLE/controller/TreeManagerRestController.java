@@ -382,8 +382,8 @@ public class TreeManagerRestController {
 		}
 		return surveyDtosForTree;
 	}
-	@PostMapping(value = { "/updateVersion/{version}", "/updateVersion/{version}/" })
-	public String updateVersion(@PathVariable("version") String version,
+	@PostMapping(value = { "/updateVersion/", "/updateVersion" })
+	public String updateVersion(
 			@RequestParam(name = "versionNum") String versionNum) throws InvalidInputException{
 		String newVersion = versionManagerService.setSelectedVersion(versionNum);
 		return newVersion;

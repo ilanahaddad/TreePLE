@@ -44,13 +44,6 @@ public class VersionManagerService {
 				//break;
 			}
 		}
-
-	/*	for(TreeManager tm: treeManagers) {
-			if(tm.getIsSelected()) { //unselect old tm
-				tm.setIsSelected(false);
-				break;
-			}
-		}*/
 		PersistenceXStream.saveToXMLwithXStream(vm);
 		return newVersionSelected;
 	}

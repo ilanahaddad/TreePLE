@@ -270,7 +270,7 @@ export default {
     },
 
     updateVersion: function(versionNumber) {
-      AXIOS.post('/updateVersion/' + 1, {}, {
+      AXIOS.post('/updateVersion/', {}, {
         params: {versionNum: versionNumber}
       })
         .then(response => {
@@ -282,7 +282,7 @@ export default {
         });
 			AXIOS.get('/versionNumber')
 			.then(response => {
-				this.curVersion=response.data
+				this.curVersion=response.data.toString()
 			})
 			.catch(e=> {
 				this.errorVersions=e;
