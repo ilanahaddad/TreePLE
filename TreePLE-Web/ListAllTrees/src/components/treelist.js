@@ -270,7 +270,9 @@ export default {
     },
 
     updateVersion: function(versionNumber) {
-      AXIOS.post('/updateVersion/' + versionNumber)
+      AXIOS.post('/updateVersion/' + 1, {}, {
+        params: {versionNum: versionNumber}
+      })
         .then(response => {
           // JSON responses are automatically parsed.
          	this.selectedVersion=''
