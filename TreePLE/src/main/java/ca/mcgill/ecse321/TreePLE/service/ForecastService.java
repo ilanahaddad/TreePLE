@@ -67,6 +67,8 @@ public class ForecastService {
 		copyAllContents(baseTM, duplicateTM);//copy all data from baseTM to duplicateTM
 		
 		Forecast forecast = new Forecast(name,forecastVersion,futureYear); //creator, version, year
+		vm.addTreeManager(forecastTM);
+		vm.addTreeManager(duplicateTM);
 		return forecast;
 	}
 	public String calculateDuplicateVersion(TreeManager baseTM) {
