@@ -344,6 +344,14 @@ public class TreeManagerService {
 	public List<Location> getAllLocations(){
 		return tm.getLocations();
 	}
+	public List<User.UserType> getUserTypes() {
+		List<User.UserType> userTypesList = new ArrayList<User.UserType>();
+		User.UserType[] userTypesArray = User.UserType.values();
+		for(int i = 0; i<userTypesArray.length;i++) {
+			userTypesList.add(userTypesArray[i]);
+		}
+		return userTypesList;
+	}
 
 
 }
