@@ -31,6 +31,8 @@ public class TreeActivity extends AppCompatActivity {
     private String error = "";
     private List<String> municipalities = new ArrayList<>();
     private ArrayAdapter<String> municipalitiesAdapter;
+    private List<String> landUse = new ArrayList<>();
+    private ArrayAdapter<String> landUseAdapter;
 
 
     @Override
@@ -66,14 +68,18 @@ public class TreeActivity extends AppCompatActivity {
         municipalitiesAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         municipalitiesSpinner.setAdapter(municipalitiesAdapter);
 
-        //Retrieving the municipalities from backend
-        //refreshLists(this.getCurrentFocus());
+        //Setting spinner for land use
+        Spinner landUseSpinner = (Spinner) findViewById(R.id.landUseSpinner);
+        landUseAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, landUse);
+        landUseAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        landUseSpinner.setAdapter(landUseAdapter);
+
+        //Retrieving the municipalities & land use lists from backend
+        refreshLists(this.getCurrentFocus());
     }
     public void createTree(View view) {
 
-
-
-        /*error = "";
+        error = "";
         RequestParams rp = new RequestParams();
 
 
@@ -86,52 +92,59 @@ public class TreeActivity extends AppCompatActivity {
         String heightString= tv.getText().toString();
         double height = Double.parseDouble(heightString);
         //rp.add("height",(findViewById(R.id.height).getText().toString()));
-        rp.add("height",height);
+        rp.add("height",heightString); //TODO: double
 
         //To get diameter from user
-        et = (EditText) findViewById(R.id.diameter);
-        String diameterString= et.getText().toString();
+        tv = (TextView) findViewById(R.id.diameter);
+        String diameterString= tv.getText().toString();
         double diameter = Double.parseDouble(diameterString);
+        rp.add("diameter", diameterString);//TODO: double
 
         //To get municipality from user
         Spinner sp = (Spinner) findViewById(R.id.municipalitySpinner);
-        RequestParams rpMunicipality = new RequestParams();
-        rpMunicipality.add("municipality", sp.getSelectedItem().toString()); //TODO: municipalityDTO
+        String municipality = sp.getSelectedItem().toString();
+        rp.add("municipality", municipality); //TODO: municipalityDTO
 
         //To get latitude
-        et = (EditText) findViewById(R.id.latitude);
-        String latitudeString= et.getText().toString();
+        tv = (TextView) findViewById(R.id.latitude);
+        String latitudeString= tv.getText().toString();
         double latitude = Double.parseDouble(latitudeString);
+        rp.add("latitude", latitudeString);//TODO: double
+
 
         //To get longitude
-        et = (EditText) findViewById(R.id.longitude);
-        String longitudeString= et.getText().toString();
+        tv = (TextView) findViewById(R.id.longitude);
+        String longitudeString= tv.getText().toString();
         double longitude = Double.parseDouble(longitudeString);
+        rp.add("longitude", longitudeString);//TODO: double
+
 
         //To get owner name
-        et = (EditText) findViewById(R.id.userName);
-        String userName= et.getText().toString();
+        tv = (TextView) findViewById(R.id.userName);
+        String userName= tv.getText().toString();
+        rp.add("owner", userName);
+        rp.add("owner", userName);
+
 
         //To get tree age
-        et = (EditText) findViewById(R.id.age);
-        String ageString= et.getText().toString();
+        tv = (TextView) findViewById(R.id.age);
+        String ageString= tv.getText().toString();
         double age = Double.parseDouble(ageString);
+        rp.add("age", ageString);//TODO: int
 
-        //TODO: land use
-
-        //Issue and HTTP POST
-        Spinner municiplaitySpinner = (Spinner) findViewById(R.id.municipalitySpinner);
-
-        rp.add("height", height);
-
-        rp.add("municipality", municiplaitySpinner.getSelectedItem().toString());
-        rp.add("event", eventSpinner.getSelectedItem().toString())
+        //To get land use from user
+        sp = (Spinner) findViewById(R.id.landUseSpinner);
+        RequestParams rpLandUse = new RequestParams();
+        String landUse = sp.getSelectedItem().toString();
+        rp.add("landuse", landUse); //TODO: municipalityDTO
 
        HttpUtils.post("/newTree/" +species, rp , new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 refreshErrorMessage();
-                //tv.setText("");
+                //Reset all the settings
+                ((TextView) findViewById(R.id.speciesName)).setText("");//species
+
             }
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
@@ -142,11 +155,13 @@ public class TreeActivity extends AppCompatActivity {
                 }
                 refreshErrorMessage();
             }
-        });*/
+        });
     }
 
     public void refreshLists(View view) {
-        refreshList(municipalitiesAdapter, municipalities, "municipalities");//TODO: maybe /municipalities
+        refreshList(municipalitiesAdapter, municipalities, "municipalities");
+        refreshList(landUseAdapter, landUse, "landUseTypes");
+
     }
 
     private void refreshList(final ArrayAdapter<String> adapter, final List<String> names, String restFunctionName) {

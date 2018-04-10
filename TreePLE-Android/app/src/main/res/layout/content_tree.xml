@@ -98,6 +98,17 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/treeAge_hint" />
+                <!--Choose the land use -->
+                <TextView
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:text="@string/landUse_label"/>
+                <Spinner
+                    android:id="@+id/landUseSpinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:layout_margin="0dp" />
                 <!-- then create the tree -->
                 <Button
                     android:layout_width="wrap_content"

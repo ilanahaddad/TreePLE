@@ -32,6 +32,8 @@
     <string name="back_button_option">Options</string>
     <string name="back_button_login">Login</string>
     <string name="check">Test backend</string>
+    <string name="landUse_label">Choose Land Use</string>
+    <string name="TreeLog_slogan">Tree Planning Environment</string>
 
     <!--TODO: array -->
    <!-- <string-array name="userType_array">
