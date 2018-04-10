@@ -1,14 +1,6 @@
 package ca.mcgill.ecse321.TreePLE.dto;
 
-import java.sql.Date;
-import java.sql.Time;
-import java.util.List;
 
-import ca.mcgill.ecse321.TreePLE.model.Location;
-import ca.mcgill.ecse321.TreePLE.model.Municipality;
-import ca.mcgill.ecse321.TreePLE.model.Survey;
-import ca.mcgill.ecse321.TreePLE.model.Tree;
-import ca.mcgill.ecse321.TreePLE.model.User;
 import ca.mcgill.ecse321.TreePLE.model.Tree.LandUse;
 import ca.mcgill.ecse321.TreePLE.model.Tree.Status;
 
@@ -34,7 +26,7 @@ public class TreeDto {
 
 	public TreeDto(String species, double height, double diameter, int age,
 			LocationDto coordinates, String owner, MunicipalityDto treeMunicipality, 
-			 LandUse land){
+			 LandUse land, Status status, int id){
 		this.species = species;
 		this.height = height;
 		this.diameter = diameter;
@@ -42,7 +34,8 @@ public class TreeDto {
 		this.coordinates = coordinates;
 		this.ownerName = owner;
 		this.treeMunicipality = treeMunicipality;
-		//this.id = id;
+		this.id = id;
+		this.status = status;
 		this.age = age;
 	}
 
