@@ -148,17 +148,17 @@
   
     <table align="center">
       <tr>
-          <td style="padding:0 5px 0 5px;">ID</td>
-          <td style="padding:0 5px 0 5px;">Species Type</td>
-          <td style="padding:0 5px 0 5px;">Age</td>
-          <td style="padding:0 5px 0 5px;">Height (in metres)</td>
-          <td style="padding:0 5px 0 5px;">Diameter (in metres)</td>
-          <td style="padding:0 5px 0 5px;">Municipality</td>
-          <td style="padding:0 5px 0 5px;">Owner</td>
-          <td style="padding:0 5px 0 5px;">Longitude</td>
-          <td style="padding:0 5px 0 5px;">Latitude</td>
-          <td style="padding:0 5px 0 5px;">Status</td>
-          <td style="padding:0 5px 0 5px;">Land Use</td>
+          <td style="padding:0 5px 0 5px;"><span style="font-weight:bold">ID</span></td>
+          <td style="padding:0 5px 0 5px;"><span style="font-weight:bold">Species Type</span></td>
+          <td style="padding:0 5px 0 5px;"><span style="font-weight:bold">Age</span></td>
+          <td style="padding:0 5px 0 5px;"><span style="font-weight:bold">Height (in metres)</span></td>
+          <td style="padding:0 5px 0 5px;"><span style="font-weight:bold">Diameter (in metres)</span></td>
+          <td style="padding:0 5px 0 5px;"><span style="font-weight:bold">Municipality</span></td>
+          <td style="padding:0 5px 0 5px;"><span style="font-weight:bold">Owner</span></td>
+          <td style="padding:0 5px 0 5px;"><span style="font-weight:bold">Longitude</span></td>
+          <td style="padding:0 5px 0 5px;"><span style="font-weight:bold">Latitude</span></td>
+          <td style="padding:0 5px 0 5px;"><span style="font-weight:bold">Status</span></td>
+          <td style="padding:0 5px 0 5px;"><span style="font-weight:bold">Land Use</span></td>
       </tr>
       <tr v-for="tree in trees" >
         <td style="padding:0 5px 0 5px;">{{ tree.id }}</td>
