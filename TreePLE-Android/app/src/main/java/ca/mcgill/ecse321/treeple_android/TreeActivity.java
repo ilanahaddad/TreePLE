@@ -151,7 +151,7 @@ public class TreeActivity extends AppCompatActivity {
 
                 //TODO: return tree id
                 //response.getJSONObject("")
-                ((TextView) findViewById(R.id.printID)).setText("");
+                ((TextView) findViewById(R.id.printID)).setText("ID should print here");
             }
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
