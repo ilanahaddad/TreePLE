@@ -17,7 +17,7 @@ var icons = {
   }
 };
 
-function TreeDto(species, height, diameter, coordinates, owner, treeMunicipality, versions, land, status, id) {
+function TreeDto(species, height, diameter, age, coordinates, owner, treeMunicipality, land) {
   this.id = id
   this.species = species
   this.status = status

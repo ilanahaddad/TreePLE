@@ -26,7 +26,7 @@ public class TreeDto {
 
 	public TreeDto(String species, double height, double diameter, int age,
 			LocationDto coordinates, String owner, MunicipalityDto treeMunicipality, 
-			 LandUse land, Status status, int id){
+			 LandUse land){
 		this.species = species;
 		this.height = height;
 		this.diameter = diameter;
@@ -34,8 +34,8 @@ public class TreeDto {
 		this.coordinates = coordinates;
 		this.ownerName = owner;
 		this.treeMunicipality = treeMunicipality;
-		this.id = id;
-		this.status = status;
+		//this.id = id;
+		//this.status = status;
 		this.age = age;
 	}
 
