@@ -167,11 +167,11 @@
         <td style="padding:0 5px 0 5px;">{{ tree.height }}</td>
         <td style="padding:0 5px 0 5px;">{{ tree.diameter }}</td>
         <td style="padding:0 5px 0 5px;">{{ tree.treeMunicipality.name }}</td>
-        <td style="padding:0 5px 0 5px;">{{ tree.owner.name }}</td>
+        <td style="padding:0 5px 0 5px;">{{ tree.ownerName }}</td>
         <td style="padding:0 5px 0 5px;">{{ tree.coordinates.longitude }}</td>
         <td style="padding:0 5px 0 5px;">{{ tree.coordinates.latitude }}</td>
         <td style="padding:0 5px 0 5px;">{{ tree.status }}</td>
-        <td style="padding:0 5px 0 5px;">{{ tree.landUse}}</td>
+        <td style="padding:0 5px 0 5px;">{{ tree.land}}</td>
       </tr>
     
 
