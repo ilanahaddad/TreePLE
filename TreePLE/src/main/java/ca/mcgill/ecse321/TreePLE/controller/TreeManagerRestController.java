@@ -1,18 +1,11 @@
 package ca.mcgill.ecse321.TreePLE.controller;
 
 import java.sql.Date;
-import java.sql.Time;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.format.annotation.DateTimeFormat.ISO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,7 +22,6 @@ import ca.mcgill.ecse321.TreePLE.dto.MunicipalityDto;
 import ca.mcgill.ecse321.TreePLE.dto.SurveyDto;
 import ca.mcgill.ecse321.TreePLE.dto.SustainabilityReportDto;
 import ca.mcgill.ecse321.TreePLE.dto.TreeDto;
-import ca.mcgill.ecse321.TreePLE.dto.UserDto;
 import ca.mcgill.ecse321.TreePLE.model.Forecast;
 import ca.mcgill.ecse321.TreePLE.model.Location;
 import ca.mcgill.ecse321.TreePLE.model.Municipality;
@@ -38,9 +30,7 @@ import ca.mcgill.ecse321.TreePLE.model.SustainabilityReport;
 import ca.mcgill.ecse321.TreePLE.model.Tree;
 import ca.mcgill.ecse321.TreePLE.model.Tree.LandUse;
 import ca.mcgill.ecse321.TreePLE.model.Tree.Status;
-import ca.mcgill.ecse321.TreePLE.model.User;
 import ca.mcgill.ecse321.TreePLE.model.User.UserType;
-import ca.mcgill.ecse321.TreePLE.model.VersionManager;
 import ca.mcgill.ecse321.TreePLE.service.ForecastService;
 import ca.mcgill.ecse321.TreePLE.service.InvalidInputException;
 import ca.mcgill.ecse321.TreePLE.service.ReportService;
@@ -87,7 +77,11 @@ public class TreeManagerRestController {
 
 	}
 	private SustainabilityReportDto convertToDto(SustainabilityReport report) {
-		return modelMapper.map(report, SustainabilityReportDto.class);
+		SustainabilityReportDto reportDto = modelMapper.map(report, SustainabilityReportDto.class);
+		reportDto.setBiodiversityIndex(report.getBiodiversityIndex());
+		reportDto.setCanopy(report.getCanopy());
+		reportDto.setCarbonSequestration(report.getCarbonSequestration());
+		return reportDto;
 	}
 	private LocationDto convertToDto(Location location) {
 		return modelMapper.map(location, LocationDto.class);
@@ -209,10 +203,10 @@ public class TreeManagerRestController {
 		@RequestParam(name="long3") double long3,
 		@RequestParam(name="lat4") double lat4,
 		@RequestParam(name="long4") double long4) throws InvalidInputException {
-		Location location1 = treeManagerService.getLocationByCoordinates(lat1, long1);
-		Location location2 = treeManagerService.getLocationByCoordinates(lat2, long2);
-		Location location3 = treeManagerService.getLocationByCoordinates(lat3, long3);
-		Location location4 = treeManagerService.getLocationByCoordinates(lat4, long4);
+		Location location1 = reportService.getLocationByCoordinates(lat1, long1);
+		Location location2 = reportService.getLocationByCoordinates(lat2, long2);
+		Location location3 = reportService.getLocationByCoordinates(lat3, long3);
+		Location location4 = reportService.getLocationByCoordinates(lat4, long4);
 		Location[] perimeter = new Location[4];
 		perimeter[0] = location1;
 		perimeter[1] = location2;
@@ -329,11 +323,13 @@ public class TreeManagerRestController {
 	public ForecastDto createNewForecast(@PathVariable("name") String name,
 			@RequestParam(name = "baseVersion") String baseVersion,
 			@RequestParam(name = "futureYear") int futureYear,
-			@RequestParam(name = "treesToPlant") List<TreeDto> treesToPlantDto,
-			@RequestParam(name = "treesToCutDown") List<Integer> treeIdsToCutDown) throws InvalidInputException{
+			@RequestParam(name = "treesToPlant", required = false) List<TreeDto> treesToPlantDto,
+			@RequestParam(name = "treesToCutDown", required = false) List<Integer> treeIdsToCutDown) throws InvalidInputException{
 		List<Tree> treesToCutDown = new ArrayList<Tree>();
-		for(int id: treeIdsToCutDown) {
-			treesToCutDown.add(treeManagerService.getTreeById(id));
+		if(treeIdsToCutDown != null) {
+			for(int id: treeIdsToCutDown) {
+				treesToCutDown.add(treeManagerService.getTreeById(id));
+			}
 		}
 	/*	List<Tree> treesToPlant = new ArrayList<Tree>();
 		for(TreeDto tDto:treesToPlantDto ) {
@@ -372,10 +368,10 @@ public class TreeManagerRestController {
 			@RequestParam(name="age") int age, 
 			@RequestParam(name="landuse") Tree.LandUse landuse ) throws InvalidInputException {
 		LocationDto locationDto = new LocationDto(latitude, longitude);
-		TreeDto tDto = new TreeDto(species, height, diameter, age, locationDto, ownerName, munDto,landuse );
+		TreeDto tDto = new TreeDto(species, height, diameter, age, locationDto, ownerName, munDto,landuse);
 		return tDto;
 	}
-	@GetMapping(value = { "/surveysForTree/{id}", "/treesBySpecies/{id}/" })
+	@GetMapping(value = { "/surveysForTree/{id}", "/surveysForTree/{id}/" })
 	public List<SurveyDto> getSurveysForTree(@PathVariable("id") int id) throws InvalidInputException{
 		Tree tree = treeManagerService.getTreeById(id);
 		List<Survey> surveysForTree = surveyService.getSurveysForTree(tree);
@@ -385,10 +381,11 @@ public class TreeManagerRestController {
 		}
 		return surveyDtosForTree;
 	}
-	@PostMapping(value = { "/updateVersion/{version}", "/updateVersion/{version}/" })
-	public String updateVersion(@PathVariable("version") String version) throws InvalidInputException{
-		versionManagerService.setSelectedVersion(version);
-		return version;
+	@PostMapping(value = { "/updateVersion/", "/updateVersion" })
+	public String updateVersion(
+			@RequestParam(name = "versionNum") String versionNum) throws InvalidInputException{
+		String newVersion = versionManagerService.setSelectedVersion(versionNum);
+		return newVersion;
 	}
 	@GetMapping(value = { "/versionYear", "/versionYear/" })
 	public int getVersionYear() throws InvalidInputException{
@@ -400,6 +397,11 @@ public class TreeManagerRestController {
 		String versionNumber = versionManagerService.getCurrentVersionNumber();
 		return versionNumber;
 	}
+	/*@GetMapping(value = { "/vm", "/vm/" })
+	public List<TreeManager> getTreeManagers() throws InvalidInputException{
+		List<TreeManager> treeManagers = versionManagerService.getTreeManagers();
+		return treeManagers;
+	}*/
 	
 
 }

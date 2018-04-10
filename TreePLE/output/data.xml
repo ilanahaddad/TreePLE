@@ -1,7 +1,8 @@
 <versionManager id="1">
   <treeManagers id="2">
     <treeManager id="3">
-      <isCurrent>true</isCurrent>
+      <isEditable>true</isEditable>
+      <isSelected>true</isSelected>
       <version>1.0</version>
       <versionYear>2018</versionYear>
       <trees id="4">

@@ -9,7 +9,7 @@
 
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
+    <img src="./assets/logo.png" align="center" height="262" width="170">
 		
 		<table align="center">
       <tr>

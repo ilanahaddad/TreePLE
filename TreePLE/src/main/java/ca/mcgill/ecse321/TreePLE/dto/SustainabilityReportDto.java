@@ -6,7 +6,7 @@ import java.util.List;
 
 public class SustainabilityReportDto {
 	private String reporterName;
-	private Date reportdate;
+	private Date reportDate;
 	private double biodiversityIndex;
 	private double canopy;
 	private double carbonSequestration;
@@ -16,18 +16,40 @@ public class SustainabilityReportDto {
 		
 	}
 	
-	public SustainabilityReportDto(String reporterName, Date reportDate, ArrayList<LocationDto> perimeter ) {
+	public SustainabilityReportDto(String reporterName, Date reportDate, ArrayList<LocationDto> reportPerimeter, 
+			double biodiversityIndex, double canopy, double carbonSequestration ) {
 		this.reporterName = reporterName;
-		this.reportdate = reportDate;
-		this.reportPerimeter = perimeter;
+		this.reportDate = reportDate;
+		this.reportPerimeter = reportPerimeter;
+		this.biodiversityIndex = biodiversityIndex;
+		this.canopy = canopy;
+		this.carbonSequestration=carbonSequestration;
 	}
 	public String getReporterName() {
 		return reporterName;
 	}
 	public Date getReportDate() {
-		return reportdate;
+		return reportDate;
 	}
 	public List<LocationDto> getReportPerimeter() {
 		return reportPerimeter;
+	}
+	public double getBiodiversityIndex() {
+		return this.biodiversityIndex;
+	}
+	public double getCanopy() {
+		return this.canopy;
+	}
+	public double getCarbonSequestration() {
+		return this.carbonSequestration;
+	}
+	public void setBiodiversityIndex(double biodiversityIndex) {
+		this.biodiversityIndex = biodiversityIndex;
+	}
+	public void setCanopy(double canopy) {
+		this.canopy = canopy;
+	}
+	public void setCarbonSequestration(double carbonSequestration) {
+		this.carbonSequestration = carbonSequestration;
 	}
 }

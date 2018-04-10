@@ -1,14 +1,6 @@
 package ca.mcgill.ecse321.TreePLE.dto;
 
-import java.sql.Date;
-import java.sql.Time;
-import java.util.List;
 
-import ca.mcgill.ecse321.TreePLE.model.Location;
-import ca.mcgill.ecse321.TreePLE.model.Municipality;
-import ca.mcgill.ecse321.TreePLE.model.Survey;
-import ca.mcgill.ecse321.TreePLE.model.Tree;
-import ca.mcgill.ecse321.TreePLE.model.User;
 import ca.mcgill.ecse321.TreePLE.model.Tree.LandUse;
 import ca.mcgill.ecse321.TreePLE.model.Tree.Status;
 
@@ -16,14 +8,14 @@ public class TreeDto {
 
 	private String species;
 	private double height;
-	//private Status status;
+	private Status status;
 	private double diameter;
 	private LandUse land;
 	private LocationDto coordinates;
-	private String owner;
+	private String ownerName;
 	private int age;
 	private MunicipalityDto treeMunicipality;
-	//private int id;
+	private int id;
 
 	public TreeDto() {
 	}
@@ -33,16 +25,17 @@ public class TreeDto {
 	}*/
 
 	public TreeDto(String species, double height, double diameter, int age,
-			LocationDto coordinates, String owner, MunicipalityDto treeMunicipality, 
+			LocationDto coordinates, String ownerName, MunicipalityDto treeMunicipality, 
 			 LandUse land){
 		this.species = species;
 		this.height = height;
 		this.diameter = diameter;
 		this.land = land;
 		this.coordinates = coordinates;
-		this.owner = owner;
+		this.ownerName = ownerName;
 		this.treeMunicipality = treeMunicipality;
 		//this.id = id;
+		//this.status = status;
 		this.age = age;
 	}
 
@@ -56,10 +49,10 @@ public class TreeDto {
 		return height;
 	}
 
-/*	public Status getStatus()
+	public Status getStatus()
 	{
 		return status;
-	}*/
+	}
 
 	public double getDiameter()
 	{
@@ -71,18 +64,18 @@ public class TreeDto {
 		return land;
 	}
 
-	/*public int getId()
+	public int getId()
 	{
 		return id;
-	}*/
+	}
 	public LocationDto getCoordinates()
 	{
 		return coordinates;
 	}
 
-	public String getOwner()
+	public String getOwnerName()
 	{
-		return owner;
+		return ownerName;
 	}
 	public MunicipalityDto getTreeMunicipality()
 	{

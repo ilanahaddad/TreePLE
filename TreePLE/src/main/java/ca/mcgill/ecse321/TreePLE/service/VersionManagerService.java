@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import ca.mcgill.ecse321.TreePLE.model.TreeManager;
 import ca.mcgill.ecse321.TreePLE.model.VersionManager;
+import ca.mcgill.ecse321.TreePLE.persistence.PersistenceXStream;
 @Service
 public class VersionManagerService {
 	private VersionManager vm;
@@ -15,24 +16,36 @@ public class VersionManagerService {
 		this.vm = vm;
 	}
 	
-	public void setSelectedVersion(String versionSelected) throws InvalidInputException{
+	public String setSelectedVersion(String versionSelected) throws InvalidInputException{
 		List<TreeManager> treeManagers = vm.getTreeManagers();
 		boolean foundRequestedVersion = false;
+		String newVersionSelected = "";
+		TreeManager tmSelected = null;
 		for(TreeManager tm: treeManagers) { //select new requested tm by version
 			if(tm.getVersion().equals(versionSelected)) {
 				foundRequestedVersion= true;
+				tmSelected= tm;
 				tm.setIsSelected(true);
+				break;
 			}
 		}
 		if(!foundRequestedVersion) {
 			throw new InvalidInputException("No such version of the system exists");
 		}
 		for(TreeManager tm: treeManagers) {
-			if(tm.getIsSelected()) { //unselect old tm
+			if(!tm.equals(tmSelected)) { //set all other tms to not selected
 				tm.setIsSelected(false);
-				break;
 			}
 		}
+		//return the one we want selected:
+		for(TreeManager tm: treeManagers) {
+			if(tm.getIsSelected()) {//ensure the one we want is the only one selected
+				newVersionSelected = tm.getVersion();
+				//break;
+			}
+		}
+		PersistenceXStream.saveToXMLwithXStream(vm);
+		return newVersionSelected;
 	}
 	public List<String> getAllVersions() {
 		List<TreeManager> treeManagers = vm.getTreeManagers();
@@ -49,6 +62,7 @@ public class VersionManagerService {
 		for(TreeManager tm: treeManagers) {
 			if(tm.getIsSelected()) {
 				curVersionYear = tm.getVersionYear();
+				break;
 			}
 		}
 		return curVersionYear;
@@ -60,8 +74,13 @@ public class VersionManagerService {
 		for(TreeManager tm: treeManagers) {
 			if(tm.getIsSelected()) {
 				curVersionNumber = tm.getVersion();
+				break;
 			}
 		}
 		return curVersionNumber;
+	}
+
+	public List<TreeManager> getTreeManagers() {
+		return vm.getTreeManagers();
 	}
 }

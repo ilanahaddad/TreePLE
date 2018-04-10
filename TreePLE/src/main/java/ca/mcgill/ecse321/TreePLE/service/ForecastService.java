@@ -17,6 +17,7 @@ import ca.mcgill.ecse321.TreePLE.model.Tree;
 import ca.mcgill.ecse321.TreePLE.model.TreeManager;
 import ca.mcgill.ecse321.TreePLE.model.VersionManager;
 import ca.mcgill.ecse321.TreePLE.model.Tree.Status;
+import ca.mcgill.ecse321.TreePLE.persistence.PersistenceXStream;
 
 @Service
 public class ForecastService {
@@ -50,8 +51,12 @@ public class ForecastService {
 		String forecastVersion = calculateForecastVersion(baseTM);
 		TreeManager forecastTM = new TreeManager(true, true, forecastVersion, futureYear, baseTM.getUser()); 
 		copyAllContents(baseTM, forecastTM);//copy all data from baseTM to newTM
-		plantTrees(treesToPlant);//plant new trees requested in newTM
-		cutDownTrees(treesToCutDown);//cut down trees requested in newTM
+		if(treesToPlant!=null) {
+			plantTrees(treesToPlant);//plant new trees requested in newTM
+		}
+		if(treesToCutDown!=null) {
+			cutDownTrees(treesToCutDown);//cut down trees requested in newTM
+		}
 		//Set new forecastTM as non editable now that trees have been planted and cut down
 		forecastTM.setIsEditable(false); 
 		forecastTM.setIsSelected(false); //make it false, will be set to true if selected in dropdown
@@ -63,6 +68,9 @@ public class ForecastService {
 		copyAllContents(baseTM, duplicateTM);//copy all data from baseTM to duplicateTM
 		
 		Forecast forecast = new Forecast(name,forecastVersion,futureYear); //creator, version, year
+		vm.addTreeManager(forecastTM);
+		vm.addTreeManager(duplicateTM);
+		PersistenceXStream.saveToXMLwithXStream(vm);
 		return forecast;
 	}
 	public String calculateDuplicateVersion(TreeManager baseTM) {
@@ -103,14 +111,16 @@ public class ForecastService {
 		for(TreeDto treeDto: treesToPlantDto) {
 			Location location = convertToDomainObject(treeDto.getCoordinates());
 			Municipality municipality = convertToDomainObject(treeDto.getTreeMunicipality());
-			tms.createTree(treeDto.getOwner(), treeDto.getSpecies(), treeDto.getHeight(), treeDto.getDiameter(),
+			tms.createTree(treeDto.getOwnerName(), treeDto.getSpecies(), treeDto.getHeight(), treeDto.getDiameter(),
 					treeDto.getAge(), location, municipality, treeDto.getLand());
 		}
+		PersistenceXStream.saveToXMLwithXStream(vm);
 	}
 	public void cutDownTrees(List<Tree> treesToCutDown) {
 		for(Tree tree: treesToCutDown) {
 			tree.setStatus(Status.CutDown);
 		}
+		PersistenceXStream.saveToXMLwithXStream(vm);
 	}
 	private Municipality convertToDomainObject(MunicipalityDto mDto) {
 		// Mapping DTO to the domain object without using the mapper
