@@ -8,7 +8,7 @@
     <ImageView
         android:layout_width="199dp"
         android:layout_height="252dp"
-        android:src="@drawable/TreeLog_logo"
+        android:src="@drawable/treelog_logo"
         tools:layout_editor_absoluteX="93dp"
         tools:layout_editor_absoluteY="41dp"
         tools:ignore="MissingConstraints" />
