@@ -1,6 +1,7 @@
+
 <template>
-  <div id="viewsurveyspre">
-<!--
+  <div id="viewsurveys">
+  <!--
   	<table align="center">
       <tr>
         <td style="padding:0 5px 0 5px;"><a href='http://127.0.0.1:8087/#/app'>View Trees</a> - </td>
@@ -12,11 +13,34 @@
       </tr>
       <tr></tr>
   </table>
--->
+  -->
+	<div v-if="viewSurveysPre">
+  <p>Please enter desired tree ID to view reports:</p>
+  <table align="center">
+    <tr>
+      <td style="padding:0 5px 0 5px;">Tree ID:</td>
+      <td style="padding:0 5px 0 5px;">
+        <input type="text" v-model= "treeId" placeHolder= "ex. 3">
+      </td>
+      <td>
+        <button @click="viewSurveys(treeId)">View Surveys</button>
+      </td>
+    </tr>
+  </table>
+	</div>
+	<div v-if="viewSurveysForTree">
+
+  <h2>Report History for tree ID: {{treeId}} </h2></br>
   <hr>
-  <h2>Report History for tree ID: TO DO</h2>
-  <br>
-  <h6>Enter dynamic list/table here</h6>
+  <div v-for="s in surveys">
+			Date : {{s.reportDate}}
+			Surveyor: {{s.surveyor}}
+			Status: {{s.tree.status}}
+			<hr>
+	</div>
+	</div>
  </div>
 </template>
+<script src="./viewSurveys.js">
+</script>
 
