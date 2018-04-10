@@ -111,7 +111,7 @@ public class ForecastService {
 		for(TreeDto treeDto: treesToPlantDto) {
 			Location location = convertToDomainObject(treeDto.getCoordinates());
 			Municipality municipality = convertToDomainObject(treeDto.getTreeMunicipality());
-			tms.createTree(treeDto.getOwner(), treeDto.getSpecies(), treeDto.getHeight(), treeDto.getDiameter(),
+			tms.createTree(treeDto.getOwnerName(), treeDto.getSpecies(), treeDto.getHeight(), treeDto.getDiameter(),
 					treeDto.getAge(), location, municipality, treeDto.getLand());
 		}
 		PersistenceXStream.saveToXMLwithXStream(vm);

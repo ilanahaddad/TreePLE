@@ -11,12 +11,12 @@ public class SurveyDto {
 
 	private Date lastReport;
 	private TreeDto tree;
-	private UserDto surveyor;
+	private String surveyor;
 
 	public SurveyDto() {
 
 	}
-	public SurveyDto(Date lastReport, TreeDto tree, UserDto surveyor) {
+	public SurveyDto(Date lastReport, TreeDto tree, String surveyor) {
 		this.lastReport=lastReport;
 		this.surveyor=surveyor;
 		this.tree=tree;
@@ -29,14 +29,14 @@ public class SurveyDto {
 	{
 		return lastReport;
 	}
-	public UserDto getSurveyor()
+	public String getSurveyor()
 	{
 		return surveyor;
 	}
 	public void setTree(TreeDto tree) {
 		this.tree = tree;
 	}
-	public void setUser(UserDto surveyor) {
+	public void setUser(String surveyor) {
 		this.surveyor=surveyor;
 	}
 

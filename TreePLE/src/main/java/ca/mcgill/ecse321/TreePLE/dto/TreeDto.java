@@ -16,14 +16,14 @@ public class TreeDto {
 
 	private String species;
 	private double height;
-	//private Status status;
+	private Status status;
 	private double diameter;
 	private LandUse land;
 	private LocationDto coordinates;
-	private String owner;
+	private String ownerName;
 	private int age;
 	private MunicipalityDto treeMunicipality;
-	//private int id;
+	private int id;
 
 	public TreeDto() {
 	}
@@ -40,7 +40,7 @@ public class TreeDto {
 		this.diameter = diameter;
 		this.land = land;
 		this.coordinates = coordinates;
-		this.owner = owner;
+		this.ownerName = owner;
 		this.treeMunicipality = treeMunicipality;
 		//this.id = id;
 		this.age = age;
@@ -56,10 +56,10 @@ public class TreeDto {
 		return height;
 	}
 
-/*	public Status getStatus()
+	public Status getStatus()
 	{
 		return status;
-	}*/
+	}
 
 	public double getDiameter()
 	{
@@ -71,18 +71,18 @@ public class TreeDto {
 		return land;
 	}
 
-	/*public int getId()
+	public int getId()
 	{
 		return id;
-	}*/
+	}
 	public LocationDto getCoordinates()
 	{
 		return coordinates;
 	}
 
-	public String getOwner()
+	public String getOwnerName()
 	{
-		return owner;
+		return ownerName;
 	}
 	public MunicipalityDto getTreeMunicipality()
 	{
