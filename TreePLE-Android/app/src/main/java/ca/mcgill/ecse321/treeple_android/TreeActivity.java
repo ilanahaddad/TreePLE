@@ -149,6 +149,9 @@ public class TreeActivity extends AppCompatActivity {
                 ((TextView) findViewById(R.id.longitude)).setText("");//longitude
                 ((TextView) findViewById(R.id.age)).setText("");//age
 
+                //TODO: return tree id
+                //response.getJSONObject("")
+                ((TextView) findViewById(R.id.printID)).setText("");
             }
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
@@ -161,7 +164,6 @@ public class TreeActivity extends AppCompatActivity {
             }
         });
     }
-    //TODO: return tree id
 
     public void refreshLists(View view) {
         refreshList(municipalitiesAdapter, municipalities, "municipalities");

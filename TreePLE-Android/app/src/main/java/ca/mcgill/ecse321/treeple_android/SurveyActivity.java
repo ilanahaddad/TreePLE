@@ -39,7 +39,8 @@ public class SurveyActivity extends AppCompatActivity {
     private String error = "";
     private List<String> status = new ArrayList<>();
     private ArrayAdapter<String> statusAdapter;
-    
+    private List<String> surveys = new ArrayList<>();
+
 
 
     @Override
@@ -176,6 +177,7 @@ public class SurveyActivity extends AppCompatActivity {
                 for( int i = 0; i < response.length(); i++){
                     try {
                         String survey = response.getJSONObject(i).getString("name");
+                        surveys.add(survey);//TODO: maybe change here?
                         treeHistoryTextView.setText(survey+"\n");
 
                     } catch (Exception e) {
