@@ -11,12 +11,26 @@ var AXIOS = axios.create({
     'Access-Control-Allow-Origin': frontendUrl
   }
 })
+function SurveyDto(reportDate, tree, surveyor){
+	this.reportDate=reportDate
+	this.tree=tree
+	this.surveyor=surveyor
+}
 
 function LocationDto(lat, long) {
   this.latitude = lat
   this.longitude = long
 }
-
+function TreeDto(species, height, diameter, age, coordinates, ownerName, treeMunicipality, land) {
+  this.species = species
+  this.height = height
+  this.diameter = diameter
+	this.age= age
+  this.coordinates = coordinates
+  this.ownerName = ownerName
+  this.treeMunicipality = treeMunicipality
+  this.land = land
+}
 export default {
   name: 'GenerateReport',
   data() {
