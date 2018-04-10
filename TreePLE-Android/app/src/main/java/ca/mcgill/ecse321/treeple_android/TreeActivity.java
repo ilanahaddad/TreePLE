@@ -123,8 +123,6 @@ public class TreeActivity extends AppCompatActivity {
         tv = (TextView) findViewById(R.id.userName);
         String userName= tv.getText().toString();
         rp.add("owner", userName);
-        rp.add("owner", userName);
-
 
         //To get tree age
         tv = (TextView) findViewById(R.id.age);
@@ -143,7 +141,13 @@ public class TreeActivity extends AppCompatActivity {
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 refreshErrorMessage();
                 //Reset all the settings
+
                 ((TextView) findViewById(R.id.speciesName)).setText("");//species
+                ((TextView) findViewById(R.id.height)).setText("");//height
+                ((TextView) findViewById(R.id.diameter)).setText("");//diameter
+                ((TextView) findViewById(R.id.latitude)).setText("");//latitude
+                ((TextView) findViewById(R.id.longitude)).setText("");//longitude
+                ((TextView) findViewById(R.id.age)).setText("");//age
 
             }
             @Override
@@ -173,7 +177,7 @@ public class TreeActivity extends AppCompatActivity {
                 names.add("Please select...");
                 for( int i = 0; i < response.length(); i++){
                     try {
-                        names.add(response.getJSONObject(i).getString("name")); //TODO: maybe munName
+                        names.add(response.getJSONObject(i).getString("name"));
                     } catch (Exception e) {
                         error += e.getMessage();
                     }
