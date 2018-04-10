@@ -24,9 +24,9 @@ function TreeDto(species, height, diameter, age, coordinates, owner, treeMunicip
   this.height = height
   this.diameter = diameter
   this.coordinates = coordinates
-  this.owner = owner
+  this.ownerName = owner
   this.treeMunicipality = treeMunicipality
-  this.versions = versions
+  //this.versions = versions
   this.land = land
 }
 
