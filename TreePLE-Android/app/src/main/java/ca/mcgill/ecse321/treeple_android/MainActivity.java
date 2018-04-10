@@ -43,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
+        /*
         //Welcome page
         new Handler().postDelayed(new Runnable() {
             @Override
@@ -52,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
                 finish();
 
             }
-        }, SPLASH_TIMEOUT);
+        }, SPLASH_TIMEOUT);*/
 
         // initialize error message text view
         refreshErrorMessage();
