@@ -39,6 +39,8 @@ public class SurveyActivity extends AppCompatActivity {
     private String error = "";
     private List<String> status = new ArrayList<>();
     private ArrayAdapter<String> statusAdapter;
+    
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -63,6 +65,8 @@ public class SurveyActivity extends AppCompatActivity {
         statusAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, status);
         statusAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         statusSpinner.setAdapter(statusAdapter);
+
+        refreshLists(this.getCurrentFocus());
     }
 
     private void refreshErrorMessage() {
@@ -160,5 +164,40 @@ public class SurveyActivity extends AppCompatActivity {
 
 
     public void refreshTrees(View view) {
+        final TextView treeHistoryTextView = (TextView) findViewById(R.id.treeHistory);
+
+        //treeHistory
+
+        //Get surveys
+        HttpUtils.get("surveys", new RequestParams(), new JsonHttpResponseHandler() {
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
+                for( int i = 0; i < response.length(); i++){
+                    try {
+                        String survey = response.getJSONObject(i).getString("name");
+                        treeHistoryTextView.setText(survey+"\n");
+
+                    } catch (Exception e) {
+                        error += e.getMessage();
+                    }
+                    refreshErrorMessage();
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                try {
+                    //error += errorResponse.getString("message");
+                    error += errorResponse.get("message").toString();
+
+                } catch (JSONException e) {
+                    error += e.getMessage();
+                }
+                refreshErrorMessage();
+            }
+        });
+
+
     }
 }
