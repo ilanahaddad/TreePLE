@@ -368,7 +368,7 @@ public class TreeManagerRestController {
 			@RequestParam(name="age") int age, 
 			@RequestParam(name="landuse") Tree.LandUse landuse ) throws InvalidInputException {
 		LocationDto locationDto = new LocationDto(latitude, longitude);
-		TreeDto tDto = new TreeDto(species, height, diameter, age, locationDto, ownerName, munDto,landuse );
+		TreeDto tDto = new TreeDto(species, height, diameter, age, locationDto, ownerName, munDto,landuse);
 		return tDto;
 	}
 	@GetMapping(value = { "/surveysForTree/{id}", "/surveysForTree/{id}/" })
