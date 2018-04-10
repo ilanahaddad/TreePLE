@@ -9,29 +9,29 @@ import ca.mcgill.ecse321.TreePLE.model.User;
 
 public class SurveyDto {
 
-	private Date lastReport;
+	private Date reportDate;
 	private TreeDto tree;
 	private String surveyor;
 
 	public SurveyDto() {
 
 	}
-	public SurveyDto(Date lastReport, TreeDto tree, String surveyor) {
-		this.lastReport=lastReport;
+	public SurveyDto(Date reportDate, TreeDto tree, String surveyor) {
+		this.reportDate=reportDate;
 		this.surveyor=surveyor;
 		this.tree=tree;
 	}
 	public TreeDto getTree()
 	{
-		return tree;
+		return this.tree;
 	}
-	public Date getLastReport()
+	public Date getReportDate()
 	{
-		return lastReport;
+		return this.reportDate;
 	}
 	public String getSurveyor()
 	{
-		return surveyor;
+		return this.surveyor;
 	}
 	public void setTree(TreeDto tree) {
 		this.tree = tree;
