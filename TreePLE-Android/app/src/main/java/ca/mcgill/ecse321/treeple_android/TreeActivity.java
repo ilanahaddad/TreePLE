@@ -78,7 +78,7 @@ public class TreeActivity extends AppCompatActivity {
         refreshLists(this.getCurrentFocus());
     }
     public void createTree(View view) {
-
+        /*
         error = "";
         RequestParams rp = new RequestParams();
 
@@ -162,7 +162,7 @@ public class TreeActivity extends AppCompatActivity {
                 }
                 refreshErrorMessage();
             }
-        });
+        });*/
     }
 
     public void refreshLists(View view) {
@@ -180,7 +180,7 @@ public class TreeActivity extends AppCompatActivity {
                 names.add("Please select...");
                 for( int i = 0; i < response.length(); i++){
                     try {
-                        names.add(response.getJSONObject(i).getString("name"));
+                        names.add(response.getJSONObject(i).toString()); //TODO
                     } catch (Exception e) {
                         error += e.getMessage();
                     }

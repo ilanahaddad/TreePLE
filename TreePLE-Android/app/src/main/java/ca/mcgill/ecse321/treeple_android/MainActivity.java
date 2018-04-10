@@ -104,7 +104,8 @@ public class MainActivity extends AppCompatActivity {
 
         //Issue and HTTP POST
         RequestParams rp = new RequestParams();
-        rp.add("userType", userTypeSpin.getSelectedItem().toString());
+        String userTypeChosen = userTypeSpin.getSelectedItem().toString();
+        rp.add("userType", userTypeChosen);
         HttpUtils.post("setUserType/", rp, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {

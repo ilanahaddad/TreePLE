@@ -62,12 +62,12 @@ public class SurveyActivity extends AppCompatActivity {
         });
 
         //Setting spinner for municipalities
-        Spinner statusSpinner = (Spinner) findViewById(R.id.municipalitySpinner);
+        Spinner statusSpinner = (Spinner) findViewById(R.id.statusSpinner);
         statusAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, status);
         statusAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         statusSpinner.setAdapter(statusAdapter);
 
-        refreshLists(this.getCurrentFocus());
+        //refreshLists(this.getCurrentFocus());
     }
 
     private void refreshErrorMessage() {
@@ -120,6 +120,7 @@ public class SurveyActivity extends AppCompatActivity {
     }
 
     public void createSurvey(View view) {
+        /*
         error = "";
         RequestParams rp = new RequestParams();
 
@@ -159,12 +160,13 @@ public class SurveyActivity extends AppCompatActivity {
                 }
                 refreshErrorMessage();
             }
-        });
+        });*/
 
     }
 
 
     public void refreshTrees(View view) {
+        /*
         final TextView treeHistoryTextView = (TextView) findViewById(R.id.treeHistory);
 
         //treeHistory
@@ -200,6 +202,6 @@ public class SurveyActivity extends AppCompatActivity {
             }
         });
 
-
+    */
     }
 }
