@@ -99,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void setUserType(View v) {
-        final Spinner userTypeSpin = (Spinner) findViewById(R.id.userTypeSpinner);
+        Spinner userTypeSpin = (Spinner) findViewById(R.id.userTypeSpinner);
         error = "";
 
         //Issue and HTTP POST
@@ -110,8 +110,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 refreshErrorMessage();
-                // Set back the spinners to the initial state after posting the request
-                userTypeSpin.setSelection(0);
+                ((Spinner) findViewById(R.id.userTypeSpinner)).getSelectedItem();
             }
 
             @Override
@@ -124,6 +123,10 @@ public class MainActivity extends AppCompatActivity {
                 refreshErrorMessage();
             }
         });
+        // Set back the spinners to the initial state after posting the request
+        userTypeSpin.setSelection(0);
+        refreshErrorMessage();
+
     }
     public void refreshLists(View view) {
         refreshList(userTypeAdapter, userTypes, "userTypes");
@@ -158,6 +161,8 @@ public class MainActivity extends AppCompatActivity {
                 refreshErrorMessage();
             }
         });
+
+
     }
     public void testBackend(View view) {
         final TextView test = (TextView) findViewById(R.id.main_page_trial);
