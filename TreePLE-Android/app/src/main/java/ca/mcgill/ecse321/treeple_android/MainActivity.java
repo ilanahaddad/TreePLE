@@ -99,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void setUserType(View v) {
-        Spinner userTypeSpin = (Spinner) findViewById(R.id.userTypeSpinner);
+        final Spinner userTypeSpin = (Spinner) findViewById(R.id.userTypeSpinner);
         error = "";
 
         //Issue and HTTP POST
@@ -110,7 +110,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 refreshErrorMessage();
-                ((Spinner) findViewById(R.id.userTypeSpinner)).getSelectedItem();
+                // Set back the spinners to the initial state after posting the request
+                userTypeSpin.setSelection(0);
             }
 
             @Override
@@ -123,9 +124,6 @@ public class MainActivity extends AppCompatActivity {
                 refreshErrorMessage();
             }
         });
-        // Set back the spinners to the initial state after posting the request
-        userTypeSpin.setSelection(0);
-        refreshErrorMessage();
     }
     public void refreshLists(View view) {
         refreshList(userTypeAdapter, userTypes, "userTypes");
@@ -162,12 +160,12 @@ public class MainActivity extends AppCompatActivity {
         });
     }
     public void testBackend(View view) {
-        final TextView helloTextView = (TextView) findViewById(R.id.main_page_trial);
+        final TextView test = (TextView) findViewById(R.id.main_page_trial);
         HttpUtils.get(HttpUtils.getBaseUrl(), new RequestParams(),new JsonHttpResponseHandler() {
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
-                helloTextView.setText(HttpUtils.getBaseUrl());
+                test.setText(HttpUtils.getBaseUrl());
             }
 
             @Override
