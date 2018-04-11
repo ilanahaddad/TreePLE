@@ -67,7 +67,7 @@ public class SurveyActivity extends AppCompatActivity {
         statusAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         statusSpinner.setAdapter(statusAdapter);
 
-        //refreshLists(this.getCurrentFocus());
+        refreshLists(this.getCurrentFocus());
     }
 
     private void refreshErrorMessage() {
@@ -120,7 +120,7 @@ public class SurveyActivity extends AppCompatActivity {
     }
 
     public void createSurvey(View view) {
-        /*
+
         error = "";
         RequestParams rp = new RequestParams();
 
@@ -160,16 +160,14 @@ public class SurveyActivity extends AppCompatActivity {
                 }
                 refreshErrorMessage();
             }
-        });*/
+        });
 
     }
 
 
     public void refreshTrees(View view) {
-        /*
-        final TextView treeHistoryTextView = (TextView) findViewById(R.id.treeHistory);
 
-        //treeHistory
+        final TextView treeHistoryTextView = (TextView) findViewById(R.id.treeHistory);
 
         //Get surveys
         HttpUtils.get("surveys", new RequestParams(), new JsonHttpResponseHandler() {
@@ -180,7 +178,8 @@ public class SurveyActivity extends AppCompatActivity {
                     try {
                         String survey = response.getJSONObject(i).getString("name");
                         surveys.add(survey);//TODO: maybe change here?
-                        treeHistoryTextView.setText(survey+"\n");
+                        treeHistoryTextView.setText(survey+"\n"); //View the tree added
+                        //TODO: print date as well
 
                     } catch (Exception e) {
                         error += e.getMessage();
@@ -192,7 +191,6 @@ public class SurveyActivity extends AppCompatActivity {
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
                 try {
-                    //error += errorResponse.getString("message");
                     error += errorResponse.get("message").toString();
 
                 } catch (JSONException e) {
@@ -201,7 +199,5 @@ public class SurveyActivity extends AppCompatActivity {
                 refreshErrorMessage();
             }
         });
-
-    */
     }
 }
