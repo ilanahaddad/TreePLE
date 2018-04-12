@@ -78,7 +78,7 @@ public class TreeActivity extends AppCompatActivity {
         refreshLists(this.getCurrentFocus());
     }
     public void createTree(View view) {
-        /*
+
         error = "";
         RequestParams rp = new RequestParams();
 
@@ -162,7 +162,7 @@ public class TreeActivity extends AppCompatActivity {
                 }
                 refreshErrorMessage();
             }
-        });*/
+        });
     }
 
     public void refreshLists(View view) {
