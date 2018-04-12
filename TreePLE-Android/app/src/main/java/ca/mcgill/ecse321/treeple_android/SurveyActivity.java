@@ -96,7 +96,8 @@ public class SurveyActivity extends AppCompatActivity {
                 names.add("Please select...");
                 for( int i = 0; i < response.length(); i++){
                     try {
-                        names.add(response.getJSONObject(i).getString("name"));
+                        //names.add(response.getJSONObject(i).getString("name"));
+                        names.add(response.getJSONObject(i).toString()); //TODO: possible bug
                     } catch (Exception e) {
                         error += e.getMessage();
                     }

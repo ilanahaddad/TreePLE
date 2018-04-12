@@ -139,9 +139,9 @@ public class MainActivity extends AppCompatActivity {
             public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
                 names.clear();
                 names.add("Please select...");
-                for( int i = 0; i < response.length(); i++){
+                for (int i = 0; i < response.length(); i++) {
                     try {
-                        names.add(response.getJSONObject(i).getString("name"));
+                        names.add(response.getJSONObject(i).toString()); //TODO: debug
                     } catch (Exception e) {
                         error += e.getMessage();
                     }
@@ -162,28 +162,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
-    }
-    public void testBackend(View view) {
-        final TextView test = (TextView) findViewById(R.id.main_page_trial);
-        HttpUtils.get(HttpUtils.getBaseUrl(), new RequestParams(),new JsonHttpResponseHandler() {
-
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
-                test.setText(HttpUtils.getBaseUrl());
-            }
-
-            @Override
-            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-                try {
-                    error += errorResponse.get("message").toString();
-
-                } catch (JSONException e) {
-                    error += e.getMessage();
-                }
-                refreshErrorMessage();
-            }
-        });
 
     }
 }

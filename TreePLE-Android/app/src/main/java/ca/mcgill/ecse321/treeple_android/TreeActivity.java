@@ -28,7 +28,7 @@ import cz.msebera.android.httpclient.Header;
 
 public class TreeActivity extends AppCompatActivity {
 
-    private String error = "";
+    private String error = null;
     private List<String> municipalities = new ArrayList<>();
     private ArrayAdapter<String> municipalitiesAdapter;
     private List<String> landUse = new ArrayList<>();
