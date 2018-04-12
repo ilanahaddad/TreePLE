@@ -136,12 +136,12 @@ public class MainActivity extends AppCompatActivity {
         HttpUtils.get(restFunctionName, new RequestParams(), new JsonHttpResponseHandler() {
 
             @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+            public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
                 names.clear();
                 names.add("Please select...");
                 for (int i = 0; i < response.length(); i++) {
                     try {
-                        names.add(response.toString()); //TODO: debug
+                        names.add(response.getJSONObject(i).toString()); //TODO: possible bug
                     } catch (Exception e) {
                         error += e.getMessage();
                     }
