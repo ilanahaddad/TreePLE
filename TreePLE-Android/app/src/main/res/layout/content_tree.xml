@@ -44,12 +44,17 @@
                 android:orientation="vertical">
 
                 <!-- Type species name of tree -->
+                <!-- Type height of tree -->
+                <com.google.android.gms.maps.MapView
+                    android:layout_width="match_parent"
+                    android:layout_height="276dp" />
+
                 <EditText
                     android:id="@+id/speciesName"
                     android:layout_width="335dp"
                     android:layout_height="wrap_content"
                     android:hint="@string/speciesName_hint" />
-                <!-- Type height of tree -->
+
                 <EditText
                     android:id="@+id/height"
                     android:inputType="number"
