@@ -37,7 +37,7 @@ package ca.mcgill.ecse321.treeple_android;
 public class SurveyActivity extends AppCompatActivity {
 
     private String error = "";
-    private List<String> status = new ArrayList<>();
+    private List<String> status = new ArrayList<String>(){{add("Planted");add("Diseased");add("CutDown");add("ToBeCutDown");}};
     private ArrayAdapter<String> statusAdapter;
     private List<String> surveys = new ArrayList<>();
 

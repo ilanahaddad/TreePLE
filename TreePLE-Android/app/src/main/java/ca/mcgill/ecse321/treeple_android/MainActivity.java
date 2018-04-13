@@ -34,7 +34,7 @@ package ca.mcgill.ecse321.treeple_android;
 public class MainActivity extends AppCompatActivity {
 
     private String error = null;
-    private List<String> userTypes = new ArrayList<String>();
+    private List<String> userTypes = new ArrayList<String>(){{add("LocalResident");add("Professional");}};
     private ArrayAdapter<String> userTypeAdapter;
 
     @Override
@@ -128,7 +128,7 @@ public class MainActivity extends AppCompatActivity {
         refreshErrorMessage();
 
     }
-    public void refreshLists(View view) {
+    /*public void refreshLists(View view) {
         refreshList(userTypeAdapter, userTypes, "userTypes");
     }
 
@@ -163,5 +163,5 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-    }
+    }*/
 }

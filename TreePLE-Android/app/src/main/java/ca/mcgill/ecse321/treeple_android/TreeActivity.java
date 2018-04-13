@@ -31,7 +31,7 @@ public class TreeActivity extends AppCompatActivity {
     private String error = null;
     private List<String> municipalities = new ArrayList<>();
     private ArrayAdapter<String> municipalitiesAdapter;
-    private List<String> landUse = new ArrayList<>();
+    private List<String> landUse = new ArrayList<String>(){{add("Residential");add("NonResidential");}};
     private ArrayAdapter<String> landUseAdapter;
 
 
@@ -167,7 +167,7 @@ public class TreeActivity extends AppCompatActivity {
 
     public void refreshLists(View view) {
         refreshMunicipalities(municipalitiesAdapter, municipalities, "municipalities");
-        refreshLandUse(landUseAdapter, landUse, "landUseTypes");
+        //refreshLandUse(landUseAdapter, landUse, "landUseTypes");
 
     }
 
@@ -180,7 +180,7 @@ public class TreeActivity extends AppCompatActivity {
                 names.add("Please select...");
                 for( int i = 0; i < response.length(); i++){
                     try {
-                        names.add(response.getJSONObject(i).toString()); //TODO
+                        names.add(response.getJSONObject(i).getString("name"));
                     } catch (Exception e) {
                         error += e.getMessage();
                     }
@@ -202,7 +202,7 @@ public class TreeActivity extends AppCompatActivity {
             }
         });
     }
-    private void refreshLandUse(final ArrayAdapter<String> adapter, final List<String> names, String restFunctionName) {
+    /*private void refreshLandUse(final ArrayAdapter<String> adapter, final List<String> names, String restFunctionName) {
         HttpUtils.get(restFunctionName, new RequestParams(), new JsonHttpResponseHandler() {
 
             @Override
@@ -232,7 +232,7 @@ public class TreeActivity extends AppCompatActivity {
                 refreshErrorMessage();
             }
         });
-    }
+    }*/
 
     private void refreshErrorMessage() {
         // set the error message
