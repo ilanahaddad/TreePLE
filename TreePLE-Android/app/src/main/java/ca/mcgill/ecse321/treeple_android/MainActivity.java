@@ -102,10 +102,9 @@ public class MainActivity extends AppCompatActivity {
         Spinner userTypeSpin = (Spinner) findViewById(R.id.userTypeSpinner);
         error = "";
 
-        //Issue and HTTP POST
+        ///Issue and HTTP POST
         RequestParams rp = new RequestParams();
-        String userTypeChosen = userTypeSpin.getSelectedItem().toString();
-        rp.add("userType", userTypeChosen);
+        rp.add("userType", userTypeSpin.getSelectedItem().toString());
         HttpUtils.post("setUserType/", rp, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
