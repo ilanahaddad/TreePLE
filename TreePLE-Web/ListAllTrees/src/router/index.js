@@ -8,6 +8,7 @@ import Forecast from '@/components/Forecast'
 import EditTree from '@/components/EditTree'
 import MoveTree from '@/components/MoveTree'
 import ViewSurveys from '@/components/ViewSurveys'
+import ViewReports from '@/components/ViewReports'
 Vue.use(Router)
 
 export default new Router({
@@ -51,6 +52,11 @@ export default new Router({
       path: '/viewsurveys',
       name: 'ViewSurveys',
       component: ViewSurveys
-    }
+    }, 
+		{
+			path: '/viewReports',
+			name: 'ViewReports', 
+			component: ViewReports
+		}
   ]
 })
