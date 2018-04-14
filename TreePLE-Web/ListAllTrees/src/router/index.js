@@ -52,11 +52,11 @@ export default new Router({
       path: '/viewsurveys',
       name: 'ViewSurveys',
       component: ViewSurveys
-    }, 
-		{
-			path: '/viewReports',
-			name: 'ViewReports', 
-			component: ViewReports
-		}
+    },
+    {
+      path: '/viewReports',
+      name: 'ViewReports',
+      component: ViewReports
+    }
   ]
 })

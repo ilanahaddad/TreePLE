@@ -49,7 +49,7 @@ export default {
     EditTree,
     MoveTree,
     ViewSurveys,
-		ViewReports
+    ViewReports
   }
 }
 </script>
