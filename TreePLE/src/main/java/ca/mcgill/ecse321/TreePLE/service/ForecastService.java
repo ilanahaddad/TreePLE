@@ -1,5 +1,7 @@
 package ca.mcgill.ecse321.TreePLE.service;
 
+import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +33,8 @@ public class ForecastService {
 
 	public ForecastService(VersionManager vm) {
 		this.vm = vm;
+		
+		ss = new SurveyService(vm);
 	}
 	public Forecast createForecast(String name, String baseVersion, int futureYear,
 			List<TreeDto> treesToPlant, List<Tree> treesToCutDown) throws InvalidInputException{
@@ -46,11 +50,12 @@ public class ForecastService {
 			throw new InvalidInputException("No such base version exists.\n");
 		}
 		baseTM.setIsEditable(false); //disable edits to baseTM
-		
+		baseTM.setIsSelected(false); //disable edits to baseTM
 		//create new forecast TM with IsEditable as true and isSelected as true
 		String forecastVersion = calculateForecastVersion(baseTM);
 		TreeManager forecastTM = new TreeManager(true, true, forecastVersion, futureYear, baseTM.getUser()); 
 		copyAllContents(baseTM, forecastTM);//copy all data from baseTM to newTM
+		vm.addTreeManager(forecastTM);
 		if(treesToPlant!=null) {
 			plantTrees(treesToPlant);//plant new trees requested in newTM
 		}
@@ -61,27 +66,61 @@ public class ForecastService {
 		forecastTM.setIsEditable(false); 
 		forecastTM.setIsSelected(false); //make it false, will be set to true if selected in dropdown
 		
-		//calculate the new version number for duplicate TM
-		String duplicateVersion = calculateDuplicateVersion(baseTM);
-		//make new TM for duplicate of the baseTM: isEditable to true and isSelected to false
-		TreeManager	duplicateTM = new TreeManager(true, false, duplicateVersion, baseTM.getVersionYear(), baseTM.getUser() );
-		copyAllContents(baseTM, duplicateTM);//copy all data from baseTM to duplicateTM
+		//MAKE DUPLICATE ONLY IF THIS IS THE FORECAST ON THE BASE TM
+		double forecastVersionNum = Double.parseDouble(forecastVersion);
+		double baseTMNum = Double.parseDouble(baseTM.getVersion());
+		if(forecastVersionNum == baseTMNum+0.1) { //ex: if we just created 1.1 from base 1.0
+			//calculate the new version number for duplicate TM
+			String duplicateVersion = calculateDuplicateVersion(baseTM);
+			//make new TM for duplicate of the baseTM: isEditable to true and isSelected to false
+			TreeManager	duplicateTM = new TreeManager(true, false, duplicateVersion, baseTM.getVersionYear(), baseTM.getUser() );
+			copyAllContents(baseTM, duplicateTM);//copy all data from baseTM to duplicateTM
+			vm.addTreeManager(duplicateTM);
+		}
 		
 		Forecast forecast = new Forecast(name,forecastVersion,futureYear); //creator, version, year
 		vm.addTreeManager(forecastTM);
-		vm.addTreeManager(duplicateTM);
 		PersistenceXStream.saveToXMLwithXStream(vm);
 		return forecast;
 	}
 	public String calculateDuplicateVersion(TreeManager baseTM) {
 		double baseTMVersionNum = Double.parseDouble(baseTM.getVersion());
 		double newVersionNum = baseTMVersionNum + 1;
+		List<TreeManager> treemanagers = vm.getTreeManagers();
+	/*	for(TreeManager tm: treemanagers) {
+			if(tm.getVersion().equals(newVersionNum){ // if version already exists, increment i
+				
+			}
+		}*/
 		String newVersionString = Double.toString(newVersionNum);
 		return newVersionString;
 	}
-	public String calculateForecastVersion(TreeManager baseTM) {
+	public String calculateForecastVersion(TreeManager baseTM) throws InvalidInputException{
+		List<TreeManager> treeManagers = vm.getTreeManagers();
 		double baseTMVersionNum = Double.parseDouble(baseTM.getVersion());
-		double newVersionNum = baseTMVersionNum + 0.1;
+		//if baseTM is 1.0, find biggest forecast TM first (1.1 or 1.2 if they exist) 
+		
+		//MAKE LIST OF ALL FORECASTS FROM BASEVERSION TO BASEVERSION+1 (1.0 TO 2.0 for example):
+		List<TreeManager> forecastVersionsOfBaseTM = new ArrayList<TreeManager>();
+		for(TreeManager tm: treeManagers) {
+			double tmNum =  Double.parseDouble(tm.getVersion());
+			if(tmNum >= baseTMVersionNum && tmNum < baseTMVersionNum+1) { //ex: [1.0,2.0)
+				forecastVersionsOfBaseTM.add(tm);
+			}
+		}
+		//FIND MAX FORECAST IN THAT RANGE:
+		double maxForecastVersion = baseTMVersionNum;
+		for(TreeManager tmInRange: forecastVersionsOfBaseTM) {
+			double tmInRangeNum =  Double.parseDouble(tmInRange.getVersion());
+			if (tmInRangeNum > maxForecastVersion) {
+				maxForecastVersion = tmInRangeNum;
+			}
+		}
+		if(maxForecastVersion == 0.9) {
+			throw new InvalidInputException("You're reached the maximal number of forecasts you can make using this as a base.\n");
+		}
+		double newVersionNum = maxForecastVersion + 0.1;
+		newVersionNum = Math.floor(newVersionNum * 10) / 10;
 		String newVersionString = Double.toString(newVersionNum);
 		return newVersionString;
 	}
@@ -108,9 +147,12 @@ public class ForecastService {
 		}
 	}
 	public void plantTrees(List<TreeDto> treesToPlantDto) throws InvalidInputException{
+		tms = new TreeManagerService(vm);
 		for(TreeDto treeDto: treesToPlantDto) {
-			Location location = convertToDomainObject(treeDto.getCoordinates());
-			Municipality municipality = convertToDomainObject(treeDto.getTreeMunicipality());
+			Location location = tms.getLocationByCoordinates(treeDto.getCoordinates().getLatitude(), treeDto.getCoordinates().getLongitude());
+			Municipality municipality = tms.getMunicipalityByName(treeDto.getTreeMunicipality().getName());
+			//Location location = convertToDomainObject(treeDto.getCoordinates());
+			//Municipality municipality = convertToDomainObject(treeDto.getTreeMunicipality());
 			tms.createTree(treeDto.getOwnerName(), treeDto.getSpecies(), treeDto.getHeight(), treeDto.getDiameter(),
 					treeDto.getAge(), location, municipality, treeDto.getLand());
 		}
