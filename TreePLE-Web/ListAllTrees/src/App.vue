@@ -19,7 +19,6 @@
 				<td style="padding:0 5px 0 5px;"><router-link to="editTree">Edit Trees</router-link></td>
         <td style="padding:0 5px 0 5px;"><router-link to="moveTree">Move Tree</router-link></td>
 				<td style="padding:0 5px 0 5px;"><router-link to="viewReports">ViewReports</router-link></td>
-        <td style="padding:0 5px 0 5px;"><router-link to="moveTree">Move Tree</router-link></td>
         <td style="padding:0 5px 0 5px;"><router-link to="forecast">Forecast</router-link> </td>
 
       </tr>
