@@ -31,7 +31,6 @@
 	<div v-if="viewSurveysForTree">
 
   <h2>Report History for tree ID: {{treeId}} </h2></br>
-  <hr>
  	 	<div v-for="survey in surveys">
         <!--
 				<h6> Date : {{survey.reportDate}} </h6>
