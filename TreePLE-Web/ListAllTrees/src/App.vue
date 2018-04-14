@@ -16,9 +16,11 @@
         <nav><router-link to="app">View Trees</router-link></nav>
         <td style="padding:0 5px 0 5px;"><router-link to="generateReport">Generate Report</router-link></td>
         <td style="padding:0 5px 0 5px;"><router-link to="viewsurveys">View Surveys</router-link></td>
-        <td style="padding:0 5px 0 5px;"><router-link to="Forecast">Forecast</router-link> </td>
-        <td style="padding:0 5px 0 5px;"><router-link to="EditTree">Edit Trees</router-link></td>
-        <td style="padding:0 5px 0 5px;"><router-link to="MoveTree">Move Tree</router-link></td>
+				<td style="padding:0 5px 0 5px;"><router-link to="editTree">Edit Trees</router-link></td>
+        <td style="padding:0 5px 0 5px;"><router-link to="moveTree">Move Tree</router-link></td>
+				<td style="padding:0 5px 0 5px;"><router-link to="viewReports">ViewReports</router-link></td>
+        <td style="padding:0 5px 0 5px;"><router-link to="forecast">Forecast</router-link> </td>
+
       </tr>
       <tr></tr>
     </table>
@@ -34,6 +36,7 @@ import ListTrees from './components/ListTrees'
 import EditTree from './components/EditTree'
 import MoveTree from './components/MoveTree'
 import ViewSurveys from './components/ViewSurveys'
+import ViewReports from '@/components/ViewReports'
 
 export default {
   name: 'app',
@@ -44,7 +47,8 @@ export default {
     Forecast,
     EditTree,
     MoveTree,
-    ViewSurveys
+    ViewSurveys,
+    ViewReports
   }
 }
 </script>

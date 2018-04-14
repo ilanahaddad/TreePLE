@@ -63,7 +63,7 @@ export default {
   methods: {
 			viewSurveys: function(treeId) {
 				AXIOS.get('/surveysForTree/'+treeId).then(response => {
-					this.surveys.push(response.data)
+					this.surveys=response.data
 				})
 				.catch(e =>{
 					var errorMsg= e.response.data.message
