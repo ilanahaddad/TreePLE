@@ -75,7 +75,7 @@ public class TreeActivity extends AppCompatActivity {
         landUseSpinner.setAdapter(landUseAdapter);
 
         //Retrieving the municipalities & land use lists from backend
-        refreshLists(this.getCurrentFocus());
+        //refreshLists(this.getCurrentFocus());
     }
     public void createTree(View view) {
 
@@ -166,12 +166,10 @@ public class TreeActivity extends AppCompatActivity {
     }
 
     public void refreshLists(View view) {
-        refreshMunicipalities(municipalitiesAdapter, municipalities, "municipalities");
-        //refreshLandUse(landUseAdapter, landUse, "landUseTypes");
-
+        refreshList(municipalitiesAdapter, municipalities, "municipalities");
     }
 
-    private void refreshMunicipalities(final ArrayAdapter<String> adapter, final List<String> names, String restFunctionName) {
+    private void refreshList(final ArrayAdapter<String> adapter, final List<String> names, String restFunctionName) {
         HttpUtils.get(restFunctionName, new RequestParams(), new JsonHttpResponseHandler() {
 
             @Override
@@ -202,37 +200,6 @@ public class TreeActivity extends AppCompatActivity {
             }
         });
     }
-    /*private void refreshLandUse(final ArrayAdapter<String> adapter, final List<String> names, String restFunctionName) {
-        HttpUtils.get(restFunctionName, new RequestParams(), new JsonHttpResponseHandler() {
-
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
-                names.clear();
-                names.add("Please select...");
-                for( int i = 0; i < response.length(); i++){
-                    try {
-                        names.add(response.getJSONObject(i).get("userTypeName").toString()); //TODO
-                    } catch (Exception e) {
-                        error += e.getMessage();
-                    }
-                    refreshErrorMessage();
-                }
-                adapter.notifyDataSetChanged();
-            }
-
-            @Override
-            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-                try {
-                    //error += errorResponse.getString("message");
-                    error += errorResponse.get("message").toString();
-
-                } catch (JSONException e) {
-                    error += e.getMessage();
-                }
-                refreshErrorMessage();
-            }
-        });
-    }*/
 
     private void refreshErrorMessage() {
         // set the error message
