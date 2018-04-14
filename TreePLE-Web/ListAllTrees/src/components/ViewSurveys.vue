@@ -31,13 +31,12 @@
 	<div v-if="viewSurveysForTree">
 
   <h2>Report History for tree ID: {{treeId}} </h2></br>
- 	 	<div v-for="survey in surveys">
         <!--
 				<h6> Date : {{survey.reportDate}} </h6>
 				<h6> Surveyor: {{survey.surveyor}} </h6>
 				<h6>Status: {{survey.tree.status}} </h6>
         -->
-      <table align="center">
+      <table align="center" v-for="survey in surveys">
       <tr>
         <td style="padding:0 5px 0 5px;">Report Date:</td>
         <td style="padding:0 5px 0 5px;">{{survey.reportDate}}</td>
@@ -50,8 +49,8 @@
         <td style="padding:0 5px 0 5px;">Tree Status:</td>
         <td style="padding:0 5px 0 5px;">{{survey.tree.status}}</td>
       </tr>
-  </table>
-		</div>
+      </table>
+		
 	</div>
  </div>
 </template>
