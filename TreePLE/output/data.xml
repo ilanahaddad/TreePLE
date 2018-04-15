@@ -257,7 +257,7 @@
     </treeManager>
     <treeManager id="63">
       <isEditable>true</isEditable>
-      <isSelected>false</isSelected>
+      <isSelected>true</isSelected>
       <version>3.0</version>
       <versionYear>2018</versionYear>
       <trees id="64">
@@ -269,9 +269,13 @@
       <surveys id="66"/>
       <municipalities id="67">
         <municipality reference="8"/>
+        <municipality id="68">
+          <name>Hampstead</name>
+          <listOfTrees id="69"/>
+        </municipality>
       </municipalities>
       <user reference="37"/>
-      <reports id="68"/>
+      <reports id="70"/>
     </treeManager>
   </treeManagers>
 </versionManager>

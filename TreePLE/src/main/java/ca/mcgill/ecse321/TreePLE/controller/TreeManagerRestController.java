@@ -180,11 +180,12 @@ public class TreeManagerRestController {
 	}
 	@GetMapping(value = { "/trees/", "/trees" })
 	public List<TreeDto> findAllTrees() {
-		List<TreeDto> trees = new ArrayList<TreeDto>();
-		for(Tree t: treeManagerService.findAllTrees()) {
-			trees.add(convertToDto(t));
+		List<TreeDto> treeDtos = new ArrayList<TreeDto>();
+		List<Tree> trees = treeManagerService.findAllTrees();
+		for(Tree t: trees) {
+			treeDtos.add(convertToDto(t));
 		}
-		return trees;
+		return treeDtos;
 	}
 	
 	@PostMapping(value = { "/setUserType/{userTypeName}/", "/setUserType/{userTypeName}" })

@@ -27,6 +27,7 @@ import ca.mcgill.ecse321.TreePLE.model.User.UserType;
 import ca.mcgill.ecse321.TreePLE.persistence.PersistenceXStream;
 import ca.mcgill.ecse321.TreePLE.service.ForecastService;
 import ca.mcgill.ecse321.TreePLE.service.TreeManagerService;
+import ca.mcgill.ecse321.TreePLE.service.VersionManagerService;
 
 public class TestCreateForecast {
 	private VersionManager vm;
@@ -34,6 +35,7 @@ public class TestCreateForecast {
 	private User user;
 	private ForecastService fs;
 	private TreeManagerService tms;
+	private VersionManagerService vms;
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
 		PersistenceXStream.initializeModelManager("output" + File.separator + "data.xml");
@@ -65,6 +67,7 @@ public class TestCreateForecast {
 		vm.addTreeManager(tm);
 		fs = new ForecastService(vm);
 		tms = new TreeManagerService(vm);
+		vms = new VersionManagerService(vm);
 	}
 
 	@After
@@ -217,6 +220,15 @@ public class TestCreateForecast {
 		assertEquals("Westmount", copyTM2.getMunicipality(0).getName());
 		assertEquals(1, copyTM2.numberOfTrees());
 		assertEquals(Tree.Status.Planted, copyTM2.getTree(0).getStatus());
+		
+		try {
+			vms.setSelectedVersion("3.0");
+			tms.createMunicipality("Hampstead");
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+			fail();
+		}
 
 	}
 
