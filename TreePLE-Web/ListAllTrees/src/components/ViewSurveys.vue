@@ -50,7 +50,7 @@
       </tr>
       <tr>
         <td style="padding:0 5px 0 5px;">Tree Status:</td>
-        <td style="padding:0 5px 0 5px;">{{survey.tree.status}}</td>
+        <td style="padding:0 5px 0 5px;">{{survey.newStatus}}</td>
       </tr>
      
     </table>
