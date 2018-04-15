@@ -52,8 +52,9 @@
         <td style="padding:0 5px 0 5px;">Tree Status:</td>
         <td style="padding:0 5px 0 5px;">{{survey.tree.status}}</td>
       </tr>
-      <hr>
+     
     </table>
+     <hr>
 	</div>
  </div>
 </template>
