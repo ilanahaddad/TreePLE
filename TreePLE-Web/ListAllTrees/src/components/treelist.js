@@ -49,6 +49,7 @@ export default {
       errorMunicipalities: '',
       errorLandUse: '',
       errorCreateMun: '',
+      successCreateMun: '',
       response: [],
       selectedMunicipality: '',
       selectedVersion: '',
@@ -162,12 +163,19 @@ export default {
   	addMunicipality: function (newMun) {
   		AXIOS.post('/newMunicipality/'+newMun, {}, {}).then(response => {
 					this.municipalities.push(response.data)
-					this.newMun=''
+          this.successCreateMun= "Awesome! You have successfully created " + newMun + " as a municipality.";
+					this.newMun='';
 				})
 				.catch(e =>{
 					var errorMsg= e.response.data.message
 					console.log(errorMsg)
-					this.errorCreateMun = errorMsg 
+					this.errorCreateMun = errorMsg;
+          this.errorStatus = '';
+          this.errorTree = '';
+          this.errorLandUse = '';
+          this.errorSpecies = '';
+          this.errorMunicipalities = '';
+          this.errorVersions = ''; 
 				})
   	},
 		showTreeData: function(event) {
@@ -193,6 +201,8 @@ export default {
           this.errorLandUse = '';
           this.errorSpecies = '';
           this.errorMunicipalities = '';
+          this.errorVersions = '';
+          this.errorCreateMun = '';
         });
     },
 
@@ -211,6 +221,8 @@ export default {
           this.errorLandUse = '';
           this.errorSpecies = '';
           this.errorMunicipalities = errorMsg;
+          this.errorVersions = '';
+          this.errorCreateMun = '';
         });
 
     },
@@ -232,6 +244,8 @@ export default {
           this.errorTree = '';
           this.errorMunicipalities = '';
           this.errorSpecies = errorMsg;
+          this.errorVersions = '';
+          this.errorCreateMun = '';
         });
     },
 
@@ -249,6 +263,8 @@ export default {
           this.errorTree = '';
           this.errorSpecies = '';
           this.errorMunicipalities = '';
+          this.errorVersions = '';
+          this.errorCreateMun = '';
         });
     },
 
@@ -266,6 +282,8 @@ export default {
           this.errorTree = '';
           this.errorSpecies = '';
           this.errorMunicipalities = '';
+          this.errorVersions = '';
+          this.errorCreateMun = '';
         });
     },
 
@@ -276,6 +294,7 @@ export default {
         .then(response => {
           // JSON responses are automatically parsed.
          	this.selectedVersion=''
+          window.location.reload();
         })
         .catch(e => {
           this.errorLandUse = e;
@@ -292,7 +311,15 @@ export default {
 				this.vYear=response.data
 			})
 			.catch(e =>{
-				this.errorVersions=e;
+        var errorMsg = e.response.data.message
+        console.log(errorMsg)
+				this.errorVersions= errorMsg;
+        this.errorLandUse = '';
+        this.errorStatus = '';
+        this.errorTree = '';
+        this.errorSpecies = '';
+        this.errorMunicipalities = '';
+        this.errorCreateMun = '';
 			});
 
 			

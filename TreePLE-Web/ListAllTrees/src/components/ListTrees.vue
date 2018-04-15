@@ -43,6 +43,11 @@
 			<td><input type ="text" v-model="newMun" placeHolder= "ex. Outremont"></td>
 			<td><button align="center" @click="addMunicipality(newMun)"> Add Municipality </button> </td>
 		</table>
+    <p>
+      <span v-if="errorCreateMun" style="color:red">{{errorCreateMun}} </span>
+      <span v-if="errorMunicipalities" style="color:red">{{errorMunicipalities}} </span>
+      <span v-if="successCreateMun" style="color:green">{{successCreateMun}} </span>
+    </p>
 		<hr>
     <!--LIST TREES BY -->
 
@@ -155,8 +160,8 @@
           <td style="padding:0 5px 0 5px;"><span style="font-weight:bold">Diameter (in metres)</span></td>
           <td style="padding:0 5px 0 5px;"><span style="font-weight:bold">Municipality</span></td>
           <td style="padding:0 5px 0 5px;"><span style="font-weight:bold">Owner</span></td>
-          <td style="padding:0 5px 0 5px;"><span style="font-weight:bold">Longitude</span></td>
           <td style="padding:0 5px 0 5px;"><span style="font-weight:bold">Latitude</span></td>
+          <td style="padding:0 5px 0 5px;"><span style="font-weight:bold">Longitude</span></td>
           <td style="padding:0 5px 0 5px;"><span style="font-weight:bold">Status</span></td>
           <td style="padding:0 5px 0 5px;"><span style="font-weight:bold">Land Use</span></td>
       </tr>
@@ -201,6 +206,8 @@
       <span v-if="errorTree" style="color:red">{{errorTree}} </span>
       <span v-if="errorStatus" style="color:red">{{errorStatus}} </span>
       <span v-if="errorLandUse" style="color:red">{{errorLandUse}} </span>
+      <span v-if="errorVersions" style="color:red">{{errorVersions}} </span>
+      <span v-if="errorSpecies" style="color:red">{{errorSpecies}} </span>
     </p>
     </div>
 </template>

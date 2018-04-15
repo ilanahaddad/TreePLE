@@ -31,6 +31,9 @@
 	<div v-if="viewSurveysForTree">
 
   <h2>Survey History for tree ID: {{treeId}} </h2></br>
+  <p>
+       <span v-if="errorSurveys" style="color:red">{{errorSurveys}} </span>
+  </p>
         <!--
 				<h6> Date : {{survey.reportDate}} </h6>
 				<h6> Surveyor: {{survey.surveyor}} </h6>
@@ -51,7 +54,6 @@
       </tr>
       <hr>
     </table>
-		
 	</div>
  </div>
 </template>
