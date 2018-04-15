@@ -49,6 +49,7 @@ export default {
       errorMunicipalities: '',
       errorLandUse: '',
       errorCreateMun: '',
+      successCreateMun: '',
       response: [],
       selectedMunicipality: '',
       selectedVersion: '',
@@ -162,7 +163,8 @@ export default {
   	addMunicipality: function (newMun) {
   		AXIOS.post('/newMunicipality/'+newMun, {}, {}).then(response => {
 					this.municipalities.push(response.data)
-					this.newMun=''
+          this.successCreateMun= "You have successfully created " + newMun + " as a municaplity";
+					this.newMun='';
 				})
 				.catch(e =>{
 					var errorMsg= e.response.data.message

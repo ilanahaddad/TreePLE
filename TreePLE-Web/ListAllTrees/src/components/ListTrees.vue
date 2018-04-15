@@ -46,6 +46,7 @@
     <p>
       <span v-if="errorCreateMun" style="color:red">{{errorCreateMun}} </span>
       <span v-if="errorMunicipalities" style="color:red">{{errorMunicipalities}} </span>
+      <span v-if="successCreateMun" style="color:green">{{successCreateMun}} </span>
     </p>
 		<hr>
     <!--LIST TREES BY -->
