@@ -14,12 +14,20 @@ import ca.mcgill.ecse321.TreePLE.model.Tree;
 import ca.mcgill.ecse321.TreePLE.model.TreeManager;
 import ca.mcgill.ecse321.TreePLE.model.VersionManager;
 import ca.mcgill.ecse321.TreePLE.persistence.PersistenceXStream;
-
+/**
+ * This service class contains all the main functionalities related to generating a Sustainability Report. 
+ * @authors Ilana Haddad, Asma Alromaih, Diana Serra
+ */
 @Service
 public class ReportService {
 	private TreeManager tm;
 	private VersionManager vm;
-
+	/**
+	 * The ReportService constructor verifies which version has been selected by the user, 
+	 * finds the TreeManager associated to that version and sets the class's TreeManager as that one for users
+	 * to edit attributes on that TreeManager.
+	 * @param vm VersionManager of the application
+	 */
 	public ReportService(VersionManager vm) {
 		List<TreeManager> treemanagers = vm.getTreeManagers();
 		for(TreeManager treeM : treemanagers) {
@@ -29,6 +37,14 @@ public class ReportService {
 		}
 		this.vm = vm;
 	}
+	/**
+	 * This method creates a sustainability report given the following parameters:
+	 * @param reporterName name of reporting person creating the report
+	 * @param reportDate date the report was generated 
+	 * @param perimeter perimeter for which the sustainability attributes will be calculated for
+	 * @return SustainabilityReport created
+	 * @throws InvalidInputException 
+	 */
 	public SustainabilityReport createReport(String reporterName, Date reportDate, Location[] perimeter) throws InvalidInputException{
 		if(reporterName == null||reportDate ==null||perimeter==null) {
 			throw new InvalidInputException("Error: Reporter name, date, or parameter is null");
@@ -58,7 +74,12 @@ public class ReportService {
 		PersistenceXStream.saveToXMLwithXStream(vm);
 		return report;
 	}
-
+	/**
+	 * This method calculates the biodiversity index given a perimeter of 4 location coordinates
+	 * @param perimeter array of 4 locations
+	 * @return biodiversity index
+	 * @throws InvalidInputException
+	 */
 	private double calculateBiodiversityIndex(Location[] perimeter) throws InvalidInputException {
 		int numTrees = getTreesInLocation(perimeter).size();
 		if(numTrees==0) {
@@ -68,7 +89,12 @@ public class ReportService {
 		double biodiversityIndex = numSpecies/numTrees;
 		return biodiversityIndex;
 	}
-	
+	/**
+	 * This method calculates the sum of canopies for all trees in the perimeter
+	 * @param perimeter array of 4 locations
+	 * @return canopy
+	 * @throws InvalidInputException
+	 */
 	private double calculateCanopy(Location[] perimeter) throws InvalidInputException {
 		double sumCanopy = 0;
 		for(Tree tree : getTreesInLocation(perimeter)) {
@@ -78,6 +104,12 @@ public class ReportService {
 		}
 		return sumCanopy;
 	}
+	/**
+	 * This method calculates the carbon sequestration in a given area
+	 * @param perimeter array of 4 locations
+	 * @return carbon sequestration
+	 * @throws InvalidInputException
+	 */
 	private double caculateCarbonSequestration(Location[] perimeter) throws InvalidInputException {
 		double sumCarbonSequestration = 0;
 		for(Tree tree : getTreesInLocation(perimeter)) {
@@ -97,7 +129,12 @@ public class ReportService {
 		}
 		return sumCarbonSequestration;
 	}
-
+	/**
+	 * This method calculates the number of different species in an area
+	 * @param perimeter array of 4 locations
+	 * @return number of total species in the perimeter
+	 * @throws InvalidInputException
+	 */
 	public int getNumSpecies (Location [] perimeter )throws InvalidInputException {
 		if(perimeter == null) {
 			throw new InvalidInputException("Error: Perimeter is null");
@@ -116,7 +153,12 @@ public class ReportService {
 		}
 		return species.size();
 	}
-
+	/**
+	 * This method finds all trees in the perimeter.
+	 * @param perimeter array of 4 locations
+	 * @return List<Tree> list of trees in that area
+	 * @throws InvalidInputException
+	 */
 	public List<Tree> getTreesInLocation(Location[] perimeter) throws InvalidInputException{
 		if(perimeter == null) {
 			throw new InvalidInputException("Error: Perimeter is null");
@@ -136,7 +178,14 @@ public class ReportService {
 		}
 		return treesInLocation;
 	}
-	
+	/**
+	 * This method checks whether a tree at coordinates x,y isr contained in the perimete
+	 * @param x latitude of tree
+	 * @param y longitude of tree
+	 * @param perimeter array of 4 locations
+	 * @return true or false depending on whether these coordinates are contained in the perimeter
+	 * @throws InvalidInputException
+	 */
 	public boolean isTreeInLocation(double x,double y,Location[]perimeter) throws InvalidInputException {
 		if(perimeter == null) {
 			throw new InvalidInputException("Error: Perimeter is null");
@@ -160,9 +209,20 @@ public class ReportService {
 		return isTreeInLocation;
 		
 	}
+	/**
+	 * This method returns all the sustainability reports generated in the TreeManager
+	 * @return List<SustainabilityReport> list of sustainability reports
+	 */
 	public List<SustainabilityReport> getAllSustainabilityReports(){
 		return tm.getReports();
 	}
+	/**
+	 * This method creates a location given a latitude and a longitude
+	 * @param latitude
+	 * @param longitude
+	 * @return Location created 
+	 * @throws InvalidInputException if the given latitude and longitude are not in the correct range. 
+	 */
 	public Location createLocation(double latitude, double longitude) throws InvalidInputException{
 		if(latitude < -90 || latitude >90) {
 			throw new InvalidInputException("Latitude must be in range [-90,90].\n");
@@ -175,6 +235,14 @@ public class ReportService {
 		PersistenceXStream.saveToXMLwithXStream(vm);
 		return location;
 	}
+	/**
+	 * This method checks if a location already exists in the system with that latitude and longitude pairing. 
+	 * If it does not, it will call the createLocation method.
+	 * @param lati latitude 
+	 * @param longi longitude
+	 * @return Location created or returned
+	 * @throws InvalidInputException
+	 */
 	public Location getLocationByCoordinates(double lati, double longi) throws InvalidInputException {
 		//check if location already exists
 		List<Location> locations = tm.getLocations();
