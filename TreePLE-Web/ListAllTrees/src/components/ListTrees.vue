@@ -52,11 +52,11 @@
     <!-- CREATE SURVEY -->
     <h5><font color =green> Survey a Tree </font></h5>
 		<table align= "center">
-			<td><input type ="Tree ID:" v-model="surveyTree" placeHolder= "ex. 3"></td>
-            <td><input type ="Surveyor:" v-model="surveyor" placeHolder= "ex. Thomas"></td>
+			<td>Tree ID: <input type ="text" v-model="surveyTree" placeHolder= "ex. 3"></td>
+            <td>Surveyor Name: <input type ="text" v-model="surveyor" placeHolder= "ex. Thomas"></td>
             <td style="padding:0 5px 0 5px;">Date: </td>
             <td><input type ="date" v-model="surveyDate" placeHolder= "MM/DD/YYYY"></td>
-            <td><select v-model="surveyStatus">
+            <td>New Status:<select v-model="surveyStatus">
               <option disabled value="">Select Status</option>
               <option v-for="status in statuses" >
                   <td>{{ status }}</td>
