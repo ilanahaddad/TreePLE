@@ -1,12 +1,1 @@
-ca.mcgill.ecse321.TreePLE
-ca.mcgill.ecse321.TreePLE.controller
-ca.mcgill.ecse321.TreePLE.controller.configuration
-ca.mcgill.ecse321.TreePLE.dto
-ca.mcgill.ecse321.TreePLE.model
-ca.mcgill.ecse321.TreePLE.persistence
 ca.mcgill.ecse321.TreePLE.service
-ca.mcgill.ecse321.TreePLE.service.Forecast
-ca.mcgill.ecse321.TreePLE.service.Report
-ca.mcgill.ecse321.TreePLE.service.Survey
-ca.mcgill.ecse321.TreePLE.service.TreeManager
-ca.mcgill.ecse321.TreePLE.service.VersionManager
