@@ -15,6 +15,9 @@
     </table>
 	-->
     <hr>
+    <p>
+      <span v-if="errorGenerateReport" style="color:red">{{errorGenerateReport}} </span>
+    </p>
     <h4>Perimeter Selection</h4>
     <table align="center">
     	<tr>
