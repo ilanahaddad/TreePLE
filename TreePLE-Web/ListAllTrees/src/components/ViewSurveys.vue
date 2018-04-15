@@ -40,6 +40,9 @@
 	</div>
 	</div>
  </div>
+ <p>
+      <span v-if="errorSurveys" style="color:red">{{errorSurveys}} </span>
+    </p>
 </template>
 <script src="./viewSurveys.js">
 </script>
