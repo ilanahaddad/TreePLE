@@ -167,7 +167,13 @@ export default {
 				.catch(e =>{
 					var errorMsg= e.response.data.message
 					console.log(errorMsg)
-					this.errorCreateMun = errorMsg 
+					this.errorCreateMun = errorMsg;
+          this.errorStatus = '';
+          this.errorTree = '';
+          this.errorLandUse = '';
+          this.errorSpecies = '';
+          this.errorMunicipalities = '';
+          this.errorVersions = ''; 
 				})
   	},
 		showTreeData: function(event) {
@@ -194,6 +200,7 @@ export default {
           this.errorSpecies = '';
           this.errorMunicipalities = '';
           this.errorVersions = '';
+          this.errorCreateMun = '';
         });
     },
 
@@ -213,6 +220,7 @@ export default {
           this.errorSpecies = '';
           this.errorMunicipalities = errorMsg;
           this.errorVersions = '';
+          this.errorCreateMun = '';
         });
 
     },
@@ -235,6 +243,7 @@ export default {
           this.errorMunicipalities = '';
           this.errorSpecies = errorMsg;
           this.errorVersions = '';
+          this.errorCreateMun = '';
         });
     },
 
@@ -253,6 +262,7 @@ export default {
           this.errorSpecies = '';
           this.errorMunicipalities = '';
           this.errorVersions = '';
+          this.errorCreateMun = '';
         });
     },
 
@@ -271,6 +281,7 @@ export default {
           this.errorSpecies = '';
           this.errorMunicipalities = '';
           this.errorVersions = '';
+          this.errorCreateMun = '';
         });
     },
 
@@ -305,6 +316,7 @@ export default {
         this.errorTree = '';
         this.errorSpecies = '';
         this.errorMunicipalities = '';
+        this.errorCreateMun = '';
 			});
 
 			

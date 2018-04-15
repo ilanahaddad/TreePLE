@@ -204,6 +204,7 @@
       <span v-if="errorVersions" style="color:red">{{errorVersions}} </span>
       <span v-if="errorMunicipalities" style="color:red">{{errorMunicipalities}} </span>
       <span v-if="errorSpecies" style="color:red">{{errorSpecies}} </span>
+      <span v-if="errorCreateMun" style="color:red">{{errorCreateMun}} </span>
     </p>
     </div>
 </template>
