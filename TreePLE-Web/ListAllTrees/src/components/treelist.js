@@ -330,7 +330,7 @@ export default {
     }, 
     createSurvey: function(surveyDate, surveyTree, surveyor, surveyStatus){
       AXIOS.post('/newSurvey/', {}, {params: {
-        reportDate: surveydate, 
+        reportDate: surveyDate, 
         tree: surveyTree, 
         surveyor: surveyor, 
         newTreeStatus: surveyStatus}})
