@@ -30,7 +30,7 @@
 	</div>
 	<div v-if="viewSurveysForTree">
 
-  <h2>Report History for tree ID: {{treeId}} </h2></br>
+  <h2>Survey History for tree ID: {{treeId}} </h2></br>
         <!--
 				<h6> Date : {{survey.reportDate}} </h6>
 				<h6> Surveyor: {{survey.surveyor}} </h6>
