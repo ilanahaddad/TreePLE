@@ -34,9 +34,9 @@
         <td style="padding:0 5px 0 5px;">Carbon Sequestration Index:</td>
         <td style="padding:0 5px 0 5px;">{{curReport.carbonSequestration}}</td>
       </tr>
-      <hr>
+      
     </table>
-
+    <hr>
   </div>
 </div>
 </template>
