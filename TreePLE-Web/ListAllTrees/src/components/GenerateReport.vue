@@ -1,5 +1,8 @@
 <template>
   <div id="generatereport">
+    <p>
+      <span v-if="errorGenerateReport" style="color:red">{{errorGenerateReport}} </span>
+    </p>
 		<div v-if="showGenerate">
 	<!--
   	<table align="center">
@@ -15,9 +18,6 @@
     </table>
 	-->
     <hr>
-    <p>
-      <span v-if="errorGenerateReport" style="color:red">{{errorGenerateReport}} </span>
-    </p>
     <h4>Perimeter Selection</h4>
     <table align="center">
     	<tr>
