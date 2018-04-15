@@ -12,15 +12,22 @@ import ca.mcgill.ecse321.TreePLE.model.Tree.Status;
 import ca.mcgill.ecse321.TreePLE.model.TreeManager;
 import ca.mcgill.ecse321.TreePLE.model.User;
 import ca.mcgill.ecse321.TreePLE.model.User.UserType;
-//import ca.mcgill.ecse321.TreePLE.model.User.UserType;
 import ca.mcgill.ecse321.TreePLE.model.VersionManager;
 import ca.mcgill.ecse321.TreePLE.persistence.PersistenceXStream;
-
+/**
+ * This service class contains all main functionalities of the TreeManager. 
+ * @authors Ilana Haddad, Diana Serra, Jessica Udo, Thomas Hannaford
+ */
 @Service
 public class TreeManagerService {
 	private TreeManager tm;
 	private VersionManager vm;
-
+	/**
+	 * The TreeManagerService constructor verifies which version has been selected by the user, 
+	 * finds the TreeManager associated to that version and sets the classe's TreeManager as that one for users
+	 * to edit attributes on that TreeManager.
+	 * @param vm
+	 */
 	public TreeManagerService(VersionManager vm) {
 		List<TreeManager> treemanagers = vm.getTreeManagers();
 		for(TreeManager treeM : treemanagers) {
@@ -30,11 +37,20 @@ public class TreeManagerService {
 		}
 		this.vm = vm;
 	}
+	/**
+	 * This method checks if the tree manager is editable to the user. Only the latest non-forecasted version is editable.
+	 * @param tm current version that is selected
+	 * @throws InvalidInputException input exception handling
+	 */
 	public void checkIfEditable(TreeManager tm)throws InvalidInputException {
 		if(!tm.getIsEditable()) {
 			throw new InvalidInputException("You cannot edit this version of the system");
 		}
 	}
+	/**
+	 * This method refreshes TreeLog to the selected version and checks if it is editable.
+	 * @throws InvalidInputException
+	 */
 	public void refreshSelectedTmAndCheckIfEditable() throws InvalidInputException {
 		for(TreeManager treeM : vm.getTreeManagers()) {
 			if(treeM.getIsSelected()) {
@@ -45,6 +61,9 @@ public class TreeManagerService {
 			throw new InvalidInputException("You cannot edit this version of the system");
 		}
 	}
+	/**
+	 * This method only refreshes selected version
+	 */
 	public void refreshSelectedTM() {
 		for(TreeManager treeM : vm.getTreeManagers()) {
 			if(treeM.getIsSelected()) {
@@ -52,6 +71,19 @@ public class TreeManagerService {
 			}
 		}
 	}
+	/**
+	 * This method creates a tree with the following attributes
+	 * @param ownerName Owner's name
+	 * @param species Species of the tree
+	 * @param height Height of the tree in meters
+	 * @param diameter Diameter of the tree canopy in meters
+	 * @param age Age of the tree 
+	 * @param location Location of the tree	
+	 * @param municipality Municipality where the tree is located
+	 * @param land Land use of the tree (Residential or non-residential)
+	 * @return returns tree created
+	 * @throws InvalidInputException handles input exception error
+	 */
 	public Tree createTree(String ownerName, String species,  double height, double diameter, 
 			int age, Location location, 
 			Municipality municipality,  Tree.LandUse land) throws InvalidInputException{
@@ -80,6 +112,12 @@ public class TreeManagerService {
 		PersistenceXStream.saveToXMLwithXStream(vm);
 		return t;
 	}
+	/**
+	 * This method creates a municipality
+	 * @param name name of the municipality
+	 * @return adds municipality
+	 * @throws InvalidInputException
+	 */
 	public Municipality createMunicipality(String name) throws InvalidInputException {
 		//checkIfEditable(this.tm);
 		refreshSelectedTmAndCheckIfEditable();
@@ -125,6 +163,13 @@ public class TreeManagerService {
 		PersistenceXStream.saveToXMLwithXStream(vm);
 		
 	}
+	/**
+	 * This method creates a new location in TreeLog
+	 * @param latitude latitude of new location
+	 * @param longitude longitude of new location
+	 * @return returns the location
+	 * @throws InvalidInputException
+	 */
 	public Location createLocation(double latitude, double longitude) throws InvalidInputException{
 		refreshSelectedTmAndCheckIfEditable();
 		if(latitude < -90 || latitude >90) {
@@ -138,6 +183,13 @@ public class TreeManagerService {
 		PersistenceXStream.saveToXMLwithXStream(vm);
 		return location;
 	}
+	/**
+	 * This method gets the location given the coordinates. If it does not exist it creates a new location.
+	 * @param lati latitude of location
+	 * @param longi longitude of location
+	 * @return returns the location with the longitude and coordinates given
+	 * @throws InvalidInputException 
+	 */
 	public Location getLocationByCoordinates(double lati, double longi) throws InvalidInputException {
 		//check if location already exists
 		List<Location> locations = tm.getLocations();
@@ -150,13 +202,27 @@ public class TreeManagerService {
 		Location location = createLocation(lati,longi);
 		return location;
 	}
+	/**
+	 * This method gets the location of a given tree using tree ID
+	 * @param t desired tree 
+	 * @return returns the location of the tree 
+	 */
 	public Location getLocationForTree(Tree t) {
 		return t.getCoordinates();
 	}
-
+	/**
+	 * This method gets the municipality of a desired tree
+	 * @param t desired tree
+	 * @return returns the municipality of the tree
+	 */
 	public Municipality getMunicipalityForTree(Tree t) {
 		return t.getTreeMunicipality();
 	}
+	/**
+	 * This method finds the municipality given a name
+	 * @param name name of the municipality
+	 * @return returns the municipality whose name was called
+	 */
 	public Municipality getMunicipalityByName(String name) {
 		List<Municipality> municipalities = tm.getMunicipalities();
 		for(Municipality m: municipalities) {
@@ -167,6 +233,12 @@ public class TreeManagerService {
 		}
 		return null;
 	}
+	/**
+	 * This method gets a tree given an ID#
+	 * @param id id of the tree
+	 * @return returns the tree that has that ID#
+	 * @throws InvalidInputException returns error if that ID# does not exist in system
+	 */
 	public Tree getTreeById(int id) throws InvalidInputException{
 		List<Tree> trees = tm.getTrees();
 		boolean treeFound = false;
@@ -183,20 +255,28 @@ public class TreeManagerService {
 		}
 		return tree;
 	}
+	/**
+	 * This method lists all the municipalities in TreeLog
+	 * @return returns a list of all the municipalities
+	 */
 	public List<Municipality> findAllMunicipalities() {
 		refreshSelectedTM();
 		return this.tm.getMunicipalities();
 	}
+	/**
+	 * This method lists all the trees in TreeLog
+	 * @return returns a list of all the trees
+	 */
 	public List<Tree> findAllTrees() {
-	/*	for(TreeManager treeM : vm.getTreeManagers()) {
-			if(treeM.getIsSelected()) {
-				this.tm = treeM;
-			}
-		}*/
 		refreshSelectedTM();
 		return this.tm.getTrees();
 	}
-	
+	/**
+	 * This method lists all the trees by species
+	 * @param species desired species type
+	 * @return returns all the trees belonging to desired species type
+	 * @throws InvalidInputException returns error if species name is null, empty or does not exist currently in TreeLog
+	 */
 	public List<Tree> listTreesBySpecies(String species) throws InvalidInputException{
 		refreshSelectedTM();
 		if(species==null) {
@@ -218,6 +298,12 @@ public class TreeManagerService {
 		return SpeciesList;
 	}	
 	
+	/**
+	 * This method lists all the trees pertaining to a certain land use
+	 * @param landUse desired land use
+	 * @return returns a list of all the trees with this land use
+	 * @throws InvalidInputException returns error if desired land use does not currently exist in TreeLog
+	 */
 	public List<Tree> listTreesByLandUse(LandUse landUse) throws InvalidInputException{
 		refreshSelectedTM();
 		if(landUse==null) {
@@ -235,7 +321,12 @@ public class TreeManagerService {
 		}
 		return LandUseList;
 	}	
-
+	/**
+	 * This method assigns a type to a user (Professional or resident)
+	 * @param userType type of the user (professional or resident)
+	 * @return returns user
+	 * @throws InvalidInputException returns input error if the type is null
+	 */
 	public User setUserType(UserType userType) throws InvalidInputException {
 		refreshSelectedTmAndCheckIfEditable();
 		if(userType==null) {
@@ -301,6 +392,12 @@ public class TreeManagerService {
 		tree.setTreeMunicipality(newMunicipality);
 		PersistenceXStream.saveToXMLwithXStream(vm);
 	}
+	/**
+	 * This method lists trees for a certain municipality
+	 * @param municipality desired municipality
+	 * @return returns a list of the trees belonging to this municipality
+	 * @throws InvalidInputException
+	 */
 	public List<Tree> listTreesByMunicipality(Municipality municipality) throws InvalidInputException{
 		refreshSelectedTM();
 		if(municipality==null) {
@@ -319,6 +416,12 @@ public class TreeManagerService {
 		}
 		return MunicipalityList;
 	}	
+	/**
+	 * This method lists all the trees pertaining to a certain status
+	 * @param status status of the tree (planted, to be cut-down, cut-down, diseased)
+	 * @return returns all the trees with the desired status
+	 * @throws InvalidInputException input error is thrown if status is null or status does not currently exist in TreeLog
+	 */
 	public List<Tree> listTreesByStatus(Status status) throws InvalidInputException{
 		refreshSelectedTM();
 		if(status==null) {
@@ -337,6 +440,11 @@ public class TreeManagerService {
 		}
 		return StatusList;
 	}
+	/**
+	 * This method searches through user types to find one that matches the given name
+	 * @param userTypeName
+	 * @return UserType with that name if found, or null if it doesn't exist
+	 */
 	public UserType getUserTypeByName(String userTypeName) {
 		UserType[] userTypes = UserType.values();
 		for(UserType ut: userTypes) {
@@ -346,6 +454,10 @@ public class TreeManagerService {
 		}
 		return null;
 	}
+	/**
+	 * This method lists all the species type in TreeLog
+	 * @return returns a list of the different species type
+	 */
 	public List<String> getAllSpecies(){
 		refreshSelectedTM();
 		List<String> species = new ArrayList<String>();
@@ -356,6 +468,10 @@ public class TreeManagerService {
 		}
 		return species;
 	}
+	/**
+	 * This method lists all the statuses currently in TreeLog	
+	 * @return returns a list of all the different statuses in the system
+	 */
 	public List<Tree.Status> getAllStatuses(){
 		List<Tree.Status> statusesList = new ArrayList<Tree.Status>();
 		Tree.Status[] statusesArray = Tree.Status.values();
@@ -364,6 +480,10 @@ public class TreeManagerService {
 		}
 		return statusesList;
 	}
+	/**
+	 * This method lists all the land use types
+	 * @return returns a list of all the different land use types in the system
+	 */
 	public List<LandUse> getAllLandUseTypes() {
 		List<Tree.LandUse> landUseTypesList = new ArrayList<Tree.LandUse>();
 		Tree.LandUse[] landUseTypesArray = Tree.LandUse.values();
@@ -372,10 +492,15 @@ public class TreeManagerService {
 		}
 		return landUseTypesList;
 	}
+	/**
+	 * This method lists all the tree locations currently in TreeLog
+	 * @return returns a list of all the locations
+	 */
 	public List<Location> getAllLocations(){
 		refreshSelectedTM();
 		return tm.getLocations();
 	}
+	
 	public List<User.UserType> getUserTypes() {
 		List<User.UserType> userTypesList = new ArrayList<User.UserType>();
 		User.UserType[] userTypesArray = User.UserType.values();
@@ -384,6 +509,12 @@ public class TreeManagerService {
 		}
 		return userTypesList;
 	}
+	/**
+	 * This method allows for the user to set/change the status of a tree
+	 * @param tree desired tree
+	 * @param newStatus the new status of the tree (planted, diseased, to be cut-down, cut-down)
+	 * @throws InvalidInputException
+	 */
 	public void setStatus(Tree tree, Tree.Status newStatus) throws InvalidInputException{
 		refreshSelectedTmAndCheckIfEditable();
 		tree.setStatus(newStatus);

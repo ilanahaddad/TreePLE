@@ -15,6 +15,14 @@
     </table>
     -->
     <hr>
+    <p>
+      <span v-if="errorForecast" style="color:red">{{errorForecast}} </span>
+      <span v-if="errorAddTree" style="color:red">{{errorAddTree}} </span>
+      <span v-if="errorLandUse" style="color:red">{{errorLandUse}} </span>
+      <span v-if="errorMunicipalities" style="color:red">{{errorMunicipalities}} </span>
+      <span v-if="errorSpecies" style="color:red">{{errorSpecies}} </span>
+      <span v-if="errorVersions" style="color:red">{{errorVersions}} </span>
+    </p>
     <h2>New Forecast</h2>
     <br>
     <h5>Basic information</h5>

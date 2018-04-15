@@ -1,5 +1,8 @@
 <template>
   <div id="generatereport">
+    <p>
+      <span v-if="errorGenerateReport" style="color:red">{{errorGenerateReport}} </span>
+    </p>
 		<div v-if="showGenerate">
 	<!--
   	<table align="center">

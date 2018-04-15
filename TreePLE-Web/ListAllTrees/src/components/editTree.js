@@ -28,6 +28,8 @@ export default {
       landUses: [],
       changedTree: '',
       errorMunicipalities: '',
+      errorEditTree: '',
+      successEditTree: '',
       errorLandUse: ''
     }
   },
@@ -64,6 +66,7 @@ export default {
           }
         }).then(response => {
           this.changedTree = response.data
+          this.successEditTree = 'You have successfully edited Tree ' + treeId 
           this.treeId = ''
           this.ownerName = ''
           this.species = ''
@@ -73,11 +76,13 @@ export default {
           this.height = ''
           this.municipality = ''
           this.landuse = ''
+          this.errorEditTree = ''
         })
         .catch(e => {
           var errorMsg = e.response.data.message
           console.log(errorMsg)
-          this.errorEvent = errorMsg
+          this.errorEditTree = errorMsg
+          this.successEditTree = ''
         })
     }
   }

@@ -3,6 +3,7 @@ package ca.mcgill.ecse321.TreePLE.dto;
 import java.sql.Date;
 import java.util.List;
 
+import ca.mcgill.ecse321.TreePLE.model.Survey.Status;
 import ca.mcgill.ecse321.TreePLE.model.Tree;
 import ca.mcgill.ecse321.TreePLE.model.User;
 
@@ -12,6 +13,7 @@ public class SurveyDto {
 	private Date reportDate;
 	private TreeDto tree;
 	private String surveyor;
+	private Status newStatus;
 
 	public SurveyDto() {
 
@@ -32,6 +34,9 @@ public class SurveyDto {
 	public String getSurveyor()
 	{
 		return this.surveyor;
+	}
+	public Status getNewStatus() {
+		return this.newStatus;
 	}
 	public void setTree(TreeDto tree) {
 		this.tree = tree;

@@ -114,11 +114,13 @@ public class TestCreateSurvey {
 		
 	}
 	@Test
-	public void testCreateSurveyEmpty() {
+	public void testCreateSurveyNullDate() {
 		assertEquals(0, tm.getSurveys().size());
 		Date date = null;
-		Tree tree = null;
-		Status status = null;
+		Location treeLoc = new Location(1.5,1.5);
+		Municipality m = new Municipality("Outremont");
+		Tree tree = new Tree("Ilana","White Oak", 1.2, 0.2, 0,treeLoc, m);;
+		Status status = Tree.Status.ToBeCutDown;
 		
 		String error = null;
 		
@@ -129,7 +131,84 @@ public class TestCreateSurvey {
 		}
 
 		// check error
-		assertEquals("Error: Report Date, tree, surveyor, or status is null", error);
+		assertEquals("Error: Report date cannot be null.\n", error);
+
+		// check no change in memory
+		assertEquals(0, tm.getSurveys().size());
+		
+	}
+	@Test
+	public void testCreateSurveyNullTree() {
+		assertEquals(0, tm.getSurveys().size());
+		Calendar c = Calendar.getInstance();
+		c.set(2017, Calendar.MARCH, 16, 9, 0, 0);
+		Date date= new Date(c.getTimeInMillis());
+
+		Tree tree = null;
+		Status status = Tree.Status.ToBeCutDown;
+		
+		String error = null;
+		
+		try {
+			sc.createSurvey(date,tree,"Ilana",status);
+		} catch (InvalidInputException e) {
+			error = e.getMessage();
+		}
+
+		// check error
+		assertEquals("Error: Tree cannot be null.\n", error);
+
+		// check no change in memory
+		assertEquals(0, tm.getSurveys().size());
+		
+	}
+	@Test
+	public void testCreateSurveyNullSurveyor() {
+		assertEquals(0, tm.getSurveys().size());
+		Calendar c = Calendar.getInstance();
+		c.set(2017, Calendar.MARCH, 16, 9, 0, 0);
+		Date date= new Date(c.getTimeInMillis());
+		Location treeLoc = new Location(1.5,1.5);
+		Municipality m = new Municipality("Outremont");
+		Tree tree = new Tree("Ilana","White Oak", 1.2, 0.2, 0,treeLoc, m);;
+		Status status = Tree.Status.ToBeCutDown;
+		
+		String error = null;
+		
+		try {
+			sc.createSurvey(date,tree,null,status);
+		} catch (InvalidInputException e) {
+			error = e.getMessage();
+		}
+
+		// check error
+		assertEquals("Error: Surveyor name cannot be null.\n", error);
+
+		// check no change in memory
+		assertEquals(0, tm.getSurveys().size());
+		
+	}
+	@Test
+	public void testCreateSurveyNullStatus() {
+		assertEquals(0, tm.getSurveys().size());
+		Calendar c = Calendar.getInstance();
+		c.set(2017, Calendar.MARCH, 16, 9, 0, 0);
+		Date date= new Date(c.getTimeInMillis());
+		Location treeLoc = new Location(1.5,1.5);
+		Municipality m = new Municipality("Outremont");
+		Tree tree = new Tree("Ilana","White Oak", 1.2, 0.2, 0,treeLoc, m);;
+		Status status = null;
+		
+		String error = null;
+		
+		try {
+			sc.createSurvey(date,tree,"ilana",status);
+		} catch (InvalidInputException e) {
+			error = e.getMessage();
+		}
+
+		// check error
+		assertEquals("Error: New Tree Status cannot be null.\n", error);
 
 		// check no change in memory
 		assertEquals(0, tm.getSurveys().size());
