@@ -45,6 +45,13 @@ public class TreeManagerService {
 			throw new InvalidInputException("You cannot edit this version of the system");
 		}
 	}
+	public void refreshSelectedTM() {
+		for(TreeManager treeM : vm.getTreeManagers()) {
+			if(treeM.getIsSelected()) {
+				this.tm = treeM;
+			}
+		}
+	}
 	public Tree createTree(String ownerName, String species,  double height, double diameter, 
 			int age, Location location, 
 			Municipality municipality,  Tree.LandUse land) throws InvalidInputException{
@@ -177,18 +184,21 @@ public class TreeManagerService {
 		return tree;
 	}
 	public List<Municipality> findAllMunicipalities() {
-		return tm.getMunicipalities();
+		refreshSelectedTM();
+		return this.tm.getMunicipalities();
 	}
 	public List<Tree> findAllTrees() {
-		for(TreeManager treeM : vm.getTreeManagers()) {
+	/*	for(TreeManager treeM : vm.getTreeManagers()) {
 			if(treeM.getIsSelected()) {
 				this.tm = treeM;
 			}
-		}
+		}*/
+		refreshSelectedTM();
 		return this.tm.getTrees();
 	}
 	
 	public List<Tree> listTreesBySpecies(String species) throws InvalidInputException{
+		refreshSelectedTM();
 		if(species==null) {
 			throw new InvalidInputException("Error: Species name cannot be null!");
 		}
@@ -209,6 +219,7 @@ public class TreeManagerService {
 	}	
 	
 	public List<Tree> listTreesByLandUse(LandUse landUse) throws InvalidInputException{
+		refreshSelectedTM();
 		if(landUse==null) {
 			throw new InvalidInputException("Error: landUse cannot be null!");
 		}
@@ -291,6 +302,7 @@ public class TreeManagerService {
 		PersistenceXStream.saveToXMLwithXStream(vm);
 	}
 	public List<Tree> listTreesByMunicipality(Municipality municipality) throws InvalidInputException{
+		refreshSelectedTM();
 		if(municipality==null) {
 			throw new InvalidInputException("Error: Municipality entry cannot be null!");
 		}
@@ -308,6 +320,7 @@ public class TreeManagerService {
 		return MunicipalityList;
 	}	
 	public List<Tree> listTreesByStatus(Status status) throws InvalidInputException{
+		refreshSelectedTM();
 		if(status==null) {
 			throw new InvalidInputException("Error: Status entry cannot be null!");
 		}
@@ -334,6 +347,7 @@ public class TreeManagerService {
 		return null;
 	}
 	public List<String> getAllSpecies(){
+		refreshSelectedTM();
 		List<String> species = new ArrayList<String>();
 		for(Tree tree: tm.getTrees()) {
 			if(!species.contains(tree.getSpecies().toLowerCase())) {
@@ -359,6 +373,7 @@ public class TreeManagerService {
 		return landUseTypesList;
 	}
 	public List<Location> getAllLocations(){
+		refreshSelectedTM();
 		return tm.getLocations();
 	}
 	public List<User.UserType> getUserTypes() {

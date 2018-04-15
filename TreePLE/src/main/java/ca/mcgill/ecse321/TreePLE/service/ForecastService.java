@@ -38,7 +38,10 @@ public class ForecastService {
 	}
 	public Forecast createForecast(String name, String baseVersion, int futureYear,
 			List<TreeDto> treesToPlant, List<Tree> treesToCutDown) throws InvalidInputException{
-		System.out.println("plant: " + treesToPlant.size()+ "\n cut down: "+ treesToCutDown.size());
+		//System.out.println("plant: " + treesToPlant);
+		//System.out.println("cut down: "+ treesToCutDown);
+		//System.out.println("plant: " + treesToPlant.size());
+		//System.out.println("cut down: "+ treesToCutDown.size());
 		List<TreeManager> treemanagers = vm.getTreeManagers();
 		TreeManager baseTM = null;
 		for(TreeManager tm: treemanagers) { //look for demanded base versions in TreeManagers
