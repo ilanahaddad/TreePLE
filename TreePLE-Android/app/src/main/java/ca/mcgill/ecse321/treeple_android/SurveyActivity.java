@@ -67,7 +67,7 @@ public class SurveyActivity extends AppCompatActivity {
         statusAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         statusSpinner.setAdapter(statusAdapter);
 
-        refreshLists(this.getCurrentFocus());
+        //refreshLists(this.getCurrentFocus());
     }
 
     private void refreshErrorMessage() {
@@ -83,7 +83,7 @@ public class SurveyActivity extends AppCompatActivity {
 
     }
 
-    public void refreshLists(View view) {
+    /*public void refreshLists(View view) {
         refreshList(statusAdapter, status, "statuses");
     }
 
@@ -97,7 +97,7 @@ public class SurveyActivity extends AppCompatActivity {
                 for( int i = 0; i < response.length(); i++){
                     try {
                         //names.add(response.getJSONObject(i).getString("name"));
-                        names.add(response.getJSONObject(i).toString()); //TODO: possible bug
+                        names.add(response.getJSONObject(i).toString());
                     } catch (Exception e) {
                         error += e.getMessage();
                     }
@@ -109,7 +109,6 @@ public class SurveyActivity extends AppCompatActivity {
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
                 try {
-                    //error += errorResponse.getString("message");
                     error += errorResponse.get("message").toString();
 
                 } catch (JSONException e) {
@@ -118,7 +117,7 @@ public class SurveyActivity extends AppCompatActivity {
                 refreshErrorMessage();
             }
         });
-    }
+    }*/
 
     public void createSurvey(View view) {
 
@@ -177,10 +176,12 @@ public class SurveyActivity extends AppCompatActivity {
             public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
                 for( int i = 0; i < response.length(); i++){
                     try {
-                        String survey = response.getJSONObject(i).getString("name");
-                        surveys.add(survey);//TODO: maybe change here?
-                        treeHistoryTextView.setText(survey+"\n"); //View the tree added
-                        //TODO: print date as well
+                        String status = response.getJSONObject(i).getString("newTreeStatus");
+                        surveys.add(status);
+                        String reportDate = response.getJSONObject(i).getString("date");
+                        String reporter = response.getJSONObject(i).getString("surveyor");
+                        treeHistoryTextView.setText("Tree status ("+i+"): " + status + ", Date: " + reportDate
+                                + ", Reporter: "  +reporter  + "\n"); //View the tree added
 
                     } catch (Exception e) {
                         error += e.getMessage();

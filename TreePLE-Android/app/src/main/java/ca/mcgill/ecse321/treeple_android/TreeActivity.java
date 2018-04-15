@@ -92,31 +92,31 @@ public class TreeActivity extends AppCompatActivity {
         String heightString= tv.getText().toString();
         double height = Double.parseDouble(heightString);
         //rp.add("height",(findViewById(R.id.height).getText().toString()));
-        rp.add("height",heightString); //TODO: double
+        rp.add("height",heightString);
 
         //To get diameter from user
         tv = (TextView) findViewById(R.id.diameter);
         String diameterString= tv.getText().toString();
         double diameter = Double.parseDouble(diameterString);
-        rp.add("diameter", diameterString);//TODO: double
+        rp.add("diameter", diameterString);
 
         //To get municipality from user
         Spinner sp = (Spinner) findViewById(R.id.municipalitySpinner);
         String municipality = sp.getSelectedItem().toString();
-        rp.add("municipality", municipality); //TODO: municipalityDTO
+        rp.add("municipality", municipality);
 
         //To get latitude
         tv = (TextView) findViewById(R.id.latitude);
         String latitudeString= tv.getText().toString();
         double latitude = Double.parseDouble(latitudeString);
-        rp.add("latitude", latitudeString);//TODO: double
+        rp.add("latitude", latitudeString);
 
 
         //To get longitude
         tv = (TextView) findViewById(R.id.longitude);
         String longitudeString= tv.getText().toString();
         double longitude = Double.parseDouble(longitudeString);
-        rp.add("longitude", longitudeString);//TODO: double
+        rp.add("longitude", longitudeString);
 
 
         //To get owner name
@@ -128,13 +128,16 @@ public class TreeActivity extends AppCompatActivity {
         tv = (TextView) findViewById(R.id.age);
         String ageString= tv.getText().toString();
         double age = Double.parseDouble(ageString);
-        rp.add("age", ageString);//TODO: int
+        rp.add("age", ageString);
 
         //To get land use from user
         sp = (Spinner) findViewById(R.id.landUseSpinner);
         RequestParams rpLandUse = new RequestParams();
         String landUse = sp.getSelectedItem().toString();
-        rp.add("landuse", landUse); //TODO: municipalityDTO
+        rp.add("landuse", landUse);
+
+        //The tree's id:
+        final String[] id = {null};
 
        HttpUtils.post("/newTree/" +species, rp , new JsonHttpResponseHandler() {
             @Override
@@ -149,9 +152,14 @@ public class TreeActivity extends AppCompatActivity {
                 ((TextView) findViewById(R.id.longitude)).setText("");//longitude
                 ((TextView) findViewById(R.id.age)).setText("");//age
 
-                //TODO: return tree id
-                //response.getJSONObject("")
-                ((TextView) findViewById(R.id.printID)).setText("ID should print here");
+                try {
+                    //getting the tree ID form the response treeDTO
+                     id[0] = response.getString("tree");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                //Printnig the tree id
+                ((TextView) findViewById(R.id.printID)).setText("The tree's ID is "+ id[0]);
             }
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
@@ -190,7 +198,6 @@ public class TreeActivity extends AppCompatActivity {
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
                 try {
-                    //error += errorResponse.getString("message");
                     error += errorResponse.get("message").toString();
 
                 } catch (JSONException e) {

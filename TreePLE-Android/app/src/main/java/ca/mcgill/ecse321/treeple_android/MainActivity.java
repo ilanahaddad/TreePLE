@@ -140,7 +140,7 @@ public class MainActivity extends AppCompatActivity {
                 names.add("Please select...");
                 for (int i = 0; i < response.length(); i++) {
                     try {
-                        names.add(response.getJSONObject(i).toString()); //TODO: possible bug
+                        names.add(response.getJSONObject(i).toString());
                     } catch (Exception e) {
                         error += e.getMessage();
                     }
