@@ -39,7 +39,8 @@
 				<h6> Surveyor: {{survey.surveyor}} </h6>
 				<h6>Status: {{survey.tree.status}} </h6>
         -->
-      <table align="center" v-for="survey in surveys">
+      <div v-for="survey in surveys">
+      <table align="center" >
       <tr>
         <td style="padding:0 5px 0 5px;">Report Date:</td>
         <td style="padding:0 5px 0 5px;">{{survey.reportDate}}</td>
@@ -53,8 +54,9 @@
         <td style="padding:0 5px 0 5px;">{{survey.newStatus}}</td>
       </tr>
      
-    </table>
-     <hr>
+      </table>
+      <hr>
+      </div>
 	</div>
  </div>
 </template>
