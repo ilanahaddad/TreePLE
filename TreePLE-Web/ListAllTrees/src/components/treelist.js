@@ -163,7 +163,7 @@ export default {
   	addMunicipality: function (newMun) {
   		AXIOS.post('/newMunicipality/'+newMun, {}, {}).then(response => {
 					this.municipalities.push(response.data)
-          this.successCreateMun= "You have successfully created " + newMun + " as a municaplity";
+          this.successCreateMun= "Awesome! You have successfully created " + newMun + " as a municipality.";
 					this.newMun='';
 				})
 				.catch(e =>{
