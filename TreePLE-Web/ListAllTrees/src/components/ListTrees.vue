@@ -43,6 +43,10 @@
 			<td><input type ="text" v-model="newMun" placeHolder= "ex. Outremont"></td>
 			<td><button align="center" @click="addMunicipality(newMun)"> Add Municipality </button> </td>
 		</table>
+    <p>
+      <span v-if="errorCreateMun" style="color:red">{{errorCreateMun}} </span>
+      <span v-if="errorMunicipalities" style="color:red">{{errorMunicipalities}} </span>
+    </p>
 		<hr>
     <!--LIST TREES BY -->
 
@@ -202,9 +206,7 @@
       <span v-if="errorStatus" style="color:red">{{errorStatus}} </span>
       <span v-if="errorLandUse" style="color:red">{{errorLandUse}} </span>
       <span v-if="errorVersions" style="color:red">{{errorVersions}} </span>
-      <span v-if="errorMunicipalities" style="color:red">{{errorMunicipalities}} </span>
       <span v-if="errorSpecies" style="color:red">{{errorSpecies}} </span>
-      <span v-if="errorCreateMun" style="color:red">{{errorCreateMun}} </span>
     </p>
     </div>
 </template>
