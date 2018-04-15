@@ -48,7 +48,28 @@
       <span v-if="errorMunicipalities" style="color:red">{{errorMunicipalities}} </span>
       <span v-if="successCreateMun" style="color:green">{{successCreateMun}} </span>
     </p>
-		<hr>
+	<hr>
+    <!-- CREATE SURVEY -->
+    <h5><font color =green> Survey a Tree </font></h5>
+		<table align= "center">
+			<td><input type ="Tree ID:" v-model="surveyTree" placeHolder= "ex. 3"></td>
+            <td><input type ="Surveyor:" v-model="surveyor" placeHolder= "ex. Thomas"></td>
+            <td style="padding:0 5px 0 5px;">Date: </td>
+            <td><input type ="date" v-model="surveyDate" placeHolder= "MM/DD/YYYY"></td>
+            <td><select v-model="surveyStatus">
+              <option disabled value="">Select Status</option>
+              <option v-for="status in statuses" >
+                  <td>{{ status }}</td>
+              </option>         
+            </select></td>
+			<td><button align="center" @click="createSurvey(surveyDate, surveyTree, surveyor, surveyStatus)"> Create Survey </button> </td>
+		</table>
+    <hr>
+    <p>
+      <span v-if="errorCreateMun" style="color:red">{{errorCreateMun}} </span>
+      <span v-if="errorMunicipalities" style="color:red">{{errorMunicipalities}} </span>
+      <span v-if="successCreateMun" style="color:green">{{successCreateMun}} </span>
+    </p>
     <!--LIST TREES BY -->
 
     <table align="center">

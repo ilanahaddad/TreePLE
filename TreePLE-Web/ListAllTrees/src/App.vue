@@ -13,13 +13,14 @@
 		
 		<table align="center">
       <tr>
-        <nav><router-link to="app">View Trees</router-link></nav>
-        <td style="padding:0 5px 0 5px;"><router-link to="generateReport">Generate Report</router-link></td>
-        <td style="padding:0 5px 0 5px;"><router-link to="viewsurveys">View Surveys</router-link></td>
-				<td style="padding:0 5px 0 5px;"><router-link to="editTree">Edit Trees</router-link></td>
-        <td style="padding:0 5px 0 5px;"><router-link to="moveTree">Move Tree</router-link></td>
-				<td style="padding:0 5px 0 5px;"><router-link to="viewReports">ViewReports</router-link></td>
-        <td style="padding:0 5px 0 5px;"><router-link to="forecast">Forecast</router-link> </td>
+        <td style="padding:0 15px 0 15px;"><router-link to="app">View Trees</router-link></td>
+        <td style="padding:0 15px 0 15px;"><router-link to="generateReport">Generate Report</router-link></td>
+        <td style="padding:0 15px 0 15px;"><router-link to="viewReports">View Reports</router-link></td>
+        <td style="padding:0 15px 0 15px;"><router-link to="viewsurveys">View Surveys</router-link></td>
+        <td style="padding:0 15px 0 15px;"><router-link to="addTree">Add Tree</router-link></td>
+				<td style="padding:0 15px 0 15px;"><router-link to="editTree">Edit Trees</router-link></td>
+        <td style="padding:0 15px 0 15px;"><router-link to="moveTree">Move Tree</router-link></td>
+        <td style="padding:0 15px 0 15px;"><router-link to="forecast">Forecast</router-link> </td>
 
       </tr>
       <tr></tr>
@@ -37,6 +38,7 @@ import EditTree from './components/EditTree'
 import MoveTree from './components/MoveTree'
 import ViewSurveys from './components/ViewSurveys'
 import ViewReports from '@/components/ViewReports'
+import AddTree from '@/components/AddTree'
 
 export default {
   name: 'app',
@@ -48,7 +50,8 @@ export default {
     EditTree,
     MoveTree,
     ViewSurveys,
-    ViewReports
+    ViewReports,
+    AddTree
   }
 }
 </script>
