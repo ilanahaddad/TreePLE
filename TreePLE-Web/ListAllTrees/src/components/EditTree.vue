@@ -15,8 +15,9 @@
 -->
   <hr>
   <p>
-      <span v-if="errorEditTree" style="color:red">{{errorEditTree}} </span>
-    </p>
+    <span v-if="errorEditTree" style="color:red">{{errorEditTree}} </span>
+    <span v-if="successEditTree" style="color:green">{{successEditTree}} </span>
+  </p>
   <h2>Edit Tree</h2>
     <table align="center">
       <tr>
