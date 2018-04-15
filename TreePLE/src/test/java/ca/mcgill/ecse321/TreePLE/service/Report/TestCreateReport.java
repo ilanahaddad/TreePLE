@@ -128,19 +128,7 @@ public class TestCreateReport {
 			error=e.getMessage();
 		}
 		assertEquals("Error: Location coordinates are null", error);
-/*
-		Location[] perimeter2 = {new Location(0,0), new Location(0,-5), 
-				new Location(-5,-5), new Location(-5,0)};
-		try {
-			rs.createReport(reporter, date, perimeter2);
-		} catch (InvalidInputException e) {
-			error=e.getMessage();
-		}
-		assertEquals("Error: Location coordinates are negative", error);*/
-	}
-	@Test
-	public void testPerimeterErrorEqualLocations() {
-		//TODO
+
 	}
 	
 }

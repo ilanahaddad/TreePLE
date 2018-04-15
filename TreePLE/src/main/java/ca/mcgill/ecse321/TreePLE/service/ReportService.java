@@ -141,9 +141,7 @@ public class ReportService {
 		if(perimeter == null) {
 			throw new InvalidInputException("Error: Perimeter is null");
 		}
-	/*	if(x<0||y<0) {
-			throw new InvalidInputException("Error: Coordinates can't be negative");
-		}*/
+	
 		boolean isTreeInLocation = false;
 		int npoints = perimeter.length;
 		int ypoints[] = new int[npoints];
