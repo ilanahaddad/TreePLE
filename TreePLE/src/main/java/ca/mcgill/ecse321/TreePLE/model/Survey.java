@@ -9,10 +9,17 @@ public class Survey
 {
 
   //------------------------
+  // ENUMERATIONS
+  //------------------------
+
+  public enum Status { Planted, Diseased, CutDown, ToBeCutDown }
+
+  //------------------------
   // MEMBER VARIABLES
   //------------------------
 
   //Survey Attributes
+  private Status newStatus;
   private String surveyorName;
   private Date reportDate;
 
@@ -38,6 +45,14 @@ public class Survey
   // INTERFACE
   //------------------------
 
+  public boolean setNewStatus(Status aNewStatus)
+  {
+    boolean wasSet = false;
+    newStatus = aNewStatus;
+    wasSet = true;
+    return wasSet;
+  }
+
   public boolean setSurveyorName(String aSurveyorName)
   {
     boolean wasSet = false;
@@ -52,6 +67,11 @@ public class Survey
     reportDate = aReportDate;
     wasSet = true;
     return wasSet;
+  }
+
+  public Status getNewStatus()
+  {
+    return newStatus;
   }
 
   public String getSurveyorName()
@@ -103,6 +123,7 @@ public class Survey
   {
     return super.toString() + "["+
             "surveyorName" + ":" + getSurveyorName()+ "]" + System.getProperties().getProperty("line.separator") +
+            "  " + "newStatus" + "=" + (getNewStatus() != null ? !getNewStatus().equals(this)  ? getNewStatus().toString().replaceAll("  ","    ") : "this" : "null") + System.getProperties().getProperty("line.separator") +
             "  " + "reportDate" + "=" + (getReportDate() != null ? !getReportDate().equals(this)  ? getReportDate().toString().replaceAll("  ","    ") : "this" : "null") + System.getProperties().getProperty("line.separator") +
             "  " + "tree = "+(getTree()!=null?Integer.toHexString(System.identityHashCode(getTree())):"null");
   }

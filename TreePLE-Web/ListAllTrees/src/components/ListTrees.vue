@@ -43,7 +43,33 @@
 			<td><input type ="text" v-model="newMun" placeHolder= "ex. Outremont"></td>
 			<td><button align="center" @click="addMunicipality(newMun)"> Add Municipality </button> </td>
 		</table>
-		<hr>
+    <p>
+      <span v-if="errorCreateMun" style="color:red">{{errorCreateMun}} </span>
+      <span v-if="errorMunicipalities" style="color:red">{{errorMunicipalities}} </span>
+      <span v-if="successCreateMun" style="color:green">{{successCreateMun}} </span>
+    </p>
+	<hr>
+    <!-- CREATE SURVEY -->
+    <h5><font color =green> Survey a Tree </font></h5>
+		<table align= "center">
+			<td>Tree ID: <input type ="text" v-model="surveyTree" placeHolder= "ex. 3"></td>
+            <td>Surveyor Name: <input type ="text" v-model="surveyor" placeHolder= "ex. Thomas"></td>
+            <td style="padding:0 5px 0 5px;">Date: </td>
+            <td><input type ="date" v-model="surveyDate" placeHolder= "MM/DD/YYYY"></td>
+            <td>New Status:<select v-model="surveyStatus">
+              <option disabled value="">Select Status</option>
+              <option v-for="status in statuses" >
+                  <td>{{ status }}</td>
+              </option>         
+            </select></td>
+			<td><button align="center" @click="createSurvey(surveyDate, surveyTree, surveyor, surveyStatus)"> Create Survey </button> </td>
+		</table>
+    <hr>
+    <p>
+      <span v-if="errorCreateMun" style="color:red">{{errorCreateMun}} </span>
+      <span v-if="errorMunicipalities" style="color:red">{{errorMunicipalities}} </span>
+      <span v-if="successCreateMun" style="color:green">{{successCreateMun}} </span>
+    </p>
     <!--LIST TREES BY -->
 
     <table align="center">
@@ -148,17 +174,17 @@
   
     <table align="center">
       <tr>
-          <td style="padding:0 5px 0 5px;">ID</td>
-          <td style="padding:0 5px 0 5px;">Species Type</td>
-          <td style="padding:0 5px 0 5px;">Age</td>
-          <td style="padding:0 5px 0 5px;">Height (in metres)</td>
-          <td style="padding:0 5px 0 5px;">Diameter (in metres)</td>
-          <td style="padding:0 5px 0 5px;">Municipality</td>
-          <td style="padding:0 5px 0 5px;">Owner</td>
-          <td style="padding:0 5px 0 5px;">Longitude</td>
-          <td style="padding:0 5px 0 5px;">Latitude</td>
-          <td style="padding:0 5px 0 5px;">Status</td>
-          <td style="padding:0 5px 0 5px;">Land Use</td>
+          <td style="padding:0 5px 0 5px;"><span style="font-weight:bold">ID</span></td>
+          <td style="padding:0 5px 0 5px;"><span style="font-weight:bold">Species Type</span></td>
+          <td style="padding:0 5px 0 5px;"><span style="font-weight:bold">Age</span></td>
+          <td style="padding:0 5px 0 5px;"><span style="font-weight:bold">Height (in metres)</span></td>
+          <td style="padding:0 5px 0 5px;"><span style="font-weight:bold">Diameter (in metres)</span></td>
+          <td style="padding:0 5px 0 5px;"><span style="font-weight:bold">Municipality</span></td>
+          <td style="padding:0 5px 0 5px;"><span style="font-weight:bold">Owner</span></td>
+          <td style="padding:0 5px 0 5px;"><span style="font-weight:bold">Latitude</span></td>
+          <td style="padding:0 5px 0 5px;"><span style="font-weight:bold">Longitude</span></td>
+          <td style="padding:0 5px 0 5px;"><span style="font-weight:bold">Status</span></td>
+          <td style="padding:0 5px 0 5px;"><span style="font-weight:bold">Land Use</span></td>
       </tr>
       <tr v-for="tree in trees" >
         <td style="padding:0 5px 0 5px;">{{ tree.id }}</td>
@@ -167,11 +193,11 @@
         <td style="padding:0 5px 0 5px;">{{ tree.height }}</td>
         <td style="padding:0 5px 0 5px;">{{ tree.diameter }}</td>
         <td style="padding:0 5px 0 5px;">{{ tree.treeMunicipality.name }}</td>
-        <td style="padding:0 5px 0 5px;">{{ tree.owner.name }}</td>
-        <td style="padding:0 5px 0 5px;">{{ tree.coordinates.longitude }}</td>
+        <td style="padding:0 5px 0 5px;">{{ tree.ownerName }}</td>
         <td style="padding:0 5px 0 5px;">{{ tree.coordinates.latitude }}</td>
+        <td style="padding:0 5px 0 5px;">{{ tree.coordinates.longitude }}</td>
         <td style="padding:0 5px 0 5px;">{{ tree.status }}</td>
-        <td style="padding:0 5px 0 5px;">{{ tree.landUse}}</td>
+        <td style="padding:0 5px 0 5px;">{{ tree.land}}</td>
       </tr>
     
 
@@ -201,6 +227,8 @@
       <span v-if="errorTree" style="color:red">{{errorTree}} </span>
       <span v-if="errorStatus" style="color:red">{{errorStatus}} </span>
       <span v-if="errorLandUse" style="color:red">{{errorLandUse}} </span>
+      <span v-if="errorVersions" style="color:red">{{errorVersions}} </span>
+      <span v-if="errorSpecies" style="color:red">{{errorSpecies}} </span>
     </p>
     </div>
 </template>

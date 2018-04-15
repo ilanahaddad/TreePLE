@@ -1,5 +1,8 @@
 <template>
   <div id="generatereport">
+    <p>
+      <span v-if="errorGenerateReport" style="color:red">{{errorGenerateReport}} </span>
+    </p>
 		<div v-if="showGenerate">
 	<!--
   	<table align="center">
@@ -107,7 +110,7 @@
   <h5>Computed values</h5>
   <table align="center">
       <tr>
-        <td style="padding:0 5px 0 5px;">Biological Index:</td>
+        <td style="padding:0 5px 0 5px;">Biodiversity Index:</td>
         <td style="padding:0 5px 0 5px;">{{curReport.biodiversityIndex}}</td>
       </tr>
       <tr>

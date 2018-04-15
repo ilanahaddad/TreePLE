@@ -8,7 +8,8 @@ import Forecast from '@/components/Forecast'
 import EditTree from '@/components/EditTree'
 import MoveTree from '@/components/MoveTree'
 import ViewSurveys from '@/components/ViewSurveys'
-import ViewSurveysPre from '@/components/ViewSurveysPre'
+import ViewReports from '@/components/ViewReports'
+import AddTree from '@/components/AddTree'
 Vue.use(Router)
 
 export default new Router({
@@ -54,9 +55,14 @@ export default new Router({
       component: ViewSurveys
     },
     {
-      path: '/viewsurveyspreliminary',
-      name: 'ViewSurveysPre',
-      component: ViewSurveysPre
+      path: '/viewReports',
+      name: 'ViewReports',
+      component: ViewReports
+    },
+    {
+      path: '/addTree',
+      name: 'AddTree',
+      component: AddTree
     }
   ]
 })

@@ -1,42 +1,134 @@
 <versionManager id="1">
   <treeManagers id="2">
     <treeManager id="3">
-      <isCurrent>true</isCurrent>
+      <isEditable>false</isEditable>
+      <isSelected>false</isSelected>
       <version>1.0</version>
       <versionYear>2018</versionYear>
       <trees id="4">
         <tree id="5">
-          <ownerName>Ilana</ownerName>
-          <species>White Ash</species>
-          <height>1.5</height>
+          <ownerName>John</ownerName>
+          <species>Maple</species>
+          <height>10.0</height>
           <status>Planted</status>
-          <diameter>0.2</diameter>
+          <diameter>1.5</diameter>
           <land>Residential</land>
-          <age>0</age>
-          <id>89</id>
+          <age>20</age>
+          <id>102</id>
           <surveys id="6"/>
           <coordinates id="7">
-            <latitude>1.5</latitude>
-            <longitude>1.5</longitude>
+            <latitude>45.48743</latitude>
+            <longitude>-73.600902</longitude>
             <treeInLocation reference="5"/>
           </coordinates>
           <treeMunicipality id="8">
-            <name>Outremont</name>
+            <name>Westmount</name>
             <listOfTrees id="9">
               <tree reference="5"/>
+              <tree id="10">
+                <ownerName>John</ownerName>
+                <species>Maple</species>
+                <height>10.0</height>
+                <status>CutDown</status>
+                <diameter>1.5</diameter>
+                <land>Residential</land>
+                <age>20</age>
+                <id>103</id>
+                <surveys id="11"/>
+                <coordinates id="12">
+                  <latitude>45.48743</latitude>
+                  <longitude>-73.600902</longitude>
+                  <treeInLocation reference="10"/>
+                </coordinates>
+                <treeMunicipality reference="8"/>
+              </tree>
+              <tree id="13">
+                <ownerName>Ilana</ownerName>
+                <species>Birch</species>
+                <height>3.0</height>
+                <status>Planted</status>
+                <diameter>0.3</diameter>
+                <land>NonResidential</land>
+                <age>30</age>
+                <id>104</id>
+                <surveys id="14"/>
+                <coordinates id="15">
+                  <latitude>45.487</latitude>
+                  <longitude>-73.600802</longitude>
+                  <treeInLocation reference="13"/>
+                </coordinates>
+                <treeMunicipality reference="8"/>
+              </tree>
+              <tree id="16">
+                <ownerName>John</ownerName>
+                <species>Maple</species>
+                <height>10.0</height>
+                <status>Planted</status>
+                <diameter>1.5</diameter>
+                <land>Residential</land>
+                <age>20</age>
+                <id>105</id>
+                <surveys id="17"/>
+                <coordinates id="18">
+                  <latitude>45.48743</latitude>
+                  <longitude>-73.600902</longitude>
+                  <treeInLocation reference="16"/>
+                </coordinates>
+                <treeMunicipality reference="8"/>
+              </tree>
             </listOfTrees>
           </treeMunicipality>
         </tree>
       </trees>
-      <locations id="10">
+      <locations id="19">
         <location reference="7"/>
       </locations>
-      <surveys id="11"/>
-      <municipalities id="12">
+      <surveys id="20"/>
+      <municipalities id="21">
         <municipality reference="8"/>
       </municipalities>
-      <user id="13"/>
-      <reports id="14"/>
+      <user id="22">
+        <usertype>Professional</usertype>
+      </user>
+      <reports id="23"/>
+    </treeManager>
+    <treeManager id="24">
+      <isEditable>false</isEditable>
+      <isSelected>true</isSelected>
+      <version>1.1</version>
+      <versionYear>2021</versionYear>
+      <trees id="25">
+        <tree reference="10"/>
+        <tree reference="13"/>
+      </trees>
+      <locations id="26">
+        <location reference="7"/>
+        <location reference="15"/>
+      </locations>
+      <surveys id="27"/>
+      <municipalities id="28">
+        <municipality reference="8"/>
+      </municipalities>
+      <user reference="22"/>
+      <reports id="29"/>
+    </treeManager>
+    <treeManager id="30">
+      <isEditable>true</isEditable>
+      <isSelected>false</isSelected>
+      <version>2.0</version>
+      <versionYear>2018</versionYear>
+      <trees id="31">
+        <tree reference="16"/>
+      </trees>
+      <locations id="32">
+        <location reference="7"/>
+      </locations>
+      <surveys id="33"/>
+      <municipalities id="34">
+        <municipality reference="8"/>
+      </municipalities>
+      <user reference="22"/>
+      <reports id="35"/>
     </treeManager>
   </treeManagers>
 </versionManager>

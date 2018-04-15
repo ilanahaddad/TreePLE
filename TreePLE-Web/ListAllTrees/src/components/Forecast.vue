@@ -15,6 +15,14 @@
     </table>
     -->
     <hr>
+    <p>
+      <span v-if="errorForecast" style="color:red">{{errorForecast}} </span>
+      <span v-if="errorAddTree" style="color:red">{{errorAddTree}} </span>
+      <span v-if="errorLandUse" style="color:red">{{errorLandUse}} </span>
+      <span v-if="errorMunicipalities" style="color:red">{{errorMunicipalities}} </span>
+      <span v-if="errorSpecies" style="color:red">{{errorSpecies}} </span>
+      <span v-if="errorVersions" style="color:red">{{errorVersions}} </span>
+    </p>
     <h2>New Forecast</h2>
     <br>
     <h5>Basic information</h5>
@@ -84,13 +92,13 @@
         <tr>
         
           <td style="padding:0 5px 0 5px;">
-            <input type="text" v-model= "newSpecies"placeholder="ex. White Ash">
+            <input type="text" size= "15" v-model= "newSpecies"placeholder="ex. White Ash">
           </td>
           <td style="padding:0 5px 0 5px;">
-            <input type="text" v-model="newTreeHeight" placeholder="ex. 4.0">
+            <input type="text" size= "15" v-model="newTreeHeight" placeholder="ex. 4.0">
           </td>
           <td style="padding:0 5px 0 5px;">
-            <input type="text" v-model="newTreeDiameter" placeholder="ex. 1.0">
+            <input type="text" size= "15" v-model="newTreeDiameter" placeholder="ex. 1.0">
           </td>
           <td style="padding:0 10px 0 10px;" id="Municipality_select">
           <select v-model="newMunicipality">
@@ -101,16 +109,16 @@
             </select>
        		</td>
           <td style="padding:0 5px 0 5px;">
-            <input type="text" v-model="newLat" placeholder="ex. 34.555">
+            <input type="text" size="15" v-model="newLat" placeholder="ex. 34.555">
           </td>
           <td style="padding:0 5px 0 5px;">
-            <input type="text" v-model="newLong" placeholder="ex. 98.777">
+            <input type="text" size= "15" v-model="newLong" placeholder="ex. 98.777">
           </td>
            <td style="padding:0 5px 0 5px;">
-            <input type="text" v-model="newOwner" placeholder="ex. Ilana">
+            <input type="text" size= "15" v-model="newOwner" placeholder="ex. Ilana">
           </td>
            <td style="padding:0 5px 0 5px;">
-            <input type="text" v-model="newAge" placeholder="ex. 1">
+            <input type="text" size= "15"v-model="newAge" placeholder="ex. 1">
           </td>
              <td style="padding:0 10px 0 10px;" id="LandUse_select">
           <select v-model="newLanduse">
@@ -134,8 +142,8 @@
           <td style="padding:0 5px 0 5px;">Diameter (in metres)</td>
           <td style="padding:0 5px 0 5px;">Municipality</td>
           <td style="padding:0 5px 0 5px;">Owner</td>
-          <td style="padding:0 5px 0 5px;">Longitude</td>
           <td style="padding:0 5px 0 5px;">Latitude</td>
+          <td style="padding:0 5px 0 5px;">Longitude</td>
           <td style="padding:0 5px 0 5px;">Land Use</td>
       </tr>
       <tr v-for="tree in newTrees" >
@@ -145,8 +153,9 @@
         <td style="padding:0 5px 0 5px;">{{ tree.diameter }}</td>
         <td style="padding:0 5px 0 5px;">{{ tree.treeMunicipality.name }}</td>
         <td style="padding:0 5px 0 5px;">{{ tree.owner }}</td>
-        <td style="padding:0 5px 0 5px;">{{ tree.coordinates.longitude }}</td>
         <td style="padding:0 5px 0 5px;">{{ tree.coordinates.latitude }}</td>
+        <td style="padding:0 5px 0 5px;">{{ tree.coordinates.longitude }}</td>
+       
 
         <td style="padding:0 5px 0 5px;">{{ tree.landUse}}</td>
       </tr>

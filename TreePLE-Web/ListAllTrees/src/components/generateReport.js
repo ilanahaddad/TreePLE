@@ -41,6 +41,7 @@ export default {
       lat4:'',
       long4:'',
       curReport:'',
+      errorGenerateReport: '',
       showReport: false,
       showGenerate: true
     }
@@ -81,7 +82,7 @@ export default {
 				.catch(e =>{
 					var errorMsg= e.response.data.message
 					console.log(errorMsg)
-					this.errorEvent = errorMsg 
+					this.errorGenerateReport = errorMsg 
 				})
 				this.showReport=true
 				this.showGenerate=false
