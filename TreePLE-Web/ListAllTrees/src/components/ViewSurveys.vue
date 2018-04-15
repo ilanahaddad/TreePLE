@@ -37,12 +37,12 @@
 			<h6> Surveyor: {{s.surveyor}} </h6>
 			<h6>Status: {{s.tree.status}} </h6>
 			<hr>
+      <p>
+        <span v-if="errorSurveys" style="color:red">{{errorSurveys}} </span>
+      </p>
 	</div>
 	</div>
  </div>
- <p>
-      <span v-if="errorSurveys" style="color:red">{{errorSurveys}} </span>
-    </p>
 </template>
 <script src="./viewSurveys.js">
 </script>
