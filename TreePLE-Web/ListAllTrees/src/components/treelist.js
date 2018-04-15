@@ -193,6 +193,7 @@ export default {
           this.errorLandUse = '';
           this.errorSpecies = '';
           this.errorMunicipalities = '';
+          this.errorVersions = '';
         });
     },
 
@@ -211,6 +212,7 @@ export default {
           this.errorLandUse = '';
           this.errorSpecies = '';
           this.errorMunicipalities = errorMsg;
+          this.errorVersions = '';
         });
 
     },
@@ -232,6 +234,7 @@ export default {
           this.errorTree = '';
           this.errorMunicipalities = '';
           this.errorSpecies = errorMsg;
+          this.errorVersions = '';
         });
     },
 
@@ -249,6 +252,7 @@ export default {
           this.errorTree = '';
           this.errorSpecies = '';
           this.errorMunicipalities = '';
+          this.errorVersions = '';
         });
     },
 
@@ -266,6 +270,7 @@ export default {
           this.errorTree = '';
           this.errorSpecies = '';
           this.errorMunicipalities = '';
+          this.errorVersions = '';
         });
     },
 
@@ -292,7 +297,14 @@ export default {
 				this.vYear=response.data
 			})
 			.catch(e =>{
-				this.errorVersions=e;
+        var errorMsg = e.response.data.message
+        console.log(errorMsg)
+				this.errorVersions= errorMsg;
+        this.errorLandUse = '';
+        this.errorStatus = '';
+        this.errorTree = '';
+        this.errorSpecies = '';
+        this.errorMunicipalities = '';
 			});
 
 			

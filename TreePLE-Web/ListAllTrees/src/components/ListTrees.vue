@@ -201,6 +201,9 @@
       <span v-if="errorTree" style="color:red">{{errorTree}} </span>
       <span v-if="errorStatus" style="color:red">{{errorStatus}} </span>
       <span v-if="errorLandUse" style="color:red">{{errorLandUse}} </span>
+      <span v-if="errorVersions" style="color:red">{{errorVersions}} </span>
+      <span v-if="errorMunicipalities" style="color:red">{{errorMunicipalities}} </span>
+      <span v-if="errorSpecies" style="color:red">{{errorSpecies}} </span>
     </p>
     </div>
 </template>
