@@ -231,5 +231,95 @@ public class TestCreateForecast {
 		}
 
 	}
+	@Test
+	public void testForecastOfForecastError() {
+		TreeManager tm = vm.getTreeManager(0);
+		String baseVersion = tm.getVersion();
+		assertEquals(1, vm.numberOfTreeManagers());
+		assertEquals(1, vm.getTreeManager(0).numberOfTrees());
+		assertEquals(1, tm.numberOfLocations());
+		assertEquals(45.48743, tm.getLocation(0).getLatitude(),0);
+		assertEquals(-73.600902, tm.getLocation(0).getLongitude(),0);
+		assertEquals(1, tm.numberOfMunicipalities());
+		assertEquals("Westmount", tm.getMunicipality(0).getName());
+		
+		List<TreeDto> treesToPlant = new ArrayList<TreeDto>();
+		LocationDto locationDto = new LocationDto(45.48700,-73.600802);
+		MunicipalityDto munDto = new MunicipalityDto("Westmount");
+		TreeDto tDto = new TreeDto("Birch", 3.0, 0.3, 30, locationDto, "Ilana", munDto,Tree.LandUse.NonResidential);
+		treesToPlant.add(tDto);
+		
+		List<Tree> treesToCutDown = new ArrayList<Tree>();
+		Tree treeToCutDown = tm.getTree(0);
+		treesToCutDown.add(treeToCutDown);
+		Forecast forecast1 = null;
+		try {
+			forecast1 = fs.createForecast("Ilana", baseVersion, 2021, treesToPlant,treesToCutDown );
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+			fail();
+		}
+		//check vm now has 3 versions:
+		assertEquals(3, vm.numberOfTreeManagers());
+
+		
+		//check baseTM hasn't changed
+		assertEquals("1.0", tm.getVersion());
+		assertEquals(2018, tm.getVersionYear());
+		assertEquals(false, tm.getIsEditable());
+		assertEquals(false, tm.getIsSelected());
+		assertEquals(1, tm.numberOfLocations());
+		assertEquals(45.48743, tm.getLocation(0).getLatitude(),0);
+		assertEquals(-73.600902, tm.getLocation(0).getLongitude(),0);
+		assertEquals(1, tm.numberOfMunicipalities());
+		assertEquals("Westmount", tm.getMunicipality(0).getName());
+		assertEquals(1, tm.numberOfTrees());
+		assertEquals(Tree.Status.Planted, tm.getTree(0).getStatus());
+	
+		//check info of forecast TM
+		TreeManager forecastTM = vm.getTreeManager(1);
+		assertEquals("1.1", forecastTM.getVersion());
+		assertEquals(2021, forecastTM.getVersionYear());
+		assertEquals(false, forecastTM.getIsEditable());
+		assertEquals(false, forecastTM.getIsSelected());
+		assertEquals(2, forecastTM.numberOfLocations());
+		assertEquals(1, forecastTM.numberOfMunicipalities());
+		assertEquals(2, forecastTM.numberOfTrees());
+		assertEquals("John", forecastTM.getTree(0).getOwnerName());
+		assertEquals(Tree.Status.CutDown, forecastTM.getTree(0).getStatus());
+		assertEquals("Ilana", forecastTM.getTree(1).getOwnerName());
+		
+		//check info of copy TM
+		TreeManager copyTM = vm.getTreeManager(2);
+		assertEquals("2.0", copyTM.getVersion());
+		assertEquals(2018, copyTM.getVersionYear());
+		assertEquals(true, copyTM.getIsEditable());
+		assertEquals(false, copyTM.getIsSelected());
+		assertEquals(1, copyTM.numberOfLocations());
+		assertEquals(45.48743, copyTM.getLocation(0).getLatitude(),0);
+		assertEquals(-73.600902, copyTM.getLocation(0).getLongitude(),0);
+		assertEquals(1, copyTM.numberOfMunicipalities());
+		assertEquals("Westmount", copyTM.getMunicipality(0).getName());
+		assertEquals(1, copyTM.numberOfTrees());
+		assertEquals(Tree.Status.Planted, copyTM.getTree(0).getStatus());
+		
+		//check created forecast info
+		assertEquals("Ilana", forecast1.getName());
+		assertEquals(2021, forecast1.getYear());
+		assertEquals("1.1", forecast1.getVersionCreated());
+		
+		//try to make forecast of forecast
+		Forecast forecast2 = null;
+		String error = null;
+		try {
+			forecast2 = fs.createForecast("Ilana", forecastTM.getVersion(), 2021, treesToPlant,treesToCutDown );
+		}
+		catch(Exception e) {
+			error = e.getMessage();
+		}
+		assertEquals("The system does not support making a forecast of a forecast.\n", error);
+		
+	}
 
 }

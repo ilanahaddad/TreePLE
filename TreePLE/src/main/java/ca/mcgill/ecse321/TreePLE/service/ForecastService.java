@@ -53,6 +53,9 @@ public class ForecastService {
 		if(baseTM == null) { //if user inputed a version number that doesnt exist (no TM with that version)
 			throw new InvalidInputException("No such base version exists.\n");
 		}
+		if(baseIsForecast(baseTM)) {
+			throw new InvalidInputException("The system does not support making a forecast of a forecast.\n");
+		}
 		baseTM.setIsEditable(false); //disable edits to baseTM
 		baseTM.setIsSelected(false); //disable edits to baseTM
 		//create new forecast TM with IsEditable as true and isSelected as true
@@ -89,6 +92,16 @@ public class ForecastService {
 		vm.addTreeManager(forecastTM);
 		PersistenceXStream.saveToXMLwithXStream(vm);
 		return forecast;
+	}
+	public boolean baseIsForecast(TreeManager baseTM) {
+		boolean isForecast = false;
+		double baseTMNum = Double.parseDouble(baseTM.getVersion()); //ex: 2.1
+		int int_base = (int) baseTMNum; //ex: 2
+		double dec_base = baseTMNum - int_base; //ex: 2.1 - 2 = 0.1
+		if(dec_base !=0) { //if 0.1, then its a forecast
+			isForecast = true;
+		}
+		return isForecast;
 	}
 	public String calculateDuplicateVersion(TreeManager baseTM) {
 		double baseTMVersionNum = Double.parseDouble(baseTM.getVersion());
