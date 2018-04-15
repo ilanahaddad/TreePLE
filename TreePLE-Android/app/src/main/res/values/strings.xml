@@ -1,12 +1,57 @@
 <resources>
     <string name="app_name">TreePLE-Android</string>
     <string name="action_settings">Settings</string>
-    <string name="setUserType_button">Set User Type</string>
-<!--
-    <string name="userType_prompt">Choose a User Type</string>
+    <string name="setUserType_button">Set user type</string>
+    <string name="userTypeSpinner_label">Choose user type</string>
+    <string name="speciesName_hint">Type species name</string>
+    <string name="treeHeight_hint">Type Tree height</string>
+    <string name="municipality_label">Choose municipality</string>
+    <string name="treeDiameter_hint">Type tree diameter</string>
+    <string name="treeLongitude_hint">Type tree longitude</string>
+    <string name="treeLatitude_hint">Type tree latitude</string>
+    <string name="treeAge_hint">Type tree age</string>
+    <string name="addTree">Add tree</string>
+    <string name="treeID_hint">Type tree ID</string>
+    <string name="newSurvey">Change tree</string>
+    <string name="status_label">Choose new tree status </string>
+    <string name="addSurvey">Submit survey</string>
+    <string name="viewSurveys">View history of tree</string>
+    <string name="back_button">Back</string>
+    <string name="login_button">Login</string>
+    <string name="userName_hint">Name</string>
+    <string name="login">Login Page</string>
+    <string name="home">Home Page</string>
+    <string name="refresh">Refresh</string>
 
-    <string-array name="userType_array">
+    <string name="options_page_title">Options Page</string>
+    <string name="tree_page_title">Create Tree Page</string>
+    <string name="survey_page_title">Create Survey Page</string>
+    <string name="tree_page_button">Add Tree</string>
+    <string name="survey_page_button">Add Survey</string>
+
+    <string name="back_button_option">Options</string>
+    <string name="back_button_login">Login</string>
+    <string name="check">Test backend</string>
+    <string name="landUse_label">Choose Land Use</string>
+    <string name="TreeLog_slogan">Tree Planning Environment</string>
+
+    <!--TODO: array -->
+   <!-- <string-array name="userType_array">
         <item>Local Resident</item>
         <item>Professional</item>
+    </string-array>
+    <string-array name="municipalities_array">
+        <item>Verdun</item>
+        <item>Outermount</item>
     </string-array>-->
+
+
+
+    <!--
+        <string name="userType_prompt">Choose a User Type</string>
+
+        <string-array name="userType_array">
+            <item>Local Resident</item>
+            <item>Professional</item>
+        </string-array>-->
 </resources>

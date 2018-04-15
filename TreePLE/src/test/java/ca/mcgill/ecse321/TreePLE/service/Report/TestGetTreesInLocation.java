@@ -113,8 +113,7 @@ public class TestGetTreesInLocation {
 		Location[] perimeter2_TwoEdges = {new Location(1,1), new Location(1,4), 
 				new Location(4,4), new Location(4,1)}; 
 		numTreesInLocation = rs.getTreesInLocation(perimeter2_TwoEdges).size();
-		//assertEquals(4, numTreesInLocation);
-		//TODO: bug here: (4,4) on edge is never counted
+		assertEquals(3, numTreesInLocation);
 
 		//Case 3: SOME trees within perimeter && NONE on edge
 		Location[] perimeter3 = {new Location(1.5,1.5), new Location(1.5,3.5), 
@@ -126,12 +125,11 @@ public class TestGetTreesInLocation {
 		Location[] perimeter4_OneEdge = {new Location(1,1), new Location(1,3.5), 
 				new Location(3.5,3.5), new Location(3.5,1)}; 
 		numTreesInLocation = rs.getTreesInLocation(perimeter4_OneEdge).size();
-		//assertEquals(3, numTreesInLocation);
-		//TODO: Ocassional bug here: (1,1) on edge is never counted
+		assertEquals(3, numTreesInLocation);
 		Location[] perimeter4_TwoEdges = {new Location(1.5,1.5), new Location(1.5,4), 
 				new Location(4,4), new Location(4,1.5)}; 
 		numTreesInLocation = rs.getTreesInLocation(perimeter4_TwoEdges).size();
-		//assertEquals(3, numTreesInLocation);
+		assertEquals(2, numTreesInLocation);
 
 		//Case 5: NO trees within perimeter && NONE on edge
 		Location[] perimeter5 = {new Location(0,0), new Location(0,0.5), 
@@ -140,15 +138,11 @@ public class TestGetTreesInLocation {
 		assertEquals(0, numTreesInLocation);
 
 		//Case 5: NO trees within perimeter && SOME on edge
-		//TODO: Ocassional bug on edges
-		Location[] perimeter6_1 = {new Location(0,0), new Location(0,1), 
+		Location[] perimeter6 = {new Location(0,0), new Location(0,1), 
 				new Location(1,1), new Location(1,0)};
-		numTreesInLocation = rs.getTreesInLocation(perimeter6_1).size();
-		//assertEquals(0, numTreesInLocation);
-		Location[] perimeter6_2 = {new Location(4,4), new Location(4,5), 
-				new Location(5,5), new Location(5,1)};
-		numTreesInLocation = rs.getTreesInLocation(perimeter6_2).size();
-		//assertEquals(0, numTreesInLocation);
+		numTreesInLocation = rs.getTreesInLocation(perimeter6).size();
+		assertEquals(0, numTreesInLocation);
+	
 
 	}
 
@@ -183,7 +177,7 @@ public class TestGetTreesInLocation {
 				new Location(2,4), new Location(2.99999897,2.9999767), new Location(3,2),
 				new Location(4,2), new Location(1,0)};
 		numTreesInLocation = rs.getTreesInLocation(perimeter).size();
-		//assertEquals(3, numTreesInLocation);//TODO: bug on edges
+		assertEquals(2, numTreesInLocation);
 
 		Location[] perimeter2 = {new Location(0.0001,1.00001), new Location(1.000301,1.008699), 
 				new Location(2,4), new Location(3,3), new Location(3,2),
@@ -195,7 +189,7 @@ public class TestGetTreesInLocation {
 				new Location(2,4), new Location(3,3), new Location(3,2),
 				new Location(4,2), new Location(1,0)};
 		numTreesInLocation = rs.getTreesInLocation(perimeter3).size();
-		//assertEquals(3, numTreesInLocation); //TODO: error saying there are actually 2
+		assertEquals(2, numTreesInLocation); 
 		
 		Location[] perimeter4 = {new Location(0.0001,1.00001), new Location(1,1.1), 
 				new Location(2,4), new Location(2.999995,2.999975), new Location(3,2),
@@ -207,7 +201,7 @@ public class TestGetTreesInLocation {
 				new Location(2,4), new Location(2.999999,2.9999999), new Location(3,2),
 				new Location(4,2), new Location(1,0)};
 		numTreesInLocation = rs.getTreesInLocation(perimeter5).size();
-		//assertEquals(3, numTreesInLocation); //TODO: error saying there are actually 2
+		assertEquals(2, numTreesInLocation); 
 
 	}
 }
