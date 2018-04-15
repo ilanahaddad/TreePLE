@@ -77,11 +77,22 @@ public class SurveyService {
 			throw new InvalidInputException("Only a professional can change tree status to 'To Be Cut Down' or 'Diseased'.\n");
 		}
 		Survey s = new Survey(surveyor, reportDate, tree);
+		s.setNewStatus(getSurveyStatusFromTreeStatus(newTreeStatus));
 		tree.setStatus(newTreeStatus);
 		tm.addSurvey(s);
 
 		PersistenceXStream.saveToXMLwithXStream(vm);
 		return s;
+	}
+	public Survey.Status getSurveyStatusFromTreeStatus(Tree.Status treeStatus){
+		String treeStatusString = treeStatus.toString();
+		for(Survey.Status surveyStatus: Survey.Status.values()) {
+			String surveyStatusString = surveyStatus.toString();
+			if(surveyStatusString.equals(treeStatusString)) {
+				return surveyStatus;
+			}
+		}
+		return null;
 	}
 	public Tree getTreeForSurvey(Survey survey) {
 		return survey.getTree();

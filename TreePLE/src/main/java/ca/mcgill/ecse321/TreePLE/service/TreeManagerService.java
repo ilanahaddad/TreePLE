@@ -12,15 +12,22 @@ import ca.mcgill.ecse321.TreePLE.model.Tree.Status;
 import ca.mcgill.ecse321.TreePLE.model.TreeManager;
 import ca.mcgill.ecse321.TreePLE.model.User;
 import ca.mcgill.ecse321.TreePLE.model.User.UserType;
-//import ca.mcgill.ecse321.TreePLE.model.User.UserType;
 import ca.mcgill.ecse321.TreePLE.model.VersionManager;
 import ca.mcgill.ecse321.TreePLE.persistence.PersistenceXStream;
-
+/**
+ * This service class contains all main functionalities of the TreeManager. 
+ * @authors Ilana Haddad, Diana Serra, Jessica Udo, Thomas Hannaford
+ */
 @Service
 public class TreeManagerService {
 	private TreeManager tm;
 	private VersionManager vm;
-
+	/**
+	 * The TreeManagerService constructor verifies which version has been selected by the user, 
+	 * finds the TreeManager associated to that version and sets the classe's TreeManager as that one for users
+	 * to edit attributes on that TreeManager.
+	 * @param vm
+	 */
 	public TreeManagerService(VersionManager vm) {
 		List<TreeManager> treemanagers = vm.getTreeManagers();
 		for(TreeManager treeM : treemanagers) {
@@ -261,11 +268,6 @@ public class TreeManagerService {
 	 * @return returns a list of all the trees
 	 */
 	public List<Tree> findAllTrees() {
-	/*	for(TreeManager treeM : vm.getTreeManagers()) {
-			if(treeM.getIsSelected()) {
-				this.tm = treeM;
-			}
-		}*/
 		refreshSelectedTM();
 		return this.tm.getTrees();
 	}
@@ -438,6 +440,11 @@ public class TreeManagerService {
 		}
 		return StatusList;
 	}
+	/**
+	 * This method searches through user types to find one that matches the given name
+	 * @param userTypeName
+	 * @return UserType with that name if found, or null if it doesn't exist
+	 */
 	public UserType getUserTypeByName(String userTypeName) {
 		UserType[] userTypes = UserType.values();
 		for(UserType ut: userTypes) {
@@ -493,6 +500,7 @@ public class TreeManagerService {
 		refreshSelectedTM();
 		return tm.getLocations();
 	}
+	
 	public List<User.UserType> getUserTypes() {
 		List<User.UserType> userTypesList = new ArrayList<User.UserType>();
 		User.UserType[] userTypesArray = User.UserType.values();
