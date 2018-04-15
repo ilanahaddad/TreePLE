@@ -20,28 +20,23 @@ import ca.mcgill.ecse321.TreePLE.model.TreeManager;
 import ca.mcgill.ecse321.TreePLE.model.VersionManager;
 import ca.mcgill.ecse321.TreePLE.model.Tree.Status;
 import ca.mcgill.ecse321.TreePLE.persistence.PersistenceXStream;
-
+/**
+ * This service class contains all main functionalities related to Forecasts.
+ * @author Ilana Haddad
+ *
+ */
 @Service
 public class ForecastService {
 	@Autowired
 	private TreeManagerService tms;
 	
-	@Autowired
-	private SurveyService ss;
-	
 	private VersionManager vm;
-
+	
 	public ForecastService(VersionManager vm) {
 		this.vm = vm;
-		
-		ss = new SurveyService(vm);
 	}
 	public Forecast createForecast(String name, String baseVersion, int futureYear,
 			List<TreeDto> treesToPlant, List<Tree> treesToCutDown) throws InvalidInputException{
-		//System.out.println("plant: " + treesToPlant);
-		//System.out.println("cut down: "+ treesToCutDown);
-		//System.out.println("plant: " + treesToPlant.size());
-		//System.out.println("cut down: "+ treesToCutDown.size());
 		List<TreeManager> treemanagers = vm.getTreeManagers();
 		TreeManager baseTM = null;
 		for(TreeManager tm: treemanagers) { //look for demanded base versions in TreeManagers
