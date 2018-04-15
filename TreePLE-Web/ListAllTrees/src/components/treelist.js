@@ -294,7 +294,7 @@ export default {
         .then(response => {
           // JSON responses are automatically parsed.
          	this.selectedVersion=''
-          window.location.reload();
+          //window.location.reload();
         })
         .catch(e => {
           this.errorLandUse = e;
