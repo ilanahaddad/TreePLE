@@ -268,11 +268,6 @@ public class TreeManagerService {
 	 * @return returns a list of all the trees
 	 */
 	public List<Tree> findAllTrees() {
-	/*	for(TreeManager treeM : vm.getTreeManagers()) {
-			if(treeM.getIsSelected()) {
-				this.tm = treeM;
-			}
-		}*/
 		refreshSelectedTM();
 		return this.tm.getTrees();
 	}
