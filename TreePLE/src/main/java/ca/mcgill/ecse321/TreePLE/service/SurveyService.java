@@ -28,11 +28,25 @@ public class SurveyService {
 		}
 		this.vm = vm;
 	}
+	/**
+	 * This method checks if the current system version is editable
+	 * @param tm current system version
+	 * @throws InvalidInputException returns error if version is a forecast or not the latest version
+	 */
 	public void checkIfEditable(TreeManager tm)throws InvalidInputException {
 		if(!tm.getIsEditable()) {
 			throw new InvalidInputException("You cannot edit this version of the system");
 		}
 	}
+	/**
+	 * This method creates a new survey for a certain tree
+	 * @param reportDate date of the survey (current date)
+	 * @param tree desired tree to be surveyed
+	 * @param surveyor name of the surveyor
+	 * @param newTreeStatus new status of the tree (planted, diseased, to be cut-down, cut-down)
+	 * @return returns updated survey
+	 * @throws InvalidInputException returns error if inputs are null, empty or if status has not been changed
+	 */
 	public Survey createSurvey(Date reportDate, Tree tree, String surveyor, Status newTreeStatus) throws InvalidInputException{
 		//Check if any of the fields are null, and throw corresponding exception
 		/*if(reportDate == null||tree ==null||surveyor==null||newTreeStatus==null) {
@@ -72,6 +86,11 @@ public class SurveyService {
 	public Tree getTreeForSurvey(Survey survey) {
 		return survey.getTree();
 	}
+	/**
+	 * This method gets the tree given an ID
+	 * @param id ID#
+	 * @return returns desired tree based on ID#
+	 */
 	public Tree getTreeById(int id) {
 		List<Tree> trees = tm.getTrees();
 		for(Tree t:trees) {
@@ -81,6 +100,14 @@ public class SurveyService {
 		}
 		return null;
 	}
+	/**
+	 * This method allows the user to edit the date, surveyor and/or status of the tree
+	 * @param survey desired survey to be edited
+	 * @param editDate new survey date
+	 * @param editor new surveyor
+	 * @param editedTreeStatus new status to edited
+	 * @throws InvalidInputException returns error if inputs or null or if survey does not exist in TreeLog
+	 */
 	public void editSurvey(Survey survey,Date editDate, 
 			String editor, Status editedTreeStatus) throws InvalidInputException{
 		checkIfEditable(this.tm);
@@ -102,9 +129,19 @@ public class SurveyService {
 		}
 		PersistenceXStream.saveToXMLwithXStream(vm);
 	}
+	/**
+	 * This method returns all the surveys in TreeLog
+	 * @return returns all surveys in system
+	 */
 	public List<Survey> getAllSurveys(){
 		return tm.getSurveys();
 	}
+	/**
+	 * This method returns all the surveys for a certain tree
+	 * @param t desired tree
+	 * @return returns all the surveys for the desired tree
+	 * @throws InvalidInputException returns error if no surveys exist for this tree
+	 */
 	public List<Survey> getSurveysForTree(Tree t) throws InvalidInputException{
 		List<Survey> surveys = null;
 		if(t.hasSurveys()) {

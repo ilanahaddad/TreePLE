@@ -1,5 +1,9 @@
+<!--
+String species, Double height, Doube diameter, Drop down municipaity,
+Double latitude, Double longitude , String owner, int age, drop down landuse
+-->
 <template>
-  <div id="edittree">
+  <div id="addtree">
 	<!--
   	<table align="center">
       <tr>
@@ -14,19 +18,9 @@
   </table>
 -->
   <hr>
-  <p>
-    <span v-if="errorEditTree" style="color:red">{{errorEditTree}} </span>
-    <span v-if="successEditTree" style="color:green">{{successEditTree}} </span>
-  </p>
-  <h2>Edit Tree</h2>
+  <h2>Add Tree</h2>
     <table align="center">
-      <tr>
-        <td>
-          Tree ID:
-        </td>
-        <td>
-          <input type="text" v-model= "treeId" placeHolder= "Tree ID">
-        </td>
+      <tr align="center">
         <td>
           Owner:
         </td>
@@ -87,11 +81,25 @@
         </td>
         </td>
       </tr>
+      <tr>
+        <td>
+          Latitude:
+        </td>
+        <td>
+          <input type="text" v-model= "newLat" placeHolder= "Latitude">
+        </td>
+        <td>
+          Longitude:
+        </td>
+        <td>
+          <input type="text" v-model= "newLong" placeHolder= "Longitude">
+        </td>
+      </tr>
     </table>
-    <button align="center" @click= "editTree(treeId, height, diameter, age, ownerName, species, landuse, municipality)">Edit Tree Data</button>
+    <button align="center" @click= "createTree(species, height, diameter, municipality, newLat, newLong, ownerName, age, landuse)"> Add Tree</button>
  </div>
 </template>
-<script src="./editTree.js">
+<script src="./addTree.js">
 </script>
 <style>
 tr,td {

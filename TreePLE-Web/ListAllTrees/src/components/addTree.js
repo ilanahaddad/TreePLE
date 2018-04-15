@@ -27,10 +27,9 @@ export default {
       municipalities: [],
       landUses: [],
       changedTree: '',
-      errorMunicipalities: '',
-      errorEditTree: '',
-      successEditTree: '',
-      errorLandUse: ''
+      newLat: '', 
+      newLong: '',
+      errormsg: ''
     }
   },
   created: function() {
@@ -53,36 +52,34 @@ export default {
       });
   },
   methods: {
-    editTree: function(treeId, height, diameter, age, ownerName, species, landuse, municipality) {
-      AXIOS.post('/updateTreeData/' + treeId, {}, {
+    createTree: function(species, height, diameter, municipality, newLat, newLong, ownerName, age, landuse) {
+      AXIOS.post('/newTree/' + species, {}, {
           params: {
-            newHeight: height,
-            newDiameter: diameter,
-            newAge: age,
-            newOwnerName: ownerName,
-            newSpecies: species,
-            newLandUse: landuse,
-            newMunicipality: municipality
+            species: species,
+            height: height,
+            diameter: diameter,
+            municipality: municipality,
+            latitude: newLat,
+            longitude: newLong,
+            owner: ownerName,
+            age: age,
+            landuse: landuse
           }
         }).then(response => {
-          this.changedTree = response.data
-          this.successEditTree = 'You have successfully edited Tree ' + treeId 
-          this.treeId = ''
           this.ownerName = ''
           this.species = ''
           this.age = ''
           this.diameter = ''
-          this.long2 = ''
+          this.newLong = ''
+          this.newLat= ''
           this.height = ''
           this.municipality = ''
           this.landuse = ''
-          this.errorEditTree = ''
         })
         .catch(e => {
           var errorMsg = e.response.data.message
           console.log(errorMsg)
-          this.errorEditTree = errorMsg
-          this.successEditTree = ''
+          this.errorEvent = errorMsg
         })
     }
   }

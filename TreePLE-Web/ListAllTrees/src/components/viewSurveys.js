@@ -68,7 +68,7 @@ export default {
 				.catch(e =>{
 					var errorMsg= e.response.data.message
 					console.log(errorMsg)
-					this.errorEvent = errorMsg 
+					this.errorSurveys = errorMsg 
 				})
 				this.viewSurveysForTree=true
 				this.viewSurveysPre=false

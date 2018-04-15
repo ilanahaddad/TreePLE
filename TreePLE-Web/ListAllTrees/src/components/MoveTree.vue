@@ -14,6 +14,9 @@
   </table>
 -->
   <hr>
+  <p>
+    <span v-if="errorMoveTree" style="color:red">{{errorMoveTree}} </span>
+  </p>
   <h2>Move Tree</h2>
     <table align="center">
       <tr>

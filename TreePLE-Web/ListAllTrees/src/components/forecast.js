@@ -130,6 +130,7 @@ export default {
           var errorMsg = e.response.data.message
           console.log(errorMsg)
           this.errorAddTree = errorMsg
+          this.errorForecast = ''
         })
     },
     deleteTree: function(treeId) {
@@ -156,6 +157,7 @@ export default {
           var errorMsg = e.response.data.message
           console.log(errorMsg)
           this.errorForecast = errorMsg
+          this.errorAddTree = ''
         })
     }
   }
