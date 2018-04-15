@@ -32,14 +32,14 @@
 
   <h2>Report History for tree ID: {{treeId}} </h2></br>
   <hr>
+  <p>
+       <span v-if="errorSurveys" style="color:red">{{errorSurveys}} </span>
+  </p>
   <div v-for="s in surveys">
 			<h6> Date : {{s.reportDate}} </h6>
 			<h6> Surveyor: {{s.surveyor}} </h6>
 			<h6>Status: {{s.tree.status}} </h6>
 			<hr>
-      <p>
-        <span v-if="errorSurveys" style="color:red">{{errorSurveys}} </span>
-      </p>
 	</div>
 	</div>
  </div>
