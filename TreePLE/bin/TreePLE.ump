@@ -31,6 +31,7 @@ class SustainabilityReport{
 }
 
 class Survey{
+  lazy Tree.Status newStatus;
   surveyorName;
   Date reportDate;
 }
@@ -65,14 +66,6 @@ association{
   1 Tree tree -- * Survey surveys;
    0..1 Tree treeInLocation -- 1 Location coordinates;
 
-//  1 User reporter -- 0..* SustainabilityReport report;
- // 1 User surveyor -- * Survey surveys;
-   
-  * Forecast -> 0..* VersionManager versions;
-  
- // 0..* Forecast -- 1..* Municipality municipalities;
- // 0..*Forecast -> 4 Location forecastPerimeter;
-  
   1 Municipality treeMunicipality -- 0..* Tree listOfTrees; 
   0..* SustainabilityReport -> 4 Location reportPerimeter;
 

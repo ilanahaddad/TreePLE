@@ -156,7 +156,7 @@ public class TreeManagerRestController {
 			//@RequestParam(name = "tree") TreeDto treeDto, 
 			@RequestParam(name = "tree") int treeID, 
 			@RequestParam(name = "surveyor") String surveyor,
-			@RequestParam(name = "newTreeStatus") Tree.Status newTreeStatus
+			@RequestParam(name = "newTreeStatus") Status newTreeStatus
 			) throws InvalidInputException{
 		
 		Tree tree = surveyService.getTreeById(treeID);
