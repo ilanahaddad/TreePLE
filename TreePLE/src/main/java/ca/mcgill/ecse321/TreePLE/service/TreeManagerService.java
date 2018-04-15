@@ -24,9 +24,9 @@ public class TreeManagerService {
 	private VersionManager vm;
 	/**
 	 * The TreeManagerService constructor verifies which version has been selected by the user, 
-	 * finds the TreeManager associated to that version and sets the classe's TreeManager as that one for users
+	 * finds the TreeManager associated to that version and sets the class's TreeManager as that one for users
 	 * to edit attributes on that TreeManager.
-	 * @param vm
+	 * @param vm VersionManager of the application
 	 */
 	public TreeManagerService(VersionManager vm) {
 		List<TreeManager> treemanagers = vm.getTreeManagers();
