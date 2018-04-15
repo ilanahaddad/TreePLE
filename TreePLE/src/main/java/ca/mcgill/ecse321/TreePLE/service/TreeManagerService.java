@@ -352,6 +352,11 @@ public class TreeManagerService {
 		}
 		return userTypesList;
 	}
+	public void setStatus(Tree tree, Tree.Status newStatus) throws InvalidInputException{
+		checkIfEditable(this.tm);
+		tree.setStatus(newStatus);
+		PersistenceXStream.saveToXMLwithXStream(vm);
+	}
 
 
 }

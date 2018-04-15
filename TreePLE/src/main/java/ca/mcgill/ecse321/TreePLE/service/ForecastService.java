@@ -56,11 +56,14 @@ public class ForecastService {
 		TreeManager forecastTM = new TreeManager(true, true, forecastVersion, futureYear, baseTM.getUser()); 
 		copyAllContents(baseTM, forecastTM);//copy all data from baseTM to newTM
 		vm.addTreeManager(forecastTM);
+		
+		//plantAndCutDownTrees(treesToPlant,treesToCutDown);
+		
 		if(treesToPlant!=null) {
 			plantTrees(treesToPlant);//plant new trees requested in newTM
 		}
 		if(treesToCutDown!=null) {
-			cutDownTrees(treesToCutDown);//cut down trees requested in newTM
+			cutDownTrees(treesToCutDown, baseTM, forecastTM);//cut down trees requested in newTM
 		}
 		//Set new forecastTM as non editable now that trees have been planted and cut down
 		forecastTM.setIsEditable(false); 
@@ -127,18 +130,24 @@ public class ForecastService {
 	public void copyAllContents(TreeManager tmToCopy, TreeManager tmCopiedTo) {
 		//copy trees:
 		for(Tree t: tmToCopy.getTrees()) {
-			tmCopiedTo.addTree(t);
+			Location newL = new Location(t.getCoordinates().getLatitude(), t.getCoordinates().getLongitude());
+			Tree newT = new Tree(t.getOwnerName(), t.getSpecies(), t.getHeight(), t.getDiameter(), t.getAge(), newL, t.getTreeMunicipality());
+			newT.setLand(t.getLand());
+			tmCopiedTo.addTree(newT);
 		}
 		//copy locations:
 		for(Location l: tmToCopy.getLocations()) {
+			//Location newL = new Location(l.getLatitude(), l.getLongitude());
 			tmCopiedTo.addLocation(l);
 		}
 		//copy municipalities:
 		for(Municipality m: tmToCopy.getMunicipalities()) {
+			//Municipality newM = new Municipality(m.getName());
 			tmCopiedTo.addMunicipality(m);
 		}
 		//copy reports
 		for(SustainabilityReport r: tmToCopy.getReports()) {
+			//SustainabilityReport newR = new SustainabilityReport(r.getReporterName(), r.getDate(), r.getReportPerimeter());
 			tmCopiedTo.addReport(r);
 		}
 		//copy surveys:
@@ -156,15 +165,51 @@ public class ForecastService {
 			tms.createTree(treeDto.getOwnerName(), treeDto.getSpecies(), treeDto.getHeight(), treeDto.getDiameter(),
 					treeDto.getAge(), location, municipality, treeDto.getLand());
 		}
-		PersistenceXStream.saveToXMLwithXStream(vm);
+		
 	}
-	public void cutDownTrees(List<Tree> treesToCutDown) {
+	public void cutDownTrees(List<Tree> treesToCutDown, TreeManager baseTM, TreeManager forecastTM) throws InvalidInputException{
+		/*Right now the list of trees refers to trees in the baseTM, if we edit those it will change the
+		 * trees in the baseTM. Instead we want to change the ones in the forecastTM. 
+		 * Therefore, we will have to find the exact copies of trees in the newTM and refer
+		 * to those when editing. 
+		 */
+		for(Tree tree: treesToCutDown) {
+			Tree treeToEdit = findExactTreeInForecastTM(tree, baseTM, forecastTM);
+			tms.setStatus(treeToEdit, Status.CutDown);
+		}
+		
+	}
+	public Tree findExactTreeInForecastTM(Tree tree, TreeManager baseTM, TreeManager forecastTM) {
+		//Tree treeInForecastTM = null;
+		for(Tree tInBase: baseTM.getTrees()) {
+			double baseTreeLat = tInBase.getCoordinates().getLatitude();
+			double baseTreeLong = tInBase.getCoordinates().getLongitude();
+			for(Tree tInForecast: forecastTM.getTrees()) {
+				double forecastTreeLat = tInForecast.getCoordinates().getLatitude();
+				double forecastTreeLong = tInForecast.getCoordinates().getLongitude();
+				if(baseTreeLat==forecastTreeLat && baseTreeLong==forecastTreeLong) {
+					return tInForecast;
+				}
+			}
+		}
+		return null;
+	}
+	public void plantAndCutDownTrees(List<TreeDto> treesToPlantDto, List<Tree> treesToCutDown) throws InvalidInputException{
+		tms = new TreeManagerService(vm);
+		for(TreeDto treeDto: treesToPlantDto) {
+			Location location = tms.getLocationByCoordinates(treeDto.getCoordinates().getLatitude(), treeDto.getCoordinates().getLongitude());
+			Municipality municipality = tms.getMunicipalityByName(treeDto.getTreeMunicipality().getName());
+			//Location location = convertToDomainObject(treeDto.getCoordinates());
+			//Municipality municipality = convertToDomainObject(treeDto.getTreeMunicipality());
+			tms.createTree(treeDto.getOwnerName(), treeDto.getSpecies(), treeDto.getHeight(), treeDto.getDiameter(),
+					treeDto.getAge(), location, municipality, treeDto.getLand());
+		}
 		for(Tree tree: treesToCutDown) {
 			tree.setStatus(Status.CutDown);
 		}
 		PersistenceXStream.saveToXMLwithXStream(vm);
 	}
-	private Municipality convertToDomainObject(MunicipalityDto mDto) {
+/*	private Municipality convertToDomainObject(MunicipalityDto mDto) {
 		// Mapping DTO to the domain object without using the mapper
 		List<Municipality> allMunicipality = tms.findAllMunicipalities();
 		for (Municipality municipality : allMunicipality) {
@@ -183,6 +228,6 @@ public class ForecastService {
 			}
 		}
 		return null;
-	}
+	}*/
 
 }

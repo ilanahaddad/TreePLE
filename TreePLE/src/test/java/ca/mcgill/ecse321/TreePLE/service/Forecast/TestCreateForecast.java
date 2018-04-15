@@ -117,6 +117,7 @@ public class TestCreateForecast {
 		assertEquals(1, tm.numberOfMunicipalities());
 		assertEquals("Westmount", tm.getMunicipality(0).getName());
 		assertEquals(1, tm.numberOfTrees());
+		assertEquals(Tree.Status.Planted, tm.getTree(0).getStatus());
 	
 		//check info of forecast TM
 		TreeManager forecastTM = vm.getTreeManager(1);
@@ -128,6 +129,7 @@ public class TestCreateForecast {
 		assertEquals(1, forecastTM.numberOfMunicipalities());
 		assertEquals(2, forecastTM.numberOfTrees());
 		assertEquals("John", forecastTM.getTree(0).getOwnerName());
+		assertEquals(Tree.Status.CutDown, forecastTM.getTree(0).getStatus());
 		assertEquals("Ilana", forecastTM.getTree(1).getOwnerName());
 		
 		//check info of copy TM
@@ -142,6 +144,7 @@ public class TestCreateForecast {
 		assertEquals(1, copyTM.numberOfMunicipalities());
 		assertEquals("Westmount", copyTM.getMunicipality(0).getName());
 		assertEquals(1, copyTM.numberOfTrees());
+		assertEquals(Tree.Status.Planted, copyTM.getTree(0).getStatus());
 		
 		//check created forecast info
 		assertEquals("Ilana", forecast1.getName());
@@ -165,6 +168,7 @@ public class TestCreateForecast {
 		assertEquals(2022, forecastTM2.getVersionYear());
 		assertEquals(false, forecastTM2.getIsEditable());
 		assertEquals(false, forecastTM2.getIsSelected());
+		assertEquals(Tree.Status.CutDown, forecastTM2.getTree(0).getStatus());
 		
 		//check created forecast info
 		assertEquals("Diana", forecast2.getName());
@@ -193,6 +197,7 @@ public class TestCreateForecast {
 		assertEquals(2, forecastTM3.numberOfTrees());
 		assertEquals("John", forecastTM3.getTree(0).getOwnerName());
 		assertEquals("Ilana", forecastTM3.getTree(1).getOwnerName());
+		assertEquals(Tree.Status.CutDown, forecastTM3.getTree(0).getStatus());
 		
 		//check created forecast info
 		assertEquals("Thomas", forecast3.getName());
@@ -211,6 +216,7 @@ public class TestCreateForecast {
 		assertEquals(1, copyTM2.numberOfMunicipalities());
 		assertEquals("Westmount", copyTM2.getMunicipality(0).getName());
 		assertEquals(1, copyTM2.numberOfTrees());
+		assertEquals(Tree.Status.Planted, copyTM2.getTree(0).getStatus());
 
 	}
 

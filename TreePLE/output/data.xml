@@ -10,7 +10,7 @@
           <ownerName>John</ownerName>
           <species>Maple</species>
           <height>10.0</height>
-          <status>CutDown</status>
+          <status>Planted</status>
           <diameter>1.5</diameter>
           <land>Residential</land>
           <age>20</age>
@@ -26,18 +26,18 @@
             <listOfTrees id="9">
               <tree reference="5"/>
               <tree id="10">
-                <ownerName>Ilana</ownerName>
-                <species>Birch</species>
-                <height>3.0</height>
-                <status>Planted</status>
-                <diameter>0.3</diameter>
-                <land>NonResidential</land>
-                <age>30</age>
+                <ownerName>John</ownerName>
+                <species>Maple</species>
+                <height>10.0</height>
+                <status>CutDown</status>
+                <diameter>1.5</diameter>
+                <land>Residential</land>
+                <age>20</age>
                 <id>2</id>
                 <surveys id="11"/>
                 <coordinates id="12">
-                  <latitude>45.487</latitude>
-                  <longitude>-73.600802</longitude>
+                  <latitude>45.48743</latitude>
+                  <longitude>-73.600902</longitude>
                   <treeInLocation reference="10"/>
                 </coordinates>
                 <treeMunicipality reference="8"/>
@@ -60,6 +60,40 @@
                 <treeMunicipality reference="8"/>
               </tree>
               <tree id="16">
+                <ownerName>John</ownerName>
+                <species>Maple</species>
+                <height>10.0</height>
+                <status>Planted</status>
+                <diameter>1.5</diameter>
+                <land>Residential</land>
+                <age>20</age>
+                <id>4</id>
+                <surveys id="17"/>
+                <coordinates id="18">
+                  <latitude>45.48743</latitude>
+                  <longitude>-73.600902</longitude>
+                  <treeInLocation reference="16"/>
+                </coordinates>
+                <treeMunicipality reference="8"/>
+              </tree>
+              <tree id="19">
+                <ownerName>John</ownerName>
+                <species>Maple</species>
+                <height>10.0</height>
+                <status>CutDown</status>
+                <diameter>1.5</diameter>
+                <land>Residential</land>
+                <age>20</age>
+                <id>5</id>
+                <surveys id="20"/>
+                <coordinates id="21">
+                  <latitude>45.48743</latitude>
+                  <longitude>-73.600902</longitude>
+                  <treeInLocation reference="19"/>
+                </coordinates>
+                <treeMunicipality reference="8"/>
+              </tree>
+              <tree id="22">
                 <ownerName>Ilana</ownerName>
                 <species>Birch</species>
                 <height>3.0</height>
@@ -67,12 +101,63 @@
                 <diameter>0.3</diameter>
                 <land>NonResidential</land>
                 <age>30</age>
-                <id>4</id>
-                <surveys id="17"/>
-                <coordinates id="18">
+                <id>6</id>
+                <surveys id="23"/>
+                <coordinates id="24">
                   <latitude>45.487</latitude>
                   <longitude>-73.600802</longitude>
-                  <treeInLocation reference="16"/>
+                  <treeInLocation reference="22"/>
+                </coordinates>
+                <treeMunicipality reference="8"/>
+              </tree>
+              <tree id="25">
+                <ownerName>John</ownerName>
+                <species>Maple</species>
+                <height>10.0</height>
+                <status>CutDown</status>
+                <diameter>1.5</diameter>
+                <land>Residential</land>
+                <age>20</age>
+                <id>7</id>
+                <surveys id="26"/>
+                <coordinates id="27">
+                  <latitude>45.48743</latitude>
+                  <longitude>-73.600902</longitude>
+                  <treeInLocation reference="25"/>
+                </coordinates>
+                <treeMunicipality reference="8"/>
+              </tree>
+              <tree id="28">
+                <ownerName>Ilana</ownerName>
+                <species>Birch</species>
+                <height>3.0</height>
+                <status>Planted</status>
+                <diameter>0.3</diameter>
+                <land>NonResidential</land>
+                <age>30</age>
+                <id>8</id>
+                <surveys id="29"/>
+                <coordinates id="30">
+                  <latitude>45.487</latitude>
+                  <longitude>-73.600802</longitude>
+                  <treeInLocation reference="28"/>
+                </coordinates>
+                <treeMunicipality reference="8"/>
+              </tree>
+              <tree id="31">
+                <ownerName>John</ownerName>
+                <species>Maple</species>
+                <height>10.0</height>
+                <status>Planted</status>
+                <diameter>1.5</diameter>
+                <land>Residential</land>
+                <age>20</age>
+                <id>9</id>
+                <surveys id="32"/>
+                <coordinates id="33">
+                  <latitude>45.48743</latitude>
+                  <longitude>-73.600902</longitude>
+                  <treeInLocation reference="31"/>
                 </coordinates>
                 <treeMunicipality reference="8"/>
               </tree>
@@ -80,113 +165,113 @@
           </treeMunicipality>
         </tree>
       </trees>
-      <locations id="19">
+      <locations id="34">
         <location reference="7"/>
       </locations>
-      <surveys id="20"/>
-      <municipalities id="21">
+      <surveys id="35"/>
+      <municipalities id="36">
         <municipality reference="8"/>
       </municipalities>
-      <user id="22">
+      <user id="37">
         <usertype>Professional</usertype>
       </user>
-      <reports id="23"/>
+      <reports id="38"/>
     </treeManager>
-    <treeManager id="24">
+    <treeManager id="39">
       <isEditable>false</isEditable>
       <isSelected>false</isSelected>
       <version>1.1</version>
       <versionYear>2021</versionYear>
-      <trees id="25">
-        <tree reference="5"/>
+      <trees id="40">
         <tree reference="10"/>
+        <tree reference="13"/>
       </trees>
-      <locations id="26">
+      <locations id="41">
         <location reference="7"/>
-        <location reference="12"/>
+        <location reference="15"/>
       </locations>
-      <surveys id="27"/>
-      <municipalities id="28">
+      <surveys id="42"/>
+      <municipalities id="43">
         <municipality reference="8"/>
       </municipalities>
-      <user reference="22"/>
-      <reports id="29"/>
+      <user reference="37"/>
+      <reports id="44"/>
     </treeManager>
-    <treeManager id="30">
+    <treeManager id="45">
       <isEditable>false</isEditable>
       <isSelected>false</isSelected>
       <version>2.0</version>
       <versionYear>2018</versionYear>
-      <trees id="31">
-        <tree reference="5"/>
+      <trees id="46">
+        <tree reference="16"/>
       </trees>
-      <locations id="32">
+      <locations id="47">
         <location reference="7"/>
       </locations>
-      <surveys id="33"/>
-      <municipalities id="34">
+      <surveys id="48"/>
+      <municipalities id="49">
         <municipality reference="8"/>
       </municipalities>
-      <user reference="22"/>
-      <reports id="35"/>
+      <user reference="37"/>
+      <reports id="50"/>
     </treeManager>
-    <treeManager id="36">
+    <treeManager id="51">
       <isEditable>false</isEditable>
       <isSelected>false</isSelected>
       <version>1.2</version>
       <versionYear>2022</versionYear>
-      <trees id="37">
-        <tree reference="5"/>
-        <tree reference="13"/>
+      <trees id="52">
+        <tree reference="19"/>
+        <tree reference="22"/>
       </trees>
-      <locations id="38">
+      <locations id="53">
         <location reference="7"/>
-        <location reference="15"/>
+        <location reference="24"/>
       </locations>
-      <surveys id="39"/>
-      <municipalities id="40">
+      <surveys id="54"/>
+      <municipalities id="55">
         <municipality reference="8"/>
       </municipalities>
-      <user reference="22"/>
-      <reports id="41"/>
+      <user reference="37"/>
+      <reports id="56"/>
     </treeManager>
-    <treeManager id="42">
+    <treeManager id="57">
       <isEditable>false</isEditable>
       <isSelected>false</isSelected>
       <version>2.1</version>
       <versionYear>2019</versionYear>
-      <trees id="43">
-        <tree reference="5"/>
-        <tree reference="16"/>
+      <trees id="58">
+        <tree reference="25"/>
+        <tree reference="28"/>
       </trees>
-      <locations id="44">
+      <locations id="59">
         <location reference="7"/>
-        <location reference="18"/>
+        <location reference="30"/>
       </locations>
-      <surveys id="45"/>
-      <municipalities id="46">
+      <surveys id="60"/>
+      <municipalities id="61">
         <municipality reference="8"/>
       </municipalities>
-      <user reference="22"/>
-      <reports id="47"/>
+      <user reference="37"/>
+      <reports id="62"/>
     </treeManager>
-    <treeManager id="48">
+    <treeManager id="63">
       <isEditable>true</isEditable>
       <isSelected>false</isSelected>
       <version>3.0</version>
       <versionYear>2018</versionYear>
-      <trees id="49">
-        <tree reference="5"/>
+      <trees id="64">
+        <tree reference="31"/>
       </trees>
-      <locations id="50">
+      <locations id="65">
         <location reference="7"/>
       </locations>
-      <surveys id="51"/>
-      <municipalities id="52">
+      <surveys id="66"/>
+      <municipalities id="67">
         <municipality reference="8"/>
       </municipalities>
-      <user reference="22"/>
-      <reports id="53"/>
+      <user reference="37"/>
+      <reports id="68"/>
     </treeManager>
   </treeManagers>
 </versionManager>
