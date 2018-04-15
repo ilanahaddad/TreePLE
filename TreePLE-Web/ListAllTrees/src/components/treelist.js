@@ -323,6 +323,24 @@ export default {
 			});
 
 			
+    }, 
+    createSurvey: function(surveyDate, surveyTree, surveyor, surveyStatus){
+      AXIOS.post('/newSurvey/', {}, {params: {
+        reportDate: surveydate, 
+        tree: surveyTree, 
+        surveyor: surveyor, 
+        newTreeStatus: surveyStatus}})
+      .then(response =>{
+        this.surveyDate= '';
+        this.surveyTree= '';
+        this.surveyor= '';
+        this.surveyStatus= '';
+      })
+      .catch(e =>{
+        var errorMsg= e.response.data.message
+        console.log(errorMsg)
+        
+      });
     }
 
     //createTree: function (treeId, treeSpecies, treeLongitude, treeLatitude, treeStatus) {
