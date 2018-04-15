@@ -56,6 +56,10 @@ export default {
       selectedSpecies: '',
       selectedStatus: '',
       selectedLandUse: '',
+      surveyDate: '',
+      surveyTree: '',
+      surveyor: '',
+      surveyStatus: '',
       center: {
         lat: 45.5048,
         lng: -73.5772
