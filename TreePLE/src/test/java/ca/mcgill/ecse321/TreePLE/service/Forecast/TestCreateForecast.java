@@ -27,6 +27,7 @@ import ca.mcgill.ecse321.TreePLE.model.User.UserType;
 import ca.mcgill.ecse321.TreePLE.persistence.PersistenceXStream;
 import ca.mcgill.ecse321.TreePLE.service.ForecastService;
 import ca.mcgill.ecse321.TreePLE.service.TreeManagerService;
+import ca.mcgill.ecse321.TreePLE.service.VersionManagerService;
 
 public class TestCreateForecast {
 	private VersionManager vm;
@@ -34,6 +35,7 @@ public class TestCreateForecast {
 	private User user;
 	private ForecastService fs;
 	private TreeManagerService tms;
+	private VersionManagerService vms;
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
 		PersistenceXStream.initializeModelManager("output" + File.separator + "data.xml");
@@ -65,6 +67,7 @@ public class TestCreateForecast {
 		vm.addTreeManager(tm);
 		fs = new ForecastService(vm);
 		tms = new TreeManagerService(vm);
+		vms = new VersionManagerService(vm);
 	}
 
 	@After
@@ -117,6 +120,7 @@ public class TestCreateForecast {
 		assertEquals(1, tm.numberOfMunicipalities());
 		assertEquals("Westmount", tm.getMunicipality(0).getName());
 		assertEquals(1, tm.numberOfTrees());
+		assertEquals(Tree.Status.Planted, tm.getTree(0).getStatus());
 	
 		//check info of forecast TM
 		TreeManager forecastTM = vm.getTreeManager(1);
@@ -128,6 +132,7 @@ public class TestCreateForecast {
 		assertEquals(1, forecastTM.numberOfMunicipalities());
 		assertEquals(2, forecastTM.numberOfTrees());
 		assertEquals("John", forecastTM.getTree(0).getOwnerName());
+		assertEquals(Tree.Status.CutDown, forecastTM.getTree(0).getStatus());
 		assertEquals("Ilana", forecastTM.getTree(1).getOwnerName());
 		
 		//check info of copy TM
@@ -142,6 +147,7 @@ public class TestCreateForecast {
 		assertEquals(1, copyTM.numberOfMunicipalities());
 		assertEquals("Westmount", copyTM.getMunicipality(0).getName());
 		assertEquals(1, copyTM.numberOfTrees());
+		assertEquals(Tree.Status.Planted, copyTM.getTree(0).getStatus());
 		
 		//check created forecast info
 		assertEquals("Ilana", forecast1.getName());
@@ -165,6 +171,7 @@ public class TestCreateForecast {
 		assertEquals(2022, forecastTM2.getVersionYear());
 		assertEquals(false, forecastTM2.getIsEditable());
 		assertEquals(false, forecastTM2.getIsSelected());
+		assertEquals(Tree.Status.CutDown, forecastTM2.getTree(0).getStatus());
 		
 		//check created forecast info
 		assertEquals("Diana", forecast2.getName());
@@ -193,6 +200,7 @@ public class TestCreateForecast {
 		assertEquals(2, forecastTM3.numberOfTrees());
 		assertEquals("John", forecastTM3.getTree(0).getOwnerName());
 		assertEquals("Ilana", forecastTM3.getTree(1).getOwnerName());
+		assertEquals(Tree.Status.CutDown, forecastTM3.getTree(0).getStatus());
 		
 		//check created forecast info
 		assertEquals("Thomas", forecast3.getName());
@@ -211,6 +219,16 @@ public class TestCreateForecast {
 		assertEquals(1, copyTM2.numberOfMunicipalities());
 		assertEquals("Westmount", copyTM2.getMunicipality(0).getName());
 		assertEquals(1, copyTM2.numberOfTrees());
+		assertEquals(Tree.Status.Planted, copyTM2.getTree(0).getStatus());
+		
+		try {
+			vms.setSelectedVersion("3.0");
+			tms.createMunicipality("Hampstead");
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+			fail();
+		}
 
 	}
 
