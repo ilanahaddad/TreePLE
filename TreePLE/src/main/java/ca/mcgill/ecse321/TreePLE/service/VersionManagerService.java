@@ -18,7 +18,7 @@ public class VersionManagerService {
 	private VersionManager vm;
 	
 	/**
-	 * The VersionManagerService constructor sets the classe's vm to the system's vm. 
+	 * The VersionManagerService constructor sets the class's VersionManager to the system's VersionManager. 
 	 * @param vm
 	 */
 	public VersionManagerService(VersionManager vm) {
